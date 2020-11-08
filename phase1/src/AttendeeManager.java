@@ -8,7 +8,7 @@ public class AttendeeManager {
         attendees.add(new Attendee(username, password));
     }
 
-    public void aAddContactsb(IAttendee a, String b) {
+    public void aAddContactB(IAttendee a, String b) {
         ArrayList<String> contacts = a.getContacts();
         contacts.add(b);
         a.setContacts(contacts);
