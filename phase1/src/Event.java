@@ -1,13 +1,15 @@
 import java.util.ArrayList;
 
 public class Event {
-    private double eventTime;
-    private ArrayList<Event> attendeeList;
     private String speakerName;
+    private double eventTime;
+    private int roomNumber;
+    private ArrayList<Event> attendeeList;
 
-    public Event(String speakerName, double eventTime, ArrayList<Event>attendeeList){
+    public Event(String speakerName, double eventTime, int roomNumber, ArrayList<Event>attendeeList){
         this.speakerName = speakerName;
         this.eventTime = eventTime;
+        this.roomNumber = roomNumber;
         this.attendeeList = attendeeList;
 
     }
@@ -20,7 +22,25 @@ public class Event {
         return eventTime;
     }
 
+    public int getRoomNumber() {
+        return roomNumber;
+    }
+
     public ArrayList<Event> getAttendeeList() {
         return attendeeList;
     }
+
+    public void setSpeakerName(String speakerName) {
+        this.speakerName = speakerName;
+    }
+
+    public void setEventTime(double eventTime){
+        this.eventTime = eventTime;
+    }
+
+    public void setRoomNumber(int roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+
 }
