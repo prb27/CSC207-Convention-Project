@@ -4,9 +4,9 @@ public class Event {
     private String speakerName;
     private double eventTime;
     private int roomNumber;
-    private ArrayList<Event> attendeeList;
+    private ArrayList<User> attendeeList;
 
-    public Event(String speakerName, double eventTime, int roomNumber, ArrayList<Event>attendeeList){
+    public Event(String speakerName, double eventTime, int roomNumber, ArrayList<User>attendeeList){
         this.speakerName = speakerName;
         this.eventTime = eventTime;
         this.roomNumber = roomNumber;
@@ -26,7 +26,7 @@ public class Event {
         return roomNumber;
     }
 
-    public ArrayList<Event> getAttendeeList() {
+    public ArrayList<User> getAttendeeList() {
         return attendeeList;
     }
 
