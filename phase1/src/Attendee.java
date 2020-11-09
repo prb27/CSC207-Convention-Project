@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Set;
 
-public class Attendee extends User implements IAttendee {
+public class Attendee extends User {
 //    private final String username; // disallows changes in username for now
 //    private final String password; // disallows changes in password for now
 //    private ArrayList<String> contacts = new ArrayList<>();

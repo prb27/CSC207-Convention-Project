@@ -1,3 +1,5 @@
+package scratch;
+
 import java.util.ArrayList;
 
 public interface IAttendee extends Contact {
