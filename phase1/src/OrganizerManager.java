@@ -26,8 +26,10 @@ public class OrganizerManager {
         }
         else {
             ArrayList<String> newContacts = organizer.getContacts();
-            newContacts.add(contactUsername);
-            organizer.setContacts(newContacts);
+            if (!(isContact(organizer, contactUsername))) {
+                newContacts.add(contactUsername);
+                organizer.setContacts(newContacts);
+            }
         }
     }
 
@@ -40,6 +42,30 @@ public class OrganizerManager {
         }
 
         return null;
+
+    }
+
+    public ArrayList<String> getContactList(String username){
+
+        Organizer organizer = getOrganizer(username);
+        if(organizer == null){
+            System.out.println("Organizer not found");
+            return null;
+        }
+        else {
+            return(organizer.getContacts());
+        }
+    }
+
+    private boolean isContact(Organizer organizer, String contactUsername){
+
+        for(String contact: organizer.getContacts()){
+            if(contactUsername.equals(contact)) {
+                return true;
+            }
+        }
+
+        return false;
 
     }
 
