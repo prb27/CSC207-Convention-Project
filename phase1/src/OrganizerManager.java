@@ -7,6 +7,12 @@ public class OrganizerManager {
 
     public void addOrganizer(String username, String password) {
 
+        for(Organizer organizer: organizerList){
+            if(organizer.getUserId().equals(username)){
+                System.out.println("Username already exists");
+                return;
+            }
+        }
         Organizer newOrganizer = new Organizer(username, password);
         organizerList.add(newOrganizer);
 
