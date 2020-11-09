@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -6,6 +7,10 @@ public class AttendeeManager {
 
     public void createAttendee(String username, String password) {
         // for now only have one type of attendee -> create an instance of that type
+        if (attendees.containsKey(username)) {
+            System.out.println("username "+ username +" is taken!");
+            return;
+        }
         attendees.put(username, new Attendee(username, password));
     }
 
