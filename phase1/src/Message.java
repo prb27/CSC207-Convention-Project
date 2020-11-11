@@ -10,30 +10,30 @@ public class Message {
     private String id;
     private LocalDateTime time;
 
-    private int convoNumber;
+    private String convoID;
 
     private String generateID(){
         long timestamp = System.currentTimeMillis();
         return "m" + timestamp;
     }
 
-    public Message(String sender, String recipient, String content, int convoNumber){
+    public Message(String sender, String recipient, String content, String convoNumber){
         this.sender = sender;
         this.recipients.add(recipient);
         this.content = content;
         id = generateID();
         this.time = LocalDateTime.now();
-        this.convoNumber = convoNumber;
+        this.convoID = convoNumber;
 
     }
 
-    public Message(String sender, ArrayList<String> recipients, String content, int convoNumber){
+    public Message(String sender, ArrayList<String> recipients, String content, String convoNumber){
         this.sender = sender;
         this.recipients.addAll(recipients);
         this.content = content;
         id = generateID();
         this.time = LocalDateTime.now();
-        this.convoNumber = convoNumber;
+        this.convoID = convoNumber;
     }
 
     public String getSender(){ return sender;
@@ -47,6 +47,6 @@ public class Message {
 
     public LocalDateTime getTime(){ return time; }
 
-    public int getConvoNumber(){ return convoNumber; }
+    public String getConvoID(){ return convoID; }
 
 }
