@@ -1,12 +1,13 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Speaker extends User{
-    private ArrayList<String> listOfTalks;
+    private HashMap<String, String> listOfTalks;
     public Speaker(String username, String password){
         super(username, password);
     }
 
-    public ArrayList<String> getListOfTalks() {
+    public HashMap<String, String> getListOfTalks() {
         return listOfTalks;
     }
 }
