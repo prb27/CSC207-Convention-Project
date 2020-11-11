@@ -1,41 +1,51 @@
 import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Set;
 
 public abstract class User {
     private final String username; // disallows changes in username for now
     private final String password; // disallows changes in password for now
     private ArrayList<String> contacts = new ArrayList<>();
-    private final Hashtable<String, Integer> received = new Hashtable<>();
-    private final Hashtable<String, Integer> sent = new Hashtable<>();
+//    private final Hashtable<String, Integer> received = new Hashtable<>();
+//    private final Hashtable<String, Integer> sent = new Hashtable<>();
+    private ArrayList<String> conversations = new ArrayList<>();
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    private ArrayList<Integer> getMessagesIds(String mess_type) {
-        ArrayList<Integer> messagesList = new ArrayList<>();
-        Hashtable<String, Integer> messages;
-        if (mess_type.equals("received")){
-            messages = received;
-        } else {
-            messages = sent;
-        }
-        Set<String> users = messages.keySet();
-        for (String user : users) {
-            messagesList.add(messages.get(user));
-        }
-        return messagesList;
+    public void setConversations(ArrayList<String> conversations) {
+        this.conversations = conversations;
     }
 
-    public ArrayList<Integer> getReceivedMessagesIds() {
-        return getMessagesIds("received");
+    public ArrayList<String> getConversations() {
+        return conversations;
     }
 
-    public ArrayList<Integer> getSentMessagesIds() {
-        return getMessagesIds("sent");
-    }
+    //    private ArrayList<Integer> getMessagesIds(String mess_type) {
+//        ArrayList<Integer> messagesList = new ArrayList<>();
+//        Hashtable<String, Integer> messages;
+//        if (mess_type.equals("received")){
+//            messages = received;
+//        } else {
+//            messages = sent;
+//        }
+//        Set<String> users = messages.keySet();
+//        for (String user : users) {
+//            messagesList.add(messages.get(user));
+//        }
+//        return messagesList;
+//    }
+
+
+//    public ArrayList<Integer> getReceivedMessagesIds() {
+//        return getMessagesIds("received");
+//    }
+//
+//    public ArrayList<Integer> getSentMessagesIds() {
+//        return getMessagesIds("sent");
+//    }
+
+
 
 //  This code is for allowing users to change their username and/or password
 //    public void setUsername(String username) {
@@ -54,12 +64,13 @@ public abstract class User {
         return contacts;
     }
 
-    public void setContacts(ArrayList<String> contacts) {
-        this.contacts = contacts;
-    }
-
     public String getUserId() {
         return username;
+    }
+
+
+    public void setContacts(ArrayList<String> contacts) {
+        this.contacts = contacts;
     }
 
     // wanna make organizer, speaker inherits from attendee?

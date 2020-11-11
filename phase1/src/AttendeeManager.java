@@ -1,4 +1,3 @@
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -24,6 +23,14 @@ public class AttendeeManager {
         ArrayList<String> contacts = attendee.getContacts();
         contacts.add(b);
         attendee.setContacts(contacts);
+    }
+
+    public void addConversation(String attendee, String conversation) {
+        // check if String <conversation> is valid in controller
+        Attendee a = attendees.get(attendee);
+        ArrayList<String> conversations = a.getConversations();
+        conversations.add(conversation);
+        a.setConversations(conversations);
     }
 
     public ArrayList<String> getMessagableUsers(String a) {
