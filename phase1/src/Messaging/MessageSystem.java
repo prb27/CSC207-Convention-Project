@@ -1,3 +1,5 @@
+package Messaging;
+
 import java.util.ArrayList;
 
 public class MessageSystem {
@@ -9,6 +11,7 @@ public class MessageSystem {
         this.messageManager = messageManager;
     }
 
+    //sends a message with single recipient
     public void singleMessage(String senderId, String recipientId, String content){
         ArrayList<String> p = new ArrayList<>();
         p.add(senderId);
@@ -20,6 +23,8 @@ public class MessageSystem {
         messageManager.sendMessageSingle(senderId, recipientId, content, id);
 
     }
+
+    //sends a message with multiple recipients
     public void multiMessage(String senderId, ArrayList<String> recipientIds, String content){
         ArrayList<String> p = new ArrayList<>();
         p.add(senderId);
