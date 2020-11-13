@@ -2,8 +2,14 @@ import java.util.ArrayList;
 
 public class OrganizerManager {
 
-    private final ArrayList<Organizer> organizerList = new ArrayList<>();
+    private final ArrayList<Organizer> organizerList;
 
+
+    public OrganizerManager(){
+
+        organizerList = new ArrayList<>();
+
+    }
 
     public void addOrganizer(String username, String password) {
 
