@@ -1,4 +1,10 @@
 public class SpeakerMenu {
-    private final SpeakerManager speakerManager = new SpeakerManager();
+    private SpeakerManager speakerManager;
+
+    public SpeakerMenu(SpeakerManager speakerManager){
+        this.speakerManager = speakerManager;
+    }
+
+
 
 }
