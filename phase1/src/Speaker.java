@@ -10,4 +10,8 @@ public class Speaker extends User{
     public HashMap<String, String> getListOfTalks() {
         return listOfTalks;
     }
+    public void setListOfTalks(HashMap<String, String> listOfTalks){
+        this.listOfTalks = listOfTalks;
+
+    }
 }

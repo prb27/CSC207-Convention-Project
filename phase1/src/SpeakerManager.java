@@ -25,6 +25,7 @@ public class SpeakerManager {
         ArrayList<String> contacts = getContactsForSpeaker(speakerUsername);
         if (!contacts.contains(otherUsername)) {
             contacts.add(otherUsername);
+            speaker.setContacts(contacts);
         }
     }
 
@@ -38,7 +39,20 @@ public class SpeakerManager {
         HashMap<String, String> listOfTalks = getListOfTalks(speakerUsername);
         if (!listOfTalks.containsKey(eventName)){
             listOfTalks.put(eventName, eventTime);
+            speaker.setListOfTalks(listOfTalks);
         }
+
+    }
+
+    public void addConversation(String username, String conversation){
+        Speaker speaker = getSpeaker(username);
+        if (speaker.equals(null)){
+            System.out.println("Speaker not found");
+            return;
+        }
+        ArrayList<String> conversations = speaker.getConversations();
+        conversations.add(conversation);
+        speaker.setConversations(conversations);
 
     }
 
@@ -67,5 +81,14 @@ public class SpeakerManager {
             return null;
         }
         return speaker.getListOfTalks();
+    }
+
+    public ArrayList<String> getConversations(String username){
+        Speaker speaker = getSpeaker(username);
+        if(speaker.equals(null)){
+            System.out.println("Speaker not found");
+            return null;
+        }
+        return speaker.getConversations();
     }
 }
