@@ -72,6 +72,9 @@ public class SpeakerManager {
         }
         return null;
     }
+    public ArrayList<Speaker> getSpeakers(){
+        return speakers;
+    }
 
     public ArrayList<String> getContactsForSpeaker(String username){
         Speaker speaker = getSpeaker(username);
