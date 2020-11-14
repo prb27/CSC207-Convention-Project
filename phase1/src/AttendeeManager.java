@@ -41,6 +41,14 @@ public class AttendeeManager {
         return attendees.get(a);
     }
 
+    public ArrayList<Attendee> getAllAttendees() {
+        ArrayList<Attendee> allAttendees = new ArrayList<>();
+        for (String username: attendees.keySet()) {
+            allAttendees.add(attendees.get(username));
+        }
+        return allAttendees;
+    }
+
 
 
 //  this is for looking up an attendee by a username

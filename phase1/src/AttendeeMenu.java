@@ -1,24 +1,25 @@
 import java.util.ArrayList;
+import Messaging.*;
 
 public class AttendeeMenu {
     private final AttendeeManager attendeeManager = new AttendeeManager();
-    private MessageManager messageManager;
+    private MessageSystem messageSystem;
 
 
-    public AttendeeMenu(MessageManager messageManager) {
-        this.messageManager = messageManager;
+    public AttendeeMenu(MessageSystem messageSystem) {
+        this.messageSystem = messageSystem;
     }
 
-    public void messAllContacts(String a, String content, int convoNumber) {
+    public void messAllContacts(String a, String content) {
         Attendee attendee = attendeeManager.getAttendee(a);
-        messageManager.sendMessageMulti(a, attendee.getContacts(), content, convoNumber);
+        messageSystem.multiMessage(a, attendee.getContacts(), content);
     }
 
-    public void messSome(String a, ArrayList<String> receivers, String content, int convoNumber) {
-        messageManager.sendMessageMulti(a, receivers, content, convoNumber);
+    public void messSome(String a, ArrayList<String> receivers, String content) {
+        messageSystem.multiMessage(a, receivers, content);
     }
 
-    public void messOne(String a, String b, String content, int convoNumber) {
-        messageManager.sendMessageSingle(a, b, content, convoNumber);
+    public void messOne(String a, String b, String content) {
+        messageSystem.singleMessage(a, b, content);
     }
 }
