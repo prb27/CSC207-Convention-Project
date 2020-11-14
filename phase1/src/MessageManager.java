@@ -1,5 +1,3 @@
-package Messaging;
-
 import java.util.ArrayList;
 
 public class MessageManager {

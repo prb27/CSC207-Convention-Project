@@ -1,4 +1,4 @@
-package scratch;
+package src.scratch;
 
 import java.util.ArrayList;
 

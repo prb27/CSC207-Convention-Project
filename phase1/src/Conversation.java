@@ -1,5 +1,3 @@
-package Messaging;
-
 import java.util.ArrayList;
 
 public class Conversation {
@@ -21,6 +19,8 @@ public class Conversation {
     public ArrayList<String> getParticipants(){ return participants; }
 
     public String getConvoRoot(){ return convoRoot; }
+
+    public void setConvoRoot(String id){ convoRoot = id; }
 
     public String getId(){ return id; }
 }

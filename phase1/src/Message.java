@@ -1,8 +1,5 @@
-package Messaging;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
 
 public class Message {
     private String sender; //the id of the User who sent
@@ -39,8 +36,7 @@ public class Message {
         this.convoID = convoNumber;
     }
 
-    public String getSender(){ return sender;
-    }
+    public String getSender(){ return sender; }
 
     public ArrayList<String> getRecipients(){ return recipients; }
 
@@ -52,8 +48,9 @@ public class Message {
 
     public String getConvoID(){ return convoID; }
 
+    public void setConvoID(String convoID) { this.convoID = convoID; }
+
     public String getReply(){ return reply; }
 
-    public void setReply(String id){ reply = id; }
-
+    public void setReply(String reply) { this.reply = reply; }
 }

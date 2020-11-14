@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 
 public class OrganizerManager {
@@ -11,31 +12,34 @@ public class OrganizerManager {
 
     }
 
-    public void addOrganizer(String username, String password) {
+    public boolean addOrganizer(String username, String password) {
 
         for(Organizer organizer: organizerList){
             if(organizer.getUserId().equals(username)){
-                System.out.println("Username already exists");
-                return;
+                return false;
             }
         }
         Organizer newOrganizer = new Organizer(username, password);
         organizerList.add(newOrganizer);
+        return true;
 
     }
 
-    public void addContact(String organizerUsername, String contactUsername) {
-
+    public boolean addContact(String organizerUsername, String contactUsername) {
+    /// returns false if organizer doesn't exists. True if contactUsername is in the contactList of Organizer by
+    /// by the end of the functions execution.
         Organizer organizer = getOrganizer(organizerUsername);
         if(organizer == null){
-            System.out.println("Main User not found");
+            return false;
         }
         else {
             ArrayList<String> newContacts = organizer.getContacts();
             if (!(isContact(organizer, contactUsername))) {
                 newContacts.add(contactUsername);
                 organizer.setContacts(newContacts);
+                return true;
             }
+            return true;
         }
     }
 
@@ -52,10 +56,9 @@ public class OrganizerManager {
     }
 
     public ArrayList<String> getContactList(String username){
-
+    //     returns null if organizer not found or organizer has no contacts
         Organizer organizer = getOrganizer(username);
         if(organizer == null){
-            System.out.println("Organizer not found");
             return null;
         }
         else {
