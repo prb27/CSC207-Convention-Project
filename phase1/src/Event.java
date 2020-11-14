@@ -3,11 +3,11 @@ import java.util.ArrayList;
 public class Event {
     private String eventName;
     private String speakerName;
-    private double eventTime;
-    private int roomNumber;
+    private String eventTime;
+    private String roomNumber;
     private ArrayList<User> attendeeList;
 
-    public Event(String eventName, String speakerName, double eventTime, int roomNumber, ArrayList<User>attendeeList){
+    public Event(String eventName, String speakerName, String eventTime, String roomNumber, ArrayList<User>attendeeList){
         this.eventName = eventName;
         this.speakerName = speakerName;
         this.eventTime = eventTime;
@@ -24,11 +24,11 @@ public class Event {
         return speakerName;
     }
 
-    public double getEventTime() {
+    public String getEventTime() {
         return eventTime;
     }
 
-    public int getRoomNumber() {
+    public String getRoomNumber() {
         return roomNumber;
     }
 
@@ -44,11 +44,11 @@ public class Event {
         this.speakerName = speakerName;
     }
 
-    public void setEventTime(double eventTime){
+    public void setEventTime(String eventTime){
         this.eventTime = eventTime;
     }
 
-    public void setRoomNumber(int roomNumber) {
+    public void setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
     }
 
