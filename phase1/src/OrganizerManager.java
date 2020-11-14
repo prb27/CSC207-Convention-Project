@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 
 public class OrganizerManager {
@@ -76,6 +75,20 @@ public class OrganizerManager {
 
         return false;
 
+    }
+
+    public boolean addConversation(String organizerUsername, String conversationID){
+
+        Organizer organizer = getOrganizer(organizerUsername);
+        if(organizer == null){
+            return false;
+        }
+        else{
+            ArrayList<String> newConversations = organizer.getConversations();
+            newConversations.add(conversationID);
+            organizer.setConversations(newConversations);
+            return true;
+        }
     }
 
 }

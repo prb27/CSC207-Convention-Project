@@ -3,12 +3,10 @@ public class OrganizerMenu {
     OrganizerManager organizerManager;
 
 
-    OrganizerMenu(){
+    public OrganizerMenu(){
 
         organizerManager = new OrganizerManager();
 
     }
-
-
 
 }
