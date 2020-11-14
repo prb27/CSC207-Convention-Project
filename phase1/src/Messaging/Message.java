@@ -13,6 +13,7 @@ public class Message {
     private LocalDateTime time;
 
     private String convoID;
+    private String reply = "";
 
     private String generateID(){
         long timestamp = System.currentTimeMillis();
@@ -50,5 +51,9 @@ public class Message {
     public LocalDateTime getTime(){ return time; }
 
     public String getConvoID(){ return convoID; }
+
+    public String getReply(){ return reply; }
+
+    public void setReply(String id){ reply = id; }
 
 }

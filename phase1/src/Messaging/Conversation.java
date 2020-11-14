@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Conversation {
     private ArrayList<String> participants;
-    private ArrayList<String> messages;
+    private String convoRoot;
     private String id;
 
     private String generateID(){
@@ -12,15 +12,15 @@ public class Conversation {
         return "c" + timestamp;
     }
 
-    public Conversation(ArrayList<String> participants, ArrayList<String> messages){
+    public Conversation(ArrayList<String> participants, String convoRoot){
         this.participants = participants;
-        this.messages = messages;
+        this.convoRoot = convoRoot;
         id = generateID();
     }
 
     public ArrayList<String> getParticipants(){ return participants; }
 
-    public ArrayList<String> getMessages(){ return messages; }
+    public String getConvoRoot(){ return convoRoot; }
 
     public String getId(){ return id; }
 }
