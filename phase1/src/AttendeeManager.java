@@ -44,9 +44,9 @@ public class AttendeeManager {
 
 
 //  this is for looking up an attendee by a username
-//    public scratch.IAttendee lookUpAttendee(String username) {
-//        scratch.IAttendee target = null;
-//        for (scratch.IAttendee a : attendees)
+//    public src.scratch.IAttendee lookUpAttendee(String username) {
+//        src.scratch.IAttendee target = null;
+//        for (src.scratch.IAttendee a : attendees)
 //            if (a.getUserId().equals(username))
 //                target = a;
 //        return target;

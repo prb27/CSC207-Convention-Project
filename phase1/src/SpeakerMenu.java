@@ -1,7 +1,3 @@
-import Messaging.MessageSystem;
-
-import java.util.ArrayList;
-
 public class SpeakerMenu {
     private SpeakerManager speakerManager;
     public MessageSystem messageSystem;
