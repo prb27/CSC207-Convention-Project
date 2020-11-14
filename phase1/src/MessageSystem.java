@@ -23,8 +23,8 @@ public class MessageSystem {
         p.add(senderId);
         p.add(recipientId);
 
-        src.Messaging.Message message = messageManager.sendMessageSingle(senderId, recipientId, content, "");
-        src.Messaging.Conversation conversation = convoManager.createNewConversation(message);
+        Message message = messageManager.sendMessageSingle(senderId, recipientId, content, "");
+        Conversation conversation = convoManager.createNewConversation(message);
 
         message.setConvoID(conversation.getId());
 
@@ -37,16 +37,12 @@ public class MessageSystem {
         p.add(senderId);
         p.addAll(recipientIds);
 
-        src.Messaging.Message message = messageManager.sendMessageMulti(senderId, recipientIds, content, "");
-        src.Messaging.Conversation conversation = convoManager.createNewConversation(message);
+        Message message = messageManager.sendMessageMulti(senderId, recipientIds, content, "");
+        Conversation conversation = convoManager.createNewConversation(message);
 
         message.setConvoID(conversation.getId());
 
     }
 
-    //helper: send a reply to a message
-    private void sendReplySingle(String senderID, ArrayList){
-
-    }
 
 }

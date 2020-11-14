@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import Messaging.*;
 
 public class AttendeeMenu {
     private final AttendeeManager attendeeManager = new AttendeeManager();

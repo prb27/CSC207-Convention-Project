@@ -1,7 +1,5 @@
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
 
 public class Message {
     private String sender; //the id of the User who sent
