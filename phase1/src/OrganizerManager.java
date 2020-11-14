@@ -43,7 +43,7 @@ public class OrganizerManager {
         }
     }
 
-    private Organizer getOrganizer(String username){
+    public Organizer getOrganizer(String username){
 
         for(Organizer organizer: organizerList){
             if(organizer.getUserId().equals(username)) {
