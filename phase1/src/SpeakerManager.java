@@ -39,7 +39,7 @@ public class SpeakerManager {
         }
         HashMap<String, String> listOfTalks = getListOfTalks(speakerUsername);
         if (!listOfTalks.containsKey(eventName)){
-            listOfTalks.put(eventName, eventTime);
+            listOfTalks.put(eventTime, eventName);
             speaker.setListOfTalks(listOfTalks);
         }
 
