@@ -9,7 +9,7 @@ public class EventManager {
         return EventList;
     }
 
-    public void addEvent(String eventName, String eventTime, String roomNumber, ArrayList<User>attendeeList, String speakerName, HashMap<String, String> listOfTalks){
+    public void addEvent(String eventName, String eventTime, String roomNumber, ArrayList<String>attendeeList, String speakerName, HashMap<String, String> listOfTalks){
         //Will use the following of Speakermanager object is passed
         //HashMap<String, String> listOfTalks = null;
         //listOfTalks = speaker.getListOfTalks();
@@ -43,10 +43,11 @@ public class EventManager {
 
     public void reserveAttendee(Event event, Attendee attendee){
         //Need to check if attendee is not already registered for event at this time
+        event.getAttendeeList().add(attendee.getUserId());
     }
 
     public void removeAttendee(Event event, Attendee attendee){
-        event.getAttendeeList().remove(attendee);
+        event.getAttendeeList().remove(attendee.getUserId());
 
     }
 
