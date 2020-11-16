@@ -25,6 +25,11 @@ public class EventManager {
             for (Event event: EventList ){
                 if(event.getRoomNumber().equals(roomNumber) && event.getEventTime().equals(eventTime)){
                     trigger = false;
+                    System.out.println("Error: Event has the following conflict:");
+                    System.out.println("Event Name: " + event.getEventName());
+                    System.out.println("Event Time: " + event.getEventTime());
+                    System.out.println("Room Number: " + event.getRoomNumber());
+                    break;
                 }
             }
             if (trigger){
@@ -39,10 +44,11 @@ public class EventManager {
 
     }
 
-    public boolean removeEvent(Event event, HashMap<String, String> listOfTalks ){
+    public boolean removeEvent(String eventName, HashMap<String, String> listOfTalks ){
         //Need to still remove it from attendee's list of events
+        Event event = getEvent(eventName);
         boolean check = false;
-        if (EventList.contains(event)){
+        if (EventList.contains(event) && event !=null){
             EventList.remove(event);
             listOfTalks.remove(event.getEventTime(),event.getSpeakerName());
             check = true;
@@ -53,11 +59,12 @@ public class EventManager {
         return check;
     }
 
-    public boolean reserveAttendee(Event event, Attendee attendee){
+    public boolean reserveAttendee(String eventName, String UserId){
         //Need to check if attendee is not already registered for event at this time
+        Event event = getEvent(eventName);
         boolean check = false;
-        if (event.getAttendeeList().size() <2){
-            event.getAttendeeList().add(attendee.getUserId());
+        if (event.getAttendeeList().size() <2 && event!=null){
+            event.getAttendeeList().add(UserId);
             check = true;
 
         }
@@ -67,11 +74,11 @@ public class EventManager {
         return check;
     }
 
-    public boolean removeAttendee(Event event, Attendee attendee){
-
+    public boolean removeAttendee(String eventName, String UserId){
+        Event event = getEvent(eventName);
         boolean check = false;
-        if(event.getAttendeeList().contains(attendee.getUserId())){
-            event.getAttendeeList().remove(attendee.getUserId());
+        if(event.getAttendeeList().contains(UserId) && event!=null){
+            event.getAttendeeList().remove(UserId);
             check = true;
 
         }
