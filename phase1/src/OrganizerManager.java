@@ -117,4 +117,10 @@ public class OrganizerManager {
 
     }
 
+    public boolean isOrganizer(String organizerUsername){
+
+        Organizer organizer = getOrganizer(organizerUsername);
+        return organizer != null;
+    }
+
 }
