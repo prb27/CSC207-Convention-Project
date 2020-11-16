@@ -9,45 +9,76 @@ public class EventManager {
         return EventList;
     }
 
-    public void addEvent(String eventName, String eventTime, String roomNumber, ArrayList<String>attendeeList, String speakerName, HashMap<String, String> listOfTalks){
+    public boolean addEvent(String eventName, String eventTime, String roomNumber, ArrayList<String>attendeeList, String speakerName, HashMap<String, String> listOfTalks){
         //Will use the following of Speakermanager object is passed
         //HashMap<String, String> listOfTalks = null;
         //listOfTalks = speaker.getListOfTalks();
 
+        boolean trigger = true;
         boolean check = false;
-            if (listOfTalks.containsKey(eventTime)){
+        if (listOfTalks.containsKey(eventTime)){
                 System.out.println("Speaker time conflict; cannot reserve another talk");
 
             }
 
-            else{
-                for (Event event: EventList ){
-                    if(event.getRoomNumber().equals(roomNumber) && event.getEventTime().equals(eventTime)){
-                        check = true;
-                    }
-                }
-                if (!check){
-                    Event newEvent = new Event(eventName, speakerName, eventTime, roomNumber, attendeeList);
-                    EventList.add(newEvent);
-                    listOfTalks.put(eventTime, eventName);
+        else{
+            for (Event event: EventList ){
+                if(event.getRoomNumber().equals(roomNumber) && event.getEventTime().equals(eventTime)){
+                    trigger = false;
                 }
             }
+            if (trigger){
+                Event newEvent = new Event(eventName, speakerName, eventTime, roomNumber, attendeeList);
+                EventList.add(newEvent);
+                listOfTalks.put(eventTime, eventName);
+                check = true;
+            }
+        }
+        return check;
+
 
     }
 
-    public void removeEvent(Event event, HashMap<String, String> listOfTalks ){
-
-        EventList.remove(event);
-        listOfTalks.remove(event.getEventTime(),event.getSpeakerName());
+    public boolean removeEvent(Event event, HashMap<String, String> listOfTalks ){
+        //Need to still remove it from attendee's list of events
+        boolean check = false;
+        if (EventList.contains(event)){
+            EventList.remove(event);
+            listOfTalks.remove(event.getEventTime(),event.getSpeakerName());
+            check = true;
+        }
+        else{
+            System.out.println("Event does not exist; cannot remove event");
+        }
+        return check;
     }
 
-    public void reserveAttendee(Event event, Attendee attendee){
+    public boolean reserveAttendee(Event event, Attendee attendee){
         //Need to check if attendee is not already registered for event at this time
-        event.getAttendeeList().add(attendee.getUserId());
+        boolean check = false;
+        if (event.getAttendeeList().size() <2){
+            event.getAttendeeList().add(attendee.getUserId());
+            check = true;
+
+        }
+        else{
+            System.out.println("Cannot reserve spot due to full capacity of event.");
+        }
+        return check;
     }
 
-    public void removeAttendee(Event event, Attendee attendee){
-        event.getAttendeeList().remove(attendee.getUserId());
+    public boolean removeAttendee(Event event, Attendee attendee){
+
+        boolean check = false;
+        if(event.getAttendeeList().contains(attendee.getUserId())){
+            event.getAttendeeList().remove(attendee.getUserId());
+            check = true;
+
+        }
+        else{
+            System.out.println("Error: Cannot find user at this event");
+        }
+        return check;
 
     }
 
