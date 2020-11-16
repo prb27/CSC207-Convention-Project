@@ -1,31 +1,35 @@
 public class AccountHandler {
 
+    AttendeeManager attendeeManager; // = MasterSystem.getAttendeeManager();
+    OrganizerManager organizerManager; // = MasterSystem.getOrganizerManager();
+    SpeakerManager speakerManager; // = MasterSystem.getSpeakerManager();
+
     public boolean signup(String username, String password, String accountType) {
         switch(accountType) {
             case "attendee":
-                return AttendeeManager.createAttendee(username, password);
+                return attendeeManager.createAttendee(username, password);
             case "organizer":
-                return OrganizerManager.createOrganizer(username, password);
+                return organizerManager.createOrganizer(username, password);
             case "speaker":
-                return SpeakerManager.createSpeaker(username, password);
+                return speakerManager.createSpeaker(username, password);
             default:
                 return false;
         }
     }
 
-    public boolean signin(String username, String password, String accountType) {
+    public boolean login(String username, String password, String accountType) {
         switch(accountType) {
             case "attendee":
-                if(AttendeeManager.getAllAttendees().contains(username))
-                    return AttendeeManager.checkPassword(username, password);
+                if(attendeeManager.getAllAttendees().contains(username))
+                    return attendeeManager.checkPassword(username, password);
                 return false;
             case "organizer":
-                if(OrganizerManager.getAllOrganizers().contains(username))
-                    return OrganizerManager.checkPassword(username, password);
+                if(organizerManager.getAllOrganizers().contains(username))
+                    return organizerManager.checkPassword(username, password);
                 return false;
             case "speaker":
-                if(SpeakerManager.getAllSpeakers().contains(username))
-                    return SpeakerManager.checkPassword(username, password);
+                if(speakerManager.getAllSpeakers().contains(username))
+                    return speakerManager.checkPassword(username, password);
                 return false;
             default:
                 return false;
