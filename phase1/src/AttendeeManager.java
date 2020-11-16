@@ -49,6 +49,14 @@ public class AttendeeManager {
         return allAttendees;
     }
 
+    public boolean checkPassword(String username, String password){
+        if (!attendees.containsKey(username)) {
+            return false;
+        }
+        Attendee attendee = attendees.get(username);
+        return attendee.getPassword().equals(password);
+    }
+
 
 
 //  this is for looking up an attendee by a username

@@ -73,7 +73,6 @@ public abstract class User {
         this.contacts = contacts;
     }
 
-    // wanna make organizer, speaker inherits from attendee?
     // getters and setters for username, password?
     // can attendee remove someone from their contacts list?
     // for now, no changes in username and password allowed?

@@ -8,29 +8,7 @@ public class Attendee extends User {
     public Attendee(String username, String password) {
         super(username, password);
     }
-//
-//    private ArrayList<Integer> getMessagesIds(String mess_type) {
-//        ArrayList<Integer> messagesList = new ArrayList<>();
-//        Hashtable<String, Integer> messages;
-//        if (mess_type.equals("received")){
-//            messages = received;
-//        } else {
-//            messages = sent;
-//        }
-//        Set<String> users = messages.keySet();
-//        for (String user : users) {
-//            messagesList.add(messages.get(user));
-//        }
-//        return messagesList;
-//    }
-//
-//    public ArrayList<Integer> getReceivedMessagesIds() {
-//        return getMessagesIds("received");
-//    }
-//
-//    public ArrayList<Integer> getSentMessagesIds() {
-//        return getMessagesIds("sent");
-//    }
+
 //
 ////  This code is for allowing attendees to change their username and/or password
 ////    public void setUsername(String username) {
