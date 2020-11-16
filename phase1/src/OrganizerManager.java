@@ -11,7 +11,7 @@ public class OrganizerManager {
 
     }
 
-    public boolean addOrganizer(String username, String password) {
+    public boolean createOrganizer(String username, String password) {
 
         for(Organizer organizer: organizerList){
             if(organizer.getUserId().equals(username)){
@@ -89,6 +89,32 @@ public class OrganizerManager {
             organizer.setConversations(newConversations);
             return true;
         }
+    }
+
+    public boolean getConversation(String organizerUsername, String conversationID){
+
+        Organizer organizer = getOrganizer(organizerUsername);
+        if(organizer == null){
+            return false;
+        }
+        else{
+            ArrayList<String> newConversations = organizer.getConversations();
+            newConversations.add(conversationID);
+            organizer.setConversations(newConversations);
+            return true;
+        }
+    }
+
+    public boolean checkPassword(String organizerUsernamer, String organizerPassword){
+
+        Organizer organizer = getOrganizer(organizerUsernamer);
+        if(organizer == null){
+            return false;
+        }
+        else{
+            return organizer.getPassword().equals(organizerPassword);
+        }
+
     }
 
 }
