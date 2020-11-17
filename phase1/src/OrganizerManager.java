@@ -169,4 +169,10 @@ public class OrganizerManager {
 
     }
 
+    public ArrayList<Organizer> getAllOrganizers() {
+
+        return organizerList;
+
+    }
+
 }

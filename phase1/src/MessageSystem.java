@@ -1,48 +1,47 @@
 import java.util.ArrayList;
 
 public class MessageSystem {
-    private ConversationManager convoManager;
-    private MessageManager messageManager;
-    private AttendeeManager attendeeManager;
-    private OrganizerManager organizerManager;
-    private SpeakerManager speakerManager;
-
+    ConversationManager convoManager;
+    MessageManager messageManager;
+    AttendeeManager attendeeManager;
+    OrganizerManager organizerManager;
+    SpeakerManager speakerManager;
+    EventManager eventManager;
 
     public MessageSystem(ConversationManager cManager, MessageManager mManager,
-                         AttendeeManager aManager, OrganizerManager oManager, SpeakerManager sManager){
+                         AttendeeManager aManager, OrganizerManager oManager, SpeakerManager sManager,
+                         EventManager eManager){
         this.convoManager = cManager;
         this.messageManager = mManager;
         this.attendeeManager = aManager;
         this.organizerManager = oManager;
         this.speakerManager = sManager;
+        this.eventManager = eManager;
     }
 
     //helper: sends a message with single recipient
-    private void singleMessage(String senderId, String recipientId, String content){
+    Conversation singleMessage(String senderId, String recipientId, String content){
         ArrayList<String> p = new ArrayList<>();
         p.add(senderId);
         p.add(recipientId);
 
-        Message message = messageManager.sendMessageSingle(senderId, recipientId, content, "");
-        Conversation conversation = convoManager.createNewConversation(message);
+        Conversation conversation = convoManager.createNewConversation(p);
+        Message message = messageManager.sendMessageSingle(senderId, recipientId, content, conversation.getId());
+        conversation.setConvoRoot(message.getId());
 
-        message.setConvoID(conversation.getId());
-
-
+        return conversation;
     }
 
     //helper: sends a message with multiple recipients
-    private void multiMessage(String senderId, ArrayList<String> recipientIds, String content){
+    Conversation multiMessage(String senderId, ArrayList<String> recipientIds, String content){
         ArrayList<String> p = new ArrayList<>();
         p.add(senderId);
         p.addAll(recipientIds);
 
-        Message message = messageManager.sendMessageMulti(senderId, recipientIds, content, "");
-        Conversation conversation = convoManager.createNewConversation(message);
+        Conversation conversation = convoManager.createNewConversation(p);
+        Message message = messageManager.sendMessageMulti(senderId, recipientIds, content, conversation.getId());
+        conversation.setConvoRoot(message.getId());
 
-        message.setConvoID(conversation.getId());
-
+        return conversation;
     }
-
-
 }
