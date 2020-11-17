@@ -44,13 +44,8 @@ public class OrganizerMessageSystem extends MessageSystem {
 
     //handles phase 1 specification that says organizers can message a single attendee
     public void organizerToSingle(String organizerId, String recipientId, String content, String userType){
-        ArrayList<String> participants = new ArrayList<>();
-        participants.add(organizerId);
-        participants.add(recipientId);
 
-        Conversation convo = convoManager.createNewConversation(participants);
-        Message message = messageManager.sendMessageSingle(organizerId, recipientId, content, convo.getId());
-        convo.setConvoRoot(message.getId());
+        Conversation convo = singleMessage(organizerId, recipientId, content);
 
         switch(userType){
             case "attendee":
@@ -62,6 +57,4 @@ public class OrganizerMessageSystem extends MessageSystem {
         }
         organizerManager.addConversation(organizerId, convo.getId());
     }
-
-
 }
