@@ -1,49 +1,53 @@
 import java.util.ArrayList;
 
+/**
+ * this class stores all info relating to an User
+ * and provides getters to extract those info
+ * User is an abstract class -- no instantiation is allowed
+ * User serves as a parent for a few other classes
+ * @author Khoa Pham
+ * A few notes to consider:
+ *    * disallows changes in username, password for now
+ *    * all IDs are stored as strings!
+ *    * getters and setters for username, password?
+ *    * can attendee remove someone from their contacts list?
+ *    * for now, no changes in username and password allowed?
+ *    * can attendees delete their account?
+ */
 public abstract class User {
     private final String username; // disallows changes in username for now
     private final String password; // disallows changes in password for now
     private ArrayList<String> contacts = new ArrayList<>();
-//    private final Hashtable<String, Integer> received = new Hashtable<>();
-//    private final Hashtable<String, Integer> sent = new Hashtable<>();
     private ArrayList<String> conversations = new ArrayList<>();
+    private ArrayList<String> events = new ArrayList<>();
 
+    /**
+     * a constructor for subclasses to call
+     * creating a User object is DISALLOWED!
+     * @param username: the username of this User
+     * @param password: the password of this User
+     */
     public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
+    /**
+     * update the list of conversation that this User participates in
+     * @param conversations: the new list of conversations to update to (param_type: ArrayList<String>)
+     * @return void
+     */
     public void setConversations(ArrayList<String> conversations) {
         this.conversations = conversations;
     }
 
+    /**
+     * return the list of conversations this User participates in
+     * @return ArrayList<String> of conversations
+     */
     public ArrayList<String> getConversations() {
         return conversations;
     }
-
-    //    private ArrayList<Integer> getMessagesIds(String mess_type) {
-//        ArrayList<Integer> messagesList = new ArrayList<>();
-//        Hashtable<String, Integer> messages;
-//        if (mess_type.equals("received")){
-//            messages = received;
-//        } else {
-//            messages = sent;
-//        }
-//        Set<String> users = messages.keySet();
-//        for (String user : users) {
-//            messagesList.add(messages.get(user));
-//        }
-//        return messagesList;
-//    }
-
-
-//    public ArrayList<Integer> getReceivedMessagesIds() {
-//        return getMessagesIds("received");
-//    }
-//
-//    public ArrayList<Integer> getSentMessagesIds() {
-//        return getMessagesIds("sent");
-//    }
 
 
 
@@ -56,28 +60,39 @@ public abstract class User {
 //        this.password = password;
 //    }
 
+    /**
+     * return the password used by this User
+     * @return String password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * return the list of contacts this User has already connected to
+     * @return ArrayList<String> contacts
+     */
     public ArrayList<String> getContacts() {
         return contacts;
     }
 
+    /**
+     * return the username (userId) of this User
+     * @return String username
+     */
     public String getUserId() {
         return username;
     }
 
 
+    /**
+     * update the list of contacts that this User connects to
+     * @param contacts: the new list of conversations to update to (param_type: ArrayList<String>)
+     * @return void
+     */
     public void setContacts(ArrayList<String> contacts) {
         this.contacts = contacts;
     }
 
-    // getters and setters for username, password?
-    // can attendee remove someone from their contacts list?
-    // for now, no changes in username and password allowed?
-    // Getter for list of message ids -- both sent and received??
-    // List of messages that have been sent to them and that they have sent -- need to store senders/receivers?
-    // which stores the senders/receivers of a message? as of now story as dict in Attendee
-    // IDs are all strings!
+
 }
