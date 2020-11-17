@@ -1,5 +1,3 @@
-import com.sun.org.apache.xpath.internal.operations.Or;
-
 import java.util.ArrayList;
 
 public class OrganizerManager {
@@ -135,7 +133,6 @@ public class OrganizerManager {
                 organizer.setEventsAttending(eventsAttending);
             }
         }
-
     }
 
     public String isAttending(String username, String eventTitle){
@@ -172,6 +169,13 @@ public class OrganizerManager {
     public ArrayList<Organizer> getAllOrganizers() {
 
         return organizerList;
+
+    }
+
+    public ArrayList<String> getEventsAttending(String username){
+
+        Organizer organizer = getOrganizer(username);
+        return organizer.getEventsAttending();
 
     }
 
