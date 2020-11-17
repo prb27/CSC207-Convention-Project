@@ -99,4 +99,14 @@ public class SpeakerManager {
         }
         return speaker.getConversations();
     }
+
+    public boolean checkPassword(String username, String password){
+        Speaker speaker = getSpeaker(username);
+        if(speaker.equals(null)){
+            return false;
+        }
+        else{
+            return speaker.getPassword().equals(password);
+        }
+    }
 }
