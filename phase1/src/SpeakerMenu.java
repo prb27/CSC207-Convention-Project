@@ -9,6 +9,8 @@ public class SpeakerMenu {
     public void addContact(String speakerUsername, String otherUsername){
         speakerManager.addContact(speakerUsername, otherUsername);
     }
+
+    /*
     public void messageAllContacts(String username, String content){
         messageSystem.multiMessage(username, speakerManager.getContactsForSpeaker(username),content);
 
@@ -16,7 +18,12 @@ public class SpeakerMenu {
     public void messageSingleContact(String username, String receiverUsername, String content){
         messageSystem.singleMessage(username, receiverUsername, content);
     }
+    */
 
+    public void addTalkToListOfTalks(String speakerUsername, String eventTime, String eventName){
+        speakerManager.addTalkToListOfTalks(speakerUsername, eventTime, eventName);
+
+    }
 
 
 }

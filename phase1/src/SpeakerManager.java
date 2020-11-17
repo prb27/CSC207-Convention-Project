@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class SpeakerManager {
     private final ArrayList<Speaker> speakers = new ArrayList<>();
 
-    public boolean addSpeaker(String username, String password){
+    public boolean createSpeaker(String username, String password){
         for (Speaker speaker: speakers){
             if (speaker.getUserId().equals(username))
             {
@@ -72,14 +72,13 @@ public class SpeakerManager {
         }
         return null;
     }
-    public ArrayList<Speaker> getSpeakers(){
+    public ArrayList<Speaker> getAllSpeakers(){
         return speakers;
     }
 
     public ArrayList<String> getContactsForSpeaker(String username){
         Speaker speaker = getSpeaker(username);
         if (speaker.equals(null)){
-            System.out.println("Speaker not found");
             return null;
         }
         return speaker.getContacts();
@@ -88,7 +87,6 @@ public class SpeakerManager {
     public HashMap<String, String> getListOfTalks(String username){
         Speaker speaker = getSpeaker(username);
         if (speaker.equals(null)){
-            System.out.println("Speaker not found");
             return null;
         }
         return speaker.getListOfTalks();
@@ -97,7 +95,6 @@ public class SpeakerManager {
     public ArrayList<String> getConversations(String username){
         Speaker speaker = getSpeaker(username);
         if(speaker.equals(null)){
-            System.out.println("Speaker not found");
             return null;
         }
         return speaker.getConversations();
