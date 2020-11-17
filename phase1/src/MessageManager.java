@@ -15,6 +15,20 @@ public class MessageManager {
         return message;
     }
 
+    public boolean removeMessage(String id){
+        Message message = null;
+        for(Message m: allMessages){
+            if(m.getId() == id){
+                message = m;
+            }
+        }
+        if(message != null){
+            allMessages.remove(message);
+            return true;
+        }
+        return false;
+    }
+
     public ArrayList<Message> getAllMessages(){
         return allMessages;
     }
