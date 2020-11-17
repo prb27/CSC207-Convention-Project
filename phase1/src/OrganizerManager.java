@@ -1,3 +1,5 @@
+import com.sun.org.apache.xpath.internal.operations.Or;
+
 import java.util.ArrayList;
 
 public class OrganizerManager {
@@ -121,6 +123,50 @@ public class OrganizerManager {
 
         Organizer organizer = getOrganizer(organizerUsername);
         return organizer != null;
+    }
+
+    public void addAttendingEvent(String username, String eventTitle){
+
+        Organizer organizer = getOrganizer(username);
+        if(organizer != null){
+            if (isAttending(username, eventTitle).equals("NO")) {
+                ArrayList<String> eventsAttending = organizer.getEventsAttending();
+                eventsAttending.add(eventTitle);
+                organizer.setEventsAttending(eventsAttending);
+            }
+        }
+
+    }
+
+    public String isAttending(String username, String eventTitle){
+
+        Organizer organizer = getOrganizer(username);
+        if(organizer == null){
+            return "ODE";
+        }
+        else {
+            for (String event : organizer.getEventsAttending()) {
+                if (event.equals(eventTitle)) {
+                    return "YES";
+                }
+            }
+        }
+
+        return "NO";
+
+    }
+
+    public void removeAttendingEvent(String username, String eventTitle){
+
+        Organizer organizer = getOrganizer(username);
+        if(organizer != null) {
+            if (isAttending(username, eventTitle).equals("YES")) {
+                ArrayList<String> eventsAttending = organizer.getEventsAttending();
+                eventsAttending.remove(eventTitle);
+                organizer.setEventsAttending(eventsAttending);
+            }
+        }
+
     }
 
 }
