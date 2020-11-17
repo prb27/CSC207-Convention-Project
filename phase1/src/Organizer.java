@@ -17,4 +17,5 @@ public class Organizer extends User{
     public void setEventsAttending(ArrayList<String> eventsAttending) {
         this.eventsAttending = eventsAttending;
     }
+
 }
