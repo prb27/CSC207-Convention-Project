@@ -164,4 +164,29 @@ public class AttendeeManager {
         a.setEventsAttending(participatingEvents);
     }
 
+    /**
+     * check if an username is an Attendee
+     * @param username: the username to be checked if it's an Attendee's username (param_type: String)
+     * @return bool
+     */
+    public boolean isAttendee(String username) {
+        return attendees.containsKey(username);
+    }
+
+    /**
+     * check if an Attendee is attending an event
+     * if the Attendee does not exist, return false!
+     * ASSUMPTION: String <event> is valid!  // check in controller?
+     * @param attendee: the Attendee (param_type: String)
+     * @param event: the desired event (param_type: String)
+     * @return boolean
+     */
+    public boolean isAttending(String attendee, String event) {
+        if (!attendees.containsKey(attendee)) {
+            //System.out.println("user with userID " + attendee + " not found");
+            return false;
+        }
+        return attendees.get(attendee).getEventsAttending().contains(event);
+    }
+
 }
