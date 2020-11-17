@@ -19,7 +19,6 @@ public abstract class User {
     private final String password; // disallows changes in password for now
     private ArrayList<String> contacts = new ArrayList<>();
     private ArrayList<String> conversations = new ArrayList<>();
-    //private ArrayList<String> events = new ArrayList<>();
 
     /**
      * a constructor for subclasses to call
