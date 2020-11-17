@@ -24,10 +24,6 @@ public class OrganizerMessageSystem extends MessageSystem {
                 }
         }
 
-        ArrayList<String> participants = new ArrayList<>();
-        participants.add(organizerId);
-        participants.addAll(recipientIds);
-
         Conversation convo = multiMessage(organizerId, recipientIds, content);
         switch(userType){
             case "attendee":
