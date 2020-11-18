@@ -18,11 +18,14 @@ public class EventManager {
 
 
 
-    public String removeEvent(String eventName){
+    public void removeEvent(String eventName){
         //Need to still remove it from attendee's list of events
-        Event event = getEvent(eventName);
-        EventList.remove(event);
-        return "YES";
+        if(isEvent(eventName)){
+            Event event = getEvent(eventName);
+            EventList.remove(event);
+
+        }
+
 
     }
 
@@ -68,6 +71,7 @@ public class EventManager {
         return null;
 
     }
+
     public boolean isEvent(String eventName){
         if (EventList.contains(eventName)) {
 
@@ -76,6 +80,18 @@ public class EventManager {
         else{
             return false;
         }
+    }
+    public String getSpeakerEvent(String eventName){
+        Event event = getEvent(eventName);
+        return event.getSpeakerName();
+    }
+    public String getEventTime(String eventName){
+        Event event = getEvent(eventName);
+        return event.getEventTime();
+    }
+    public String getRoomNumber(String eventName){
+        Event event = getEvent(eventName);
+        return event.getRoomNumber();
     }
 
 }

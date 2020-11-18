@@ -77,4 +77,51 @@ public class UserEventController {
         return "ODE";
     }
 
+    public String createEvent(String organizerName, String eventName, String eventTime, String speakerName){
+        if(organizerManager.isOrganizer(organizerName)){
+            if(speakerManager.isSpeakerFreeAtTime(speakerName, eventTime)){
+                String roomNumber = roomManager.occupyRoomFreeAt(eventTime);
+
+                if(!roomNumber.equals("-")){
+                    speakerManager.addTalkToListOfTalks(speakerName,eventTime,eventName);
+                    eventManager.addEvent(eventName,eventTime,roomNumber,speakerName);
+                    roomManager.occupyRoomAt(roomNumber,eventTime);
+                    return "YES";
+                }
+                else{
+                    return "RO";
+                }
+
+            }
+            else{
+                return "STC";
+            }
+
+        }
+        else{
+            return "ODE";
+        }
+
+    }
+
+    public String removeCreatedEvent(String organizerName,String eventName) {
+        if (organizerManager.isOrganizer(organizerName)) {
+            if (eventManager.isEvent(eventName)) {
+                String speakerUserName = eventManager.getSpeakerEvent(eventName);
+                String eventTime = eventManager.getEventTime(eventName);
+                String roomId = eventManager.getRoomNumber(eventName);
+
+                eventManager.removeEvent(eventName);
+                speakerManager.removeTalkFromListofTalks(speakerUserName, eventTime, eventName);
+                roomManager.freeRoomAt(roomId, eventTime);
+                return "YES";
+
+            } else {
+                return "EDE";
+            }
+        } else {
+            return "ODE";
+        }
+    }
+
 }
