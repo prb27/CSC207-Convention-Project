@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class EventManager {
 
@@ -9,47 +8,34 @@ public class EventManager {
         return EventList;
     }
 
-    public String addEvent(String eventName, String eventTime, String roomNumber, ArrayList<String>attendeeList, String speakerName, HashMap<String, String> listOfTalks){
-        //Will use the following of Speakermanager object is passed
-        //HashMap<String, String> listOfTalks = null;
-        //listOfTalks = speaker.getListOfTalks();
+    public String addEvent(String eventName, String eventTime, String roomNumber, String speakerName){
 
+        ArrayList<String> attendeeList = new ArrayList<>();
         boolean trigger = true;
-        if (listOfTalks.containsKey(eventTime)){
-                return("STC");
 
-            }
-
-        else{
-            for (Event event: EventList ){
-                if(event.getRoomNumber().equals(roomNumber) && event.getEventTime().equals(eventTime)){
-                    trigger = false;
-                    return "EC";
-                }
-            }
-            if (trigger){
-                Event newEvent = new Event(eventName, speakerName, eventTime, roomNumber, attendeeList);
-                EventList.add(newEvent);
-                listOfTalks.put(eventTime, eventName);
-                return "YES";
+        for (Event event: EventList ){
+            if(event.getRoomNumber().equals(roomNumber) && event.getEventTime().equals(eventTime)){
+                trigger = false;
+                return "EC";
             }
         }
-        return null;
-
-
-    }
-
-    public String removeEvent(String eventName, HashMap<String, String> listOfTalks ){
-        //Need to still remove it from attendee's list of events
-        Event event = getEvent(eventName);
-        if (EventList.contains(event) && event !=null){
-            EventList.remove(event);
-            listOfTalks.remove(event.getEventTime(),event.getSpeakerName());
+        if (trigger){
+            Event newEvent = new Event(eventName, speakerName, eventTime, roomNumber,attendeeList);
+            EventList.add(newEvent);
             return "YES";
         }
-        else{
-            return("EDE");
-        }
+        return null;
+    }
+
+
+
+    public String removeEvent(String eventName){
+        //Need to still remove it from attendee's list of events
+        Event event = getEvent(eventName);
+        EventList.remove(event);
+        //listOfTalks.remove(event.getEventTime(),event.getSpeakerName());
+        return "YES";
+
     }
 
     public String reserveAttendee(String eventName, String UserId, ArrayList<String> eventsAttending){
