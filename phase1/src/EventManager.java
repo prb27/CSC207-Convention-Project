@@ -57,7 +57,6 @@ public class EventManager {
         Event event = getEvent(eventName);
         if (event.getAttendeeList().size() <2 && event!=null && !eventsAttending.contains(eventName)){
             event.getAttendeeList().add(UserId);
-            eventsAttending.add(eventName);
             return "YES";
 
         }
@@ -66,9 +65,6 @@ public class EventManager {
         }
         else if(event == null){
             return("EDE");
-        }
-        else if(eventsAttending.contains(eventName)){
-            return "AAE";
         }
         return null;
 
@@ -97,6 +93,15 @@ public class EventManager {
         }
         return null;
 
+    }
+    public boolean isEvent(String eventName){
+        if (EventList.contains(eventName)) {
+
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
 }
