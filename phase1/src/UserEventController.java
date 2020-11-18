@@ -77,6 +77,14 @@ public class UserEventController {
         return "ODE";
     }
 
+    /**
+     * Allows an organizer to create an event, by adding it to the list of events, as well as the list of speaker talks
+     * @param organizerName: name of organizer
+     * @param eventName: name of event
+     * @param eventTime: time of event
+     * @param speakerName: name of speaker
+     * @return String
+     */
     public String createEvent(String organizerName, String eventName, String eventTime, String speakerName){
         if(organizerManager.isOrganizer(organizerName)){
             if(speakerManager.isSpeakerFreeAtTime(speakerName, eventTime)){
@@ -104,6 +112,12 @@ public class UserEventController {
 
     }
 
+    /**
+     * Allows an organizer to remove a created event, also removes it from the list of talks of the speaker
+     * @param organizerName: name of organizer
+     * @param eventName: name of event
+     * @return String
+     */
     public String removeCreatedEvent(String organizerName,String eventName) {
         if (organizerManager.isOrganizer(organizerName)) {
             if (eventManager.isEvent(eventName)) {
