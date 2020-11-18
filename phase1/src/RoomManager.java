@@ -88,4 +88,7 @@ public class RoomManager {
 
     }
 
+    public ArrayList<Room> getRooms() {
+        return rooms;
+    }
 }
