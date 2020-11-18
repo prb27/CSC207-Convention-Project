@@ -109,4 +109,28 @@ public class SpeakerManager {
             return speaker.getPassword().equals(password);
         }
     }
+
+    public boolean isSpeakerFreeAtTime(String username, String time){
+        Speaker speaker = getSpeaker(username);
+        if(speaker.equals(null)){
+            return false;
+        }
+        else{
+            if(!(speaker.getListOfTalks().containsKey(time))){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+    }
+
+    public boolean isSpeaker(String username){
+        if (speakers.contains(username)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
