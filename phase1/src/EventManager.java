@@ -11,21 +11,10 @@ public class EventManager {
     public String addEvent(String eventName, String eventTime, String roomNumber, String speakerName){
 
         ArrayList<String> attendeeList = new ArrayList<>();
-        boolean trigger = true;
-
-        for (Event event: EventList ){
-            if(event.getRoomNumber().equals(roomNumber) && event.getEventTime().equals(eventTime)){
-                trigger = false;
-                return "EC";
-            }
+        Event newEvent = new Event(eventName, speakerName, eventTime, roomNumber,attendeeList);
+        EventList.add(newEvent);
+        return "YES";
         }
-        if (trigger){
-            Event newEvent = new Event(eventName, speakerName, eventTime, roomNumber,attendeeList);
-            EventList.add(newEvent);
-            return "YES";
-        }
-        return null;
-    }
 
 
 
@@ -33,7 +22,6 @@ public class EventManager {
         //Need to still remove it from attendee's list of events
         Event event = getEvent(eventName);
         EventList.remove(event);
-        //listOfTalks.remove(event.getEventTime(),event.getSpeakerName());
         return "YES";
 
     }
