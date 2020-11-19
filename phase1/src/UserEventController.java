@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class UserEventController {
@@ -8,15 +9,6 @@ public class UserEventController {
     private EventManager eventManager;
     private RoomManager roomManager;
 
-    public UserEventController(){
-
-        attendeeManager = new AttendeeManager();
-        organizerManager = new OrganizerManager();
-        speakerManager = new SpeakerManager();
-        eventManager = new EventManager();
-        roomManager = new RoomManager();
-
-    }
 
     public UserEventController(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager, EventManager eventManager, RoomManager roomManager){
 
