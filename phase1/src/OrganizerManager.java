@@ -179,4 +179,14 @@ public class OrganizerManager {
 
     }
 
+    public ArrayList<String> getAllOrganizerIds(){
+
+        ArrayList<String> organizerUsernames = new ArrayList<>();
+        for(Organizer organizer: organizerList){
+            organizerUsernames.add(organizer.getUserId());
+        }
+        return organizerUsernames;
+
+    }
+
 }
