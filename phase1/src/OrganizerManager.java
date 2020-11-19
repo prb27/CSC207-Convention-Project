@@ -6,13 +6,12 @@ import java.util.ArrayList;
  * The only manipulations that are allowed are:
  *      - creating new Organizer object
  *      - adding other Users to an Organizer's list of contacts
- *      - add a new conversation to an Attendee's list of participating conversations
- *      - get the list of contacts from a given Attendee
- *      - get an Attendee given their username
- *      - get all Attendees
- *      - check the password of a given Attendee
- * @author Khoa Pham
- * @see Attendee
+ *      - add a new conversation to an Organizer's list of participating conversations
+ *      - get the list of contacts of a given Organizer
+ *      - get all Organizer usernames
+ *      - check the password of a given Organizer
+ * @author Ashwin Karthikeyan
+ * @see Organizer
  */
 public class OrganizerManager {
 
