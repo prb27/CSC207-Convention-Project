@@ -55,11 +55,11 @@ public class UserEventController {
         if(eventManager.isEvent(eventName)){
             if(attendeeManager.isAttendee(username)){
                 attendeeManager.removeAttendingEvent(username, eventName);
-                eventManager.removeAttendee(eventName, username, attendeeManager.getEventsAttending(username));
+                eventManager.removeAttendee(eventName, username);
             }
             else if(organizerManager.isOrganizer(username)){
                 organizerManager.removeAttendingEvent(username, eventName);
-                eventManager.removeAttendee(eventName, username, organizerManager.getEventsAttending(username));
+                eventManager.removeAttendee(eventName, username);
             }
         }
 
