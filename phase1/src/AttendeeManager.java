@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
 
 /**
@@ -196,6 +197,14 @@ public class AttendeeManager {
      */
     public ArrayList<String> getEventsAttending(String attendee) {
         return attendees.get(attendee).getEventsAttending();
+    }
+
+    /**
+     * return the list of all Attendees' ids
+     * @return ArrayList<String> ids
+     */
+    public ArrayList<String> getAllAttendeeIds() {
+        return Collections.list(attendees.keys());
     }
 
 }
