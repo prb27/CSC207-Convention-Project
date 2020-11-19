@@ -14,7 +14,7 @@ public class EventManager {
 
     /** Initiates a new event object, and adds it to the list of events
      *
-      * @param eventName: name of event
+     * @param eventName: name of event
      * @param eventTime: time of event
      * @param roomNumber: roomnumber of event
      * @param speakerName: speakername of event
@@ -26,7 +26,7 @@ public class EventManager {
         Event newEvent = new Event(eventName, speakerName, eventTime, roomNumber,attendeeList);
         EventList.add(newEvent);
         return "YES";
-        }
+    }
 
     /** Removes the event object from the list of events
      *
@@ -143,8 +143,3 @@ public class EventManager {
     }
 
 }
-
-
-
-
-
