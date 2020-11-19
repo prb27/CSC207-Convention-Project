@@ -141,18 +141,21 @@ public class OrganizerManager {
         }
     }
 
-
-    public boolean getConversation(String organizerUsername, String conversationID){
+    /**
+     * If Organizer object with given username </organizerUsername> exists, then it returns the list of all Strings that
+     * Organizer object holds as conversation IDs.
+     * @param organizerUsername: the username in the Organizer object that we intend to manipulate (param_type: String)
+     * @return : If Organizer with username </organizerUsername> doesn't exist, returns null. Else returns
+     *         the IDs of the conversations that the Organizer object with username </organizerUsername> holds
+     */
+    public ArrayList<String> getConversations(String organizerUsername){
 
         Organizer organizer = getOrganizer(organizerUsername);
         if(organizer == null){
-            return false;
+            return null;
         }
         else{
-            ArrayList<String> newConversations = organizer.getConversations();
-            newConversations.add(conversationID);
-            organizer.setConversations(newConversations);
-            return true;
+            return organizer.getConversations();
         }
     }
 
@@ -190,6 +193,12 @@ public class OrganizerManager {
         return organizer != null;
     }
 
+    /**
+     * If Organizer object with given username </username> exists, then that Organizer object will have
+     * </eventTitle> in its list of event titles of events attending by the end of this method's execution.
+     * @param username: the username in the Organizer object that we intend to manipulate (param_type: String)
+     * @param eventTitle: the title of the event that this Organizer object is newly going to attend (param_type: String)
+     */
     public void addAttendingEvent(String username, String eventTitle){
 
         Organizer organizer = getOrganizer(username);
@@ -202,6 +211,17 @@ public class OrganizerManager {
         }
     }
 
+    /**
+     * If Organizer object with given username </username> doesn't exist, then method returns "ODE". Else, returns "YES"
+     * if </eventTitle> is in the list of event titles of events that the Organizer object is attending, and
+     * returns no if the Organizer object doesn't have </eventTitle> in its list of event titles of events attending
+     * @param username: the username in the Organizer object that we intend to manipulate (param_type: String)
+     * @param eventTitle: the title of the event to check if it is in the list of event titles of
+     *                 events that this Organizer object is attending (param_type: String)
+     * @return : "ODE" - Organizer doesn't exist
+     *           "NO" - Organizer is currently not registered to attend event with title </eventTitle>
+     *           "YES" - Organizer is currently registered to attend event with title </eventTitle>
+     */
     public String isAttending(String username, String eventTitle){
 
         Organizer organizer = getOrganizer(username);
@@ -220,6 +240,12 @@ public class OrganizerManager {
 
     }
 
+    /**
+     * If Organizer object with given username </username> exists, then that Organizer object will not have
+     * </eventTitle> in its list of event titles of events attending by the end of this method's execution.
+     * @param username: the username in the Organizer object that we intend to manipulate (param_type: String)
+     * @param eventTitle: the title of the event that this Organizer object is not going to attend (param_type: String)
+     */
     public void removeAttendingEvent(String username, String eventTitle){
 
         Organizer organizer = getOrganizer(username);
