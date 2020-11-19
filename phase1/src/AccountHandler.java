@@ -27,42 +27,53 @@ public class AccountHandler {
     }
 
     /**
+     *Create a user of a specific account type if a user with the
+     *same username does not already exist.
      *
      * @param username: username inputted by the user
      * @param password: password inputted by the user
      * @param accountType: account type of the user
-     * @return
+     * @return boolean representing successful signup of a new account
      */
     public boolean signup(String username, String password, String accountType) {
         switch(accountType) {
             case "attendee":
+                if(organizerManager.isOrganizer(username) || speakerManager.isSpeaker(username))
+                    return false;
                 return attendeeManager.createAttendee(username, password);
             case "organizer":
+                if(attendeeManager.isAttendee(username) || speakerManager.isSpeaker(username))
+                    return false;
                 return organizerManager.createOrganizer(username, password);
             case "speaker":
+                if(organizerManager.isOrganizer(username) || attendeeManager.isAttendee(username))
+                    return false;
                 return speakerManager.createSpeaker(username, password);
             default:
                 return false;
         }
     }
 
-    public boolean login(String username, String password, String accountType) {
-        switch(accountType) {
-            case "attendee":
-                if(attendeeManager.getAllAttendees().contains(username))
-                    return attendeeManager.checkPassword(username, password);
-                return false;
-            case "organizer":
-                if(organizerManager.getAllOrganizers().contains(username))
-                    return organizerManager.checkPassword(username, password);
-                return false;
-            case "speaker":
-                if(speakerManager.getAllSpeakers().contains(username))
-                    return speakerManager.checkPassword(username, password);
-                return false;
-            default:
-                return false;
-        }
+    /**
+     *Login the user with the given username and password if a user with
+     *the given username exists and return the account type of the user
+     *if login is successful.
+     *
+     * @param username: username inputted by the user
+     * @param password: password inputted by the user
+     * @return String representing the account type of the user logging in.
+     * "attendee", "organizer", "speaker" for the type of user,
+     * null if the user with the given username does not exist
+     */
+    public String login(String username, String password, String accountType) {
+        if(attendeeManager.checkPassword(username, password))
+            return "attendee";
+        else if(organizerManager.checkPassword(username, password))
+            return "organizer";
+        else if(speakerManager.checkPassword(username, password))
+            return "speaker";
+        else
+            return null;
     }
 
 }
