@@ -33,10 +33,10 @@ public class UserEventController {
         // ODE - Organizer doesn't exist
         // EDE - Event doesn't exist
         // EFC - Event at full capacity
-        if (organizerManager.isOrganizer(username) && eventManager.getEvent(eventName) != null) {
-            String roomId = eventManager.getEvent(eventName).getRoomNumber();
+        if (organizerManager.isOrganizer(username) && eventManager.isEvent(eventName)) {
+            String roomId = eventManager.getRoomNumber(eventName);
             int capacity = roomManager.getCapacityOfRoom(roomId);
-            ArrayList<String> attendeesOfEvent = eventManager.getEvent(eventName).getAttendeeList();
+            ArrayList<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
             if (attendeesOfEvent.size() < capacity) {
                 String erMessage = eventManager.reserveAttendee(eventName, username, organizerManager.getEventsAttending(username));
                 if (erMessage.equals("YES")) {
@@ -136,5 +136,4 @@ public class UserEventController {
             return "ODE";
         }
     }
-
 }
