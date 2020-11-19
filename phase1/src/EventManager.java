@@ -18,11 +18,17 @@ public class EventManager {
      * @param eventTime: time of event
      * @param roomNumber: roomnumber of event
      * @param speakerName: speakername of event
+     * EDE - Event Doesn't Exist
      * @return String
      */
     public String addEvent(String eventName, String eventTime, String roomNumber, String speakerName){
-
+        boolean trigger = true;
         ArrayList<String> attendeeList = new ArrayList<>();
+        for (Event event: EventList){
+            if(event.getEventName().equals(eventName)){
+                return "EDE";
+            }
+        }
         Event newEvent = new Event(eventName, speakerName, eventTime, roomNumber,attendeeList);
         EventList.add(newEvent);
         return "YES";
@@ -41,20 +47,18 @@ public class EventManager {
     }
     /** Reserves a spot for the attendee of the given event, adds it to the attendeelist
      *
-     * @param eventName: name of event
-     * @param UserId: userID of attendee
+     * @param eventName : name of event
+     * @param UserId : userID of attendee
+     * EDE - Event Doesn't Exist
      * @return : String
      */
-    public String reserveAttendee(String eventName, String UserId, ArrayList<String> eventsAttending){
+    public String reserveAttendee(String eventName, String UserId){
         //Need to check if attendee is not already registered for event at this time
         Event event = getEvent(eventName);
-        if (event.getAttendeeList().size() <2 && event!=null && !eventsAttending.contains(eventName)){
+        if (event.getAttendeeList().size() <2 && event!=null){
             event.getAttendeeList().add(UserId);
             return "YES";
 
-        }
-        else if(event.getAttendeeList().size() >=2){
-            return("FCE");
         }
         else if(event == null){
             return("EDE");
@@ -66,13 +70,14 @@ public class EventManager {
      * Removes the attendee spot from eventList
      * @param eventName: name of event
      * @param UserId: UserID of attendee
+     * ADE - Attendee Doesn't Exist
+     * YES - Successful
      * @return String
      */
-    public String removeAttendee(String eventName, String UserId, ArrayList<String> eventsAttending){
+    public String removeAttendee(String eventName, String UserId){
         Event event = getEvent(eventName);
-        if(event.getAttendeeList().contains(UserId) && event!=null){
+        if(event.getAttendeeList().contains(UserId) && event!= null){
             event.getAttendeeList().remove(UserId);
-            eventsAttending.remove(eventName);
             return "YES";
 
         }
@@ -140,6 +145,16 @@ public class EventManager {
     public String getRoomNumber(String eventName){
         Event event = getEvent(eventName);
         return event.getRoomNumber();
+    }
+
+    /**
+     * Returns the list of attendees/organizers who are attending given the event name
+     * @param eventName : name of event
+     * @return : ArrayList<String>
+     */
+    public ArrayList<String> getAttendeeList(String eventName){
+        Event event = getEvent(eventName);
+        return event.getAttendeeList();
     }
 
 }

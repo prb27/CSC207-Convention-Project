@@ -7,22 +7,8 @@ public class OrganizerMessageSystem extends MessageSystem {
     }
 
     //handles phase 1 specification that says organizers can message all attendees
-    public void organizerToAll(String organizerId, String content, String userType){
-        ArrayList<String> recipientIds = new ArrayList<>();
-        switch(userType){
-            case "attendee":
-                for(Attendee a: attendeeManager.getAllAttendees()){
-                    recipientIds.add(a.getUserId());
-                }
-            case "organizer":
-                for(Organizer o: organizerManager.getAllOrganizers()){
-                    recipientIds.add(o.getUserId());
-                }
-            case "speaker":
-                for(Speaker s: speakerManager.getSpeakers()){
-                    recipientIds.add(s.getUserId());
-                }
-        }
+    //recipientIds should be a list of all the User type entities in the system
+    public void organizerToAll(String organizerId, String content, String userType, ArrayList<String> recipientIds){
 
         Conversation convo = multiMessage(organizerId, recipientIds, content);
         switch(userType){

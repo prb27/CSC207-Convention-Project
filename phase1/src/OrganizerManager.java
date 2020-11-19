@@ -1,5 +1,18 @@
 import java.util.ArrayList;
 
+/**
+ * This class is responsible for keeping track of and enabling proper use of all Organizer objects (all organizers in the conference).
+ * This is done by limiting the set of manipulations that can be done to the Organizer objects.
+ * The only manipulations that are allowed are:
+ *      - creating new Organizer object
+ *      - adding other Users to an Organizer's list of contacts
+ *      - add a new conversation to an Organizer's list of participating conversations
+ *      - get the list of contacts of a given Organizer
+ *      - get all Organizer usernames
+ *      - check the password of a given Organizer
+ * @author Ashwin Karthikeyan
+ * @see Organizer
+ */
 public class OrganizerManager {
 
     private final ArrayList<Organizer> organizerList;
@@ -42,7 +55,7 @@ public class OrganizerManager {
         }
     }
 
-    public Organizer getOrganizer(String username){
+    private Organizer getOrganizer(String username){
 
         for(Organizer organizer: organizerList){
             if(organizer.getUserId().equals(username)) {
@@ -166,7 +179,7 @@ public class OrganizerManager {
 
     }
 
-    public ArrayList<Organizer> getAllOrganizers() {
+    private ArrayList<Organizer> getAllOrganizers() {
 
         return organizerList;
 
@@ -176,6 +189,16 @@ public class OrganizerManager {
 
         Organizer organizer = getOrganizer(username);
         return organizer.getEventsAttending();
+
+    }
+
+    public ArrayList<String> getAllOrganizerIds(){
+
+        ArrayList<String> organizerUsernames = new ArrayList<>();
+        for(Organizer organizer: organizerList){
+            organizerUsernames.add(organizer.getUserId());
+        }
+        return organizerUsernames;
 
     }
 

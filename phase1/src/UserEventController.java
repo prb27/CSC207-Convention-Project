@@ -1,4 +1,6 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserEventController {
 
@@ -8,15 +10,6 @@ public class UserEventController {
     private EventManager eventManager;
     private RoomManager roomManager;
 
-    public UserEventController(){
-
-        attendeeManager = new AttendeeManager();
-        organizerManager = new OrganizerManager();
-        speakerManager = new SpeakerManager();
-        eventManager = new EventManager();
-        roomManager = new RoomManager();
-
-    }
 
     public UserEventController(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager, EventManager eventManager, RoomManager roomManager){
 
@@ -33,12 +26,15 @@ public class UserEventController {
         // ODE - Organizer doesn't exist
         // EDE - Event doesn't exist
         // EFC - Event at full capacity
-        if (organizerManager.isOrganizer(username) && eventManager.getEvent(eventName) != null) {
-            String roomId = eventManager.getEvent(eventName).getRoomNumber();
+        if (organizerManager.isOrganizer(username) && eventManager.isEvent(eventName)) {
+            if(organizerManager.isAttending(username, eventName).equals("YES")){
+                return "AE";
+            }
+            String roomId = eventManager.getRoomNumber(eventName);
             int capacity = roomManager.getCapacityOfRoom(roomId);
-            ArrayList<String> attendeesOfEvent = eventManager.getEvent(eventName).getAttendeeList();
+            ArrayList<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
             if (attendeesOfEvent.size() < capacity) {
-                String erMessage = eventManager.reserveAttendee(eventName, username, organizerManager.getEventsAttending(username));
+                String erMessage = eventManager.reserveAttendee(eventName, username);
                 if (erMessage.equals("YES")) {
                     organizerManager.addAttendingEvent(username, eventName);
                     return "YES";
@@ -55,11 +51,11 @@ public class UserEventController {
         if(eventManager.isEvent(eventName)){
             if(attendeeManager.isAttendee(username)){
                 attendeeManager.removeAttendingEvent(username, eventName);
-                eventManager.removeAttendee(eventName, username, attendeeManager.getEventsAttending(username));
+                eventManager.removeAttendee(eventName, username);
             }
             else if(organizerManager.isOrganizer(username)){
                 organizerManager.removeAttendingEvent(username, eventName);
-                eventManager.removeAttendee(eventName, username, organizerManager.getEventsAttending(username));
+                eventManager.removeAttendee(eventName, username);
             }
         }
 
@@ -83,26 +79,47 @@ public class UserEventController {
      * @param eventName: name of event
      * @param eventTime: time of event
      * @param speakerName: name of speaker
-     * @return String
+     * "RO" - Room Occupied
+     * "STC" - Speaker Time Conflict
+     * "ETC" - Event Time Conflict
+     * "ODE" - Organizer Doesn't Exist
+     * @return Strings of the values listed above
      */
     public String createEvent(String organizerName, String eventName, String eventTime, String speakerName){
-        if(organizerManager.isOrganizer(organizerName)){
-            if(speakerManager.isSpeakerFreeAtTime(speakerName, eventTime)){
-                String roomNumber = roomManager.occupyRoomFreeAt(eventTime);
+        ArrayList<String> allowedTimes = new ArrayList<String>();
+        allowedTimes.add("9");
+        allowedTimes.add("10");
+        allowedTimes.add("11");
+        allowedTimes.add("12");
+        allowedTimes.add("1");
+        allowedTimes.add("2");
+        allowedTimes.add("3");
+        allowedTimes.add("4");
+        allowedTimes.add("5");
 
-                if(!roomNumber.equals("-")){
-                    speakerManager.addTalkToListOfTalks(speakerName,eventTime,eventName);
-                    eventManager.addEvent(eventName,eventTime,roomNumber,speakerName);
-                    roomManager.occupyRoomAt(roomNumber,eventTime);
-                    return "YES";
+        if(organizerManager.isOrganizer(organizerName)){
+
+            if(allowedTimes.contains(eventTime)){
+
+                if(speakerManager.isSpeakerFreeAtTime(speakerName, eventTime)){
+                    String roomNumber = roomManager.occupyRoomFreeAt(eventTime);
+
+                    if(!roomNumber.equals("-")){
+                        speakerManager.addTalkToListOfTalks(speakerName,eventTime,eventName);
+                        roomManager.occupyRoomAt(roomNumber,eventTime);
+                        return eventManager.addEvent(eventName,eventTime,roomNumber,speakerName);
+                    }
+                    else{
+                        return "RO";
+                    }
+
                 }
                 else{
-                    return "RO";
+                    return "STC";
                 }
-
             }
             else{
-                return "STC";
+                return "ETC";
             }
 
         }
@@ -116,7 +133,10 @@ public class UserEventController {
      * Allows an organizer to remove a created event, also removes it from the list of talks of the speaker
      * @param organizerName: name of organizer
      * @param eventName: name of event
-     * @return String
+     * "EDE" - Event Doesn't Exist
+     * "ODE" - Organizer Doesn't Exist
+     * "YES" - Request Successful
+     * @return String of the values listed above
      */
     public String removeCreatedEvent(String organizerName,String eventName) {
         if (organizerManager.isOrganizer(organizerName)) {
@@ -137,5 +157,4 @@ public class UserEventController {
             return "ODE";
         }
     }
-
 }
