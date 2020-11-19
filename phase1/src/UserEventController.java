@@ -34,6 +34,9 @@ public class UserEventController {
         // EDE - Event doesn't exist
         // EFC - Event at full capacity
         if (organizerManager.isOrganizer(username) && eventManager.isEvent(eventName)) {
+            if(organizerManager.isAttending(username, eventName).equals("YES")){
+                return "AE";
+            }
             String roomId = eventManager.getRoomNumber(eventName);
             int capacity = roomManager.getCapacityOfRoom(roomId);
             ArrayList<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
