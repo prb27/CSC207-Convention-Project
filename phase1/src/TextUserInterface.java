@@ -2,63 +2,30 @@ import javafx.util.Pair;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
 public class TextUserInterface {
 
     public static void main(String[] args) {
-        String x = landingmenu();
-        System.out.print(x + '\n');
-        typemenu();
-        loginmenu();
-        attendeemenu("big mama");
-        x = organizermenu("big mama");
-        switch(x){
-            case "1":
-                System.out.println("1");
-                break;
-            case "2":
-                System.out.println("1");
-                break;
-            case "3":
-                System.out.println("1");
-                break;
-            case "4":
-                String y = attendeemenu("big mama");
-                System.out.println(y);
-                break;
-        }
-        speakermenu("hi");
     }
 
-    public static String landingmenu() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Welcome! What would you like to do?");
+    public static void landingmenu() {
+        System.out.println("Welcome! What would you like to do?\n");
+        System.out.println("Please type in only the integer for your choice!");
         System.out.println("1: log in");
         System.out.println("2: sign up");
-        String choice = input.nextLine();
-        while (!("1".equals(choice) || "2".equals(choice))) {
-            System.out.println("Please choose either 1 or 2.");
-            choice = input.nextLine();
-        }
-        return choice;
+        System.out.println("\n\n0: quit");
     }
 
     // not used anymore.
-    public static String typemenu() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("What type of user are you?");
+    public static void signupmenu() {
+        System.out.println("What type of user would you like to sign up as?");
         System.out.println("1: Organizer");
         System.out.println("2: Attendee");
         System.out.println("3: Speaker");
-        String choice = input.nextLine();
-        while (!("1".equals(choice) || "2".equals(choice) || "3".equals(choice))) {
-            System.out.println("Please choose either 1 or 2 or 3.");
-            choice = input.nextLine();
-        }
-        System.out.println(choice);
-        return choice;
+        System.out.println("\n\n0: quit");
     }
 
     public static List<String> loginmenu() {
@@ -67,126 +34,95 @@ public class TextUserInterface {
         String username = input.nextLine();
         System.out.println("Please enter your password:");
         String password = input.nextLine();
-
-        // Should I insert a line here to check the size of the input? Should checking an input as acceptable
-        // be handled in the master system or the presenter?
-        // The presenter has to format the data into an acceptable input.
-
         List<String> details = new ArrayList<>();
         details.add(username);
         details.add(password);
         return details;
     }
 
-    // create a method that takes in a string and prints out an error
+    public void usernameprompt(){
+        System.out.println("Please enter your username:");
+    }
 
+    public void passwordprompt(){
+        System.out.println("Please enter your password:");
+    }
 
-    public static String attendeemenu (String username) {
-        Scanner input = new Scanner(System.in);
+    //    this is specifically for Ashwin's work.
+    //    Need to get everyone to use similar way of dealing with this bullshit.
+    public static void showError(String error){
+        switch(error){
+            case "INO":
+                System.out.println("Invalid Input: please choose from one of the available integer options");
+                break;
+            case "ODE":
+                System.out.println("Organizer doesn't exist");
+                break;
+            case "EDE":
+                System.out.println("Event doesn't exist");
+                break;
+            case "SDE":
+                System.out.println("Speaker doesn't exist");
+                break;
+            case "EFC":
+                System.out.println("Event at full capacity");
+                break;
+            case "RAE":
+                System.out.println("Room already exists");
+                break;
+
+        }
+    }
+
+    public void attendeemenu(String username) {
         System.out.println("Hello " + username + "!");
         System.out.println("What would you like to do?\n");
         System.out.println("1: Available events to sign up for");
         System.out.println("2: Cancel spot in an event");
         System.out.println("3: See schedule of event signed up for");
         System.out.println("4: Send messages to another attendee");
-        System.out.println("5: Send message to a speaker");                 // Might not be ready. Check with Khoa.
-        String choice = input.nextLine();
-        while (!("1".equals(choice) || "2".equals(choice) || "3".equals(choice) || "4".equals(choice) ||
-                "5".equals(choice))){
-            System.out.println("Please choose either 1 or 2 or 3 or 4 or 5.");
-            choice = input.nextLine();
-        }
-        return choice;
+        System.out.println("5: Send message to a speaker");
+        System.out.println("\n\n0: quit");
     }
 
+    public void AttendeeEventSignup() {
+    // Where is the get method for available events to sign up for? Can't find it.
+    }
 
-    public static String organizermenu (String username) {
-        Scanner input = new Scanner(System.in);
+    public void AttendeeCancelSpot() {
+    // Where is the get method for list of events an attendee is attending?
+        System.out.println("Which of the events would you like to cancel your spot at?");
+        System.out.println("Please key in the exact string for the ");
+    }
+
+//    public void SpeakerListofEventsSpeaking() {
+//        HashMap<String, String> ListofEvents = SpeakerManager.getListofTalks;
+//    }
+
+    public void organizermenu(String username){
         System.out.println("Hello " + username + "!");
         System.out.println("What would you like to do?\n");
         System.out.println("1: Create speaker account");
         System.out.println("2: Add a room into the system");
         System.out.println("3: Schedule speakers to speak in a room");
-        System.out.println("4: Attendee options");
-        String choice = input.nextLine();
-        while (!("1".equals(choice) || "2".equals(choice) || "3".equals(choice) || "4".equals(choice))){
-            System.out.println("Please choose either 1 or 2 or 3 or 4.");
-            choice = input.nextLine();
-        }
-        return choice;
+        System.out.println("4: Available events to sign up for");
+        System.out.println("5: Cancel spot in an event");
+        System.out.println("6: See schedule of event signed up for");
+        System.out.println("7: Send messages to another attendee");
+        System.out.println("8: Send message to a speaker");
+        System.out.println("\n\n0: quit");
+
     }
 
-    public static String speakermenu (String username) {
-        Scanner input = new Scanner(System.in);
+    public void speakermenu(String username) {
         System.out.println("Hello " + username + "!");
         System.out.println("What would you like to do?\n");
         System.out.println("1: View list of talks to give");
         System.out.println("2: Message all attendees signed up for a talk");
         System.out.println("3: Message an attendee attending a talk");
-        String choice = input.nextLine();
-        while (!("1".equals(choice) || "2".equals(choice) || "3".equals(choice))){
-            System.out.println("Please choose either 1 or 2 or 3.");
-            choice = input.nextLine();
-        }
-        return choice;
-
-
-
-
+        System.out.println("\n\n0: quit");
     }
-
-
 }
-
-
-////
-////    public String loginmenu(){
-////        // collects the username and password from the user and returns it
-////        Scanner input = new Scanner(System.in);
-////        System.out.println("Please enter your username:");
-////        String username = input.nextLine();
-////        System.out.println("Please enter your password:");
-////        String password = input.nextLine();
-////        // return something
-////    }
-//
-//    public String signupmenu(){
-//        Scanner input = new Scanner(System.in);
-//        System.out.println("What type of user are you?");
-//        System.out.println("1: Organizer");
-//        System.out.println("2: Speaker");
-//        int choice = input.nextInt();
-//        while (choice > 2 || choice < 1) {
-//            System.out.println("Please choose either 1 or 2.");
-//            choice = input.nextInt();
-//        }
-//    }
-//    public String UserUI () {
-//        Scanner input = new Scanner(System.in);
-//        System.out.println("1: Available events to sign up for");
-//        System.out.println("2: Cancel spot in an event");
-//        System.out.println("3: See schedule of event signed up for");
-//        System.out.println("4: Send messages to another attendee");
-//        System.out.println("5: Send message to a speaker");
-//        int choice = input.nextInt();
-//        while (choice > 5 || choice < 1) {
-//            System.out.println("Please only choose either one of the available options.");
-//            choice = input.nextInt();
-//        }
-//
-//    }
-//
-//    public void OrganizerUI () {
-//        Scanner input = new Scanner(System.in);
-//        System.out.println("What would you like to do?");
-//        System.out.println("1: Create speaker account");
-//        System.out.println("2: Add a room into the system");
-//        System.out.println("3: Schedule speakers to speak in a room");
-//        System.out.println("4: Attendee functions");
-//        int choice = input.nextInt();
-//    }
-//    }
-//}
 
 
 // For Phase 1 To-Do:

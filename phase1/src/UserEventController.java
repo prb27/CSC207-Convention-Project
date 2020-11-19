@@ -26,24 +26,27 @@ public class UserEventController {
         // ODE - Organizer doesn't exist
         // EDE - Event doesn't exist
         // EFC - Event at full capacity
-        if (organizerManager.isOrganizer(username) && eventManager.isEvent(eventName)) {
-            if(organizerManager.isAttending(username, eventName).equals("YES")){
-                return "AE";
-            }
-            String roomId = eventManager.getRoomNumber(eventName);
-            int capacity = roomManager.getCapacityOfRoom(roomId);
-            ArrayList<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
-            if (attendeesOfEvent.size() < capacity) {
-                String erMessage = eventManager.reserveAttendee(eventName, username);
-                if (erMessage.equals("YES")) {
-                    organizerManager.addAttendingEvent(username, eventName);
-                    return "YES";
+        if (organizerManager.isOrganizer(username)) {
+            if (eventManager.isEvent(eventName)){
+                if (organizerManager.isAttending(username, eventName).equals("YES")) {
+                    return "AE";
                 }
-                return erMessage;
+                String roomId = eventManager.getRoomNumber(eventName);
+                int capacity = roomManager.getCapacityOfRoom(roomId);
+                ArrayList<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
+                if (attendeesOfEvent.size() < capacity) {
+                    String erMessage = eventManager.reserveAttendee(eventName, username);
+                    if (erMessage.equals("YES")) {
+                        organizerManager.addAttendingEvent(username, eventName);
+                        return "YES";
+                    }
+                    return erMessage;
+                }
+                return "EFC";
             }
-            return "EFC";
+            return "EDE";
         }
-        return "ODE/EDE";
+        return "ODE";
     }
 
     public void cancelSeatForUser(String username, String eventName){
