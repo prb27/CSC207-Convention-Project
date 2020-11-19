@@ -65,7 +65,7 @@ public class AccountHandler {
      * "attendee", "organizer", "speaker" for the type of user,
      * null if the user with the given username does not exist
      */
-    public String login(String username, String password, String accountType) {
+    public String login(String username, String password) {
         if(attendeeManager.checkPassword(username, password))
             return "attendee";
         else if(organizerManager.checkPassword(username, password))
