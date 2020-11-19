@@ -8,7 +8,6 @@
  * @see SpeakerManager
  */
 public class AccountHandler {
-
     AttendeeManager attendeeManager;
     OrganizerManager organizerManager;
     SpeakerManager speakerManager;

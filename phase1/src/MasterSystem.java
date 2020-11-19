@@ -105,7 +105,6 @@ public class MasterSystem {
         switch(userType) {
             case "attendee":
                 switch(option) {
-
                 }
                 break;
             case "organizer":
