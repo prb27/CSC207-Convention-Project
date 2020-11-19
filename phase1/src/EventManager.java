@@ -21,8 +21,13 @@ public class EventManager {
      * @return String
      */
     public String addEvent(String eventName, String eventTime, String roomNumber, String speakerName){
-
+        boolean trigger = true;
         ArrayList<String> attendeeList = new ArrayList<>();
+        for (Event event: EventList){
+            if(event.getEventName().equals(eventName)){
+                return "EDE";
+            }
+        }
         Event newEvent = new Event(eventName, speakerName, eventTime, roomNumber,attendeeList);
         EventList.add(newEvent);
         return "YES";
@@ -140,6 +145,16 @@ public class EventManager {
     public String getRoomNumber(String eventName){
         Event event = getEvent(eventName);
         return event.getRoomNumber();
+    }
+
+    /**
+     * Returns the list of attendees/organizers who are attending given the event name
+     * @param eventName : name of event
+     * @return : ArrayList<String>
+     */
+    public ArrayList<String> getAttendeeList(String eventName){
+        Event event = getEvent(eventName);
+        return event.getAttendeeList();
     }
 
 }

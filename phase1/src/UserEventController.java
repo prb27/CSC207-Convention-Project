@@ -92,9 +92,8 @@ public class UserEventController {
 
                 if(!roomNumber.equals("-")){
                     speakerManager.addTalkToListOfTalks(speakerName,eventTime,eventName);
-                    eventManager.addEvent(eventName,eventTime,roomNumber,speakerName);
                     roomManager.occupyRoomAt(roomNumber,eventTime);
-                    return "YES";
+                    return eventManager.addEvent(eventName,eventTime,roomNumber,speakerName);
                 }
                 else{
                     return "RO";
