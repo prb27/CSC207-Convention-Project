@@ -91,4 +91,16 @@ public class RoomManager {
     public ArrayList<Room> getRooms() {
         return rooms;
     }
+
+    public String occupyRoomFreeAt(String time){
+    // '-' means no room is free at time
+        for(Room room: rooms){
+            if (!(room.getOccupiedTimes().contains(time))){
+                return room.getRoomId();
+            }
+        }
+        return "-";
+
+    }
+
 }

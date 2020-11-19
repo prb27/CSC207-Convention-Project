@@ -2,31 +2,21 @@ import java.util.ArrayList;
 
 public class UserMessageController {
 
-    private AttendeeManager attendeeManager;
-    private OrganizerManager organizerManager;
-    private SpeakerManager speakerManager;
-    private EventManager eventManager;
-    private RoomManager roomManager;
-    private UserEventController userEventController;
-    private ConversationManager conversationManager;
-    private MessageManager messageManager;
+    private final AttendeeManager attendeeManager;
+    private final OrganizerManager organizerManager;
+    private final SpeakerManager speakerManager;
     private AttendeeMessageSystem attendeeMessageSystem;
-    private OrganizerMessageSystem organizerMessageSystem;
+    private final OrganizerMessageSystem organizerMessageSystem;
     private SpeakerMessageSystem speakerMessageSystem;
 
-    public UserMessageController(){
+    public UserMessageController(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager, EventManager eventManager, ConversationManager conversationManager, MessageManager messageManager){
 
-        attendeeManager = new AttendeeManager();
-        organizerManager = new OrganizerManager();
-        speakerManager = new SpeakerManager();
-        eventManager = new EventManager();
-        roomManager = new RoomManager();
-        userEventController = new UserEventController(attendeeManager, organizerManager, speakerManager, eventManager, roomManager);
-        conversationManager = new ConversationManager();
-        messageManager = new MessageManager();
-        attendeeMessageSystem = new AttendeeMessageSystem(conversationManager, messageManager, attendeeManager, organizerManager, speakerManager, eventManager);
-        organizerMessageSystem = new OrganizerMessageSystem(conversationManager, messageManager, attendeeManager, organizerManager, speakerManager, eventManager);
-        speakerMessageSystem = new SpeakerMessageSystem(conversationManager, messageManager, attendeeManager, organizerManager, speakerManager, eventManager);
+        this.attendeeManager = attendeeManager;
+        this.organizerManager = organizerManager;
+        this.speakerManager = speakerManager;
+        this.attendeeMessageSystem = new AttendeeMessageSystem(conversationManager, messageManager, this.attendeeManager, this.organizerManager, this.speakerManager, eventManager);
+        this.organizerMessageSystem = new OrganizerMessageSystem(conversationManager, messageManager, this.attendeeManager, this.organizerManager, this.speakerManager, eventManager);
+        this.speakerMessageSystem = new SpeakerMessageSystem(conversationManager, messageManager, this.attendeeManager, this.organizerManager, this.speakerManager, eventManager);
 
 
     }

@@ -22,7 +22,7 @@ public class SpeakerMessageSystem extends MessageSystem {
         }
     }
 
-    public void speakerByAllTalks(String speakerId, ArrayList<String> eventNames, String content){
+    public void speakerByMultiTalks(String speakerId, ArrayList<String> eventNames, String content){
         ArrayList<String> recipientIds = new ArrayList<>();
 
         for(Event e: eventManager.getEventList()){
