@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 
+/**
+ * This is the Event entity class, creates an Event object and initiates all values of event. Responsible for the getters and setters of event.
+ * @author aribshaikh
+ */
 public class Event {
     private String eventName;
     private String speakerName;
@@ -7,6 +11,14 @@ public class Event {
     private String roomNumber;
     private ArrayList<String> attendeeList;
 
+    /**
+     * A constructor to create the event object
+     * @param eventName: name of event
+     * @param speakerName: name of speaker
+     * @param eventTime: time of event
+     * @param roomNumber: room number
+     * @param attendeeList: list of attendees
+     */
     public Event(String eventName, String speakerName, String eventTime, String roomNumber, ArrayList<String>attendeeList){
         this.eventName = eventName;
         this.speakerName = speakerName;
@@ -16,22 +28,42 @@ public class Event {
 
     }
 
+    /**
+     * gets the name of event
+     * @return eventName
+     */
     public String getEventName() {
         return eventName;
     }
 
+    /**
+     * returns the name of speaker
+     * @return speakerName
+     */
     public String getSpeakerName() {
         return speakerName;
     }
 
+    /**
+     * returns the time of event
+     * @return eventTime
+     */
     public String getEventTime() {
         return eventTime;
     }
 
+    /**
+     * returns the room number of event
+     * @return roomNumber
+     */
     public String getRoomNumber() {
         return roomNumber;
     }
 
+    /**
+     * returns the list of attendees
+     * @return attendeeList
+     */
     public ArrayList<String> getAttendeeList() {
         return attendeeList;
     }

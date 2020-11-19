@@ -189,4 +189,13 @@ public class AttendeeManager {
         return attendees.get(attendee).getEventsAttending().contains(event);
     }
 
+    /**
+     * return the list of all events that an Attendee is participating
+     * @param attendee: the username of the Attendee to get the according list of participating events
+     * @return ArrayList<String> participating events
+     */
+    public ArrayList<String> getEventsAttending(String attendee) {
+        return attendees.get(attendee).getEventsAttending();
+    }
+
 }
