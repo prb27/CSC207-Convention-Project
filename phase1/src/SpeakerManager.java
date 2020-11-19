@@ -133,4 +133,18 @@ public class SpeakerManager {
             return false;
         }
     }
+
+    public boolean removeTalkFromListofTalks(String username, String eventTime, String eventName){
+        Speaker speaker = getSpeaker(username);
+        if(speaker.equals(null)){
+            return false;
+        }
+        else{
+            HashMap<String, String> listOfTalks = speaker.getListOfTalks();
+            listOfTalks.remove(eventTime, eventName);
+            speaker.setListOfTalks(listOfTalks);
+            return true;
+
+        }
+    }
 }
