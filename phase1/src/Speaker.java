@@ -2,7 +2,7 @@
 import java.util.HashMap;
 
 /**
- * this class stores all the information relating to a Speaker
+ * This class stores all the information relating to a Speaker
  * and provides a single getter and setter to extract and replace
  * the information
  * Speaker is a subclass of User
@@ -33,7 +33,7 @@ public class Speaker extends User{
     }
     /**
      * update the list of all events that this Speaker is speaking at
-     * @param listOfTalks: the new list of all talks(param_type: ArrayList<String>)
+     * @param listOfTalks: the new list of all talks(param_type: HashMap<String, String>)
      * @return void
      */
     public void setListOfTalks(HashMap<String, String> listOfTalks){
