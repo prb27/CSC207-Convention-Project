@@ -193,14 +193,14 @@ public class MasterSystem implements Serializable {
                         ui.present("Please enter the message that you want to send");
                         String message = scanner.nextLine();
                         userMessageController.organizerSendMessageToSingle(username, speakerName, message, "speaker");
-                        boolean error = userMessageController.attendeeSendMessage(username, speakerName, message, "attendee");
+                        boolean error = userMessageController.attendeeSendMessage(username, speakerName, message, "speaker");
                         if(error){
                             ui.present("Successful");
                         }
                         else{
                             ui.present("Something went wrong");
                         }
-                        break;0
+                        break;
                     case "6":
                         Integer i = 1;
                         for(String conversationId: attendeeManager.getConversations(username)) {
