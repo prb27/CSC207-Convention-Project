@@ -225,6 +225,7 @@ public class TextUserInterface implements Serializable {
         System.out.println("17: Send message to a speaker");
         System.out.println("18: Send message to all speakers");
         System.out.println("19: View Conversations");
+        System.out.println("20: Send message to everyone attending an event");
         System.out.println("\n0: Sign-out");
 
     }
