@@ -35,7 +35,6 @@ public abstract class User implements Serializable {
     /**
      * update the list of conversation that this User participates in
      * @param conversations: the new list of conversations to update to (param_type: ArrayList<String>)
-     * @return void
      */
     public void setConversations(ArrayList<String> conversations) {
         this.conversations = conversations;
