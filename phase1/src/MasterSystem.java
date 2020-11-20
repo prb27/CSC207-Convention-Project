@@ -366,6 +366,10 @@ public class MasterSystem implements Serializable {
                                 ui.showError("EDE");
                                 break;
                             }
+                            if(!speakerManager.isSpeaker(speakerName)){
+                                ui.showError("SDE");
+                                break;
+                            }
                             String eventTime = eventManager.getEventTime(eventName);
                             userEventController.removeCreatedEvent(username, eventName);
                             String err = userEventController.createEvent(username, eventName, eventTime, speakerName);
@@ -395,6 +399,7 @@ public class MasterSystem implements Serializable {
                             else{
                                 ui.showError("EDE");
                             }
+                            break;
                         }
                         case "11": {
                             ArrayList<String> eventsNotSignedUpFor = userEventController.getOrganizerEventsNotAttending(username);

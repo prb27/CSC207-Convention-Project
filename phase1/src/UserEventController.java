@@ -199,7 +199,7 @@ public class UserEventController implements Serializable {
      * @param eventName: name of event
      * @param eventTime: time of event
      * @param speakerName: name of speaker
-     * "ARO" - Room Occupied
+     * "ARO" - All Rooms Occupied
      * "STC" - Speaker Time Conflict
      * "TNA" - Time not allowed
      * "ODE" - Organizer Doesn't Exist
