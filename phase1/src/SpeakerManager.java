@@ -79,7 +79,14 @@ public class SpeakerManager implements Serializable {
     }
 
 
-
+    /**
+     * Updates a Speaker object's list of all given talks with a new talk stored as a hash map with
+     * event time as the key and event name as the value. Returns true if the talk was added. Else returns false.
+     * @param speakerUsername
+     * @param eventTime
+     * @param eventName
+     * @return boolean
+     */
     public boolean addTalkToListOfTalks(String speakerUsername, String eventTime, String eventName){
 
         HashMap<String, String> newTalk = new HashMap<>();
@@ -105,6 +112,13 @@ public class SpeakerManager implements Serializable {
         }
     }
 
+    /**
+     * Updates a Speaker object's list of all conversations with a new conversation. Returns true if
+     * the conversation was added successfully. Else returns false.
+     * @param username
+     * @param conversation
+     * @return boolean
+     */
     public boolean addConversation(String username, String conversation){
         Speaker speaker = getSpeaker(username);
         if (speaker == null){
@@ -126,10 +140,16 @@ public class SpeakerManager implements Serializable {
         }
         return null;
     }
+
     private ArrayList<Speaker> getAllSpeakers(){
         return speakers;
     }
 
+    /**
+     * Returns a list of contact usernames that are available for the Speaker with given username to message.
+     * @param username
+     * @return ArrayList <String>
+     */
     public ArrayList<String> getContactsForSpeaker(String username){
         Speaker speaker = getSpeaker(username);
         if (speaker == null){
@@ -138,6 +158,12 @@ public class SpeakerManager implements Serializable {
         return speaker.getContacts();
     }
 
+    /**
+     * Returns a a list of all events (NOTE* events are stored as a HashMap with key as event time
+     * and value as event Name) for a given Speaker with specified username.
+     * @param username
+     * @return ArrayList <HashMap <String, String>>
+     */
     public ArrayList<HashMap<String, String>> getListOfTalks(String username){
         Speaker speaker = getSpeaker(username);
         if (speaker == null){
@@ -146,6 +172,11 @@ public class SpeakerManager implements Serializable {
         return speaker.getListOfTalks();
     }
 
+    /**
+     * Returns a list of
+     * @param username
+     * @return ArrayList <String>
+     */
     public ArrayList<String> getConversations(String username){
         Speaker speaker = getSpeaker(username);
         if(speaker == null){
@@ -154,6 +185,10 @@ public class SpeakerManager implements Serializable {
         return speaker.getConversations();
     }
 
+    /**
+     *
+     * @return ArrayList <String>
+     */
     public ArrayList<String> getAllSpeakerIds(){
         ArrayList<String> speakerIds = new ArrayList<>();
         for (Speaker speaker: speakers){
@@ -162,6 +197,12 @@ public class SpeakerManager implements Serializable {
         return speakerIds;
     }
 
+    /**
+     *
+     * @param username
+     * @param password
+     * @return boolean
+     */
     public boolean checkPassword(String username, String password){
         Speaker speaker = getSpeaker(username);
         if(speaker == null){
@@ -172,6 +213,12 @@ public class SpeakerManager implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param username
+     * @param time
+     * @return boolean
+     */
     public boolean isSpeakerFreeAtTime(String username, String time){
         Speaker speaker = getSpeaker(username);
         if(speaker == null){
@@ -190,7 +237,8 @@ public class SpeakerManager implements Serializable {
     }
 
     /**
-     * Validates if username is the id of a Speaker object
+     * Validates if username is the id of a Speaker object. Returns true if a given speaker username is associated
+     * with a speaker. Else returns false.
      * @param username
      * @return boolean
      */
