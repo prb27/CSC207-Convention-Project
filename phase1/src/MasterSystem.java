@@ -68,17 +68,16 @@ public class MasterSystem {
                     ui.passwordprompt();
                     tempPassword = scanner.nextLine();
                     tempAccountType = accountHandler.login(tempUsername, tempPassword);
-                    while(tempAccountType == null){
-                        ui.usernameprompt();
-                        tempUsername = scanner.nextLine();
-                        ui.passwordprompt();
-                        tempPassword = scanner.nextLine();
-                        tempAccountType = accountHandler.login(tempUsername, tempPassword);
+
+                   if(tempAccountType != null) {
+                        currentUsername = tempUsername;
+                        currentPassword = tempPassword;
+                        currentAccountType = tempAccountType;
+                        loggedIn = true;
                     }
-                    currentUsername = tempUsername;
-                    currentPassword = tempPassword;
-                    currentAccountType = tempAccountType;
-                    loggedIn = true;
+                    else{
+                        continue;
+                   }
                     break;
 
                 case "2":
@@ -94,28 +93,28 @@ public class MasterSystem {
                         ui.showPrompt("SF");
                     break;
             }
+        System.out.println("hi");
+            while(loggedIn) {
 
-        while(loggedIn) {
+                switch(currentAccountType) {
+                    case "attendee":
+                        ui.attendeemenu(currentUsername);
+                        break;
+                    case "organizer":
+                        ui.organizermenu(currentUsername);
+                        break;
+                    case "speaker":
+                        ui.speakermenu(currentUsername);
+                        break;
+                }
 
-            switch(currentAccountType) {
-                case "attendee":
-                    ui.attendeemenu(currentUsername);
-                    break;
-                case "organizer":
-                    ui.organizermenu(currentUsername);
-                    break;
-                case "speaker":
-                    ui.speakermenu(currentUsername);
-                    break;
-            }
+                String option = scanner.nextLine();
 
-            String option = scanner.nextLine();
-
-            if(option.equals("0")) {
-                loggedIn = false;
-                currentUsername = null;
-                currentPassword = null;
-            }
+                if(option.equals("0")) {
+                    loggedIn = false;
+                    currentUsername = null;
+                    currentPassword = null;
+                }
 
             userCommandHandler(option, currentUsername, currentPassword, currentAccountType);
         }

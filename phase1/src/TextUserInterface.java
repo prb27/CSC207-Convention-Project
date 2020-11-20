@@ -86,7 +86,12 @@ public class TextUserInterface {
             case "RAE":
                 System.out.println("Room already exists");
                 break;
-
+            case "UDE":
+                System.out.println("The user doesn't exist!");
+                break;
+            case "AE":
+                System.out.println("Already atteding the event.");
+                break;
         }
     }
 
