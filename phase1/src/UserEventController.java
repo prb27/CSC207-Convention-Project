@@ -298,4 +298,6 @@ public class UserEventController {
         return speakerManager.getListOfTalks(speakerUsername);
     }
 
+
+
 }

@@ -1,6 +1,4 @@
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class MasterSystem {
 
@@ -147,8 +145,13 @@ public class MasterSystem {
                         ui.messageprompt();
                         String content = scanner.nextLine();
                         userMessageController.speakerMessageByTalk(username, eventName, content);
-
+                        ui.showPrompt("MS");
+                        ui.speakermenu(username);
                         break;
+                    case "3":
+                        ArrayList<HashMap<String, String>> listOfTalks =
+                                userEventController.seeAllEventsForSpeaker(username);
+                        ui.messageprompt();
 
                 }
                 break;
