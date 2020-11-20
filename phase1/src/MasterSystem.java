@@ -1,19 +1,25 @@
 import java.io.Serializable;
 import java.util.*;
 
+/**
+ * Class that stores the instances of use case and controller classes and controls
+ * the flow of the program by getting user input and and using other controllers to
+ * execute tasks and display results using the UI.
+ * @author Akshat Ayush
+ */
 public class MasterSystem implements Serializable {
 
     private final TextUserInterface ui;
 
-    private AttendeeManager attendeeManager;
-    private OrganizerManager organizerManager;
-    private SpeakerManager speakerManager;
+    private final AttendeeManager attendeeManager;
+    private final OrganizerManager organizerManager;
+    private final SpeakerManager speakerManager;
 
-    private EventManager eventManager;
-    private RoomManager roomManager;
+    private final EventManager eventManager;
+    private final RoomManager roomManager;
 
-    private ConversationManager conversationManager;
-    private MessageManager messageManager;
+    private final ConversationManager conversationManager;
+    private final MessageManager messageManager;
 
     private final AccountHandler accountHandler;
 
@@ -23,6 +29,12 @@ public class MasterSystem implements Serializable {
 
     private final ProgramGenerator programGenerator;
 
+    /**
+     * Constructor method to initialize a new MasterSystem instance in case
+     * deserializing from the file fails. A newly created MasterSystem adds an
+     * organizer with username: admin and password: admin to the conference as
+     * users can't create organizer accounts themselves.
+     */
     public MasterSystem() {
         this.ui = new TextUserInterface();
         this.attendeeManager = new AttendeeManager();
@@ -45,10 +57,13 @@ public class MasterSystem implements Serializable {
         accountHandler.signup("admin", "admin", "organizer");
     }
 
+    /**
+     * A method that is responsible for the flow of the program by taking user input,
+     * using controllers to execute actions and displaying the result using the UI.
+     */
     public void run() {
         Scanner scanner = new Scanner(System.in);
         String currentUsername = null;
-        String currentPassword = null;
         String currentAccountType = null;
         boolean loggedIn = false;
 
@@ -74,7 +89,6 @@ public class MasterSystem implements Serializable {
 
                     if (tempAccountType != null) {
                         currentUsername = tempUsername;
-                        currentPassword = tempPassword;
                         currentAccountType = tempAccountType;
                         loggedIn = true;
                     } else {
@@ -117,10 +131,9 @@ public class MasterSystem implements Serializable {
                 if (option.equals("0")) {
                     loggedIn = false;
                     currentUsername = null;
-                    currentPassword = null;
                     programGenerator.saveToFile(this, "./phase1/conference_system");
                 } else {
-                    userCommandHandler(option, currentUsername, currentPassword, currentAccountType);
+                    userCommandHandler(option, currentUsername, currentAccountType);
                 }
             }
         }
@@ -128,7 +141,7 @@ public class MasterSystem implements Serializable {
     }
 
 
-    private void userCommandHandler(String option, String username, String password, String userType) {
+    private void userCommandHandler(String option, String username, String userType) {
 
         Scanner scanner = new Scanner(System.in);
         switch(userType) {
