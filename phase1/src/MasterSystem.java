@@ -419,7 +419,7 @@ public class MasterSystem implements Serializable {
                         case "19": {
                             Integer i = 1;
                             for(String conversationId: organizerManager.getConversations(username)) {
-                                ArrayList<String> recipientsOfConversation = userMessageController.recipientsOfConvo(conversationId);
+                                ArrayList<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
                                 StringBuilder recipients = new StringBuilder();
                                 ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
                                 for (String recipient: recipientsOfConversation){
@@ -428,7 +428,7 @@ public class MasterSystem implements Serializable {
                                 }
                                 ui.present("Recipients: " + recipients);
                             }
-                            if(recipientsOfConversation.isEmpty()){
+                            if(organizerManager.getConversations(username).isEmpty()){
                                 ui.present("You have no conversations");
                                 break;
                             }
