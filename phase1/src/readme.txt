@@ -22,7 +22,8 @@ Supported functions:
     - Any Attendee/Organizer can cancel their reservation for a particular event
     - Any Attendee/Organizer can see all the events
     - Any Attendee can see all their participating events
-    - Client can create accounts with appropriate username and password of various user types and sign in to the conference
+    - Client can create accounts with appropriate username and password of various user types and sign in to the
+     conference
     - Any Organizer can create an event
     - Any Organizer can remove an event
     - Any Organizer can send a message to all user types
