@@ -212,14 +212,15 @@ public class MasterSystem implements Serializable {
                                 recipients.append(", ");
                             }
                             ui.present("Recipients: " + recipients);
+                            i += 1;
                         }
                         if(attendeeManager.getConversations(username).isEmpty()){
                             ui.present("You have no conversations");
                             break;
                         }
                         ui.present("Choose a Conversation Number");
-                        int conversationNumber = scanner.nextInt();
-                        String conversationIdFinal = attendeeManager.getConversations(username).get(conversationNumber - 1);
+                        String conversationNumber = scanner.nextLine();
+                        String conversationIdFinal = attendeeManager.getConversations(username).get(Integer.parseInt(conversationNumber) - 1);
                         ArrayList<String> messagesInThisConversation = userMessageController.orderedMessagesInConvo(conversationIdFinal);
                         for (String s : messagesInThisConversation) {
                             ui.present(s);
@@ -459,14 +460,15 @@ public class MasterSystem implements Serializable {
                                     recipients.append(", ");
                                 }
                                 ui.present("Recipients: " + recipients);
+                                i += 1;
                             }
                             if(organizerManager.getConversations(username).isEmpty()){
                                 ui.present("You have no conversations");
                                 break;
                             }
                             ui.present("Choose a Conversation Number");
-                            int conversationNumber = scanner.nextInt();
-                            String conversationIdFinal = organizerManager.getConversations(username).get(conversationNumber - 1);
+                            String conversationNumber = scanner.nextLine();
+                            String conversationIdFinal = organizerManager.getConversations(username).get(Integer.parseInt(conversationNumber) - 1);
                             ArrayList<String> messagesInThisConversation = userMessageController.orderedMessagesInConvo(conversationIdFinal);
                             for (String s : messagesInThisConversation) {
                                 ui.present(s);
