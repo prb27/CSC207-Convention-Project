@@ -5,10 +5,22 @@ import java.util.Scanner;
 public class MasterSystem {
 
     private final TextUserInterface ui;
+
     private AttendeeManager attendeeManager;
     private OrganizerManager organizerManager;
     private SpeakerManager speakerManager;
+
+    private EventManager eventManager;
+    private RoomManager roomManager;
+
+    private ConversationManager conversationManager;
+    private MessageManager messageManager;
+
     private final AccountHandler accountHandler;
+
+
+    private final UserMessageController userMessageController;
+    private final UserEventController userEventController;
 
     private final Scanner scanner = new Scanner(System.in);
 
@@ -18,6 +30,11 @@ public class MasterSystem {
         this.organizerManager = new OrganizerManager();
         this.speakerManager = new SpeakerManager();
         this.accountHandler = new AccountHandler(attendeeManager, organizerManager, speakerManager);
+
+        this.userMessageController = new UserMessageController(attendeeManager, organizerManager,
+                speakerManager, eventManager, conversationManager, messageManager);
+        this.userEventController = new UserEventController(attendeeManager, organizerManager,
+                speakerManager, eventManager, roomManager);
     }
 
 //    private String getInput(List<String> validOptions) {
@@ -118,6 +135,20 @@ public class MasterSystem {
             case "organizer":
                 break;
             case "speaker":
+                switch(option) {
+                    case "1":
+                        userEventController.seeAllEventsForSpeaker(username);
+                        break;
+                    case "2":
+                        ui.eventnameprompt();
+                        String eventName = scanner.nextLine();
+                        ui.messageprompt();
+                        String content = scanner.nextLine();
+                        userMessageController.speakerMessageByTalk(username, eventName, content);
+
+                        break;
+
+                }
                 break;
         }
     }

@@ -45,6 +45,23 @@ public class TextUserInterface {
         System.out.println("Please enter your password:");
     }
 
+    public void eventnameprompt() {
+        System.out.println("Please enter the event name:");
+    }
+
+    public void attendeenameprompt(){
+        System.out.println("Please enter the username of the attendee:");
+    }
+    public void organizernameprompt(){
+        System.out.println("Please enter the username of the organizer:");
+    }
+    public void speakernameprompt(){
+        System.out.println("Please enter the username of the speaker:");
+    }
+    public void messageprompt(){
+        System.out.println("Please enter the message you wish to send:");
+    }
+
 
     //    this is specifically for Ashwin's work.
     //    Need to get everyone to use similar way of dealing with this bullshit.
@@ -152,12 +169,17 @@ public class TextUserInterface {
         System.out.println("1: View list of talks to be given\n\n");
 
         System.out.println("MESSAGING FUNCTIONS:");
-        System.out.println("2: Message all attendees signed up for a talk or multiple talks");
-        System.out.println("3: Message an attendee attending a talk");
+        System.out.println("2: Message all attendees signed up for a talk");
+        System.out.println("3: Message all attendees attending multiple talks");
+        System.out.println("4: Message an attendee attending a talk");
         System.out.println("\n\n0: quit");
     }
-
-
+    /*
+    public void speakerMessagingMenu(String username){
+        System.out.println("MESSAGING:");
+        System.out.println("What is the message?");
+    }
+    */
 
 }
 
