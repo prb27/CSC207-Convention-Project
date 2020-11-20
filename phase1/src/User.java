@@ -12,7 +12,6 @@ import java.util.ArrayList;
  *    * all IDs are stored as strings!
  *    * getters and setters for username, password?
  *    * can attendee remove someone from their contacts list?
- *    * for now, no changes in username and password allowed?
  *    * can attendees delete their account?
  */
 public abstract class User implements Serializable {
@@ -87,7 +86,6 @@ public abstract class User implements Serializable {
     /**
      * update the list of contacts that this User connects to
      * @param contacts: the new list of conversations to update to (param_type: ArrayList<String>)
-     * @return void
      */
     public void setContacts(ArrayList<String> contacts) {
         this.contacts = contacts;
