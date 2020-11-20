@@ -203,8 +203,18 @@ public class UserMessageController implements Serializable {
         return convoId;
     }
 
-    private void reply(){
-
+    private boolean reply(String senderId, String convoId, String content){
+        if(!convoManager.isConversation(convoId)){
+            return false;
+        }
+        String current = convoManager.getConvoRoot(convoId);
+        while(messageManager.getReply(current) != null){
+            current = messageManager.getReply(current);
+        }
+        ArrayList<String> recipients = convoManager.getConvoParticipants(convoId);
+        recipients.remove(senderId);
+        messageManager.addReply(senderId, recipients, content, convoId, current);
+        return true;
     }
 
     /**
