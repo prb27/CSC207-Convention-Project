@@ -96,6 +96,9 @@ public class TextUserInterface implements Serializable {
 
     public void showPrompt(String prompt) {
         switch (prompt) {
+            case "TNA":
+                System.out.println("You can not schedule an event at this time. Please choose one of the following times \n");
+                System.out.println("9, 10, 11, 12, 1, 2, 3, 4, 5");
             case "LF":
                 System.out.println("Signup failed. Please try again :p");
                 break;
