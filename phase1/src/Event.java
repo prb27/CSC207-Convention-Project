@@ -1,15 +1,16 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * This is the Event entity class, creates an Event object and initiates all values of event. Responsible for the getters and setters of event.
  * @author aribshaikh
  */
-public class Event {
+public class Event implements Serializable {
     private String eventName;
     private String speakerName;
     private String eventTime;
     private String roomNumber;
-    private ArrayList<String> attendeeList;
+    private final ArrayList<String> attendeeList;
 
     /**
      * A constructor to create the event object

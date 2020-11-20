@@ -1,10 +1,9 @@
-import java.lang.reflect.Array;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.List;
 
-public class UserEventController {
+public class UserEventController implements Serializable {
 
     private AttendeeManager attendeeManager;
     private OrganizerManager organizerManager;
@@ -23,49 +22,134 @@ public class UserEventController {
 
     }
 
-    public String enrolOrganizerInEvent(String username, String eventName){
-        // If event with eventname and organizer with username exist, then check room capacity and enrol organizer in event.
-        // ODE - Organizer doesn't exist
-        // EDE - Event doesn't exist
-        // EFC - Event at full capacity
-        if (organizerManager.isOrganizer(username)) {
-            if (eventManager.isEvent(eventName)){
-                if (organizerManager.isAttending(username, eventName).equals("YES")) {
-                    return "AE";
-                }
-                String roomId = eventManager.getRoomNumber(eventName);
-                int capacity = roomManager.getCapacityOfRoom(roomId);
-                ArrayList<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
-                if (attendeesOfEvent.size() < capacity) {
-                    String erMessage = eventManager.reserveAttendee(eventName, username);
-                    if (erMessage.equals("YES")) {
-                        organizerManager.addAttendingEvent(username, eventName);
-                        return "YES";
-                    }
-                    return erMessage;
-                }
-                return "EFC";
+    /**
+     * enroll an Organizer with </username> to an Event </eventName>
+     * If event with </eventName> exists,
+     * check room capacity and enrol that Attendee to that Event
+     * @author Ashwin Karthikeyan
+     * @param username: the username of an Organizer to be enrolled in an event (param_type: String)
+     * @param eventName: the intended event (param_type: String)
+     * @return "AE" - Already attending the event
+     *         "EDE" - Event doesn't exist
+     *         "EFC" - Event at full capacity
+     *         "YES" - Organizer has newly been registered for this event
+     */
+    private String enrolOrganizerInEvent(String username, String eventName){
+
+        if (eventManager.isEvent(eventName)){
+            if (organizerManager.isAttending(username, eventName).equals("YES")) {
+                return "AE";
             }
-            return "EDE";
+            String roomId = eventManager.getRoomNumber(eventName);
+            int capacity = roomManager.getCapacityOfRoom(roomId);
+            ArrayList<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
+            if (attendeesOfEvent.size() < capacity) {
+                String erMessage = eventManager.reserveAttendee(eventName, username);
+                if (erMessage.equals("YES")) {
+                    organizerManager.addAttendingEvent(username, eventName);
+                    return "YES";
+                }
+                return erMessage;
+            }
+            return "EFC";
         }
-        return "ODE";
+        return "EDE";
     }
 
+    /**
+     * enroll an Attendee with </username> to an Event </eventName>
+     * If event with </eventName> and Attendee with </username> exist,
+     * check room capacity and enrol that Attendee to that Event
+     * @author Khoa Pham
+     * @param username: the username of an Attendee to be enrolled in an event (param_type: String)
+     * @param eventName: the intended event (param_type: String)
+     * @return : "AE" - Already attending event
+     *           "EDE" - Event doesn't exist
+     *           "EFC" - Event at full capacity
+     *           "YES" - Attendee has newly been registered for this event
+     */
+    private String enrolAttendeeInEvent(String username, String eventName) {
+        // ent.
+        if (eventManager.isEvent(eventName)) {
+            if (attendeeManager.isAttending(username, eventName)) {
+                return "AE";
+            }
+            String roomId = eventManager.getRoomNumber(eventName);
+            int capacity = roomManager.getCapacityOfRoom(roomId);
+            ArrayList<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
+            if (attendeesOfEvent.size() < capacity) {
+                String erMessage = eventManager.reserveAttendee(eventName, username);
+                if (erMessage.equals("YES")) {
+                    attendeeManager.addAttendingEvent(username, eventName);
+                    return "YES";
+                }
+                return erMessage;
+            }
+            return "EFC";
+        }
+        return "EDE";
+    }
+
+    /**
+     * enroll User (Organizer/Attendee) with </username> to an Event </eventName>
+     * by calling enrolOrganizerInEvent() or enrolAttendeeInEvent()
+     * @author Ashwin Karthikeyan
+     * @param username: the username of a User (Organizer/Attendee) to be enrolled in an event (param_type: String)
+     * @param eventName: the intended event (param_type: String)
+     * @return : "AE" - Already attending event
+     *           "EDE" - Event doesn't exist
+     *           "EFC" - Event at full capacity
+     *           "YES" - Attendee has newly been registered for this event
+     */
+    public String enrolUserInEvent(String username, String eventName){
+
+        if(organizerManager.isOrganizer(username)){
+            return enrolOrganizerInEvent(username, eventName);
+        }
+        else if(attendeeManager.isAttendee(username)){
+            return enrolAttendeeInEvent(username, eventName);
+        }
+        return "UDE";
+
+    }
+
+    /**
+     * By the end of the execution of this method, the User (Organizer/Attendee) with username </username> is no longer
+     * attending the event with title </eventName>.
+     * @author Khoa Pham, Ashwin Karthikeyan
+     * @param username: the username of the User who wants to cancel
+     *                  reservation for an event (param_type: String)
+     * @param eventName: the intended event (param_type: String)
+     */
     public void cancelSeatForUser(String username, String eventName){
 
         if(eventManager.isEvent(eventName)){
             if(attendeeManager.isAttendee(username)){
-                attendeeManager.removeAttendingEvent(username, eventName);
-                eventManager.removeAttendee(eventName, username);
+                if(attendeeManager.isAttending(username, eventName)) {
+                    attendeeManager.removeAttendingEvent(username, eventName);
+                    eventManager.removeAttendee(eventName, username);
+                }
             }
             else if(organizerManager.isOrganizer(username)){
-                organizerManager.removeAttendingEvent(username, eventName);
-                eventManager.removeAttendee(eventName, username);
+                if(organizerManager.isAttending(username, eventName).equals("YES")) {
+                    organizerManager.removeAttendingEvent(username, eventName);
+                    eventManager.removeAttendee(eventName, username);
+                }
             }
         }
 
     }
 
+    /**
+     * By the end of the execution of this method, the Organizer with username </organizerUsername> would have
+     * created a room with Id </roomId> and capacity </capacity>
+     * @author Ashwin Karthikeyan
+     * @param organizerUsername: the username of the Organizer who wants to create a new room (param_type: String)
+     * @param roomId: an ID for the new room that the Organizer wants to create (param_type: String)
+     * @param capacity: the capacity of the new room being created (param_type: int)
+     * @return : "RAE" - room already exists
+     *           "ODE" - organizer doesn't exist
+     */
     public String organizerAddNewRoom(String organizerUsername, String roomId, int capacity){
         // RAE - room already exists
         if(organizerManager.isOrganizer(organizerUsername)){
@@ -79,6 +163,23 @@ public class UserEventController {
     }
 
     /**
+     * If Organizer with given username </username> exists, then this method returns the list of event titles that
+     * @param username username of Organizer
+     * @return List of Events that this Organizer is not attending
+     */
+    public ArrayList<String> getOrganizerEventsNotAttending(String username) {
+
+        ArrayList<String> eventsNotSignedUpFor = (ArrayList<String>) eventManager.getAllEventTitles().clone();
+        if(organizerManager.isOrganizer(username)) {
+            if (organizerManager.getEventsAttending(username) != null) {
+                for (String event : organizerManager.getEventsAttending(username)) {
+                    eventsNotSignedUpFor.remove(event);
+                }
+            }
+        }
+        return eventsNotSignedUpFor;
+    }
+    /**
      * Allows an organizer to create an event, by adding it to the list of events, as well as the list of speaker talks
      * @param organizerName: name of organizer
      * @param eventName: name of event
@@ -86,7 +187,7 @@ public class UserEventController {
      * @param speakerName: name of speaker
      * "RO" - Room Occupied
      * "STC" - Speaker Time Conflict
-     * "ETC" - Event Time Conflict
+     * "TNA" - Time not allowed
      * "ODE" - Organizer Doesn't Exist
      * @return Strings of the values listed above
      */
@@ -135,7 +236,8 @@ public class UserEventController {
     }
 
     /**
-     * Allows an organizer to remove a created event, also removes it from the list of talks of the speaker
+     * Allows an organizer to remove a created event, also removes it from the list of talks of the speaker, and list
+     * of attending events for Organizers and Attendees
      * @param organizerName: name of organizer
      * @param eventName: name of event
      * "EDE" - Event Doesn't Exist
@@ -152,6 +254,12 @@ public class UserEventController {
 
                 eventManager.removeEvent(eventName);
                 speakerManager.removeTalkFromListOfTalks(speakerUserName, eventTime, eventName);
+                for(String attendeeID: attendeeManager.getAllAttendeeIds()){
+                    attendeeManager.removeAttendingEvent(attendeeID, eventName);
+                }
+                for(String organizerID: organizerManager.getAllOrganizerIds()){
+                    organizerManager.removeAttendingEvent(organizerID, eventName);
+                }
                 roomManager.freeRoomAt(roomId, eventTime);
                 return "YES";
 
@@ -161,34 +269,6 @@ public class UserEventController {
         } else {
             return "ODE";
         }
-    }
-
-
-    /**
-     * allow an Attendee to signup to a particular event
-     * call eventManager to perform!
-     * @author Khoa Pham
-     * @param attendee: the username of an Attendee who will attend this event (param_type: String)
-     * @param event: the intended event (param_type: String)
-     * @return void
-     */
-    public void signUp(String attendee, String event) {
-        attendeeManager.addAttendingEvent(attendee, event);
-        eventManager.reserveAttendee(event, attendee);
-    }
-
-    /**
-     * allow an Attendee to cancel their reservation to a particular event
-     * call eventManager to perform!
-     * @author Khoa Pham
-     * @param attendee: the username of an Attendee who wants to cancel
-     *                reservation for an event (param_type: String)
-     * @param event: the intended event (param_type: String)
-     * @return void
-     */
-    public void cancel(String attendee, String event) {
-        attendeeManager.removeAttendingEvent(attendee, event);
-        eventManager.removeAttendee(event, attendee);
     }
 
     /**
@@ -239,42 +319,10 @@ public class UserEventController {
         return eventsAttendable;
     }
 
-
-    /**
-     * enroll an Attendee with <username> to an Event <eventName>
-     * If event with <eventName> and Attendee with <username> exist,
-     * check room capacity and enrol that Attendee to that Event
-     * Notes:
-     * ADE - Attendee doesn't exist
-     * EDE - Event doesn't exist
-     * EFC - Event at full capacity
-     * @author Khoa Pham
-     * @param username: the username of an Attendee to be enrolled in an event (param_type: String)
-     * @param eventName: the intended event (param_type: String)
-     * @return String
-     */
-    public String enrolAttendeeInEvent(String username, String eventName) {
-        // ent.
-
-        if (attendeeManager.isAttendee(username) && eventManager.getEvent(eventName) != null) {
-            String roomId = eventManager.getEvent(eventName).getRoomNumber();
-            int capacity = roomManager.getCapacityOfRoom(roomId);
-            ArrayList<String> attendeesOfEvent = eventManager.getEvent(eventName).getAttendeeList();
-            if (attendeesOfEvent.size() < capacity) {
-                String erMessage = eventManager.reserveAttendee(eventName, username);
-                if (erMessage.equals("YES")) {
-                    attendeeManager.addAttendingEvent(username, eventName);
-                    return "YES";
-                }
-                return erMessage;
-            }
-            return "EFC";
-        }
-        return "ADE/EDE";
-    }
-
     public ArrayList<HashMap<String, String>> seeAllEventsForSpeaker(String speakerUsername){
         return speakerManager.getListOfTalks(speakerUsername);
     }
+
+
 
 }

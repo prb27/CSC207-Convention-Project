@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Organizer extends User{
+public class Organizer extends User implements Serializable {
 
     private ArrayList<String> eventsAttending;
 

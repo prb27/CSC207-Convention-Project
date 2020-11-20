@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  *    * for now, no changes in username and password allowed?
  *    * can attendees delete their account?
  */
-public abstract class User {
+public abstract class User implements Serializable {
     private final String username; // disallows changes in username for now
     private final String password; // disallows changes in password for now
     private ArrayList<String> contacts = new ArrayList<>();

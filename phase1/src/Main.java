@@ -1,3 +1,8 @@
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
 public class Main {
 
     /**
@@ -5,7 +10,8 @@ public class Main {
      * @param args: string arguments for main method
      */
     public static void main(String[] args) {
-        MasterSystem masterSystem = new MasterSystem();
+        ProgramGenerator programGenerator = new ProgramGenerator();
+        MasterSystem masterSystem = programGenerator.readFromFile("./phase1/conference_system");
         masterSystem.run();
     }
 }

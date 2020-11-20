@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
@@ -15,7 +16,7 @@ import java.util.Hashtable;
  * @author Khoa Pham
  * @see Attendee
  */
-public class AttendeeManager {
+public class AttendeeManager implements Serializable {
     private final Hashtable<String, Attendee> attendees = new Hashtable<>();
     /**
      * create an Attendee given a pair of username and password

@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UserMessageController {
+public class UserMessageController implements Serializable {
 
     private final AttendeeManager attendeeManager;
     private final OrganizerManager organizerManager;
@@ -27,11 +28,24 @@ public class UserMessageController {
 
     }
 
-    public boolean organizerSendMessageToAll(String organizerId, String content, String userType, ArrayList<String> recipients){
+    public boolean organizerSendMessageToAll(String organizerId, String content, String userType){
 
         if(organizerManager.isOrganizer(organizerId)){
-            organizerToAll(organizerId, content, userType, recipients);
-            return true;
+            if(userType.equals("attendee")) {
+                ArrayList<String> attendeeIDs = attendeeManager.getAllAttendeeIds();
+                organizerToAll(organizerId, content, userType, attendeeIDs);
+                return true;
+            }
+            if(userType.equals("organizer")) {
+                ArrayList<String> organizerIDs = organizerManager.getAllOrganizerIds();
+                organizerToAll(organizerId, content, userType, organizerIDs);
+                return true;
+            }
+            if(userType.equals("speaker")) {
+                ArrayList<String> speakerIds = speakerManager.getAllSpeakerIds();
+                organizerToAll(organizerId, content, userType, speakerIds);
+                return true;
+            }
         }
         return false;
 
@@ -132,10 +146,10 @@ public class UserMessageController {
     private void reply(){
 
     }
-    private void speakerByTalk(String speakerId, String eventName, String content){
-        Event talk = eventManager.getEvent(eventName);
 
-        ArrayList<String> recipientIds = new ArrayList<>(talk.getAttendeeList());
+    private void speakerByTalk(String speakerId, String eventName, String content){
+
+        ArrayList<String> recipientIds = new ArrayList<>(eventManager.getAttendeeList(eventName));
         String convoId = multiMessage(speakerId, recipientIds, content);
         for(String id: recipientIds){
             if(organizerManager.isOrganizer(id)){

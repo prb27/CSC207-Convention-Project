@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -21,7 +22,7 @@ import java.util.ArrayList;
  * @author Ashwin Karthikeyan
  * @see Organizer
  */
-public class OrganizerManager {
+public class OrganizerManager implements Serializable {
 
     private final ArrayList<Organizer> organizerList;
 
@@ -39,7 +40,7 @@ public class OrganizerManager {
      * returns true if an Organizer is created.
      * @param username: the username to be assigned to this possibly new Organizer (param_type: String)
      * @param password: the password to be assigned to this possibly new Organizer (param_type: String)
-     * @return boolean
+     * @return true if and only if new organizer was created
      */
     public boolean createOrganizer(String username, String password) {
 
@@ -256,12 +257,6 @@ public class OrganizerManager {
                 organizer.setEventsAttending(eventsAttending);
             }
         }
-
-    }
-
-    private ArrayList<Organizer> getAllOrganizers() {
-
-        return organizerList;
 
     }
 

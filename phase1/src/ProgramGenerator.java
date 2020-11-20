@@ -1,45 +1,48 @@
+import java.io.*;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+public class ProgramGenerator implements Serializable{
 
 
-public class ProgramGenerator implements ActionListener{
-    int count = 0;
-    private JLabel label;
-    private JFrame frame;
-    private JPanel panel;
+    public MasterSystem readFromFile(String filePath) {
+        try {
+            InputStream file = new FileInputStream(filePath + ".ser");
+            InputStream buffer = new BufferedInputStream(file);
+            ObjectInput input = new ObjectInputStream(buffer);
 
-    public ProgramGenerator(){
-        frame = new JFrame();
+            MasterSystem masterSystem = (MasterSystem) input.readObject();
+            input.close();
 
-        JButton button = new JButton("log in");
-        button.addActionListener(this);
+            return masterSystem;
 
-        label = new JLabel("test");
-
-        panel = new JPanel();
-        panel.setBorder(BorderFactory.createEmptyBorder(30, 30 , 10, 30));
-        panel.setLayout(new GridLayout(0, 1));
-        panel.add(button);
-        panel.add(label);
-
-        frame.add(panel, BorderLayout.CENTER);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("GUI");
-        frame.pack();
-        frame.setVisible(true);
-
-    }
-    public static void main(String[] args) {
-        new ProgramGenerator();
+        } catch (IOException | ClassNotFoundException ex) {
+            System.out.println("Cannot read from file, creating a new MasterSystem");
+            return new MasterSystem();
+        }
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        count ++;
-        label.setText("test" + count);
 
-    }
+        public void saveToFile(MasterSystem object, String filePath){
+            try {
+                File serFile = new File(filePath + ".ser");
+                if(!serFile.exists())
+                    serFile.createNewFile();
+                OutputStream file = new FileOutputStream(filePath + ".ser");
+                OutputStream buffer = new BufferedOutputStream(file);
+                ObjectOutput output = new ObjectOutputStream(buffer);
+
+                output.writeObject(object);
+                output.close();
+
+                System.out.println("Data successfully stored in " + filePath + ".ser");
+
+            } catch (IOException ex) {
+                System.out.println("IOException while saving data");
+                ex.printStackTrace();
+            }
+        }
+
 }
+
+
+
+// Note, that serialization is for objects.

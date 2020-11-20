@@ -1,4 +1,5 @@
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -10,7 +11,7 @@ import java.util.HashMap;
  * @author Vladimir Caterov
  * @see User
  */
-public class Speaker extends User{
+public class Speaker extends User implements Serializable {
     private ArrayList<HashMap<String, String>> listOfTalks;
 
     /**

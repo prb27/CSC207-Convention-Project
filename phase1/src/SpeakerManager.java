@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,17 +26,24 @@ import java.util.HashMap;
  * @author Vladimir Caterov
  * @see Speaker
  */
-public class SpeakerManager {
+public class SpeakerManager implements Serializable {
 
     private final ArrayList<Speaker> speakers;
 
     /**
-     * a constructor that creates a SpeakerManager object
+     * a constructor that creates a SpeakerManager object that stores a list of all speakers
      */
     public SpeakerManager(){
         speakers = new ArrayList<>();
     }
 
+    /**
+     * Creates a Speaker object and adds it to the list of all Speaker objects.
+     * @param username
+     * @param password
+     * @return boolean
+     * @see Speaker
+     */
     public boolean createSpeaker(String username, String password){
         for (Speaker speaker: speakers){
             if (speaker.getUserId().equals(username))
@@ -47,10 +55,16 @@ public class SpeakerManager {
         return true;
     }
 
+    /**
+     * Updates the contact information of a Speaker to include a new contact
+     * @param speakerUsername
+     * @param otherUsername
+     * @return boolean
+     */
     public boolean addContact(String speakerUsername, String otherUsername){
 
         Speaker speaker = getSpeaker(speakerUsername);
-        if (speaker.equals(null)){
+        if (speaker == null){
             return false;
         }
         else {
@@ -62,9 +76,6 @@ public class SpeakerManager {
             }
             return true;
         }
-
-
-
     }
 
     public boolean addTalkToListOfTalks(String speakerUsername, String eventTime, String eventName){
@@ -73,7 +84,7 @@ public class SpeakerManager {
         newTalk.put(eventTime, eventName);
 
         Speaker speaker = getSpeaker(speakerUsername);
-        if (speaker.equals(null)){
+        if (speaker == null){
             return false;
         }
         else{
@@ -94,7 +105,7 @@ public class SpeakerManager {
 
     public boolean addConversation(String username, String conversation){
         Speaker speaker = getSpeaker(username);
-        if (speaker.equals(null)){
+        if (speaker == null){
             return false;
         }
         else{
@@ -119,7 +130,7 @@ public class SpeakerManager {
 
     public ArrayList<String> getContactsForSpeaker(String username){
         Speaker speaker = getSpeaker(username);
-        if (speaker.equals(null)){
+        if (speaker == null){
             return null;
         }
         return speaker.getContacts();
@@ -127,7 +138,7 @@ public class SpeakerManager {
 
     public ArrayList<HashMap<String, String>> getListOfTalks(String username){
         Speaker speaker = getSpeaker(username);
-        if (speaker.equals(null)){
+        if (speaker == null){
             return null;
         }
         return speaker.getListOfTalks();
@@ -135,7 +146,7 @@ public class SpeakerManager {
 
     public ArrayList<String> getConversations(String username){
         Speaker speaker = getSpeaker(username);
-        if(speaker.equals(null)){
+        if(speaker == null){
             return null;
         }
         return speaker.getConversations();
@@ -151,7 +162,7 @@ public class SpeakerManager {
 
     public boolean checkPassword(String username, String password){
         Speaker speaker = getSpeaker(username);
-        if(speaker.equals(null)){
+        if(speaker == null){
             return false;
         }
         else{
@@ -161,7 +172,7 @@ public class SpeakerManager {
 
     public boolean isSpeakerFreeAtTime(String username, String time){
         Speaker speaker = getSpeaker(username);
-        if(speaker.equals(null)){
+        if(speaker == null){
             return false;
         }
         else{
@@ -175,8 +186,13 @@ public class SpeakerManager {
         }
     }
 
+    /**
+     * Validates if username is the id of a Speaker object
+     * @param username
+     * @return boolean
+     */
     public boolean isSpeaker(String username){
-        if (speakers.contains(username)){
+        if (getAllSpeakerIds().contains(username)){
             return true;
         }
         else{
@@ -184,12 +200,22 @@ public class SpeakerManager {
         }
     }
 
+    /**
+     * If a talk from a Speaker object's listOfTalks has been successfully removed, returns true.
+     * Else returns false.
+     *
+     * @param speakerUsername
+     * @param eventTime
+     * @param eventName
+     * @return boolean
+     */
+
     public boolean removeTalkFromListOfTalks(String speakerUsername, String eventTime, String eventName){
         HashMap<String, String> selectedTalk = new HashMap<>();
         selectedTalk.put(eventTime, eventName);
 
         Speaker speaker = getSpeaker(speakerUsername);
-        if (speaker.equals(null)){
+        if (speaker == null){
             return false;
         }
         else {

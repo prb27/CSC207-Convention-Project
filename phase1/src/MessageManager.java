@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MessageManager {
+public class MessageManager implements Serializable {
     private ArrayList<Message> allMessages;
 
     public String sendMessageSingle(String senderId, String recipientId, String content, String convoID){

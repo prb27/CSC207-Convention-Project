@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ConversationManager {
+public class ConversationManager implements Serializable {
     private ArrayList<Conversation> allConversations = new ArrayList<>();
 
     private ArrayList<String> participants(Message message){

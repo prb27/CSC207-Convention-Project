@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Conversation {
+public class Conversation implements Serializable {
     private ArrayList<String> participants;
     private String convoRoot;
     private String id;
