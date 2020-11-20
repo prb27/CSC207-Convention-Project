@@ -140,7 +140,14 @@ public class MasterSystem implements Serializable {
 
     }
 
-
+    /**
+     * Private helper method that takes in the account type of the user and and handles the command
+     * given by the user by calling the appropriate method using the appropriate controller
+     *
+     * @param option: option selected by the user
+     * @param username: username of the currently logged in user
+     * @param userType: account type of the currently logged in user ("attendee", "organizer", "speaker")
+     */
     private void userCommandHandler(String option, String username, String userType) {
 
         Scanner scanner = new Scanner(System.in);
