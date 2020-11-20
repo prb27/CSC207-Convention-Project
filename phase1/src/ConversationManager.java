@@ -28,4 +28,13 @@ public class ConversationManager {
             }
         }
     }
+
+    public Conversation getConvo(String id){
+        for(Conversation convo: allConversations){
+            if(convo.getId() == id){
+                return convo;
+            }
+        }
+        return null;
+    }
 }
