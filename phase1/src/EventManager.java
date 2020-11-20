@@ -31,7 +31,7 @@ public class EventManager {
      * @param eventTime: time of event
      * @param roomNumber: roomnumber of event
      * @param speakerName: speakername of event
-     * EDE - Event Doesn't Exist
+     * EAE - Event Already Exist
      * @return String
      */
     public String addEvent(String eventName, String eventTime, String roomNumber, String speakerName){
@@ -39,7 +39,7 @@ public class EventManager {
         ArrayList<String> attendeeList = new ArrayList<>();
         for (Event event: EventList){
             if(event.getEventName().equals(eventName)){
-                return "EDE";
+                return "EAE";
             }
         }
         Event newEvent = new Event(eventName, speakerName, eventTime, roomNumber,attendeeList);

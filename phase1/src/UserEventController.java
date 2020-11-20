@@ -51,6 +51,14 @@ public class UserEventController {
         return "ODE";
     }
 
+    /**
+     * By the end of the execution of this method, the User (Organizer/Attendee) with username </username> is no longer
+     * attending the event with title </eventName>.
+     * @author Khoa Pham, Ashwin Karthikeyan
+     * @param username: the username of an Attendee who wants to cancel
+     *                reservation for an event (param_type: String)
+     * @param eventName: the intended event (param_type: String)
+     */
     public void cancelSeatForUser(String username, String eventName){
 
         if(eventManager.isEvent(eventName)){
@@ -170,25 +178,10 @@ public class UserEventController {
      * @author Khoa Pham
      * @param attendee: the username of an Attendee who will attend this event (param_type: String)
      * @param event: the intended event (param_type: String)
-     * @return void
      */
     public void signUp(String attendee, String event) {
         attendeeManager.addAttendingEvent(attendee, event);
         eventManager.reserveAttendee(event, attendee);
-    }
-
-    /**
-     * allow an Attendee to cancel their reservation to a particular event
-     * call eventManager to perform!
-     * @author Khoa Pham
-     * @param attendee: the username of an Attendee who wants to cancel
-     *                reservation for an event (param_type: String)
-     * @param event: the intended event (param_type: String)
-     * @return void
-     */
-    public void cancel(String attendee, String event) {
-        attendeeManager.removeAttendingEvent(attendee, event);
-        eventManager.removeAttendee(event, attendee);
     }
 
     /**
@@ -256,21 +249,24 @@ public class UserEventController {
     public String enrolAttendeeInEvent(String username, String eventName) {
         // ent.
 
-        if (attendeeManager.isAttendee(username) && eventManager.getEvent(eventName) != null) {
-            String roomId = eventManager.getEvent(eventName).getRoomNumber();
-            int capacity = roomManager.getCapacityOfRoom(roomId);
-            ArrayList<String> attendeesOfEvent = eventManager.getEvent(eventName).getAttendeeList();
-            if (attendeesOfEvent.size() < capacity) {
-                String erMessage = eventManager.reserveAttendee(eventName, username);
-                if (erMessage.equals("YES")) {
-                    attendeeManager.addAttendingEvent(username, eventName);
-                    return "YES";
+        if (attendeeManager.isAttendee(username)) {
+            if (eventManager.getEvent(eventName) != null) {
+                String roomId = eventManager.getEvent(eventName).getRoomNumber();
+                int capacity = roomManager.getCapacityOfRoom(roomId);
+                ArrayList<String> attendeesOfEvent = eventManager.getEvent(eventName).getAttendeeList();
+                if (attendeesOfEvent.size() < capacity) {
+                    String erMessage = eventManager.reserveAttendee(eventName, username);
+                    if (erMessage.equals("YES")) {
+                        attendeeManager.addAttendingEvent(username, eventName);
+                        return "YES";
+                    }
+                    return erMessage;
                 }
-                return erMessage;
+                return "EFC";
             }
-            return "EFC";
+            return "EDE";
         }
-        return "ADE/EDE";
+        return "ADE";
     }
 
     public ArrayList<HashMap<String, String>> seeAllEventsForSpeaker(String speakerUsername){
