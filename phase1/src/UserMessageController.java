@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -64,9 +65,12 @@ public class UserMessageController {
     }
 
     public String speakerMessageByTalk(String speakerId, String eventName, String content){
+        HashMap<String, String> selectedTalk = new HashMap<>();
+        selectedTalk.put(eventManager.getEventTime(eventName), eventName);
+
         if(speakerManager.isSpeaker(speakerId)){
             if (eventManager.isEvent(eventName)){
-                if (speakerManager.getListOfTalks(speakerId).containsValue(eventName)){
+                if (speakerManager.getListOfTalks(speakerId).contains(selectedTalk)){
                     speakerByTalk(speakerId, eventName, content);
                     return "YES";
                 }
@@ -78,10 +82,13 @@ public class UserMessageController {
     }
 
     public String speakerMessageByMultiTalks(String speakerId, ArrayList<String> eventNames, String content){
+
         if(speakerManager.isSpeaker(speakerId)) {
             for (String eventName : eventNames) {
                 if (eventManager.isEvent(eventName)) {
-                    if (speakerManager.getListOfTalks(speakerId).containsValue(eventName)) {
+                    HashMap<String, String> selectedTalk = new HashMap<>();
+                    selectedTalk.put(eventManager.getEventTime(eventName), eventName);
+                    if (speakerManager.getListOfTalks(speakerId).contains(selectedTalk)) {
                         speakerByTalk(speakerId, eventName, content);
                         return "YES";
                     }
