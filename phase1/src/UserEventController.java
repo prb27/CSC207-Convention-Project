@@ -1,8 +1,6 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.List;
 
 public class UserEventController {
 
@@ -136,6 +134,7 @@ public class UserEventController {
         }
 
     }
+
 
     public String organizerAddNewRoom(String organizerUsername, String roomId, int capacity){
         // RAE - room already exists
