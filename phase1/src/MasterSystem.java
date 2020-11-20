@@ -64,6 +64,7 @@ public class MasterSystem implements Serializable {
 
             switch(landingOption) {
                 case "0":
+                    programGenerator.saveToFile(this, "./phase1/conference_system");
                     return;
                 case "1":
                     ui.usernameprompt();
@@ -121,7 +122,6 @@ public class MasterSystem implements Serializable {
                     loggedIn = false;
                     currentUsername = null;
                     currentPassword = null;
-                    programGenerator.saveToFile(this, "conference_system");
                 }
             }
         }

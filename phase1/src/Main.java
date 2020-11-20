@@ -11,7 +11,7 @@ public class Main {
      */
     public static void main(String[] args) {
         ProgramGenerator programGenerator = new ProgramGenerator();
-        MasterSystem masterSystem = programGenerator.readFromFile("conference_system");
+        MasterSystem masterSystem = programGenerator.readFromFile("./phase1/conference_system");
         masterSystem.run();
     }
 }
