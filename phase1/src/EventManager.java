@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 /**
  * This is a use-case class that interacts with the event entity, and performs various tasks related to events.
@@ -9,9 +10,21 @@ public class EventManager {
     private ArrayList <Event> EventList = new ArrayList<>();
 
     public ArrayList<Event> getEventList() {
+
         return EventList;
     }
 
+    /**
+     * Returns all the event names of the current list of events
+     * @return ArrayList<String></String>
+     */
+    public ArrayList<String> getEventNamesList(){
+        ArrayList<String> eventNamesList = new ArrayList<String>();
+        for(Event event: EventList){
+            eventNamesList.add(event.getEventName());
+        }
+        return eventNamesList;
+    }
     /** Initiates a new event object, and adds it to the list of events
      *
       * @param eventName: name of event
@@ -157,4 +170,52 @@ public class EventManager {
         return event.getAttendeeList();
     }
 
+    /** Returns an arraylist of an event in the order of speaker name, event time, room number
+     *
+     * @param eventName
+     * @return ArrayList
+     */
+    public ArrayList<String> getEventInfo(String eventName){
+        Event event = getEvent(eventName);
+        ArrayList<String> eventInfo = new ArrayList<String>();
+
+        if(EventList.contains(event)){
+            eventInfo.add(event.getSpeakerName());
+            eventInfo.add(event.getEventTime());
+            eventInfo.add(event.getRoomNumber());
+            return eventInfo;
+
+        }
+        else{
+            return null;
+        }
+
+
+    }
+
+    /**
+     * Returns a hashtable of the hashtable of all events
+     * @return
+     */
+    public Hashtable<String, ArrayList<String> > getAllEventsWithInfo(){
+        Hashtable<String, ArrayList<String>> AllEventsWithInfo = new Hashtable<>();
+
+        for(Event event: EventList){
+            String eventName = event.getEventName();
+            ArrayList<String> eventInfo = getEventInfo(eventName);
+
+            if (eventInfo!=null){
+                AllEventsWithInfo.put(eventName, eventInfo);
+            }
+
+
+        }
+        return AllEventsWithInfo;
+
+
+    }
+
 }
+
+
+
