@@ -38,6 +38,23 @@ public class UserMessageController implements Serializable {
 
     }
 
+    public boolean attendeeSendMessage(String username, String recipientId, String content, String userType) {
+        if(userType.equals("attendee")){
+            if(attendeeManager.isAttendee(username) && attendeeManager.isAttendee(recipientId)){
+               attendeeToSingle(username, recipientId, content, userType);
+                return true;
+            }
+            return false;
+        }
+        if(userType.equals("speaker")){
+            if(attendeeManager.isAttendee(username) && speakerManager.isSpeaker(recipientId)){
+                attendeeToSingle(username, recipientId, content, userType);
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
     /**
      * Allows the organizer to send a message to any user
      * @param organizerId : ID of organizer
@@ -112,6 +129,7 @@ public class UserMessageController implements Serializable {
      *         "EDE" - Event Doesn't Exist
      *         "SEC" - Speaker Event Conflict
      *         "YES" - Request Successful
+     * @author Vladimir Caterov
      */
     public String speakerMessageByTalk(String speakerId, String eventName, String content){
         HashMap<String, String> selectedTalk = new HashMap<>();
@@ -139,6 +157,7 @@ public class UserMessageController implements Serializable {
      *         "EDE" - Event Doesn't Exist
      *         "SEC" - Speaker Event Conflict
      *         "YES" - Request Successful
+     * @author Vladimir Caterov
      */
     public String speakerMessageByMultiTalks(String speakerId, ArrayList<String> eventNames, String content){
 
@@ -157,9 +176,48 @@ public class UserMessageController implements Serializable {
             }
         }
         return "SDE";
-
     }
 
+    public boolean speakerMessageAttendee(String speakerId, ArrayList<String> eventNames, String recipientId, String content){
+        if (speakerManager.isSpeaker(speakerId)){
+            for(String eventName: eventNames){
+                if(attendeeManager.isAttending(recipientId, eventName)){
+                    singleMessage(speakerId, recipientId, content);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean reply(String senderId, String convoId, String content){
+        if(!convoManager.isConversation(convoId)){
+            return false;
+        }
+        String current = convoManager.getConvoRoot(convoId);
+        while(messageManager.getReply(current) != null){
+            current = messageManager.getReply(current);
+        }
+        ArrayList<String> recipients = convoManager.getConvoParticipants(convoId);
+        recipients.remove(senderId);
+        messageManager.addReply(senderId, recipients, content, current);
+        return true;
+    }
+
+    public ArrayList<String> orderedMessagesInConvo(String convoId){
+        ArrayList<String> rawMessages = new ArrayList<>();
+        String current = convoManager.getConvoRoot(convoId);
+        while(messageManager.getReply(current) != null){
+            rawMessages.add(current);
+            current = messageManager.getReply(current);
+        }
+        ArrayList<String> formattedMessages = new ArrayList<>();
+        for(String messageId: rawMessages){
+            String message = messageManager.getSender(messageId) + ": " + messageManager.getContent(messageId) + " (" + messageManager.getTime(messageId) + ")";
+            formattedMessages.add(message);
+        }
+        return formattedMessages;
+    }
 
     /**
      * Helper Method: Sends a message to a single recipient
@@ -203,9 +261,6 @@ public class UserMessageController implements Serializable {
         return convoId;
     }
 
-    private void reply(){
-
-    }
 
     /**
      * Correctly creates the conversations and sends the messages to enable a speaker to send a message to everyone in a talk
@@ -325,4 +380,6 @@ public class UserMessageController implements Serializable {
         }
         attendeeManager.addConversation(attendeeId, convoId);
     }
+
+
 }

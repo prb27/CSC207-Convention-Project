@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.Serializable;
 import java.util.*;
 
@@ -78,7 +79,7 @@ public class MasterSystem implements Serializable {
 
             switch (landingOption) {
                 case "0":
-                    programGenerator.saveToFile(this, "./phase1/conference_system");
+                    programGenerator.saveToFile(this, "phase1"+File.separator+"conference_system");
                     return;
                 case "1":
                     ui.usernameprompt();
@@ -131,7 +132,7 @@ public class MasterSystem implements Serializable {
                 if (option.equals("0")) {
                     loggedIn = false;
                     currentUsername = null;
-                    programGenerator.saveToFile(this, "./phase1/conference_system");
+                    programGenerator.saveToFile(this, "phase1"+File.separator+"conference_system");
                 } else {
                     userCommandHandler(option, currentUsername, currentAccountType);
                 }
@@ -140,7 +141,14 @@ public class MasterSystem implements Serializable {
 
     }
 
-
+    /**
+     * Private helper method that takes in the account type of the user and and handles the command
+     * given by the user by calling the appropriate method using the appropriate controller
+     *
+     * @param option: option selected by the user
+     * @param username: username of the currently logged in user
+     * @param userType: account type of the currently logged in user ("attendee", "organizer", "speaker")
+     */
     private void userCommandHandler(String option, String username, String userType) {
 
         Scanner scanner = new Scanner(System.in);
@@ -148,6 +156,85 @@ public class MasterSystem implements Serializable {
             case "attendee":
                 switch(option) {
                     case "1":
+                        Hashtable<String, ArrayList<String>> eventsNotSignedUpFor = userEventController.seeAttendableEvents(username);
+                        for(String event : eventsNotSignedUpFor.keySet()) {
+                            ui.present(event);
+                            for(String eventInfo: eventsNotSignedUpFor.get(event))
+                                ui.present(eventInfo);
+                        }
+                            ui.present("\n\n");
+                        break;
+                    case "2":
+                        ui.present("Please enter the event's name");
+                        String eventName = scanner.nextLine();
+                        userEventController.cancelSeatForUser(username, eventName);
+                        ui.present("You are no longer attending " + eventName);
+                        break;
+                    case "3":
+                        for (String event: attendeeManager.getEventsAttending(username))
+                            ui.present("Event Title: " + event + "\nTime: " + eventManager.getEventTime(event) + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
+                        break;
+                    case "4":
+                        ui.present("Please enter attendee ID");
+                        String attendeeID = scanner.nextLine();
+                        ui.present("Please enter the message that you want to send");
+                        String content = scanner.nextLine();
+                        boolean err = userMessageController.attendeeSendMessage(username, attendeeID, content, "attendee");
+                        if(err){
+                            ui.present("Successful");
+                        }
+                        else{
+                            ui.present("Something went wrong");
+                        }
+                        break;
+                    case "5":
+                        ui.present("Please enter the speaker's username");
+                        String speakerName = scanner.nextLine();
+                        ui.present("Please enter the message that you want to send");
+                        String message = scanner.nextLine();
+                        userMessageController.organizerSendMessageToSingle(username, speakerName, message, "speaker");
+                        boolean error = userMessageController.attendeeSendMessage(username, speakerName, message, "speaker");
+                        if(error){
+                            ui.present("Successful");
+                        }
+                        else{
+                            ui.present("Something went wrong");
+                        }
+                        break;
+                    case "6":
+                        Integer i = 1;
+                        for(String conversationId: attendeeManager.getConversations(username)) {
+                            ArrayList<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
+                            StringBuilder recipients = new StringBuilder();
+                            ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
+                            for (String recipient: recipientsOfConversation){
+                                recipients.append(recipient);
+                                recipients.append(", ");
+                            }
+                            ui.present("Recipients: " + recipients);
+                        }
+                        if(attendeeManager.getConversations(username).isEmpty()){
+                            ui.present("You have no conversations");
+                            break;
+                        }
+                        ui.present("Choose a Conversation Number");
+                        int conversationNumber = scanner.nextInt();
+                        String conversationIdFinal = attendeeManager.getConversations(username).get(conversationNumber - 1);
+                        ArrayList<String> messagesInThisConversation = userMessageController.orderedMessagesInConvo(conversationIdFinal);
+                        for (String s : messagesInThisConversation) {
+                            ui.present(s);
+                        }
+                        ui.present("Enter \"r\" to reply in this conversation. [Any other input will exit this menu]");
+                        String reply = scanner.nextLine();
+                        if(!reply.equals("r")){
+                            break;
+                        }
+                        ui.present("Please enter the message you want to send");
+                        String contents = scanner.nextLine();
+                        userMessageController.reply(username, conversationIdFinal, contents);
+                    default: {
+                        ui.showError("INO");
+                    }
                 }
                 break;
             case "organizer":
@@ -300,7 +387,7 @@ public class MasterSystem implements Serializable {
                         case "11": {
                             ArrayList<String> eventsNotSignedUpFor = userEventController.getOrganizerEventsNotAttending(username);
                             for (String event : eventsNotSignedUpFor)
-                                ui.present(event);
+                                    ui.present("Event Title: " + event + "\nTime: " + eventManager.getEventTime(event) + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
                             break;
                         }
                         case "12": {
@@ -361,6 +448,38 @@ public class MasterSystem implements Serializable {
                             userMessageController.organizerSendMessageToAll(username, content, "speaker");
                             break;
                         }
+                        case "19": {
+                            Integer i = 1;
+                            for(String conversationId: organizerManager.getConversations(username)) {
+                                ArrayList<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
+                                StringBuilder recipients = new StringBuilder();
+                                ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
+                                for (String recipient: recipientsOfConversation){
+                                    recipients.append(recipient);
+                                    recipients.append(", ");
+                                }
+                                ui.present("Recipients: " + recipients);
+                            }
+                            if(organizerManager.getConversations(username).isEmpty()){
+                                ui.present("You have no conversations");
+                                break;
+                            }
+                            ui.present("Choose a Conversation Number");
+                            int conversationNumber = scanner.nextInt();
+                            String conversationIdFinal = organizerManager.getConversations(username).get(conversationNumber - 1);
+                            ArrayList<String> messagesInThisConversation = userMessageController.orderedMessagesInConvo(conversationIdFinal);
+                            for (String s : messagesInThisConversation) {
+                                ui.present(s);
+                            }
+                            ui.present("Enter \"r\" to reply in this conversation. [Any other input will exit this menu]");
+                            String reply = scanner.nextLine();
+                            if(!reply.equals("r")){
+                                break;
+                            }
+                            ui.present("Please enter the message you want to send");
+                            String content = scanner.nextLine();
+                            userMessageController.reply(username, conversationIdFinal, content);
+                        }
                         default: {
                             ui.showError("INO");
                         }
@@ -370,7 +489,7 @@ public class MasterSystem implements Serializable {
             case "speaker":
                 switch(option) {
                     case "1":
-                        userEventController.seeAllEventsForSpeaker(username);
+                        ui.present(userEventController.seeAllEventsForSpeaker(username).toString());
                         break;
                     case "2":
                         ui.eventnameprompt();
@@ -379,12 +498,32 @@ public class MasterSystem implements Serializable {
                         String content = scanner.nextLine();
                         userMessageController.speakerMessageByTalk(username, eventName, content);
                         ui.showPrompt("MS");
-                        ui.speakermenu(username);
                         break;
                     case "3":
-                        ArrayList<HashMap<String, String>> listOfTalks =
-                                userEventController.seeAllEventsForSpeaker(username);
+                        ArrayList<String> listOfTalkNames = userEventController.seeAllEventNamesForSpeaker(username);
                         ui.messageprompt();
+                        String content1 = scanner.nextLine();
+                        userMessageController.speakerMessageByMultiTalks(username, listOfTalkNames, content1);
+                        ui.showPrompt("MMS");
+                    case "4":
+                        ui.present("Please enter the username of the Attendee you wish to message:");
+                        String attendeeUsername = scanner.nextLine();
+                        ui.messageprompt();
+                        String message = scanner.nextLine();
+                        ArrayList<String> listOfTalkNames1 = userEventController.seeAllEventNamesForSpeaker(username);
+                        boolean err = userMessageController.speakerMessageAttendee(username, listOfTalkNames1, attendeeUsername, message);
+                        if(err){
+                            ui.present("Successful");
+                        }
+                        else{
+                            ui.present("Something went wrong");
+                        }
+                        break;
+                    case "5":
+                        break;
+                    default: {
+                        ui.showError("INO");
+                    }
                 }
                 break;
         }
