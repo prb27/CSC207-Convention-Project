@@ -148,9 +148,6 @@ public class MasterSystem implements Serializable {
             case "attendee":
                 switch(option) {
                     case "1":
-
-
-                        break;
                 }
                 break;
             case "organizer":
