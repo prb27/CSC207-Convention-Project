@@ -42,17 +42,23 @@ public class AttendeeManager {
      * ASSUMPTION: String <b> is valid and <a> can add <b> to its contact list!    // check in controller?
      * @param a: the Attendee whose contact list will be added to (param_type: String)
      * @param b: the User to be added to the Attendee's contact list (param_type: String)
-     * @return void
+     * @return String
+     * ADE - Attendee Doesn't Exist
+     * No - <b> is already in <a>'s contact list
+     * Yes - successfully add <b> to <a>'s contact list
      */
-    public void aAddContactB(String a, String b) {
+    public String aAddContactB(String a, String b) {
         if (!attendees.containsKey(a)) {
-            //System.out.println("user with userID " + a + " not found");
-            return;
+            return "ADE";
         }
         Attendee attendee = attendees.get(a);
         ArrayList<String> contacts = attendee.getContacts();
+        if (contacts.contains(b)) {
+            return "No";
+        }
         contacts.add(b);
         attendee.setContacts(contacts);
+        return "Yes";
     }
 
     /**
@@ -197,6 +203,15 @@ public class AttendeeManager {
      */
     public ArrayList<String> getEventsAttending(String attendee) {
         return attendees.get(attendee).getEventsAttending();
+    }
+
+    /**
+     * return the list of all conversations that an Attendee is participating
+     * @param attendee: the username of the Attendee to get the according list of participating conversations
+     * @return ArrayList<String> conversations' id
+     */
+    public ArrayList<String> getConvoIds(String attendee) {
+        return attendees.get(attendee).getConversations();
     }
 
     /**
