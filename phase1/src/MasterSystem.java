@@ -76,24 +76,27 @@ public class MasterSystem {
                         loggedIn = true;
                     }
                     else{
+                        ui.showPrompt("LF");
                         continue;
                    }
                     break;
 
                 case "2":
                     ui.signupmenu();
-                    tempAccountType = scanner.nextLine();
                     ui.usernameprompt();
                     tempUsername = scanner.nextLine();
                     ui.passwordprompt();
                     tempPassword = scanner.nextLine();
-                    if(accountHandler.signup(tempUsername, tempPassword, tempAccountType))
-                        ui.showPrompt("UC");
-                    else
+                    if(accountHandler.signup(tempUsername, tempPassword, "attendee")){
+                        ui.showPrompt("UC");}
+                    else {
                         ui.showPrompt("SF");
+                    }
                     break;
+
+                default:
+                    ui.showError("INO");
             }
-        System.out.println("hi");
             while(loggedIn) {
 
                 switch(currentAccountType) {

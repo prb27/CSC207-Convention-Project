@@ -9,20 +9,18 @@ import java.util.Scanner;
 public class TextUserInterface {
 
     public static void landingmenu() {
-        System.out.println("Welcome! What would you like to do?\n");
-        System.out.println("Please type in only the integer for your choice!");
-        System.out.println("1: log in");
+        System.out.println("\n\nWelcome! What would you like to do?");
+        System.out.println("Please type in only the integer for your choice.");
+
+        System.out.println("\n1: log in");
         System.out.println("2: sign up");
-        System.out.println("\n\n0: quit");
+
+        System.out.println("\n0: quit");
     }
 
     // not used anymore.
     public static void signupmenu() {
-        System.out.println("What type of user would you like to sign up as?");
-        System.out.println("1: Organizer");
-        System.out.println("2: Attendee");
-        System.out.println("3: Speaker");
-        System.out.println("\n\n0: quit");
+        System.out.println("Please create your username and password.");
     }
 
     public static List<String> loginmenu() {
@@ -90,13 +88,25 @@ public class TextUserInterface {
                 System.out.println("The user doesn't exist!");
                 break;
             case "AE":
-                System.out.println("Already atteding the event.");
+                System.out.println("Already attending the event.");
+                break;
+            case "ETC":
+                System.out.println("Event time conflict");
+                break;
+            case "STC":
+                System.out.println("Speaker time conflict");
+                break;
+            case "RO":
+                System.out.println("Room occupied");
                 break;
         }
     }
 
-    public void showPrompt(String x) {
-        switch (x) {
+    public void showPrompt(String prompt) {
+        switch (prompt) {
+            case "LF":
+                System.out.println("Signup failed. Please try again :p");
+                break;
             case "UC":
                 System.out.println("Account successfully created!");
                 System.out.println("Please log in to your account.");
@@ -125,18 +135,18 @@ public class TextUserInterface {
     }
 
     public void attendeemenu(String username) {
-        System.out.println("Hello " + username + "!");
-        System.out.println("What would you like to do?\n\n");
+        System.out.println("\n\nHello " + username + "!");
+        System.out.println("What would you like to do?");
 
-        System.out.println("EVENT FUNCTIONS:");
+        System.out.println("\nEVENT FUNCTIONS:");
         System.out.println("1: Available events to sign up for"); //Basic for loop iterates over list that prints out line by line.
         System.out.println("2: Cancel spot in an event"); // Returns an error if spot doesn't exist otherwise, prints success.
-        System.out.println("3: See schedule of event signed up for\n\n"); //Basic for loop iterates over list that prints out line by line.
+        System.out.println("3: See schedule of event signed up for"); //Basic for loop iterates over list that prints out line by line.
 
-        System.out.println("MESSAGING FUNCTIONS:");
+        System.out.println("\nMESSAGING FUNCTIONS:");
         System.out.println("4: Send message to an attendee");
         System.out.println("5: Send message to a speaker of a talk");
-        System.out.println("\n\n0: quit");
+        System.out.println("\n0: quit");
     }
 
 
@@ -151,38 +161,38 @@ public class TextUserInterface {
     }
 
     public void organizermenu(String username) {
-        System.out.println("Hello " + username + "!");
-        System.out.println("What would you like to do?\n\n");
+        System.out.println("\n\nHello " + username + "!");
+        System.out.println("What would you like to do?");
 
-        System.out.println("EVENT FUNCTIONS:");
+        System.out.println("\nEVENT FUNCTIONS:");
         System.out.println("1: Create speaker account");
         System.out.println("2: Add a room into the system");
         System.out.println("3: Schedule speakers to speak in a room");
         System.out.println("4: Available events to sign up for");
         System.out.println("5: Cancel spot in an event");
-        System.out.println("6: See schedule of event signed up for\n\n");
+        System.out.println("6: See schedule of event signed up for");
 
-        System.out.println("MESSAGING FUNCTIONS:");
+        System.out.println("\nMESSAGING FUNCTIONS:");
         System.out.println("7: Send message to an attendee");
         System.out.println("8: Send message to all attendees");
         System.out.println("9: Send message to a speaker");
         System.out.println("10: Send message to all speakers");
-        System.out.println("\n\n0: quit");
+        System.out.println("\n0: quit");
 
     }
 
     public void speakermenu(String username) {
-        System.out.println("Hello " + username + "!");
-        System.out.println("What would you like to do?\n\n");
+        System.out.println("\n\nHello " + username + "!");
+        System.out.println("What would you like to do?");
 
-        System.out.println("EVENT FUNCTIONS:");
-        System.out.println("1: View list of talks to be given\n\n");
+        System.out.println("\nEVENT FUNCTIONS:");
+        System.out.println("1: View list of talks to be given");
 
-        System.out.println("MESSAGING FUNCTIONS:");
+        System.out.println("\nMESSAGING FUNCTIONS:");
         System.out.println("2: Message all attendees signed up for a talk");
         System.out.println("3: Message all attendees attending multiple talks");
         System.out.println("4: Message an attendee attending a talk");
-        System.out.println("\n\n0: quit");
+        System.out.println("\n0: quit");
     }
     /*
     public void speakerMessagingMenu(String username){

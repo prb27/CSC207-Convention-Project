@@ -36,15 +36,15 @@ public class AccountHandler {
      */
     public boolean signup(String username, String password, String accountType) {
         switch(accountType) {
-            case "1":
+            case "organizer":
                 if(attendeeManager.isAttendee(username) || speakerManager.isSpeaker(username))
                     return false;
                 return organizerManager.createOrganizer(username, password);
-            case "2":
+            case "attendee":
                 if(organizerManager.isOrganizer(username) || speakerManager.isSpeaker(username))
                     return false;
                 return attendeeManager.createAttendee(username, password);
-            case "3":
+            case "speaker":
                 if(organizerManager.isOrganizer(username) || attendeeManager.isAttendee(username))
                     return false;
                 return speakerManager.createSpeaker(username, password);
