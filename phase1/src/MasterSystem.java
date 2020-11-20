@@ -322,6 +322,9 @@ public class MasterSystem implements Serializable {
                                 ui.showError("EDE");
                                 break;
                             }
+                            if(speakerManager.isSpeaker(speakerName)){
+                                ui.showError("SDE");
+                            }
                             String eventTime = eventManager.getEventTime(eventName);
                             userEventController.removeCreatedEvent(username, eventName);
                             String err = userEventController.createEvent(username, eventName, eventTime, speakerName);
@@ -351,6 +354,7 @@ public class MasterSystem implements Serializable {
                             else{
                                 ui.showError("EDE");
                             }
+                            break;
                         }
                         case "11": {
                             ArrayList<String> eventsNotSignedUpFor = userEventController.getOrganizerEventsNotAttending(username);
@@ -417,24 +421,26 @@ public class MasterSystem implements Serializable {
                             break;
                         }
                         case "19": {
-                            Integer i = 1;
+                            int i = 1;
                             for(String conversationId: organizerManager.getConversations(username)) {
                                 ArrayList<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
                                 StringBuilder recipients = new StringBuilder();
-                                ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
+                                ui.present("Conversation Number " + i + "\n" + "Uniqueness Identifier: " + conversationId);
                                 for (String recipient: recipientsOfConversation){
                                     recipients.append(recipient);
                                     recipients.append(", ");
                                 }
                                 ui.present("Recipients: " + recipients);
+                                i++;
                             }
                             if(organizerManager.getConversations(username).isEmpty()){
                                 ui.present("You have no conversations");
                                 break;
                             }
-                            ui.present("Choose a Coversation Number");
-                            int conversationNumber = scanner.nextInt();
-                            String conversationIdFinal = organizerManager.getConversations(username).get(conversationNumber - 1);
+                            ui.present("Choose a Conversation Number");
+                            Scanner scanner2 = new Scanner(System.in);
+                            int finalId = scanner2.nextInt();
+                            String conversationIdFinal = organizerManager.getConversations(username).get(finalId - 1);
                             ArrayList<String> messagesInThisConversation = userMessageController.orderedMessagesInConvo(conversationIdFinal);
                             for (String s : messagesInThisConversation) {
                                 ui.present(s);
@@ -447,6 +453,7 @@ public class MasterSystem implements Serializable {
                             ui.present("Please enter the message you want to send");
                             String content = scanner.nextLine();
                             userMessageController.reply(username, conversationIdFinal, content);
+                            break;
                         }
                         default: {
                             ui.showError("INO");
