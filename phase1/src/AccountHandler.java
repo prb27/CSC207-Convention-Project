@@ -10,9 +10,9 @@ import java.io.Serializable;
  * @see SpeakerManager
  */
 public class AccountHandler implements Serializable {
-    AttendeeManager attendeeManager;
-    OrganizerManager organizerManager;
-    SpeakerManager speakerManager;
+    private final AttendeeManager attendeeManager;
+    private final OrganizerManager organizerManager;
+    private final SpeakerManager speakerManager;
 
     /**
      * A constructor to create an object of AccountHandler
