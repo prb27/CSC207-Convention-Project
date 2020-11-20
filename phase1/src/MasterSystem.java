@@ -21,6 +21,8 @@ public class MasterSystem implements Serializable {
     private final UserMessageController userMessageController;
     private final UserEventController userEventController;
 
+    private final ProgramGenerator programGenerator;
+
     public MasterSystem() {
         this.ui = new TextUserInterface();
         this.attendeeManager = new AttendeeManager();
@@ -32,6 +34,7 @@ public class MasterSystem implements Serializable {
                 speakerManager, eventManager, conversationManager, messageManager);
         this.userEventController = new UserEventController(attendeeManager, organizerManager,
                 speakerManager, eventManager, roomManager);
+        this.programGenerator = new ProgramGenerator();
     }
 
 //    private String getInput(List<String> validOptions) {
@@ -118,6 +121,7 @@ public class MasterSystem implements Serializable {
                     loggedIn = false;
                     currentUsername = null;
                     currentPassword = null;
+                    programGenerator.saveToFile(this, "conference_system");
                 }
             }
         }
