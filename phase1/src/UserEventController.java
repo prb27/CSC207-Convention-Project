@@ -149,7 +149,7 @@ public class UserEventController {
                 String roomId = eventManager.getRoomNumber(eventName);
 
                 eventManager.removeEvent(eventName);
-                speakerManager.removeTalkFromListofTalks(speakerUserName, eventTime, eventName);
+                speakerManager.removeTalkFromListOfTalks(speakerUserName, eventTime, eventName);
                 roomManager.freeRoomAt(roomId, eventTime);
                 return "YES";
 

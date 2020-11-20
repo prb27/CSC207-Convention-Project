@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -10,7 +11,7 @@ import java.util.HashMap;
  * @see User
  */
 public class Speaker extends User{
-    private HashMap<String, String> listOfTalks;
+    private ArrayList<HashMap<String, String>> listOfTalks;
 
     /**
      * a constructor to create a Speaker object
@@ -21,14 +22,14 @@ public class Speaker extends User{
      */
     public Speaker(String username, String password){
         super(username, password);
-        this.listOfTalks = new HashMap<>();
+        this.listOfTalks = new ArrayList<>();
     }
 
     /**
-     * return the list of all events that this Speaker is talking at
+     * return the list of all talks that this Speaker is speaking at
      * @return HashMap<String, String> listOfTalks
      */
-    public HashMap<String, String> getListOfTalks() {
+    public ArrayList<HashMap<String, String>> getListOfTalks() {
         return listOfTalks;
     }
     /**
@@ -36,7 +37,7 @@ public class Speaker extends User{
      * @param listOfTalks: the new list of all talks(param_type: HashMap<String, String>)
      * @return void
      */
-    public void setListOfTalks(HashMap<String, String> listOfTalks){
+    public void setListOfTalks(ArrayList<HashMap<String, String>> listOfTalks){
         this.listOfTalks = listOfTalks;
 
     }

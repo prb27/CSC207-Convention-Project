@@ -14,7 +14,7 @@ public class SpeakerMessageSystem extends MessageSystem {
         ArrayList<String> recipientIds = new ArrayList<>(talk.getAttendeeList());
         Conversation convo = multiMessage(speakerId, recipientIds, content);
         for(String id: recipientIds){
-            if(organizerManager.getOrganizer(id) != null){
+            if(organizerManager.getOrganizer(id) != null){ //should change to - organizerManager.isOrganizer(id) (VLAD)
                 organizerManager.addConversation(id, convo.getId());
             } else if(attendeeManager.getAttendee(id) != null){
                 attendeeManager.addConversation(id, convo.getId());
@@ -39,7 +39,7 @@ public class SpeakerMessageSystem extends MessageSystem {
 
         if(!recipientIds.isEmpty()){
             for(String id: recipientIds){
-                if(organizerManager.getOrganizer(id) != null){
+                if(organizerManager.getOrganizer(id) != null){ //should change to - organizerManager.isOrganizer(id) (VLAD)
                     organizerManager.addConversation(id, convo.getId());
                 } else if(attendeeManager.getAttendee(id) != null){
                     attendeeManager.addConversation(id, convo.getId());
