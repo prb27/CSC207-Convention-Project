@@ -235,6 +235,12 @@ public class UserEventController {
 
                 eventManager.removeEvent(eventName);
                 speakerManager.removeTalkFromListOfTalks(speakerUserName, eventTime, eventName);
+                for(String attendeeID: attendeeManager.getAllAttendeeIds()){
+                    attendeeManager.removeAttendingEvent(attendeeID, eventName);
+                }
+                for(String organizerID: organizerManager.getAllOrganizerIds()){
+                    organizerManager.removeAttendingEvent(organizerID, eventName);
+                }
                 roomManager.freeRoomAt(roomId, eventTime);
                 return "YES";
 
