@@ -45,15 +45,6 @@ public class MasterSystem implements Serializable {
         accountHandler.signup("admin", "admin", "organizer");
     }
 
-//    private String getInput(List<String> validOptions) {
-//        String inputString = scanner.nextLine();
-//        if(validOptions == null)
-//            return inputString;
-//        if(!validOptions.contains(inputString))
-//            return null;
-//        return inputString;
-//    }
-
     public void run() {
         Scanner scanner = new Scanner(System.in);
         String currentUsername = null;
@@ -107,31 +98,33 @@ public class MasterSystem implements Serializable {
                 default:
                     ui.showError("INO");
             }
-        }
 
-        switch(currentAccountType) {
-            case "attendee":
-                ui.attendeemenu(currentUsername);
-                break;
-            case "organizer":
-                ui.organizermenu(currentUsername);
-                break;
-            case "speaker":
-                ui.speakermenu(currentUsername);
-                break;
-        }
-        while(loggedIn) {
+            while(loggedIn) {
 
-            String option = scanner.nextLine();
-            if (option.equals("0")) {
-                loggedIn = false;
-                currentUsername = null;
-                currentPassword = null;
-            } else {
-                userCommandHandler(option, currentUsername, currentPassword, currentAccountType);
+                switch(currentAccountType) {
+                    case "attendee":
+                        ui.attendeemenu(currentUsername);
+                        break;
+                    case "organizer":
+                        ui.organizermenu(currentUsername);
+                        break;
+                    case "speaker":
+                        ui.speakermenu(currentUsername);
+                        break;
+                }
+
+                String option = scanner.nextLine();
+                if (option.equals("0")) {
+                    loggedIn = false;
+                    currentUsername = null;
+                    currentPassword = null;
+                    programGenerator.saveToFile(this, "./phase1/conference_system");
+                } else {
+                    userCommandHandler(option, currentUsername, currentPassword, currentAccountType);
+                }
             }
         }
-        programGenerator.saveToFile(this, "./phase1/conference_system");
+
     }
 
 
