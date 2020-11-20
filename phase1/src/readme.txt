@@ -1,3 +1,6 @@
+@author Khoa Pham
+This file offers important information regarding how to run the program
+
 Preconditions:
     - The client is not allowed to change username and password after creation
     - Event names, usernames are unique strings!
