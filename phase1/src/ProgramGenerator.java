@@ -33,8 +33,6 @@ public class ProgramGenerator implements Serializable{
                 output.writeObject(object);
                 output.close();
 
-                System.out.println("Data successfully stored in " + filePath + ".ser");
-
             } catch (IOException ex) {
                 System.out.println("IOException while saving data");
                 ex.printStackTrace();
