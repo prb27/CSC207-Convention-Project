@@ -57,7 +57,10 @@ public class MessageManager implements Serializable {
     }
 
     public String getReply(String messageId){
-        return getMessage(messageId).getReply();
+        if(getMessage(messageId) != null) {
+            return getMessage(messageId).getReply();
+        }
+        else return null;
     }
 
     public String getSender(String messageId){
