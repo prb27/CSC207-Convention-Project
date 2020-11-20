@@ -8,8 +8,7 @@ import java.util.Scanner;
 
 public class TextUserInterface {
 
-    public static void landingmenu() {
-        System.out.println("\n\nWelcome! What would you like to do?");
+    public void landingmenu() {
         System.out.println("Please type in only the integer for your choice.");
 
         System.out.println("\n1: log in");
@@ -19,21 +18,10 @@ public class TextUserInterface {
     }
 
     // not used anymore.
-    public static void signupmenu() {
-        System.out.println("Please create your username and password.");
+    public void signupmenu() {
+        System.out.println("Please create a username and password.");
     }
 
-    public static List<String> loginmenu() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Please enter your username:");
-        String username = input.nextLine();
-        System.out.println("Please enter your password:");
-        String password = input.nextLine();
-        List<String> details = new ArrayList<>();
-        details.add(username);
-        details.add(password);
-        return details;
-    }
 
     public void usernameprompt() {
         System.out.println("Please enter your username:");
