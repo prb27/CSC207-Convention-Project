@@ -1,6 +1,11 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * This class represents information related to an Organizer. An Organizer is a User. This is Serializable class.
+ * @author Ashwin Karthikeyan
+ * @see User
+ */
 public class Organizer extends User implements Serializable {
 
     private ArrayList<String> eventsAttending;
