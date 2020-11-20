@@ -50,7 +50,7 @@ public class SpeakerManager {
     public boolean addContact(String speakerUsername, String otherUsername){
 
         Speaker speaker = getSpeaker(speakerUsername);
-        if (speaker.equals(null)){
+        if (speaker == null){
             return false;
         }
         else {
@@ -73,7 +73,7 @@ public class SpeakerManager {
         newTalk.put(eventTime, eventName);
 
         Speaker speaker = getSpeaker(speakerUsername);
-        if (speaker.equals(null)){
+        if (speaker == null){
             return false;
         }
         else{
@@ -94,7 +94,7 @@ public class SpeakerManager {
 
     public boolean addConversation(String username, String conversation){
         Speaker speaker = getSpeaker(username);
-        if (speaker.equals(null)){
+        if (speaker == null){
             return false;
         }
         else{
@@ -119,7 +119,7 @@ public class SpeakerManager {
 
     public ArrayList<String> getContactsForSpeaker(String username){
         Speaker speaker = getSpeaker(username);
-        if (speaker.equals(null)){
+        if (speaker == null){
             return null;
         }
         return speaker.getContacts();
@@ -127,7 +127,7 @@ public class SpeakerManager {
 
     public ArrayList<HashMap<String, String>> getListOfTalks(String username){
         Speaker speaker = getSpeaker(username);
-        if (speaker.equals(null)){
+        if (speaker == null){
             return null;
         }
         return speaker.getListOfTalks();
@@ -135,7 +135,7 @@ public class SpeakerManager {
 
     public ArrayList<String> getConversations(String username){
         Speaker speaker = getSpeaker(username);
-        if(speaker.equals(null)){
+        if(speaker == null){
             return null;
         }
         return speaker.getConversations();
@@ -151,7 +151,7 @@ public class SpeakerManager {
 
     public boolean checkPassword(String username, String password){
         Speaker speaker = getSpeaker(username);
-        if(speaker.equals(null)){
+        if(speaker == null){
             return false;
         }
         else{
@@ -161,7 +161,7 @@ public class SpeakerManager {
 
     public boolean isSpeakerFreeAtTime(String username, String time){
         Speaker speaker = getSpeaker(username);
-        if(speaker.equals(null)){
+        if(speaker == null){
             return false;
         }
         else{
@@ -176,7 +176,7 @@ public class SpeakerManager {
     }
 
     public boolean isSpeaker(String username){
-        if (speakers.contains(username)){
+        if (getAllSpeakerIds().contains(username)){
             return true;
         }
         else{
@@ -189,7 +189,7 @@ public class SpeakerManager {
         selectedTalk.put(eventTime, eventName);
 
         Speaker speaker = getSpeaker(speakerUsername);
-        if (speaker.equals(null)){
+        if (speaker == null){
             return false;
         }
         else {
