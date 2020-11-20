@@ -3,6 +3,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 
+/**
+ * This class is responsible for taking input and implementing all logic/actions related to a user and events.
+ * The following manipulations a user can work on are:
+ * - enrol an Organizer in an event
+ * - enrol an Attendee in an event
+ * - enrol a User in event
+ * - cancel enrolment for User
+ * - view list of available events
+ * - create an event
+ * - remove an event
+ * @author Ashwin Karthikeyan, Arib Shaikh, Khoa Pham, Vladimir
+ *
+ */
 public class UserEventController implements Serializable {
 
     private final AttendeeManager attendeeManager;
@@ -246,6 +259,7 @@ public class UserEventController implements Serializable {
      * "ODE" - Organizer Doesn't Exist
      * "YES" - Request Successful
      * @return String of the values listed above
+     * @author aribshaikh
      */
     public String removeCreatedEvent(String organizerName,String eventName) {
         if (organizerManager.isOrganizer(organizerName)) {

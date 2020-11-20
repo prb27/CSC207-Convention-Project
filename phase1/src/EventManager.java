@@ -4,6 +4,15 @@ import java.util.Hashtable;
 
 /**
  * This is a use-case class that interacts with the event entity, and performs various tasks related to events.
+ * This class does the following functionalities:
+ * - returns a list of all event names
+ * - add an event object
+ * - remove an event object
+ * - reserve a user for an event
+ * - remove a user for an event
+ * - get the object of an event
+ * - get the fields of an event which include (event name, speaker name, room number, time, attendee list)
+ * - displays a hashtable of an event with its information
  * @author aribshaikh
  */
 public class EventManager implements Serializable {
@@ -65,8 +74,9 @@ public class EventManager implements Serializable {
      *
      * @param eventName : name of event
      * @param UserId : userID of attendee
-     * EDE - Event Doesn't Exist
-     * @return : String
+     *
+     * @return : "EDE" - Event Doesn't Exist
+     *           "YES" - Request Successful
      */
     public String reserveAttendee(String eventName, String UserId){
         //Need to check if attendee is not already registered for this event
@@ -117,7 +127,7 @@ public class EventManager implements Serializable {
     /**
      * Returns the speaker of event given the event name
      * @param eventName: name of event
-     * @return : String
+     * @return : speakerName (param_type: String)
      */
     public String getSpeakerEvent(String eventName){
         Event event = getEvent(eventName);
