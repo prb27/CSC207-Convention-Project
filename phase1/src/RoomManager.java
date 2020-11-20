@@ -1,6 +1,12 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * This class is the class that keeps track of all the rooms that can be used for this conference. This is Serializable class.
+ * This class also restricts the uses/manipulations of rooms.
+ * @author Ashwin Karthikeyan
+ * @see Room
+ */
 public class RoomManager implements Serializable {
 
     private final ArrayList<Room> rooms;

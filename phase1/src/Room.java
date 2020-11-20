@@ -2,7 +2,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * This class stores the information related to rooms.
+ * This class stores the information related to rooms. This is Serializable class.
  * - capacity of the room
  * - room ID
  * - times at which the room is used for an event
