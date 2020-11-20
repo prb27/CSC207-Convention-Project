@@ -12,7 +12,7 @@ public class RoomManager implements Serializable {
     private final ArrayList<Room> rooms;
 
     public RoomManager(){
-        rooms = new ArrayList<Room>();
+        rooms = new ArrayList<>();
     }
     public boolean createRoom(String roomId, int capacity){
 
@@ -44,13 +44,10 @@ public class RoomManager implements Serializable {
 
     public Room getRoom(String roomId){
 
-        if(rooms != null) {
-            for (Room room : rooms) {
-                if (room.getRoomId().equals(roomId)) {
-                    return room;
-                }
+        for (Room room : rooms) {
+            if (room.getRoomId().equals(roomId)) {
+                return room;
             }
-            return null;
         }
         return null;
     }
@@ -98,10 +95,6 @@ public class RoomManager implements Serializable {
         }
         return -1;
 
-    }
-
-    private ArrayList<Room> getRooms() {
-        return rooms;
     }
 
     public String occupyRoomFreeAt(String time){

@@ -94,6 +94,9 @@ public class TextUserInterface implements Serializable {
             case "LF":
                 System.out.println("Login failed. Please try again :p");
                 break;
+            case "ARO":
+                System.out.println("All rooms occupied");
+                break;
             case "UC":
                 System.out.println("Account successfully created!");
                 System.out.println("Please log in to the account.");
