@@ -77,10 +77,11 @@ Instructions:
             5: Send message to an attendee
             6: Send message to a speaker of a talk
             7: View all conversations
-        - SpeakerMenu Process (4 options):
+        - SpeakerMenu Process (5 options):
             EVENT FUNCTIONS:
             1: View list of talks to be given
             MESSAGING FUNCTIONS:
             2: Message all attendees signed up for a talk
             3: Message all attendees attending multiple talks
             4: Message an attendee attending a talk
+            5: View Conversations
