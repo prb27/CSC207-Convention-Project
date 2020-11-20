@@ -55,5 +55,7 @@ Instructions:
             "5: Send message to a speaker of a talk"
         - SpeakerMenu Process (3 options):
             "1: View list of talks to be given"
-            "2: Message all attendees signed up for a talk or multiple talks"
-            "3: Message an attendee attending a talk"
+            "2: Message all attendees signed up for a talk"
+            "3: Message all attendees signed up for all talks"
+            "4: Message an attendee attending a talk"
+            "5: View all conversations"
