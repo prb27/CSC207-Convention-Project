@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -5,7 +6,7 @@ import java.util.Hashtable;
  * This is a use-case class that interacts with the event entity, and performs various tasks related to events.
  * @author aribshaikh
  */
-public class EventManager {
+public class EventManager implements Serializable {
 
     private ArrayList <Event> EventList = new ArrayList<>();
 

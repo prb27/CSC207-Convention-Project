@@ -1,3 +1,5 @@
+import java.io.Serializable;
+
 /**
  * This class is responsible for creating accounts of all user types
  * with a unique username and password and allowing a user to sign in
@@ -7,7 +9,7 @@
  * @see OrganizerManager
  * @see SpeakerManager
  */
-public class AccountHandler {
+public class AccountHandler implements Serializable {
     AttendeeManager attendeeManager;
     OrganizerManager organizerManager;
     SpeakerManager speakerManager;

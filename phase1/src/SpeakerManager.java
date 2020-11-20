@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,7 +26,7 @@ import java.util.HashMap;
  * @author Vladimir Caterov
  * @see Speaker
  */
-public class SpeakerManager {
+public class SpeakerManager implements Serializable {
 
     private final ArrayList<Speaker> speakers;
 

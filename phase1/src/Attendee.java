@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  * A few notes to consider:
  *    * disallows changes in username, password for now
  */
-public class Attendee extends User {
+public class Attendee extends User implements Serializable {
     private ArrayList<String> eventsAttending = new ArrayList<>();
 
     /**

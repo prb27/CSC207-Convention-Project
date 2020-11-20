@@ -1,12 +1,13 @@
 import javafx.util.Pair;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class TextUserInterface {
+public class TextUserInterface implements Serializable {
 
     public void landingmenu() {
         System.out.println("Please type in only the integer for your choice.");

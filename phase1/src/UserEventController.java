@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 
-public class UserEventController {
+public class UserEventController implements Serializable {
 
     private AttendeeManager attendeeManager;
     private OrganizerManager organizerManager;

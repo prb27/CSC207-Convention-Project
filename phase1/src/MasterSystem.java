@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.*;
 
-public class MasterSystem {
+public class MasterSystem implements Serializable {
 
     private final TextUserInterface ui;
 
@@ -19,8 +20,6 @@ public class MasterSystem {
 
     private final UserMessageController userMessageController;
     private final UserEventController userEventController;
-
-    private final Scanner scanner = new Scanner(System.in);
 
     public MasterSystem() {
         this.ui = new TextUserInterface();
@@ -45,6 +44,7 @@ public class MasterSystem {
 //    }
 
     public void run() {
+        Scanner scanner = new Scanner(System.in);
         String currentUsername = null;
         String currentPassword = null;
         String currentAccountType = null;
@@ -60,6 +60,8 @@ public class MasterSystem {
             String landingOption = scanner.nextLine();
 
             switch(landingOption) {
+                case "0":
+                    return;
                 case "1":
                     ui.usernameprompt();
                     tempUsername = scanner.nextLine();
@@ -95,6 +97,7 @@ public class MasterSystem {
                 default:
                     ui.showError("INO");
             }
+            String option;
             while(loggedIn) {
 
                 switch(currentAccountType) {
@@ -109,21 +112,20 @@ public class MasterSystem {
                         break;
                 }
 
-                String option = scanner.nextLine();
+                option = scanner.nextLine();
 
                 if(option.equals("0")) {
                     loggedIn = false;
                     currentUsername = null;
                     currentPassword = null;
                 }
-
-            userCommandHandler(option, currentUsername, currentPassword, currentAccountType);
+            }
         }
     }
-}
 
     private void userCommandHandler(String option, String username, String password, String userType) {
 
+        Scanner scanner = new Scanner(System.in);
         switch(userType) {
             case "attendee":
                 switch(option) {

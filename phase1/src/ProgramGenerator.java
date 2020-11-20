@@ -1,6 +1,6 @@
 import java.io.*;
 
-public class ProgramGenerator {
+public class ProgramGenerator implements Serializable{
 
 
     public MasterSystem readFromFile(String filePath) {

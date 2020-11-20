@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -21,7 +22,7 @@ import java.util.ArrayList;
  * @author Ashwin Karthikeyan
  * @see Organizer
  */
-public class OrganizerManager {
+public class OrganizerManager implements Serializable {
 
     private final ArrayList<Organizer> organizerList;
 

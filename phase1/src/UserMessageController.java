@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UserMessageController {
+public class UserMessageController implements Serializable {
 
     private final AttendeeManager attendeeManager;
     private final OrganizerManager organizerManager;
