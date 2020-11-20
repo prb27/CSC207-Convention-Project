@@ -75,11 +75,12 @@ public class TextUserInterface {
 
     public void showPrompt(String x) {
         switch (x) {
-            case "INO":
-                System.out.println("Invalid Input: please choose from one of the available integer options");
+            case "UC":
+                System.out.println("Account successfully created!");
+                System.out.println("Please log in to your account.");
                 break;
-            case "ODE":
-                System.out.println("Organizer doesn't exist");
+            case "SF":
+                System.out.println("Signup failed. Please try again :p");
                 break;
             case "EDE":
                 System.out.println("Event doesn't exist");
@@ -106,7 +107,7 @@ public class TextUserInterface {
         System.out.println("3: See schedule of event signed up for\n\n"); //Basic for loop iterates over list that prints out line by line.
 
         System.out.println("MESSAGING FUNCTIONS:");
-        System.out.println("4: Send message to an attendee"); //
+        System.out.println("4: Send message to an attendee");
         System.out.println("5: Send message to a speaker of a talk");
         System.out.println("\n\n0: quit");
     }
@@ -148,7 +149,7 @@ public class TextUserInterface {
         System.out.println("What would you like to do?\n\n");
 
         System.out.println("EVENT FUNCTIONS:");
-        System.out.println("1: View list of talks to given\n\n");
+        System.out.println("1: View list of talks to be given\n\n");
 
         System.out.println("MESSAGING FUNCTIONS:");
         System.out.println("2: Message all attendees signed up for a talk or multiple talks");
