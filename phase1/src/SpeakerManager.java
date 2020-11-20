@@ -176,10 +176,11 @@ public class SpeakerManager implements Serializable {
             return false;
         }
         else{
-            Boolean free = true;
+            boolean free = true;
             for (HashMap<String, String> talk: speaker.getListOfTalks()){
-                if(talk.containsKey(time)){
+                if (talk.containsKey(time)) {
                     free = false;
+                    break;
                 }
             }
             return free;

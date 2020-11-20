@@ -5,11 +5,11 @@ import java.util.Hashtable;
 
 public class UserEventController implements Serializable {
 
-    private AttendeeManager attendeeManager;
-    private OrganizerManager organizerManager;
-    private SpeakerManager speakerManager;
-    private EventManager eventManager;
-    private RoomManager roomManager;
+    private final AttendeeManager attendeeManager;
+    private final OrganizerManager organizerManager;
+    private final SpeakerManager speakerManager;
+    private final EventManager eventManager;
+    private final RoomManager roomManager;
 
 
     public UserEventController(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager, EventManager eventManager, RoomManager roomManager){
@@ -153,10 +153,9 @@ public class UserEventController implements Serializable {
     public String organizerAddNewRoom(String organizerUsername, String roomId, int capacity){
         // RAE - room already exists
         if(organizerManager.isOrganizer(organizerUsername)){
-            if(roomManager.isRoom(roomId)){
+            if(!roomManager.createRoom(roomId, capacity)){
                 return "RAE";
             }
-            roomManager.createRoom(roomId, capacity);
             return "YES";
         }
         return "ODE";
@@ -169,7 +168,10 @@ public class UserEventController implements Serializable {
      */
     public ArrayList<String> getOrganizerEventsNotAttending(String username) {
 
-        ArrayList<String> eventsNotSignedUpFor = (ArrayList<String>) eventManager.getAllEventTitles().clone();
+        ArrayList<String> eventsNotSignedUpFor = new ArrayList<>();
+        for(String event: eventManager.getAllEventTitles()){
+            eventsNotSignedUpFor.add(event);
+        }
         if(organizerManager.isOrganizer(username)) {
             if (organizerManager.getEventsAttending(username) != null) {
                 for (String event : organizerManager.getEventsAttending(username)) {

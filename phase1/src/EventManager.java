@@ -95,6 +95,7 @@ public class EventManager implements Serializable {
      * @return : Event
      */
     private Event getEvent(String eventName){
+
         for(Event event: EventList){
             if(event.getEventName().equals(eventName)) {
                 return event;

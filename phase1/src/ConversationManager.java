@@ -30,9 +30,10 @@ public class ConversationManager implements Serializable {
         }
     }
 
-    public Conversation getConvo(String id){
+    //VLAD ADDED
+    public Conversation getConversation(String convoId){
         for(Conversation convo: allConversations){
-            if(convo.getId() == id){
+            if (convo.getId().equals(convoId)){
                 return convo;
             }
         }
