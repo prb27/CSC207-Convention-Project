@@ -111,6 +111,11 @@ public class TextUserInterface {
             case "RAE":
                 System.out.println("Room already exists");
                 break;
+            case "MS":
+                System.out.println("Message Sent Successfully!");
+                break;
+            case "AMS":
+                System.out.println("Multiple Messages Sent Successfully!");
         }
     }
 
