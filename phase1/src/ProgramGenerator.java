@@ -1,45 +1,47 @@
+import java.io.*;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+public class ProgramGenerator {
 
 
-public class ProgramGenerator implements ActionListener{
-    int count = 0;
-    private JLabel label;
-    private JFrame frame;
-    private JPanel panel;
+    public Object readFile(String filePath) {
+        try {
+            FileInputStream fileIn = new FileInputStream(filePath + ".txt");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
 
-    public ProgramGenerator(){
-        frame = new JFrame();
+            Object object = (Object) in.readObject();
 
-        JButton button = new JButton("log in");
-        button.addActionListener(this);
+            in.close();
+            fileIn.close();
 
-        label = new JLabel("test");
+            return object;
 
-        panel = new JPanel();
-        panel.setBorder(BorderFactory.createEmptyBorder(30, 30 , 10, 30));
-        panel.setLayout(new GridLayout(0, 1));
-        panel.add(button);
-        panel.add(label);
+        } catch (IOException ex) {
+            System.out.println("IOException is caught");
+        } catch (ClassNotFoundException ex) {
+            System.out.println("ClassNotFoundException is caught");
+        }
 
-        frame.add(panel, BorderLayout.CENTER);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("GUI");
-        frame.pack();
-        frame.setVisible(true);
 
+        public void savetoFile (String filePath, Object object){
+            try {
+                FileOutputStream fout = new FileOutputStream(filePath + ".txt");
+                ObjectOutputStream out = new ObjectOutputStream(fout);
+
+                out.writeObject(object);
+
+                out.close();
+                fout.close();
+
+                System.out.println("Serialized data is saved in test.txt file");
+
+            } catch (IOException ex) {
+                System.out.println("IOException is caught");
+            }
+        }
     }
-    public static void main(String[] args) {
-        new ProgramGenerator();
-    }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        count ++;
-        label.setText("test" + count);
-
-    }
 }
+
+
+
+// Note, that serialization is for objects.
