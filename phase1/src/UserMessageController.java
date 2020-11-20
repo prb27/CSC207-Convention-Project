@@ -207,6 +207,7 @@ public class UserMessageController implements Serializable {
     public ArrayList<String> orderedMessagesInConvo(String convoId){
         ArrayList<String> rawMessages = new ArrayList<>();
         String current = convoManager.getConvoRoot(convoId);
+        rawMessages.add(current);
         while(messageManager.getReply(current) != null){
             rawMessages.add(current);
             current = messageManager.getReply(current);
