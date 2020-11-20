@@ -148,6 +148,54 @@ public class MasterSystem implements Serializable {
             case "attendee":
                 switch(option) {
                     case "1":
+                        Hashtable<String, ArrayList<String>> eventsNotSignedUpFor = userEventController.seeAttendableEvents(username);
+                        for(String event : eventsNotSignedUpFor.keySet()) {
+                            ui.present(event);
+                            for(String eventInfo: eventsNotSignedUpFor.get(event))
+                                ui.present(eventInfo);
+                        }
+                            ui.present("\n\n");
+                        break;
+                    case "2":
+                        ui.present("Please enter the event's name");
+                        String eventName = scanner.nextLine();
+                        userEventController.cancelSeatForUser(username, eventName);
+                        ui.present("You are no longer attending " + eventName);
+                        break;
+                    case "3":
+                        for (String event: attendeeManager.getEventsAttending(username))
+                            ui.present("Event Title: " + event + "\nTime: " + eventManager.getEventTime(event) + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
+                        break;
+                    case "4":
+                        ui.present("Please enter attendee ID");
+                        String attendeeID = scanner.nextLine();
+                        ui.present("Please enter the message that you want to send");
+                        String content = scanner.nextLine();
+                        boolean err = userMessageController.attendeeSendMessage(username, attendeeID, content, "attendee");
+                        if(err){
+                            ui.present("Successful");
+                        }
+                        else{
+                            ui.present("Something went wrong");
+                        }
+                        break;
+                    case "5":
+                        ui.present("Please enter the speaker's username");
+                        String speakerName = scanner.nextLine();
+                        ui.present("Please enter the message that you want to send");
+                        String message = scanner.nextLine();
+                        userMessageController.organizerSendMessageToSingle(username, speakerName, message, "speaker");
+                        boolean error = userMessageController.attendeeSendMessage(username, speakerName, message, "attendee");
+                        if(error){
+                            ui.present("Successful");
+                        }
+                        else{
+                            ui.present("Something went wrong");
+                        }
+                        break;
+                    default: {
+                        ui.showError("INO");
+                    }
                 }
                 break;
             case "organizer":
