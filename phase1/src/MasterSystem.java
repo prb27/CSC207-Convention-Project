@@ -200,6 +200,37 @@ public class MasterSystem implements Serializable {
                             ui.present("Something went wrong");
                         }
                         break;
+                    case "6":
+                        Integer i = 1;
+                        for(String conversationId: attendeeManager.getConversations(username)) {
+                            ArrayList<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
+                            StringBuilder recipients = new StringBuilder();
+                            ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
+                            for (String recipient: recipientsOfConversation){
+                                recipients.append(recipient);
+                                recipients.append(", ");
+                            }
+                            ui.present("Recipients: " + recipients);
+                        }
+                        if(attendeeManager.getConversations(username).isEmpty()){
+                            ui.present("You have no conversations");
+                            break;
+                        }
+                        ui.present("Choose a Conversation Number");
+                        int conversationNumber = scanner.nextInt();
+                        String conversationIdFinal = attendeeManager.getConversations(username).get(conversationNumber - 1);
+                        ArrayList<String> messagesInThisConversation = userMessageController.orderedMessagesInConvo(conversationIdFinal);
+                        for (String s : messagesInThisConversation) {
+                            ui.present(s);
+                        }
+                        ui.present("Enter \"r\" to reply in this conversation. [Any other input will exit this menu]");
+                        String reply = scanner.nextLine();
+                        if(!reply.equals("r")){
+                            break;
+                        }
+                        ui.present("Please enter the message you want to send");
+                        String contents = scanner.nextLine();
+                        userMessageController.reply(username, conversationIdFinal, contents);
                     default: {
                         ui.showError("INO");
                     }
@@ -432,7 +463,7 @@ public class MasterSystem implements Serializable {
                                 ui.present("You have no conversations");
                                 break;
                             }
-                            ui.present("Choose a Coversation Number");
+                            ui.present("Choose a Conversation Number");
                             int conversationNumber = scanner.nextInt();
                             String conversationIdFinal = organizerManager.getConversations(username).get(conversationNumber - 1);
                             ArrayList<String> messagesInThisConversation = userMessageController.orderedMessagesInConvo(conversationIdFinal);
