@@ -10,23 +10,8 @@ public class Main {
      * @param args: string arguments for main method
      */
     public static void main(String[] args) {
-
-        //deserialize here
-
-        MasterSystem masterSystem = new MasterSystem();
+        ProgramGenerator programGenerator = new ProgramGenerator();
+        MasterSystem masterSystem = programGenerator.readFromFile("conference_system");
         masterSystem.run();
-
-        //serialize here
-        try{
-            FileOutputStream fout = new FileOutputStream("test.txt");
-            ObjectOutputStream out = new ObjectOutputStream(fout);
-            out.writeObject(masterSystem);
-            out.close();
-            fout.close();
-            System.out.println("Serialized data is saved in test.txt file");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 }
