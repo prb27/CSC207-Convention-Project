@@ -112,6 +112,7 @@ public class UserMessageController implements Serializable {
      *         "EDE" - Event Doesn't Exist
      *         "SEC" - Speaker Event Conflict
      *         "YES" - Request Successful
+     * @author Vladimir Caterov
      */
     public String speakerMessageByTalk(String speakerId, String eventName, String content){
         HashMap<String, String> selectedTalk = new HashMap<>();
@@ -139,6 +140,7 @@ public class UserMessageController implements Serializable {
      *         "EDE" - Event Doesn't Exist
      *         "SEC" - Speaker Event Conflict
      *         "YES" - Request Successful
+     * @author Vladimir Caterov
      */
     public String speakerMessageByMultiTalks(String speakerId, ArrayList<String> eventNames, String content){
 
@@ -157,7 +159,18 @@ public class UserMessageController implements Serializable {
             }
         }
         return "SDE";
+    }
 
+    public boolean speakerMessageAttendee(String speakerId, ArrayList<String> eventNames, String recipientId, String content){
+        if (speakerManager.isSpeaker(speakerId)){
+            for(String eventName: eventNames){
+                if(attendeeManager.isAttending(recipientId, eventName)){
+                    singleMessage(speakerId, recipientId, content);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public boolean reply(String senderId, String convoId, String content){

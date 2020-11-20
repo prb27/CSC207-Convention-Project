@@ -1,7 +1,6 @@
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * This class is responsible for taking input and implementing all logic/actions related to a user and events.
@@ -337,6 +336,18 @@ public class UserEventController implements Serializable {
 
     public ArrayList<HashMap<String, String>> seeAllEventsForSpeaker(String speakerUsername){
         return speakerManager.getListOfTalks(speakerUsername);
+    }
+
+    public ArrayList<String> seeAllEventNamesForSpeaker(String speakerUsername){
+        ArrayList<HashMap<String, String>> listOfTalks = seeAllEventsForSpeaker(speakerUsername);
+        ArrayList<String> listOfNamedTalks = new ArrayList<>();
+        for(HashMap<String, String> talk: listOfTalks){
+            Collection<String> talkname1 =  talk.values();
+            for (String talk3: talkname1){
+                listOfNamedTalks.add(talk3);
+            }
+        }
+        return listOfNamedTalks;
     }
 
 

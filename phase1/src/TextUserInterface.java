@@ -192,10 +192,11 @@ public class TextUserInterface implements Serializable {
         System.out.println("\nEVENT FUNCTIONS:");
         System.out.println("1: View list of talks to be given");
 
-        System.out.println("\nMESSAGING FUNCTIONS:");
+        System.out.println("\nMESSAGING FUNCTIONS[Note: Since you are an speaker, you can send a message to attendees in a single talk, or multiple]:");
         System.out.println("2: Message all attendees signed up for a talk");
         System.out.println("3: Message all attendees attending multiple talks");
         System.out.println("4: Message an attendee attending a talk");
+        System.out.println("5: View all conversations");
         System.out.println("\n0: Sign-out");
     }
 
