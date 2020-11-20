@@ -121,6 +121,13 @@ public class TextUserInterface implements Serializable {
             case "RO":
                 System.out.println("Room occupied");
                 break;
+            case "TNA":
+                System.out.println("You can not schedule an event at this time. Please choose one of the following times \n");
+                System.out.println("9, 10, 11, 12, 1, 2, 3, 4, 5");
+                break;
+            case "ARO":
+                System.out.println("All rooms occupied");
+                break;
         }
     }
 
@@ -131,9 +138,6 @@ public class TextUserInterface implements Serializable {
      */
     public void showPrompt(String prompt) {
         switch (prompt) {
-            case "TNA":
-                System.out.println("You can not schedule an event at this time. Please choose one of the following times \n");
-                System.out.println("9, 10, 11, 12, 1, 2, 3, 4, 5");
             case "LF":
                 System.out.println("Login failed. Please try again :p");
                 break;
@@ -218,6 +222,7 @@ public class TextUserInterface implements Serializable {
         System.out.println("16: Send message to all attendees");
         System.out.println("17: Send message to a speaker");
         System.out.println("18: Send message to all speakers");
+        System.out.println("19: View all conversations");
         System.out.println("\n0: Sign-out");
 
     }
@@ -234,10 +239,11 @@ public class TextUserInterface implements Serializable {
         System.out.println("\nEVENT FUNCTIONS:");
         System.out.println("1: View list of talks to be given");
 
-        System.out.println("\nMESSAGING FUNCTIONS:");
+        System.out.println("\nMESSAGING FUNCTIONS[Note: Since you are an speaker, you can send a message to attendees in a single talk, or multiple]:");
         System.out.println("2: Message all attendees signed up for a talk");
         System.out.println("3: Message all attendees attending multiple talks");
         System.out.println("4: Message an attendee attending a talk");
+        System.out.println("5: View all conversations");
         System.out.println("\n0: Sign-out");
     }
 
