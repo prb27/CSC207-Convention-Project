@@ -141,7 +141,7 @@ public class TextUserInterface implements Serializable {
         System.out.println("\nMESSAGING FUNCTIONS:");
         System.out.println("4: Send message to an attendee");
         System.out.println("5: Send message to a speaker of a talk");
-        System.out.println("\n0: quit");
+        System.out.println("\n0: Sign out");
     }
 
 
@@ -184,7 +184,7 @@ public class TextUserInterface implements Serializable {
         System.out.println("16: Send message to all attendees");
         System.out.println("17: Send message to a speaker");
         System.out.println("18: Send message to all speakers");
-        System.out.println("\n0: quit");
+        System.out.println("\n0: Sign out");
 
     }
 
@@ -199,7 +199,7 @@ public class TextUserInterface implements Serializable {
         System.out.println("2: Message all attendees signed up for a talk");
         System.out.println("3: Message all attendees attending multiple talks");
         System.out.println("4: Message an attendee attending a talk");
-        System.out.println("\n0: quit");
+        System.out.println("\n0: Sign out");
     }
     /*
     public void speakerMessagingMenu(String username){
