@@ -1,5 +1,6 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 public class UserEventController {
@@ -193,10 +194,10 @@ public class UserEventController {
      * return the list of all events
      * call eventManager to perform!
      * @author Khoa Pham
-     * @return ArrayList<Event> events
+     * @return Hashtable<String, ArrayList<String>> eventsWithInfo
      */
-    public ArrayList<Event> seeAllEvents() {
-        return eventManager.getEventList();
+    public Hashtable<String, ArrayList<String>> seeAllEventsWithInfo() {
+        return eventManager.getAllEventsWithInfo();
     }
 
     /**
@@ -205,16 +206,38 @@ public class UserEventController {
      * @author Khoa Pham
      * @param attendee: the username of an Attendee whose list of
      *                participating events is returned (param_type: String)
-     * @return ArrayList<Event> events
+     * @return Hashtable<String, ArrayList<String>> eventsWithInfo
      */
-    public ArrayList<Event> seeParticipatingEvents(String attendee) {
-        ArrayList<String> eventIds = attendeeManager.getAttendee(attendee).getEventsAttending();
-        ArrayList<Event> eventObjs = new ArrayList<>();
-        for (String id: eventIds) {
-            eventObjs.add(eventManager.getEvent(id));
+    public Hashtable<String, ArrayList<String>> seeParticipatingEvents(String attendee) {
+        ArrayList<String> eventIdsAttending = attendeeManager.getEventsAttending(attendee);
+        Hashtable<String, ArrayList<String>> events = new Hashtable<>();
+        for (String eventId : eventIdsAttending) {
+            events.put(eventId, eventManager.getEventInfo(eventId));
         }
-        return eventObjs;
+        return events;
     }
+
+
+    /**
+     * allow an Attendee to see the list of all their available to signup events
+     * call eventManager to perform!
+     * @author Khoa Pham
+     * @param attendee: the username of an Attendee whose list of
+     *          all their available to signup events is returned (param_type: String)
+     * @return Hashtable<String, ArrayList<String>> eventsWithInfo
+     */
+    public Hashtable<String, ArrayList<String>> seeAttendableEvents(String attendee) {
+        ArrayList<String> eventIdsAttending = attendeeManager.getEventsAttending(attendee);
+        ArrayList<String> eventIdsAll = eventManager.getEventNamesList();
+        Hashtable<String, ArrayList<String>> eventsAttendable = new Hashtable<>();
+        for (String eventId : eventIdsAll) {
+            if (!eventIdsAttending.contains(eventId)) {
+                eventsAttendable.put(eventId, eventManager.getEventInfo(eventId));
+            }
+        }
+        return eventsAttendable;
+    }
+
 
     /**
      * enroll an Attendee with <username> to an Event <eventName>
