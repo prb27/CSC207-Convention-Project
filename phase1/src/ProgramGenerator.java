@@ -15,7 +15,7 @@ public class ProgramGenerator {
             return masterSystem;
 
         } catch (IOException | ClassNotFoundException ex) {
-            System.out.println("Cannot read from file");
+            System.out.println("Cannot read from file, creating a new MasterSystem");
             return new MasterSystem();
         }
     }
@@ -23,6 +23,9 @@ public class ProgramGenerator {
 
         public void saveToFile(MasterSystem object, String filePath){
             try {
+                File serFile = new File(filePath + ".ser");
+                if(!serFile.exists())
+                    serFile.createNewFile();
                 OutputStream file = new FileOutputStream(filePath + ".ser");
                 OutputStream buffer = new BufferedOutputStream(file);
                 ObjectOutput output = new ObjectOutputStream(buffer);
