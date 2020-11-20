@@ -136,12 +136,14 @@ public class UserEventController {
     }
 
     /**
-     * By the end of the execution of this method, the User (Organizer/Attendee) with username </username> is no longer
-     * attending the event with title </eventName>.
-     * @author Khoa Pham, Ashwin Karthikeyan
-     * @param organizerUsername: the username of the Organizer who wants to cancel
-     *                reservation for an event (param_type: String)
-     * @param eventName: the intended event (param_type: String)
+     * By the end of the execution of this method, the Organizer with username </organizerUsername> would have
+     * created a room with Id </roomId> and capacity </capacity>
+     * @author Ashwin Karthikeyan
+     * @param organizerUsername: the username of the Organizer who wants to create a new room (param_type: String)
+     * @param roomId: an ID for the new room that the Organizer wants to create (param_type: String)
+     * @param capacity: the capacity of the new room being created (param_type: int)
+     * @return : "RAE" - room already exists
+     *           "ODE" - organizer doesn't exist
      */
     public String organizerAddNewRoom(String organizerUsername, String roomId, int capacity){
         // RAE - room already exists
@@ -238,19 +240,6 @@ public class UserEventController {
         } else {
             return "ODE";
         }
-    }
-
-
-    /**
-     * allow an Attendee to signup to a particular event
-     * call eventManager to perform!
-     * @author Khoa Pham
-     * @param attendee: the username of an Attendee who will attend this event (param_type: String)
-     * @param event: the intended event (param_type: String)
-     */
-    public void signUp(String attendee, String event) {
-        attendeeManager.addAttendingEvent(attendee, event);
-        eventManager.reserveAttendee(event, attendee);
     }
 
     /**
