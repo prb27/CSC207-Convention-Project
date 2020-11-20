@@ -457,7 +457,7 @@ public class MasterSystem implements Serializable {
             case "speaker":
                 switch(option) {
                     case "1":
-                        userEventController.seeAllEventsForSpeaker(username);
+                        ui.present(userEventController.seeAllEventsForSpeaker(username).toString());
                         break;
                     case "2":
                         ui.eventnameprompt();
@@ -466,12 +466,29 @@ public class MasterSystem implements Serializable {
                         String content = scanner.nextLine();
                         userMessageController.speakerMessageByTalk(username, eventName, content);
                         ui.showPrompt("MS");
-                        ui.speakermenu(username);
                         break;
                     case "3":
-                        ArrayList<HashMap<String, String>> listOfTalks =
-                                userEventController.seeAllEventsForSpeaker(username);
+                        ArrayList<String> listOfTalkNames = userEventController.seeAllEventNamesForSpeaker(username);
                         ui.messageprompt();
+                        String content1 = scanner.nextLine();
+                        userMessageController.speakerMessageByMultiTalks(username, listOfTalkNames, content1);
+                        ui.showPrompt("MMS");
+                    case "4":
+                        ui.attendeenameprompt();
+                        String attendeeUsername = scanner.nextLine();
+                        ui.messageprompt();
+                        String message = scanner.nextLine();
+                        ArrayList<String> listOfTalkNames1 = userEventController.seeAllEventNamesForSpeaker(username);
+                        boolean err = userMessageController.speakerMessageAttendee(username, listOfTalkNames1, attendeeUsername, message);
+                        if(err){
+                            ui.present("Successful");
+                        }
+                        else{
+                            ui.present("Something went wrong");
+                        }
+                        break;
+                    case "5":
+                        break;
                     default: {
                         ui.showError("INO");
                     }
