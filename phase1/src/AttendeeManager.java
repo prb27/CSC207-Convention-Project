@@ -210,7 +210,7 @@ public class AttendeeManager {
      * @param attendee: the username of the Attendee to get the according list of participating conversations
      * @return ArrayList<String> conversations' id
      */
-    public ArrayList<String> getConvoIds(String attendee) {
+    public ArrayList<String> getConversations(String attendee) {
         return attendees.get(attendee).getConversations();
     }
 
