@@ -192,8 +192,19 @@ public class EventManager {
 
         }
         return AllEventsWithInfo;
+    }
 
+    /**
+     * Returns an ArrayList of all event titles
+     * @return : String
+     */
+    public ArrayList<String> getAllEventTitles(){
 
+        ArrayList<String> eventTitles = new ArrayList<>();
+        for(Event event: EventList){
+            eventTitles.add(event.getEventName());
+        }
+        return eventTitles;
     }
 
 }

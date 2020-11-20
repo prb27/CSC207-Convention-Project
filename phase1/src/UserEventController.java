@@ -162,6 +162,23 @@ public class UserEventController {
     }
 
     /**
+     * If Organizer with given username </username> exists, then this method returns the list of event titles that
+     * @param username username of Organizer
+     * @return List of Events that this Organizer is not attending
+     */
+    public ArrayList<String> getOrganizerEventsNotAttending(String username) {
+
+        ArrayList<String> eventsNotSignedUpFor = (ArrayList<String>) eventManager.getAllEventTitles().clone();
+        if(organizerManager.isOrganizer(username)) {
+            if (organizerManager.getEventsAttending(username) != null) {
+                for (String event : organizerManager.getEventsAttending(username)) {
+                    eventsNotSignedUpFor.remove(event);
+                }
+            }
+        }
+        return eventsNotSignedUpFor;
+    }
+    /**
      * Allows an organizer to create an event, by adding it to the list of events, as well as the list of speaker talks
      * @param organizerName: name of organizer
      * @param eventName: name of event
