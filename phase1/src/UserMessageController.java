@@ -203,7 +203,7 @@ public class UserMessageController implements Serializable {
         return convoId;
     }
 
-    private boolean reply(String senderId, String convoId, String content){
+    public boolean reply(String senderId, String convoId, String content){
         if(!convoManager.isConversation(convoId)){
             return false;
         }
