@@ -218,7 +218,8 @@ public class UserEventController {
     }
 
     /**
-     * Allows an organizer to remove a created event, also removes it from the list of talks of the speaker
+     * Allows an organizer to remove a created event, also removes it from the list of talks of the speaker, and list
+     * of attending events for Organizers and Attendees
      * @param organizerName: name of organizer
      * @param eventName: name of event
      * "EDE" - Event Doesn't Exist
