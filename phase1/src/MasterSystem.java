@@ -440,6 +440,9 @@ public class MasterSystem implements Serializable {
                         ArrayList<HashMap<String, String>> listOfTalks =
                                 userEventController.seeAllEventsForSpeaker(username);
                         ui.messageprompt();
+                    default: {
+                        ui.showError("INO");
+                    }
                 }
                 break;
         }
