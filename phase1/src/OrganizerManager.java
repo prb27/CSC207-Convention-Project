@@ -19,6 +19,7 @@ import java.util.ArrayList;
  * The class OrganizerManager has:
  *      - a method to check if there is an Organizer object with a given username
  *      - get all Organizer usernames
+ * This is Serializable class.
  * @author Ashwin Karthikeyan
  * @see Organizer
  */

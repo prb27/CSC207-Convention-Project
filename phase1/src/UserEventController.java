@@ -139,7 +139,6 @@ public class UserEventController implements Serializable {
         if(eventManager.isEvent(eventName)){
             if(attendeeManager.isAttendee(username)){
                 if(attendeeManager.isAttending(username, eventName)) {
-                    // what if username DNE?
                     attendeeManager.removeAttendingEvent(username, eventName);
                     eventManager.removeAttendee(eventName, username);
                 }
@@ -201,7 +200,7 @@ public class UserEventController implements Serializable {
      * @param eventName: name of event
      * @param eventTime: time of event
      * @param speakerName: name of speaker
-     * "RO" - Room Occupied
+     * "ARO" - Room Occupied
      * "STC" - Speaker Time Conflict
      * "TNA" - Time not allowed
      * "ODE" - Organizer Doesn't Exist
