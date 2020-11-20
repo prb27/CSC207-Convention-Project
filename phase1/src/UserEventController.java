@@ -24,7 +24,7 @@ public class UserEventController {
     }
 
     public String enrolOrganizerInEvent(String username, String eventName){
-        // If event with eventname and organizer with username exist, then check room capacity and enrol organizer in event.
+        // If event with eventName and organizer with username exist, then check room capacity and enrol organizer in event.
         // ODE - Organizer doesn't exist
         // EDE - Event doesn't exist
         // EFC - Event at full capacity
