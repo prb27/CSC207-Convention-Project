@@ -4,6 +4,16 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * This class is responsible to compute all the user interactions and messaging operations needed
+ * The following responsibilities include:
+ * - allows an organizer to send a message to all user types
+ * - allows an organizer to send a message to a single user type
+ * - allows a speaker to send a message to all attendees of a talk
+ * - allows a speaker to send a message to all attendees of multiple talks
+ * - allows an attendee to send a message to another attendee
+ *
+ */
 public class UserMessageController implements Serializable {
 
     private final AttendeeManager attendeeManager;
@@ -28,6 +38,13 @@ public class UserMessageController implements Serializable {
 
     }
 
+    /**
+     * Allows the organizer to send a message to any user
+     * @param organizerId : ID of organizer
+     * @param content : content of message
+     * @param userType : the user an organizer wishes to send a message to
+     * @return true if message is sent, false otherwise
+     */
     public boolean organizerSendMessageToAll(String organizerId, String content, String userType){
 
         if(organizerManager.isOrganizer(organizerId)){
@@ -51,6 +68,14 @@ public class UserMessageController implements Serializable {
 
     }
 
+    /**
+     * Allows an organizer to send a message to a single yser.
+     * @param organizerId : id of organizer
+     * @param recipientId : id of recipient
+     * @param content : content of message
+     * @param userType : type of user (speaker, organizer, attendee)
+     * @return true if message is sent, false otherwise
+     */
     public boolean organizerSendMessageToSingle(String organizerId, String recipientId, String content, String userType){
 
         if(userType.equals("attendee")){
@@ -78,6 +103,16 @@ public class UserMessageController implements Serializable {
 
     }
 
+    /**
+     * Checks if speaker, event is valid in order to send a message by speaker to a talk
+     * @param speakerId : id of speaker
+     * @param eventName : name of event
+     * @param content : content of message
+     * @return "SDE" - Speaker Doesn't Exist
+     *         "EDE" - Event Doesn't Exist
+     *         "SEC" - Speaker Event Conflict
+     *         "YES" - Request Successful
+     */
     public String speakerMessageByTalk(String speakerId, String eventName, String content){
         HashMap<String, String> selectedTalk = new HashMap<>();
         selectedTalk.put(eventManager.getEventTime(eventName), eventName);
@@ -95,6 +130,16 @@ public class UserMessageController implements Serializable {
         return "SDE";
     }
 
+    /**
+     * Check if speaker, event is valid to allow a speaker to send message for multiple talks
+     * @param speakerId
+     * @param eventNames
+     * @param content
+     * @return "SDE" - Speaker Doesn't Exist
+     *         "EDE" - Event Doesn't Exist
+     *         "SEC" - Speaker Event Conflict
+     *         "YES" - Request Successful
+     */
     public String speakerMessageByMultiTalks(String speakerId, ArrayList<String> eventNames, String content){
 
         if(speakerManager.isSpeaker(speakerId)) {
@@ -115,7 +160,14 @@ public class UserMessageController implements Serializable {
 
     }
 
-    //helper: sends a message with a single
+
+    /**
+     * Helper Method: Sends a message to a single recipient
+     * @param senderId : ID of sender
+     * @param recipientId : ID of recipient
+     * @param content : content of message
+     * @return ID of the conversation made between a sender and recipient (param_type: String)
+     */
     private String singleMessage(String senderId, String recipientId, String content){
         ArrayList<String> p = new ArrayList<>();
         p.add(senderId);
@@ -130,6 +182,14 @@ public class UserMessageController implements Serializable {
     }
 
     //helper: sends a message with multiple recipients
+
+    /**
+     * Helper Method: Sends a message to multiple recipients
+     * @param senderId : ID of sender
+     * @param recipientIds : ID of recipient
+     * @param content : content of message
+     * @return ID of the conversation made between the sender and multiple recipient (param_type: String)
+     */
     private String multiMessage(String senderId, ArrayList<String> recipientIds, String content){
         ArrayList<String> p = new ArrayList<>();
         p.add(senderId);
@@ -147,6 +207,12 @@ public class UserMessageController implements Serializable {
 
     }
 
+    /**
+     * Correctly creates the conversations and sends the messages to enable a speaker to send a message to everyone in a talk
+     * @param speakerId : ID of speaker
+     * @param eventName : name of event
+     * @param content : content of message
+     */
     private void speakerByTalk(String speakerId, String eventName, String content){
 
         ArrayList<String> recipientIds = new ArrayList<>(eventManager.getAttendeeList(eventName));
@@ -160,6 +226,12 @@ public class UserMessageController implements Serializable {
         }
     }
 
+    /**
+     * sends the messages to enable a speaker to send a message to everyone in multiple talks
+     * @param speakerId : speaker ID
+     * @param eventNames : name of event
+     * @param content : content of message
+     */
     private void speakerByMultiTalks(String speakerId, ArrayList<String> eventNames, String content){
         ArrayList<String> recipientIds = new ArrayList<>();
 
@@ -184,6 +256,13 @@ public class UserMessageController implements Serializable {
         }
     }
 
+    /**
+     * Allows to send a message from an organizer to all of one user type
+     * @param organizerId : id of organizer
+     * @param content : content of message
+     * @param userType : type of user
+     * @param recipientIds : IDs of all users
+     */
     private void organizerToAll(String organizerId, String content, String userType, ArrayList<String> recipientIds){
 
         String convoId = multiMessage(organizerId, recipientIds, content);
@@ -205,6 +284,14 @@ public class UserMessageController implements Serializable {
     }
 
     //handles phase 1 specification that says organizers can message a single attendee
+
+    /**
+     * Allows an organizer to send a message to a single user
+     * @param organizerId : ID of organizer
+     * @param recipientId : ID of recipient/user
+     * @param content : content of message
+     * @param userType : type of user
+     */
     private void organizerToSingle(String organizerId, String recipientId, String content, String userType){
 
         String convoId = singleMessage(organizerId, recipientId, content);
@@ -220,6 +307,13 @@ public class UserMessageController implements Serializable {
         organizerManager.addConversation(organizerId, convoId);
     }
 
+    /**
+     * Allows an attendee to send a message to a single speaker, or a fellow attendee
+     * @param attendeeId : ID of attendee
+     * @param recipientId : ID of recipient
+     * @param content : content of message
+     * @param userType : type of user
+     */
     private void attendeeToSingle(String attendeeId, String recipientId, String content, String userType){
         String convoId = singleMessage(attendeeId, recipientId, content);
 

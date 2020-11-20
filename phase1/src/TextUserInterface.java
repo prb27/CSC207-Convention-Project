@@ -1,21 +1,13 @@
-import javafx.util.Pair;
-
 import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
 
 public class TextUserInterface implements Serializable {
 
     public void landingmenu() {
-        System.out.println("Please type in only the integer for your choice.");
+        System.out.println("Conference System\n");
+        System.out.println("1: Log in");
+        System.out.println("2: Sign up");
 
-        System.out.println("\n1: log in");
-        System.out.println("2: sign up");
-
-        System.out.println("\n0: quit");
+        System.out.println("\n0: Quit");
     }
 
     // not used anymore.
@@ -100,7 +92,7 @@ public class TextUserInterface implements Serializable {
                 System.out.println("You can not schedule an event at this time. Please choose one of the following times \n");
                 System.out.println("9, 10, 11, 12, 1, 2, 3, 4, 5");
             case "LF":
-                System.out.println("Signup failed. Please try again :p");
+                System.out.println("Login failed. Please try again :p");
                 break;
             case "UC":
                 System.out.println("Account successfully created!");
@@ -141,7 +133,7 @@ public class TextUserInterface implements Serializable {
         System.out.println("\nMESSAGING FUNCTIONS:");
         System.out.println("4: Send message to an attendee");
         System.out.println("5: Send message to a speaker of a talk");
-        System.out.println("\n0: Sign out");
+        System.out.println("\n0: Sign-out");
     }
 
 
@@ -184,7 +176,7 @@ public class TextUserInterface implements Serializable {
         System.out.println("16: Send message to all attendees");
         System.out.println("17: Send message to a speaker");
         System.out.println("18: Send message to all speakers");
-        System.out.println("\n0: Sign out");
+        System.out.println("\n0: Sign-out");
 
     }
 
@@ -199,7 +191,7 @@ public class TextUserInterface implements Serializable {
         System.out.println("2: Message all attendees signed up for a talk");
         System.out.println("3: Message all attendees attending multiple talks");
         System.out.println("4: Message an attendee attending a talk");
-        System.out.println("\n0: Sign out");
+        System.out.println("\n0: Sign-out");
     }
     /*
     public void speakerMessagingMenu(String username){
