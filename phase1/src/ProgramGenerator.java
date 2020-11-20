@@ -3,42 +3,40 @@ import java.io.*;
 public class ProgramGenerator {
 
 
-    public Object readFile(String filePath) {
+    public MasterSystem readFromFile(String filePath) {
         try {
-            FileInputStream fileIn = new FileInputStream(filePath + ".txt");
-            ObjectInputStream in = new ObjectInputStream(fileIn);
+            InputStream file = new FileInputStream(filePath + ".ser");
+            InputStream buffer = new BufferedInputStream(file);
+            ObjectInput input = new ObjectInputStream(buffer);
 
-            Object object = (Object) in.readObject();
+            MasterSystem masterSystem = (MasterSystem) input.readObject();
+            input.close();
 
-            in.close();
-            fileIn.close();
+            return masterSystem;
 
-            return object;
-
-        } catch (IOException ex) {
-            System.out.println("IOException is caught");
-        } catch (ClassNotFoundException ex) {
-            System.out.println("ClassNotFoundException is caught");
-        }
-
-
-        public void savetoFile (String filePath, Object object){
-            try {
-                FileOutputStream fout = new FileOutputStream(filePath + ".txt");
-                ObjectOutputStream out = new ObjectOutputStream(fout);
-
-                out.writeObject(object);
-
-                out.close();
-                fout.close();
-
-                System.out.println("Serialized data is saved in test.txt file");
-
-            } catch (IOException ex) {
-                System.out.println("IOException is caught");
-            }
+        } catch (IOException | ClassNotFoundException ex) {
+            System.out.println("Cannot read from file");
+            return new MasterSystem();
         }
     }
+
+
+        public void saveToFile(MasterSystem object, String filePath){
+            try {
+                OutputStream file = new FileOutputStream(filePath + ".ser");
+                OutputStream buffer = new BufferedOutputStream(file);
+                ObjectOutput output = new ObjectOutputStream(buffer);
+
+                output.writeObject(object);
+                output.close();
+
+                System.out.println("Data successfully stored in " + filePath + ".ser");
+
+            } catch (IOException ex) {
+                System.out.println("IOException while saving data");
+                ex.printStackTrace();
+            }
+        }
 
 }
 
