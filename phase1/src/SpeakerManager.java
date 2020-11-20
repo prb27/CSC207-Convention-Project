@@ -63,6 +63,8 @@ public class SpeakerManager {
             return true;
         }
 
+
+
     }
 
     public boolean addTalkToListOfTalks(String speakerUsername, String eventTime, String eventName){
