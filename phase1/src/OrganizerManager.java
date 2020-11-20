@@ -40,7 +40,7 @@ public class OrganizerManager implements Serializable {
      * returns true if an Organizer is created.
      * @param username: the username to be assigned to this possibly new Organizer (param_type: String)
      * @param password: the password to be assigned to this possibly new Organizer (param_type: String)
-     * @return boolean
+     * @return true if and only if new organizer was created
      */
     public boolean createOrganizer(String username, String password) {
 

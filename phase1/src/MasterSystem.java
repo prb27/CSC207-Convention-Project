@@ -182,7 +182,21 @@ public class MasterSystem implements Serializable {
                             }
                             break;
                         }
-                        case "5":{
+                        case "5": {
+                            ui.present("Please enter the new organizer's username");
+                            String organizerUsername = scanner.nextLine();
+                            ui.present("Please enter the password for this new organizer");
+                            String organizerPassword = scanner.nextLine();
+                            boolean err = accountHandler.signup(organizerUsername, organizerPassword, "organizer");
+                            if(err){
+                                ui.present("Successful");
+                            }
+                            else{
+                                ui.present("The username already exists");
+                            }
+                            break;
+                        }
+                        case "6":{
                             ui.usernameprompt();
                             String speakerUsername = scanner.nextLine();
                             ui.passwordprompt();
@@ -195,7 +209,7 @@ public class MasterSystem implements Serializable {
                             }
                             break;
                         }
-                        case "6": {
+                        case "7": {
                             ui.present("Please enter roomID:");
                             String roomID = scanner.nextLine();
                             ui.present("Please enter room capacity");
@@ -208,7 +222,7 @@ public class MasterSystem implements Serializable {
                             }
                             break;
                         }
-                        case "7": {
+                        case "8": {
                             ui.present("Please enter event name");
                             String eventName = scanner.nextLine();
                             ui.present("Please enter event time");
@@ -223,7 +237,7 @@ public class MasterSystem implements Serializable {
                             }
                             break;
                         }
-                        case "8": {
+                        case "9": {
                             ui.present("Please enter the event name.");
                             String eventName = scanner.nextLine();
                             ui.present("Please enter new speaker's username");
@@ -242,7 +256,7 @@ public class MasterSystem implements Serializable {
                             }
                             break;
                         }
-                        case "9": {
+                        case "10": {
                             ui.present("Please enter the event name");
                             String eventName = scanner.nextLine();
                             ui.present("Please enter a new time for the event");
@@ -257,13 +271,13 @@ public class MasterSystem implements Serializable {
                                 ui.showError("EDE");
                             }
                         }
-                        case "10": {
+                        case "11": {
                             ArrayList<String> eventsNotSignedUpFor = userEventController.getOrganizerEventsNotAttending(username);
                             for (String event : eventsNotSignedUpFor)
                                 ui.present(event);
                             break;
                         }
-                        case "11": {
+                        case "12": {
                             ui.present("Please enter the title of the event you want to attend (exactly as it appears on the list of titles displayed)");
                             String eventName = scanner.nextLine();
                             String err = userEventController.enrolUserInEvent(username, eventName);
@@ -274,19 +288,19 @@ public class MasterSystem implements Serializable {
                                 ui.present("Successful");
                             }
                         }
-                        case "12": {
+                        case "13": {
                             ui.present("Please enter the event's name");
                             String eventName = scanner.nextLine();
                             userEventController.cancelSeatForUser(username, eventName);
                             ui.present("You are no longer attending " + eventName);
                             break;
                         }
-                        case "13": {
+                        case "14": {
                             for (String event: organizerManager.getEventsAttending(username))
                                 ui.present(event + eventManager.getEventTime(event) + eventManager.getRoomNumber(event) + eventManager.getSpeakerEvent(username));
                             break;
                         }
-                        case "14": {
+                        case "15": {
                             ui.present("Please enter attendee ID");
                             String attendeeID = scanner.nextLine();
                             ui.present("Please enter the message that you want to send");
@@ -294,13 +308,13 @@ public class MasterSystem implements Serializable {
                             userMessageController.organizerSendMessageToSingle(username, attendeeID, content, "attendee");
                             break;
                         }
-                        case "15": {
+                        case "16": {
                             ui.present("Please enter the message that you want to send");
                             String content = scanner.nextLine();
                             userMessageController.organizerSendMessageToAll(username, content, "attendee");
                             break;
                         }
-                        case "16": {
+                        case "17": {
                             ui.present("Please enter the speaker's username");
                             String speakerName = scanner.nextLine();
                             ui.present("Please enter the message that you want to send");
@@ -308,7 +322,7 @@ public class MasterSystem implements Serializable {
                             userMessageController.organizerSendMessageToSingle(username, speakerName, content, "speaker");
                             break;
                         }
-                        case "17": {
+                        case "18": {
                             ui.present("Please enter the message that you want to send");
                             String content = scanner.nextLine();
                             userMessageController.organizerSendMessageToAll(username, content, "speaker");
