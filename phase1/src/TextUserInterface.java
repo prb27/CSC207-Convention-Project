@@ -164,25 +164,26 @@ public class TextUserInterface implements Serializable {
         System.out.println("2. List of all organizers in the conference");
         System.out.println("3. List of all speakers in the conference");
         System.out.println("4. Check if a speaker has an event at a certain time");
+        System.out.println("5. Create a new organizer account");
 
         System.out.println("\nEVENT FUNCTIONS:");
-        System.out.println("1: Create speaker account");
-        System.out.println("2: Add a room into the system");
-        System.out.println("3: Create new event or Schedule speaker for new event");
-        System.out.println("4: Change speaker for an event (Warning: once this option is chosen, the given event name will be removed. All attendees of the event should" +
+        System.out.println("6: Create speaker account");
+        System.out.println("7: Add a room into the system");
+        System.out.println("8: Create new event or Schedule speaker for new event");
+        System.out.println("9: Change speaker for an event (Warning: once this option is chosen, the given event name will be removed. All attendees of the event should" +
                 " register again for this event.)");
-        System.out.println("5: Change time of an event (Warning: once this option is chosen, the given event name will be removed, and a new event will be created at your chosen time. All attendees of the event should" +
+        System.out.println("10: Change time of an event (Warning: once this option is chosen, the given event name will be removed, and a new event will be created at your chosen time. All attendees of the event should" +
                 " register again for this event.)");
-        System.out.println("6: Show events that I haven't signed up for");
-        System.out.println("7: Sign up for an event");
-        System.out.println("8: Cancel spot in an event");
-        System.out.println("9: See schedule of events signed up for");
+        System.out.println("11: Show events that I haven't signed up for");
+        System.out.println("12: Sign up for an event");
+        System.out.println("13: Cancel spot in an event");
+        System.out.println("14: See schedule of events signed up for");
 
         System.out.println("\nMESSAGING FUNCTIONS: [Note: Since you are an organizer, you can send a message to any attendee/speaker/organizer]");
-        System.out.println("10: Send message to an attendee");
-        System.out.println("11: Send message to all attendees");
-        System.out.println("12: Send message to a speaker");
-        System.out.println("13: Send message to all speakers");
+        System.out.println("15: Send message to an attendee");
+        System.out.println("16: Send message to all attendees");
+        System.out.println("17: Send message to a speaker");
+        System.out.println("18: Send message to all speakers");
         System.out.println("\n0: quit");
 
     }
