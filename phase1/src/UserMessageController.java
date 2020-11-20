@@ -217,49 +217,4 @@ public class UserMessageController {
         }
         attendeeManager.addConversation(attendeeId, convoId);
     }
-
-
-
-    //
-//    /**
-//     * allow an Attendee to send a message with a given content to all of their contacts
-//     * call messageSystem to perform!
-//     * @author Khoa Pham
-//     * @param a: the username of an Attendee who will be the sender of a message (param_type: String)
-//     * @param content: the actual message text to be sent (param_type: String)
-//     * @return void
-//     */
-//    public void messAllContacts(String a, String content) {
-//        // check <a> ??
-//        Attendee attendee = attendeeManager.getAttendee(a);
-//        attendeeMessageSystem.multiMessage(a, attendee.getContacts(), content);
-//    }
-//
-//    /**
-//     * allow an Attendee to send a message with a given content to some of their contacts
-//     * call messageSystem to perform!
-//     * @author Khoa Pham
-//     * @param a: the username of an Attendee who will be the sender of a message (param_type: String)
-//     * @param receivers: the list of the message's recipients (param_type: ArrayList<String>)
-//     * @param content: the actual message text to be sent (param_type: String)
-//     * @return void
-//     */
-//    public void messSome(String a, ArrayList<String> receivers, String content) {
-//        attendeeMessageSystem.multiMessage(a, receivers, content);
-//    }
-//
-//    /**
-//     * allow an Attendee to send a message with a given content to one of their contacts
-//     * call messageSystem to perform!
-//     * @author Khoa Pham
-//     * @param a: the username of an Attendee who will be the sender of a message (param_type: String)
-//     * @param b: the recipient of the message (param_type: String)
-//     * @param content: the actual message text to be sent (param_type: String)
-//     * @return void
-//     */
-//
-//    public void messOne(String a, String b, String content) {
-//        attendeeMessageSystem.singleMessage(a, b, content);
-//    }
-    //helper: sends a message with single recipient
 }
