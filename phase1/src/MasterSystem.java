@@ -39,6 +39,10 @@ public class MasterSystem implements Serializable {
         this.userEventController = new UserEventController(attendeeManager, organizerManager,
                 speakerManager, eventManager, roomManager);
         this.programGenerator = new ProgramGenerator();
+
+        /* Create an organizer account when a new MasterSystem object is created
+        * to allow for the conference to have at least one organizer*/
+        accountHandler.signup("admin", "admin", "organizer");
     }
 
 //    private String getInput(List<String> validOptions) {
@@ -310,9 +314,6 @@ public class MasterSystem implements Serializable {
                             userMessageController.organizerSendMessageToAll(username, content, "speaker");
                             break;
                         }
-                        case "0": {
-                            return;
-                        }
                     }
                 }
                 break;
@@ -334,7 +335,6 @@ public class MasterSystem implements Serializable {
                         ArrayList<HashMap<String, String>> listOfTalks =
                                 userEventController.seeAllEventsForSpeaker(username);
                         ui.messageprompt();
-
                 }
                 break;
         }
