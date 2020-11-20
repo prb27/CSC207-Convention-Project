@@ -69,13 +69,13 @@ public class UserEventController {
      */
     private String enrolAttendeeInEvent(String username, String eventName) {
         // ent.
-        if (eventManager.getEvent(eventName) != null) {
+        if (eventManager.isEvent(eventName)) {
             if (attendeeManager.isAttending(username, eventName)) {
                 return "AE";
             }
-            String roomId = eventManager.getEvent(eventName).getRoomNumber();
+            String roomId = eventManager.getRoomNumber(eventName);
             int capacity = roomManager.getCapacityOfRoom(roomId);
-            ArrayList<String> attendeesOfEvent = eventManager.getEvent(eventName).getAttendeeList();
+            ArrayList<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
             if (attendeesOfEvent.size() < capacity) {
                 String erMessage = eventManager.reserveAttendee(eventName, username);
                 if (erMessage.equals("YES")) {
@@ -124,12 +124,16 @@ public class UserEventController {
 
         if(eventManager.isEvent(eventName)){
             if(attendeeManager.isAttendee(username)){
-                attendeeManager.removeAttendingEvent(username, eventName);
-                eventManager.removeAttendee(eventName, username);
+                if(attendeeManager.isAttending(username, eventName)) {
+                    attendeeManager.removeAttendingEvent(username, eventName);
+                    eventManager.removeAttendee(eventName, username);
+                }
             }
             else if(organizerManager.isOrganizer(username)){
-                organizerManager.removeAttendingEvent(username, eventName);
-                eventManager.removeAttendee(eventName, username);
+                if(organizerManager.isAttending(username, eventName).equals("YES")) {
+                    organizerManager.removeAttendingEvent(username, eventName);
+                    eventManager.removeAttendee(eventName, username);
+                }
             }
         }
 

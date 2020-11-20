@@ -9,7 +9,7 @@ public class Event {
     private String speakerName;
     private String eventTime;
     private String roomNumber;
-    private ArrayList<String> attendeeList;
+    private final ArrayList<String> attendeeList;
 
     /**
      * A constructor to create the event object
