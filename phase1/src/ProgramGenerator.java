@@ -1,8 +1,21 @@
 import java.io.*;
 
+/**
+ * This class stores the methods used by the MasterSystem and Main class to read the state of the program upon
+ * running the program and save the state of the program upon closing the program.
+ * The functionalities include:
+ *  - reading the serialized MasterSystem file.
+ *  - writing the most updated state of the MasterSystem class into the serialized MasterSystem file.
+ * @author Juan Yi Loke
+ */
+
 public class ProgramGenerator implements Serializable{
-
-
+    /**
+     * read the serialized MasterSystem file and return the deserialized MasterSystem object
+     * @author Juan Yi Loke
+     * @param filePath: the name for the serialized MasterSystem file
+     * @return MasterSystem: the deserialized MasterSystem object
+     */
     public MasterSystem readFromFile(String filePath) {
         try {
             InputStream file = new FileInputStream(filePath + ".ser");
@@ -20,26 +33,31 @@ public class ProgramGenerator implements Serializable{
         }
     }
 
+    /**
+     * serialize and write the latest state of the MasterSystem class into the serialized MasterSystem file
+     * @author Juan Yi Loke
+     * @param filePath: the file name of the serialized MasterSystem file
+     * @param object: the MasterSystem class that needs to be serialized into a .ser file
+     */
+    public void saveToFile(MasterSystem object, String filePath){
+        try {
+            File serFile = new File(filePath + ".ser");
+            if(!serFile.exists())
+                serFile.createNewFile();
+            OutputStream file = new FileOutputStream(filePath + ".ser");
+            OutputStream buffer = new BufferedOutputStream(file);
+            ObjectOutput output = new ObjectOutputStream(buffer);
 
-        public void saveToFile(MasterSystem object, String filePath){
-            try {
-                File serFile = new File(filePath + ".ser");
-                if(!serFile.exists())
-                    serFile.createNewFile();
-                OutputStream file = new FileOutputStream(filePath + ".ser");
-                OutputStream buffer = new BufferedOutputStream(file);
-                ObjectOutput output = new ObjectOutputStream(buffer);
+            output.writeObject(object);
+            output.close();
 
-                output.writeObject(object);
-                output.close();
+            System.out.println("Data successfully stored in " + filePath + ".ser");
 
-                System.out.println("Data successfully stored in " + filePath + ".ser");
-
-            } catch (IOException ex) {
-                System.out.println("IOException while saving data");
-                ex.printStackTrace();
-            }
+        } catch (IOException ex) {
+            System.out.println("IOException while saving data");
+            ex.printStackTrace();
         }
+    }
 
 }
 
