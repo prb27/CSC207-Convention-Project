@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class MasterSystem {
 
-    private final TextUI ui;
+    private final TextUserInterface ui;
     private AttendeeManager attendeeManager;
     private OrganizerManager organizerManager;
     private SpeakerManager speakerManager;
@@ -13,7 +13,7 @@ public class MasterSystem {
     private final Scanner scanner = new Scanner(System.in);
 
     public MasterSystem() {
-        this.ui = new TextUI();
+        this.ui = new TextUserInterface();
         this.attendeeManager = new AttendeeManager();
         this.organizerManager = new OrganizerManager();
         this.speakerManager = new SpeakerManager();
@@ -105,6 +105,8 @@ public class MasterSystem {
         switch(userType) {
             case "attendee":
                 switch(option) {
+                    case "1":
+                        break;
                 }
                 break;
             case "organizer":
