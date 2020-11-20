@@ -259,12 +259,6 @@ public class OrganizerManager {
 
     }
 
-    private ArrayList<Organizer> getAllOrganizers() {
-
-        return organizerList;
-
-    }
-
     /**
      * if Organizer with username </username> exists, then
      * This method returns the events titles of the events that the Organizer object with username </username> stores.

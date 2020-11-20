@@ -26,7 +26,7 @@ public class UserEventController {
      * If event with </eventName> exists,
      * check room capacity and enrol that Attendee to that Event
      * @author Ashwin Karthikeyan
-     * @param username: the username of an Attendee to be enrolled in an event (param_type: String)
+     * @param username: the username of an Organizer to be enrolled in an event (param_type: String)
      * @param eventName: the intended event (param_type: String)
      * @return "AE" - Already attending the event
      *         "EDE" - Event doesn't exist
@@ -69,13 +69,13 @@ public class UserEventController {
      */
     private String enrolAttendeeInEvent(String username, String eventName) {
         // ent.
-        if (eventManager.getEvent(eventName) != null) {
+        if (eventManager.isEvent(eventName)) {
             if (attendeeManager.isAttending(username, eventName)) {
                 return "AE";
             }
-            String roomId = eventManager.getEvent(eventName).getRoomNumber();
+            String roomId = eventManager.getRoomNumber(eventName);
             int capacity = roomManager.getCapacityOfRoom(roomId);
-            ArrayList<String> attendeesOfEvent = eventManager.getEvent(eventName).getAttendeeList();
+            ArrayList<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
             if (attendeesOfEvent.size() < capacity) {
                 String erMessage = eventManager.reserveAttendee(eventName, username);
                 if (erMessage.equals("YES")) {
@@ -93,7 +93,7 @@ public class UserEventController {
      * enroll User (Organizer/Attendee) with </username> to an Event </eventName>
      * by calling enrolOrganizerInEvent() or enrolAttendeeInEvent()
      * @author Ashwin Karthikeyan
-     * @param username: the username of an Attendee to be enrolled in an event (param_type: String)
+     * @param username: the username of a User (Organizer/Attendee) to be enrolled in an event (param_type: String)
      * @param eventName: the intended event (param_type: String)
      * @return : "AE" - Already attending event
      *           "EDE" - Event doesn't exist
@@ -116,26 +116,39 @@ public class UserEventController {
      * By the end of the execution of this method, the User (Organizer/Attendee) with username </username> is no longer
      * attending the event with title </eventName>.
      * @author Khoa Pham, Ashwin Karthikeyan
-     * @param username: the username of an Attendee who wants to cancel
-     *                reservation for an event (param_type: String)
+     * @param username: the username of the User who wants to cancel
+     *                  reservation for an event (param_type: String)
      * @param eventName: the intended event (param_type: String)
      */
     public void cancelSeatForUser(String username, String eventName){
 
         if(eventManager.isEvent(eventName)){
             if(attendeeManager.isAttendee(username)){
-                attendeeManager.removeAttendingEvent(username, eventName);
-                eventManager.removeAttendee(eventName, username);
+                if(attendeeManager.isAttending(username, eventName)) {
+                    attendeeManager.removeAttendingEvent(username, eventName);
+                    eventManager.removeAttendee(eventName, username);
+                }
             }
             else if(organizerManager.isOrganizer(username)){
-                organizerManager.removeAttendingEvent(username, eventName);
-                eventManager.removeAttendee(eventName, username);
+                if(organizerManager.isAttending(username, eventName).equals("YES")) {
+                    organizerManager.removeAttendingEvent(username, eventName);
+                    eventManager.removeAttendee(eventName, username);
+                }
             }
         }
 
     }
 
-
+    /**
+     * By the end of the execution of this method, the Organizer with username </organizerUsername> would have
+     * created a room with Id </roomId> and capacity </capacity>
+     * @author Ashwin Karthikeyan
+     * @param organizerUsername: the username of the Organizer who wants to create a new room (param_type: String)
+     * @param roomId: an ID for the new room that the Organizer wants to create (param_type: String)
+     * @param capacity: the capacity of the new room being created (param_type: int)
+     * @return : "RAE" - room already exists
+     *           "ODE" - organizer doesn't exist
+     */
     public String organizerAddNewRoom(String organizerUsername, String roomId, int capacity){
         // RAE - room already exists
         if(organizerManager.isOrganizer(organizerUsername)){
@@ -205,7 +218,8 @@ public class UserEventController {
     }
 
     /**
-     * Allows an organizer to remove a created event, also removes it from the list of talks of the speaker
+     * Allows an organizer to remove a created event, also removes it from the list of talks of the speaker, and list
+     * of attending events for Organizers and Attendees
      * @param organizerName: name of organizer
      * @param eventName: name of event
      * "EDE" - Event Doesn't Exist
@@ -222,6 +236,12 @@ public class UserEventController {
 
                 eventManager.removeEvent(eventName);
                 speakerManager.removeTalkFromListOfTalks(speakerUserName, eventTime, eventName);
+                for(String attendeeID: attendeeManager.getAllAttendeeIds()){
+                    attendeeManager.removeAttendingEvent(attendeeID, eventName);
+                }
+                for(String organizerID: organizerManager.getAllOrganizerIds()){
+                    organizerManager.removeAttendingEvent(organizerID, eventName);
+                }
                 roomManager.freeRoomAt(roomId, eventTime);
                 return "YES";
 
@@ -231,19 +251,6 @@ public class UserEventController {
         } else {
             return "ODE";
         }
-    }
-
-
-    /**
-     * allow an Attendee to signup to a particular event
-     * call eventManager to perform!
-     * @author Khoa Pham
-     * @param attendee: the username of an Attendee who will attend this event (param_type: String)
-     * @param event: the intended event (param_type: String)
-     */
-    public void signUp(String attendee, String event) {
-        attendeeManager.addAttendingEvent(attendee, event);
-        eventManager.reserveAttendee(event, attendee);
     }
 
     /**
@@ -297,5 +304,7 @@ public class UserEventController {
     public ArrayList<HashMap<String, String>> seeAllEventsForSpeaker(String speakerUsername){
         return speakerManager.getListOfTalks(speakerUsername);
     }
+
+
 
 }

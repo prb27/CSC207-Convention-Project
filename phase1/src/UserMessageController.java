@@ -132,10 +132,10 @@ public class UserMessageController {
     private void reply(){
 
     }
-    private void speakerByTalk(String speakerId, String eventName, String content){
-        Event talk = eventManager.getEvent(eventName);
 
-        ArrayList<String> recipientIds = new ArrayList<>(talk.getAttendeeList());
+    private void speakerByTalk(String speakerId, String eventName, String content){
+
+        ArrayList<String> recipientIds = new ArrayList<>(eventManager.getAttendeeList(eventName));
         String convoId = multiMessage(speakerId, recipientIds, content);
         for(String id: recipientIds){
             if(organizerManager.isOrganizer(id)){
