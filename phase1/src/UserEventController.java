@@ -126,6 +126,7 @@ public class UserEventController implements Serializable {
         if(eventManager.isEvent(eventName)){
             if(attendeeManager.isAttendee(username)){
                 if(attendeeManager.isAttending(username, eventName)) {
+                    // what if username DNE?
                     attendeeManager.removeAttendingEvent(username, eventName);
                     eventManager.removeAttendee(eventName, username);
                 }

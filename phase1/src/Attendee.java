@@ -18,7 +18,6 @@ public class Attendee extends User implements Serializable {
      *
      * @param username: the username of this Attendee
      * @param password: the password of this Attendee
-     * @return an Attendee object
      */
     public Attendee(String username, String password) {
         super(username, password);
@@ -35,7 +34,6 @@ public class Attendee extends User implements Serializable {
     /**
      * update the list of all events that this Attendee is participating
      * @param eventsAttending: the new list of all participating events (param_type: ArrayList<String>)
-     * @return void
      */
     public void setEventsAttending(ArrayList<String> eventsAttending) {
         this.eventsAttending = eventsAttending;
