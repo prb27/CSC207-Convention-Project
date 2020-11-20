@@ -209,8 +209,8 @@ public class UserMessageController implements Serializable {
         String current = convoManager.getConvoRoot(convoId);
         rawMessages.add(current);
         while(messageManager.getReply(current) != null){
-            rawMessages.add(current);
             current = messageManager.getReply(current);
+            rawMessages.add(current);
         }
         ArrayList<String> formattedMessages = new ArrayList<>();
         for(String messageId: rawMessages){

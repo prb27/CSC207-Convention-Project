@@ -27,6 +27,7 @@ public class MessageManager implements Serializable {
         }
         Message newMessage = new Message(senderId, recipientIds, content, message.getConvoID());
         message.setReply(newMessage.getId());
+        allMessages.add(newMessage);
         return true;
     }
     public boolean removeMessage(String id){
