@@ -30,12 +30,19 @@ public class SpeakerManager {
     private final ArrayList<Speaker> speakers;
 
     /**
-     * a constructor that creates a SpeakerManager object
+     * a constructor that creates a SpeakerManager object that stores a list of all speakers
      */
     public SpeakerManager(){
         speakers = new ArrayList<>();
     }
 
+    /**
+     * Creates a Speaker object and adds it to the list of all Speaker objects.
+     * @param username
+     * @param password
+     * @return boolean
+     * @see Speaker
+     */
     public boolean createSpeaker(String username, String password){
         for (Speaker speaker: speakers){
             if (speaker.getUserId().equals(username))
@@ -47,6 +54,12 @@ public class SpeakerManager {
         return true;
     }
 
+    /**
+     * Updates the contact information of a Speaker to include a new contact
+     * @param speakerUsername
+     * @param otherUsername
+     * @return boolean
+     */
     public boolean addContact(String speakerUsername, String otherUsername){
 
         Speaker speaker = getSpeaker(speakerUsername);
@@ -62,9 +75,6 @@ public class SpeakerManager {
             }
             return true;
         }
-
-
-
     }
 
     public boolean addTalkToListOfTalks(String speakerUsername, String eventTime, String eventName){
@@ -175,6 +185,11 @@ public class SpeakerManager {
         }
     }
 
+    /**
+     * Validates if username is the id of a Speaker object
+     * @param username
+     * @return boolean
+     */
     public boolean isSpeaker(String username){
         if (getAllSpeakerIds().contains(username)){
             return true;
@@ -183,6 +198,16 @@ public class SpeakerManager {
             return false;
         }
     }
+
+    /**
+     * If a talk from a Speaker object's listOfTalks has been successfully removed, returns true.
+     * Else returns false.
+     *
+     * @param speakerUsername
+     * @param eventTime
+     * @param eventName
+     * @return boolean
+     */
 
     public boolean removeTalkFromListOfTalks(String speakerUsername, String eventTime, String eventName){
         HashMap<String, String> selectedTalk = new HashMap<>();
