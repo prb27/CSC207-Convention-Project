@@ -3,8 +3,8 @@ import java.util.ArrayList;
 
 public class Room implements Serializable {
 
-    private String roomId;
-    private int capacity;
+    private final String roomId;
+    private final int capacity;
     private ArrayList<String> occupiedTimes;
 
     public Room(String roomId, int capacity, ArrayList<String> occupiedTimes){

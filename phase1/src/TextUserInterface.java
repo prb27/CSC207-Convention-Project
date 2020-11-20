@@ -165,14 +165,14 @@ public class TextUserInterface implements Serializable {
         System.out.println("3. List of all speakers in the conference");
         System.out.println("4. Check if a speaker has an event at a certain time");
         System.out.println("5. Create a new organizer account");
+        System.out.println("6: Create speaker account");
 
         System.out.println("\nEVENT FUNCTIONS:");
-        System.out.println("6: Create speaker account");
         System.out.println("7: Add a room into the system");
         System.out.println("8: Create new event or Schedule speaker for new event");
-        System.out.println("9: Change speaker for an event (Warning: once this option is chosen, the given event name will be removed. All attendees of the event should" +
+        System.out.println("9: Change speaker for an event (Warning: once this option is chosen, the given event name will be removed. \n All attendees of the event should" +
                 " register again for this event.)");
-        System.out.println("10: Change time of an event (Warning: once this option is chosen, the given event name will be removed, and a new event will be created at your chosen time. All attendees of the event should" +
+        System.out.println("10: Change time of an event (Warning: once this option is chosen, the given event name will be removed, \n and a new event will be created at your chosen time. All attendees of the event should" +
                 " register again for this event.)");
         System.out.println("11: Show events that I haven't signed up for");
         System.out.println("12: Sign up for an event");

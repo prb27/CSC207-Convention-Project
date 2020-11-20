@@ -3,8 +3,11 @@ import java.util.ArrayList;
 
 public class RoomManager implements Serializable {
 
-    private ArrayList<Room> rooms;
+    private final ArrayList<Room> rooms;
 
+    public RoomManager(){
+        rooms = new ArrayList<Room>();
+    }
     public boolean createRoom(String roomId, int capacity){
 
         if(isRoom(roomId)){
@@ -35,13 +38,15 @@ public class RoomManager implements Serializable {
 
     public Room getRoom(String roomId){
 
-        for(Room room: rooms){
-            if(room.getRoomId().equals(roomId)){
-                return room;
+        if(rooms != null) {
+            for (Room room : rooms) {
+                if (room.getRoomId().equals(roomId)) {
+                    return room;
+                }
             }
+            return null;
         }
         return null;
-
     }
 
     public boolean isRoomOccupiedAt(String roomId, String time){
@@ -89,7 +94,7 @@ public class RoomManager implements Serializable {
 
     }
 
-    public ArrayList<Room> getRooms() {
+    private ArrayList<Room> getRooms() {
         return rooms;
     }
 

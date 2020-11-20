@@ -70,7 +70,7 @@ public class MasterSystem implements Serializable {
             ui.landingmenu();
             String landingOption = scanner.nextLine();
 
-            switch(landingOption) {
+            switch (landingOption) {
                 case "0":
                     programGenerator.saveToFile(this, "./phase1/conference_system");
                     return;
@@ -81,16 +81,14 @@ public class MasterSystem implements Serializable {
                     tempPassword = scanner.nextLine();
                     tempAccountType = accountHandler.login(tempUsername, tempPassword);
 
-                   if(tempAccountType != null) {
+                    if (tempAccountType != null) {
                         currentUsername = tempUsername;
                         currentPassword = tempPassword;
                         currentAccountType = tempAccountType;
                         loggedIn = true;
-                    }
-                    else{
+                    } else {
                         ui.showPrompt("LF");
-                        continue;
-                   }
+                    }
                     break;
 
                 case "2":
@@ -99,9 +97,9 @@ public class MasterSystem implements Serializable {
                     tempUsername = scanner.nextLine();
                     ui.passwordprompt();
                     tempPassword = scanner.nextLine();
-                    if(accountHandler.signup(tempUsername, tempPassword, "attendee")){
-                        ui.showPrompt("UC");}
-                    else {
+                    if (accountHandler.signup(tempUsername, tempPassword, "attendee")) {
+                        ui.showPrompt("UC");
+                    } else {
                         ui.showPrompt("SF");
                     }
                     break;
@@ -109,31 +107,33 @@ public class MasterSystem implements Serializable {
                 default:
                     ui.showError("INO");
             }
-            String option;
-            while(loggedIn) {
+        }
 
-                switch(currentAccountType) {
-                    case "attendee":
-                        ui.attendeemenu(currentUsername);
-                        break;
-                    case "organizer":
-                        ui.organizermenu(currentUsername);
-                        break;
-                    case "speaker":
-                        ui.speakermenu(currentUsername);
-                        break;
-                }
+        switch(currentAccountType) {
+            case "attendee":
+                ui.attendeemenu(currentUsername);
+                break;
+            case "organizer":
+                ui.organizermenu(currentUsername);
+                break;
+            case "speaker":
+                ui.speakermenu(currentUsername);
+                break;
+        }
+        while(loggedIn) {
 
-                option = scanner.nextLine();
-
-                if(option.equals("0")) {
-                    loggedIn = false;
-                    currentUsername = null;
-                    currentPassword = null;
-                }
+            String option = scanner.nextLine();
+            if (option.equals("0")) {
+                loggedIn = false;
+                currentUsername = null;
+                currentPassword = null;
+            } else {
+                userCommandHandler(option, currentUsername, currentPassword, currentAccountType);
             }
         }
+        programGenerator.saveToFile(this, "./phase1/conference_system");
     }
+
 
     private void userCommandHandler(String option, String username, String password, String userType) {
 
@@ -152,19 +152,19 @@ public class MasterSystem implements Serializable {
                     switch (option) {
                         case "1": {
                             for (String attendee : attendeeManager.getAllAttendeeIds()){
-                                ui.present(attendee + "\n");
+                                ui.present(attendee);
                             }
                             break;
                         }
                         case "2": {
                             for (String organizer: organizerManager.getAllOrganizerIds()) {
-                                ui.present(organizer + "\n");
+                                ui.present(organizer);
                             }
                             break;
                         }
                         case "3": {
                             for(String speaker: speakerManager.getAllSpeakerIds()){
-                                ui.present(speaker + "\n");
+                                ui.present(speaker);
                             }
                             break;
                         }
@@ -173,6 +173,24 @@ public class MasterSystem implements Serializable {
                             String speakerName = scanner.nextLine();
                             ui.present("Please enter the time");
                             String time = scanner.nextLine();
+                            if(!speakerManager.isSpeaker(speakerName)){
+                                ui.present("Not a speaker");
+                                break;
+                            }
+                            ArrayList<String> allowedTimes = new ArrayList<String>();
+                            allowedTimes.add("9");
+                            allowedTimes.add("10");
+                            allowedTimes.add("11");
+                            allowedTimes.add("12");
+                            allowedTimes.add("1");
+                            allowedTimes.add("2");
+                            allowedTimes.add("3");
+                            allowedTimes.add("4");
+                            allowedTimes.add("5");
+                            if(!allowedTimes.contains(time)){
+                                ui.present("Please enter an allowed time");
+                                break;
+                            }
                             boolean free = speakerManager.isSpeakerFreeAtTime(speakerName, time);
                             if(free){
                                 ui.present("No, the speaker doesn't have an event at " + time);
@@ -197,9 +215,9 @@ public class MasterSystem implements Serializable {
                             break;
                         }
                         case "6":{
-                            ui.usernameprompt();
+                            ui.present("Please enter new speaker's username");
                             String speakerUsername = scanner.nextLine();
-                            ui.passwordprompt();
+                            ui.present("Please enter password for this speaker");
                             String speakerPassword = scanner.nextLine();
                             if(accountHandler.signup(speakerUsername, speakerPassword, "speaker")){
                                 ui.showPrompt("UC");
@@ -265,7 +283,12 @@ public class MasterSystem implements Serializable {
                             userEventController.removeCreatedEvent(username, eventName);
                             if(speakerManager.isSpeaker(speakerName)) {
                                 String err = userEventController.createEvent(username, eventName, eventTime, speakerName);
-                                ui.present("Successful");
+                                if(err.equals("YES")) {
+                                    ui.present("Successful");
+                                }
+                                else{
+                                    ui.showError(err);
+                                }
                             }
                             else{
                                 ui.showError("EDE");
@@ -287,6 +310,7 @@ public class MasterSystem implements Serializable {
                             else{
                                 ui.present("Successful");
                             }
+                            break;
                         }
                         case "13": {
                             ui.present("Please enter the event's name");
@@ -297,7 +321,7 @@ public class MasterSystem implements Serializable {
                         }
                         case "14": {
                             for (String event: organizerManager.getEventsAttending(username))
-                                ui.present(event + eventManager.getEventTime(event) + eventManager.getRoomNumber(event) + eventManager.getSpeakerEvent(username));
+                                ui.present("Event Title: " + event + "\nTime: " + eventManager.getEventTime(event) + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
                             break;
                         }
                         case "15": {
@@ -305,7 +329,13 @@ public class MasterSystem implements Serializable {
                             String attendeeID = scanner.nextLine();
                             ui.present("Please enter the message that you want to send");
                             String content = scanner.nextLine();
-                            userMessageController.organizerSendMessageToSingle(username, attendeeID, content, "attendee");
+                            boolean err = userMessageController.organizerSendMessageToSingle(username, attendeeID, content, "attendee");
+                            if(err){
+                                ui.present("Successful");
+                            }
+                            else{
+                                ui.present("Something went wrong");
+                            }
                             break;
                         }
                         case "16": {
@@ -327,6 +357,9 @@ public class MasterSystem implements Serializable {
                             String content = scanner.nextLine();
                             userMessageController.organizerSendMessageToAll(username, content, "speaker");
                             break;
+                        }
+                        default: {
+                            ui.showError("INO");
                         }
                     }
                 }
