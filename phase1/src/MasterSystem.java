@@ -28,6 +28,10 @@ public class MasterSystem implements Serializable {
         this.attendeeManager = new AttendeeManager();
         this.organizerManager = new OrganizerManager();
         this.speakerManager = new SpeakerManager();
+        this.eventManager = new EventManager();
+        this.roomManager = new RoomManager();
+        this.conversationManager = new ConversationManager();
+        this.messageManager = new MessageManager();
         this.accountHandler = new AccountHandler(attendeeManager, organizerManager, speakerManager);
 
         this.userMessageController = new UserMessageController(attendeeManager, organizerManager,
