@@ -505,7 +505,7 @@ public class MasterSystem implements Serializable {
                         userMessageController.speakerMessageByMultiTalks(username, listOfTalkNames, content1);
                         ui.showPrompt("MMS");
                     case "4":
-                        ui.attendeenameprompt();
+                        ui.present("Please enter the username of the Attendee you wish to message:");
                         String attendeeUsername = scanner.nextLine();
                         ui.messageprompt();
                         String message = scanner.nextLine();
