@@ -78,6 +78,8 @@ public class SpeakerManager implements Serializable {
         }
     }
 
+
+
     public boolean addTalkToListOfTalks(String speakerUsername, String eventTime, String eventName){
 
         HashMap<String, String> newTalk = new HashMap<>();
@@ -230,4 +232,5 @@ public class SpeakerManager implements Serializable {
         }
 
     }
+
 }
