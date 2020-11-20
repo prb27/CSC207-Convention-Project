@@ -38,6 +38,23 @@ public class UserMessageController implements Serializable {
 
     }
 
+    public boolean attendeeSendMessage(String username, String recipientId, String content, String userType) {
+        if(userType.equals("attendee")){
+            if(attendeeManager.isAttendee(username) && attendeeManager.isAttendee(recipientId)){
+               attendeeToSingle(username, recipientId, content, userType);
+                return true;
+            }
+            return false;
+        }
+        if(userType.equals("speaker")){
+            if(attendeeManager.isAttendee(username) && speakerManager.isSpeaker(recipientId)){
+                attendeeToSingle(username, recipientId, content, userType);
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
     /**
      * Allows the organizer to send a message to any user
      * @param organizerId : ID of organizer
@@ -183,7 +200,7 @@ public class UserMessageController implements Serializable {
         }
         ArrayList<String> recipients = convoManager.getConvoParticipants(convoId);
         recipients.remove(senderId);
-        messageManager.addReply(senderId, recipients, content, convoId, current);
+        messageManager.addReply(senderId, recipients, content, current);
         return true;
     }
 
@@ -363,4 +380,6 @@ public class UserMessageController implements Serializable {
         }
         attendeeManager.addConversation(attendeeId, convoId);
     }
+
+
 }

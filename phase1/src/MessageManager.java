@@ -20,12 +20,12 @@ public class MessageManager implements Serializable {
         return message.getId();
     }
 
-    public boolean addReply(String senderId, ArrayList<String> recipientIds, String content, String convoId, String messageId){
+    public boolean addReply(String senderId, ArrayList<String> recipientIds, String content, String messageId){
         Message message = getMessage(messageId);
         if(message == null){
             return false;
         }
-        Message newMessage = new Message(senderId, recipientIds, content, convoId);
+        Message newMessage = new Message(senderId, recipientIds, content, message.getConvoID());
         message.setReply(newMessage.getId());
         return true;
     }
@@ -60,7 +60,9 @@ public class MessageManager implements Serializable {
         if(getMessage(messageId) != null) {
             return getMessage(messageId).getReply();
         }
-        else return null;
+        else {
+            return null;
+        }
     }
 
     public String getSender(String messageId){
