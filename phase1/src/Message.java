@@ -11,7 +11,7 @@ public class Message implements Serializable {
     private LocalDateTime time;
 
     private String convoID;
-    private String reply = "";
+    private String reply = null;
 
     private String generateID(){
         long timestamp = System.currentTimeMillis();

@@ -20,10 +20,19 @@ public class MessageManager implements Serializable {
         return message.getId();
     }
 
+    public boolean addReply(String senderId, ArrayList<String> recipientIds, String content, String convoId, String messageId){
+        Message message = getMessage(messageId);
+        if(message == null){
+            return false;
+        }
+        Message newMessage = new Message(senderId, recipientIds, content, convoId);
+        message.setReply(newMessage.getId());
+        return true;
+    }
     public boolean removeMessage(String id){
         Message message = null;
         for(Message m: allMessages){
-            if(m.getId() == id){
+            if(m.getId().equals(id)){
                 message = m;
             }
         }
@@ -38,4 +47,27 @@ public class MessageManager implements Serializable {
         return allMessages;
     }
 
+    public Message getMessage(String messageId){
+        for(Message m: allMessages){
+            if(m.getId().equals(messageId)){
+                return m;
+            }
+        }
+        return null;
+    }
+
+    public String getReply(String messageId){
+        return getMessage(messageId).getReply();
+    }
+
+    public String getSender(String messageId){
+        return getMessage(messageId).getSender();
+    }
+    public String getContent(String messageId){
+        return getMessage(messageId).getContent();
+    }
+
+    public String getTime(String messageId){
+        return getMessage(messageId).getTime().toString();
+    }
 }
