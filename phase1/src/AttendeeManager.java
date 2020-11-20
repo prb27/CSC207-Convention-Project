@@ -39,14 +39,14 @@ public class AttendeeManager implements Serializable {
 
     /**
      * add an User (String) to an Attendee's contact list
-     * if the Attendee does not exist, print a message and do nothing!
-     * ASSUMPTION: String <b> is valid and <a> can add <b> to its contact list!    // check in controller?
+     * if the Attendee does not exist, return an appropriate message
+     * ASSUMPTION: String <b> is valid and <a> can add <b> to its contact list!    // check in MasterSystem
      * @param a: the Attendee whose contact list will be added to (param_type: String)
      * @param b: the User to be added to the Attendee's contact list (param_type: String)
      * @return String
      * ADE - Attendee Doesn't Exist
      * No - <b> is already in <a>'s contact list
-     * Yes - successfully add <b> to <a>'s contact list
+     * Yes - successfully added <b> to <a>'s contact list
      */
     public String aAddContactB(String a, String b) {
         if (!attendees.containsKey(a)) {
@@ -64,36 +64,49 @@ public class AttendeeManager implements Serializable {
 
     /**
      * add a conversation to an Attendee's list of participating conversations
-     * if the Attendee does not exist, print a message and do nothing!
-     * ASSUMPTION: String <conversation> is valid!  // check in controller?
+     * if the Attendee does not exist, return an appropriate message
+     * Notice: String <conversation> is valid because it is generated within the program
      * @param attendee: the Attendee whose conversation list will be added to (param_type: String)
      * @param conversation: the Conversation to be added to the Attendee's conversation list (param_type: String)
-     * @return void
+     * @return String
+     * ADE - Attendee Doesn't Exist
+     * No - <conversation> is already in <attendee>'s conversation list
+     * Yes - successfully added <conversation> to <attendee>'s conversation list
      */
-    public void addConversation(String attendee, String conversation) {
+    public String addConversation(String attendee, String conversation) {
         if (!attendees.containsKey(attendee)) {
             //System.out.println("user with userID " + attendee + " not found");
-            return;
+            return "ADE";
         }
         Attendee a = attendees.get(attendee);
         ArrayList<String> conversations = a.getConversations();
+        if (conversations.contains(conversation)) {
+            return "No";
+        }
         conversations.add(conversation);
         a.setConversations(conversations);
+        return "Yes";
     }
 
     /**
      * return the list of all contacts that an Attendee connects to
      * @param a: the Attendee whose contact list is returned (param_type: String)
      * @return ArrayList<String> list of contacts
+     * empty list if Attendee doesn't exist
      */
     public ArrayList<String> getMessagableUsers(String a) {
-        return attendees.get(a).getContacts();
+        Attendee attendee = attendees.get(a);
+        if (attendee == null) {
+            return new ArrayList<>();
+        }
+        return attendee.getContacts();
     }
 
     /**
      * lookup and return an Attendee by their username
      * @param a: the username to look up an Attendee (param_type: String)
      * @return Attendee attendee
+     * null if that Attendee doesn't exist
      */
     public Attendee getAttendee(String a) {
         return attendees.get(a);
@@ -130,39 +143,46 @@ public class AttendeeManager implements Serializable {
 
     /**
      * add an event to an Attendee's list of participating events
-     * if the Attendee does not exist, print a message and do nothing!
+     * if the Attendee does not exist, return an appropriate message
      * ASSUMPTION: String <event> is valid!  // check in controller?
      * @param attendee: the Attendee whose participating-events list will be added to (param_type: String)
      * @param event: the desired event to be added (param_type: String)
-     * @return void
+     * @return String
+     * ADE - Attendee Doesn't Exist
+     * No - <event> is already in <attendee>'s attending events list
+     * Yes - successfully added <event> to <attendee>'s attending events list
      */
-    public void addAttendingEvent(String attendee, String event){
+    public String addAttendingEvent(String attendee, String event){
         if (!attendees.containsKey(attendee)) {
             //System.out.println("user with userID " + attendee + " not found");
-            return;
+            return "ADE";
         }
         Attendee a = attendees.get(attendee);
         ArrayList<String> participatingEvents = a.getEventsAttending();
         // if <event> not in participatingEvents, add it in. If it's in, then do nothing!
-        if (!participatingEvents.contains(event)) {
-            participatingEvents.add(event);
+        if (participatingEvents.contains(event)) {
+            return "No";
         }
+        participatingEvents.add(event);
         a.setEventsAttending(participatingEvents);
+        return "Yes";
     }
 
     /**
      * remove an event from an Attendee's list of participating events
-     * if the Attendee does not exist, print a message and do nothing!
+     * if the Attendee does not exist, return an appropriate message
      * if the event is not in this Attendee's list of participating events, do nothing!
      * ASSUMPTION: String <event> is valid!  // check in controller?
      * @param attendee: the Attendee whose participating-events list will be removed from (param_type: String)
      * @param event: the desired event to be removed (param_type: String)
-     * @return void
+     * @return String
+     * ADE - Attendee Doesn't Exist
+     * Yes - <attendee>'s attending events list now doesn't contain <event>
      */
-    public void removeAttendingEvent(String attendee, String event){
+    public String removeAttendingEvent(String attendee, String event){
         if (!attendees.containsKey(attendee)) {
             //System.out.println("user with userID " + attendee + " not found");
-            return;
+            return "ADE";
         }
         Attendee a = attendees.get(attendee);
         ArrayList<String> participatingEvents = a.getEventsAttending();
@@ -170,6 +190,7 @@ public class AttendeeManager implements Serializable {
         // if in, remove it
         participatingEvents.remove(event);
         a.setEventsAttending(participatingEvents);
+        return "Yes";
     }
 
     /**
@@ -188,10 +209,11 @@ public class AttendeeManager implements Serializable {
      * @param attendee: the Attendee (param_type: String)
      * @param event: the desired event (param_type: String)
      * @return boolean
+     * false -- user with userID <attendee> not found or Attendee is Not attending <event>
+     * true -- <attendee> is attending <event>
      */
     public boolean isAttending(String attendee, String event) {
         if (!attendees.containsKey(attendee)) {
-            //System.out.println("user with userID " + attendee + " not found");
             return false;
         }
         return attendees.get(attendee).getEventsAttending().contains(event);
@@ -201,18 +223,28 @@ public class AttendeeManager implements Serializable {
      * return the list of all events that an Attendee is participating
      * @param attendee: the username of the Attendee to get the according list of participating events
      * @return ArrayList<String> participating events
+     * empty list if Attendee doesn't exist
      */
     public ArrayList<String> getEventsAttending(String attendee) {
-        return attendees.get(attendee).getEventsAttending();
+        Attendee a = attendees.get(attendee);
+        if (a == null) {
+            return new ArrayList<>();
+        }
+        return a.getEventsAttending();
     }
 
     /**
      * return the list of all conversations that an Attendee is participating
      * @param attendee: the username of the Attendee to get the according list of participating conversations
      * @return ArrayList<String> conversations' id
+     * empty list if Attendee doesn't exist
      */
     public ArrayList<String> getConversations(String attendee) {
-        return attendees.get(attendee).getConversations();
+        Attendee a = attendees.get(attendee);
+        if (a == null) {
+            return new ArrayList<>();
+        }
+        return a.getConversations();
     }
 
     /**
