@@ -160,6 +160,34 @@ public class UserMessageController implements Serializable {
 
     }
 
+    public boolean reply(String senderId, String convoId, String content){
+        if(!convoManager.isConversation(convoId)){
+            return false;
+        }
+        String current = convoManager.getConvoRoot(convoId);
+        while(messageManager.getReply(current) != null){
+            current = messageManager.getReply(current);
+        }
+        ArrayList<String> recipients = convoManager.getConvoParticipants(convoId);
+        recipients.remove(senderId);
+        messageManager.addReply(senderId, recipients, content, convoId, current);
+        return true;
+    }
+
+    public ArrayList<String> orderedMessagesInConvo(String convoId){
+        ArrayList<String> rawMessages = new ArrayList<>();
+        String current = convoManager.getConvoRoot(convoId);
+        while(messageManager.getReply(current) != null){
+            rawMessages.add(current);
+            current = messageManager.getReply(current);
+        }
+        ArrayList<String> formattedMessages = new ArrayList<>();
+        for(String messageId: rawMessages){
+            String message = messageManager.getSender(messageId) + ": " + messageManager.getContent(messageId) + " (" + messageManager.getTime(messageId) + ")";
+            formattedMessages.add(message);
+        }
+        return formattedMessages;
+    }
 
     /**
      * Helper Method: Sends a message to a single recipient
@@ -203,19 +231,6 @@ public class UserMessageController implements Serializable {
         return convoId;
     }
 
-    private boolean reply(String senderId, String convoId, String content){
-        if(!convoManager.isConversation(convoId)){
-            return false;
-        }
-        String current = convoManager.getConvoRoot(convoId);
-        while(messageManager.getReply(current) != null){
-            current = messageManager.getReply(current);
-        }
-        ArrayList<String> recipients = convoManager.getConvoParticipants(convoId);
-        recipients.remove(senderId);
-        messageManager.addReply(senderId, recipients, content, convoId, current);
-        return true;
-    }
 
     /**
      * Correctly creates the conversations and sends the messages to enable a speaker to send a message to everyone in a talk

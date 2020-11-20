@@ -59,4 +59,15 @@ public class MessageManager implements Serializable {
     public String getReply(String messageId){
         return getMessage(messageId).getReply();
     }
+
+    public String getSender(String messageId){
+        return getMessage(messageId).getSender();
+    }
+    public String getContent(String messageId){
+        return getMessage(messageId).getContent();
+    }
+
+    public String getTime(String messageId){
+        return getMessage(messageId).getTime().toString();
+    }
 }
