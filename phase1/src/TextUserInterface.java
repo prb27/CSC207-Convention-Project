@@ -8,9 +8,6 @@ import java.util.Scanner;
 
 public class TextUserInterface {
 
-    public static void main(String[] args) {
-    }
-
     public static void landingmenu() {
         System.out.println("Welcome! What would you like to do?\n");
         System.out.println("Please type in only the integer for your choice!");
@@ -40,18 +37,20 @@ public class TextUserInterface {
         return details;
     }
 
-    public void usernameprompt(){
+    public void usernameprompt() {
         System.out.println("Please enter your username:");
     }
 
-    public void passwordprompt(){
+    public void passwordprompt() {
         System.out.println("Please enter your password:");
     }
 
+
     //    this is specifically for Ashwin's work.
     //    Need to get everyone to use similar way of dealing with this bullshit.
-    public static void showError(String error){
-        switch(error){
+
+    public void showError(String error) {
+        switch (error) {
             case "INO":
                 System.out.println("Invalid Input: please choose from one of the available integer options");
                 break;
@@ -74,55 +73,97 @@ public class TextUserInterface {
         }
     }
 
+    public void showPrompt(String x) {
+        switch (x) {
+            case "INO":
+                System.out.println("Invalid Input: please choose from one of the available integer options");
+                break;
+            case "ODE":
+                System.out.println("Organizer doesn't exist");
+                break;
+            case "EDE":
+                System.out.println("Event doesn't exist");
+                break;
+            case "SDE":
+                System.out.println("Speaker doesn't exist");
+                break;
+            case "EFC":
+                System.out.println("Event at full capacity");
+                break;
+            case "RAE":
+                System.out.println("Room already exists");
+                break;
+        }
+    }
+
     public void attendeemenu(String username) {
         System.out.println("Hello " + username + "!");
-        System.out.println("What would you like to do?\n");
-        System.out.println("1: Available events to sign up for");
-        System.out.println("2: Cancel spot in an event");
-        System.out.println("3: See schedule of event signed up for");
-        System.out.println("4: Send messages to another attendee");
-        System.out.println("5: Send message to a speaker");
+        System.out.println("What would you like to do?\n\n");
+
+        System.out.println("EVENT FUNCTIONS:");
+        System.out.println("1: Available events to sign up for"); //Basic for loop iterates over list that prints out line by line.
+        System.out.println("2: Cancel spot in an event"); // Returns an error if spot doesn't exist otherwise, prints success.
+        System.out.println("3: See schedule of event signed up for\n\n"); //Basic for loop iterates over list that prints out line by line.
+
+        System.out.println("MESSAGING FUNCTIONS:");
+        System.out.println("4: Send message to an attendee"); //
+        System.out.println("5: Send message to a speaker of a talk");
         System.out.println("\n\n0: quit");
     }
 
+
     public void AttendeeEventSignup() {
-    // Where is the get method for available events to sign up for? Can't find it.
+        // Where is the get method for available events to sign up for? Can't find it.
     }
 
     public void AttendeeCancelSpot() {
-    // Where is the get method for list of events an attendee is attending?
+        // Where is the get method for list of events an attendee is attending?
         System.out.println("Which of the events would you like to cancel your spot at?");
         System.out.println("Please key in the exact string for the ");
     }
 
-//    public void SpeakerListofEventsSpeaking() {
-//        HashMap<String, String> ListofEvents = SpeakerManager.getListofTalks;
-//    }
-
-    public void organizermenu(String username){
+    public void organizermenu(String username) {
         System.out.println("Hello " + username + "!");
-        System.out.println("What would you like to do?\n");
+        System.out.println("What would you like to do?\n\n");
+
+        System.out.println("EVENT FUNCTIONS:");
         System.out.println("1: Create speaker account");
         System.out.println("2: Add a room into the system");
         System.out.println("3: Schedule speakers to speak in a room");
         System.out.println("4: Available events to sign up for");
         System.out.println("5: Cancel spot in an event");
-        System.out.println("6: See schedule of event signed up for");
-        System.out.println("7: Send messages to another attendee");
-        System.out.println("8: Send message to a speaker");
+        System.out.println("6: See schedule of event signed up for\n\n");
+
+        System.out.println("MESSAGING FUNCTIONS:");
+        System.out.println("7: Send message to an attendee");
+        System.out.println("8: Send message to all attendees");
+        System.out.println("9: Send message to a speaker");
+        System.out.println("10: Send message to all speakers");
         System.out.println("\n\n0: quit");
 
     }
 
     public void speakermenu(String username) {
         System.out.println("Hello " + username + "!");
-        System.out.println("What would you like to do?\n");
-        System.out.println("1: View list of talks to give");
-        System.out.println("2: Message all attendees signed up for a talk");
+        System.out.println("What would you like to do?\n\n");
+
+        System.out.println("EVENT FUNCTIONS:");
+        System.out.println("1: View list of talks to given\n\n");
+
+        System.out.println("MESSAGING FUNCTIONS:");
+        System.out.println("2: Message all attendees signed up for a talk or multiple talks");
         System.out.println("3: Message an attendee attending a talk");
         System.out.println("\n\n0: quit");
     }
+
+
+
 }
+
+//    public void SpeakerListofEventsSpeaking() {
+//        ArrayList<ArrayList<String>> ListofEvents = SpeakerManager;
+//    }
+
 
 
 // For Phase 1 To-Do:

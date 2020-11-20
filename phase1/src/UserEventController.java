@@ -1,5 +1,6 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -270,6 +271,10 @@ public class UserEventController {
             return "EFC";
         }
         return "ADE/EDE";
+    }
+
+    public ArrayList<HashMap<String, String>> seeAllEventsForSpeaker(String speakerUsername){
+        return speakerManager.getListOfTalks(speakerUsername);
     }
 
 }
