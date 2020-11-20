@@ -26,7 +26,7 @@ public class UserEventController {
      * If event with </eventName> exists,
      * check room capacity and enrol that Attendee to that Event
      * @author Ashwin Karthikeyan
-     * @param username: the username of an Attendee to be enrolled in an event (param_type: String)
+     * @param username: the username of an Organizer to be enrolled in an event (param_type: String)
      * @param eventName: the intended event (param_type: String)
      * @return "AE" - Already attending the event
      *         "EDE" - Event doesn't exist
@@ -93,7 +93,7 @@ public class UserEventController {
      * enroll User (Organizer/Attendee) with </username> to an Event </eventName>
      * by calling enrolOrganizerInEvent() or enrolAttendeeInEvent()
      * @author Ashwin Karthikeyan
-     * @param username: the username of an Attendee to be enrolled in an event (param_type: String)
+     * @param username: the username of a User (Organizer/Attendee) to be enrolled in an event (param_type: String)
      * @param eventName: the intended event (param_type: String)
      * @return : "AE" - Already attending event
      *           "EDE" - Event doesn't exist
@@ -116,8 +116,8 @@ public class UserEventController {
      * By the end of the execution of this method, the User (Organizer/Attendee) with username </username> is no longer
      * attending the event with title </eventName>.
      * @author Khoa Pham, Ashwin Karthikeyan
-     * @param username: the username of an Attendee who wants to cancel
-     *                reservation for an event (param_type: String)
+     * @param username: the username of the User who wants to cancel
+     *                  reservation for an event (param_type: String)
      * @param eventName: the intended event (param_type: String)
      */
     public void cancelSeatForUser(String username, String eventName){
@@ -135,7 +135,14 @@ public class UserEventController {
 
     }
 
-
+    /**
+     * By the end of the execution of this method, the User (Organizer/Attendee) with username </username> is no longer
+     * attending the event with title </eventName>.
+     * @author Khoa Pham, Ashwin Karthikeyan
+     * @param organizerUsername: the username of the Organizer who wants to cancel
+     *                reservation for an event (param_type: String)
+     * @param eventName: the intended event (param_type: String)
+     */
     public String organizerAddNewRoom(String organizerUsername, String roomId, int capacity){
         // RAE - room already exists
         if(organizerManager.isOrganizer(organizerUsername)){
