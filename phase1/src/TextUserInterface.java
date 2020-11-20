@@ -158,16 +158,17 @@ public class TextUserInterface {
         System.out.println("\nEVENT FUNCTIONS:");
         System.out.println("1: Create speaker account");
         System.out.println("2: Add a room into the system");
-        System.out.println("3: Schedule speakers to speak in a room");
-        System.out.println("4: Available events to sign up for");
-        System.out.println("5: Cancel spot in an event");
-        System.out.println("6: See schedule of event signed up for");
+        System.out.println("3: Create new event");
+        System.out.println("4: Change speaker for an event");
+        System.out.println("5: Show available events to sign up for");
+        System.out.println("6: Cancel spot in an event");
+        System.out.println("7: See schedule of events signed up for");
 
         System.out.println("\nMESSAGING FUNCTIONS:");
-        System.out.println("7: Send message to an attendee");
-        System.out.println("8: Send message to all attendees");
-        System.out.println("9: Send message to a speaker");
-        System.out.println("10: Send message to all speakers");
+        System.out.println("8: Send message to an attendee");
+        System.out.println("9: Send message to all attendees");
+        System.out.println("10: Send message to a speaker");
+        System.out.println("11: Send message to all speakers");
         System.out.println("\n0: quit");
 
     }

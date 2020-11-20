@@ -123,6 +123,7 @@ public class MasterSystem {
 }
 
     private void userCommandHandler(String option, String username, String password, String userType) {
+
         switch(userType) {
             case "attendee":
                 switch(option) {
@@ -133,6 +134,37 @@ public class MasterSystem {
                 }
                 break;
             case "organizer":
+                if(organizerManager.isOrganizer(username)) {
+                    switch (option) {
+                        case "1":
+                            ui.usernameprompt();
+                            String speakerUsername = scanner.nextLine();
+                            ui.passwordprompt();
+                            String speakerPassword = scanner.nextLine();
+                            if(accountHandler.signup(speakerUsername, speakerPassword, "speaker")){
+                                ui.showPrompt("UC");
+                            }
+                            else {
+                                ui.showPrompt("SF");
+                            }
+                            break;
+                        case "2":
+                            ui.present("Please enter roomID:");
+                            String roomID = scanner.nextLine();
+                            ui.present("Please enter room capacity");
+                            int capacity = scanner.nextInt();
+                            String err = userEventController.organizerAddNewRoom(username, roomID, capacity);
+                            if(!err.equals("YES")){
+                                ui.showError(err);
+                            }
+                            else{
+                                ui.present("Successful");
+                            }
+                            break;
+                        case "3":
+                            ui.present("Please ");
+                    }
+                }
                 break;
             case "speaker":
                 switch(option) {
