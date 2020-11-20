@@ -29,4 +29,14 @@ public class ConversationManager implements Serializable {
             }
         }
     }
+
+    //VLAD ADDED
+    public Conversation getConversation(String convoId){
+        for(Conversation convo: allConversations){
+            if (convo.getId().equals(convoId)){
+                return convo;
+            }
+        }
+        return null;
+    }
 }

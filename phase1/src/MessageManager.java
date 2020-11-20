@@ -7,6 +7,7 @@ public class MessageManager implements Serializable {
     public MessageManager(){
         allMessages = new ArrayList<>();
     }
+
     public String sendMessageSingle(String senderId, String recipientId, String content, String convoID){
         Message message = new Message(senderId, recipientId, content, convoID);
         allMessages.add(message);
