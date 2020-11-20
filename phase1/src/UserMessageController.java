@@ -27,11 +27,24 @@ public class UserMessageController {
 
     }
 
-    public boolean organizerSendMessageToAll(String organizerId, String content, String userType, ArrayList<String> recipients){
+    public boolean organizerSendMessageToAll(String organizerId, String content, String userType){
 
         if(organizerManager.isOrganizer(organizerId)){
-            organizerToAll(organizerId, content, userType, recipients);
-            return true;
+            if(userType.equals("attendee")) {
+                ArrayList<String> attendeeIDs = attendeeManager.getAllAttendeeIds();
+                organizerToAll(organizerId, content, userType, attendeeIDs);
+                return true;
+            }
+            if(userType.equals("organizer")) {
+                ArrayList<String> organizerIDs = organizerManager.getAllOrganizerIds();
+                organizerToAll(organizerId, content, userType, organizerIDs);
+                return true;
+            }
+            if(userType.equals("speaker")) {
+                ArrayList<String> speakerIds = speakerManager.getAllSpeakerIds();
+                organizerToAll(organizerId, content, userType, speakerIds);
+                return true;
+            }
         }
         return false;
 

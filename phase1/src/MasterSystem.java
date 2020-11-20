@@ -136,7 +136,39 @@ public class MasterSystem {
             case "organizer":
                 if(organizerManager.isOrganizer(username)) {
                     switch (option) {
-                        case "1":{
+                        case "1": {
+                            for (String attendee : attendeeManager.getAllAttendeeIds()){
+                                ui.present(attendee + "\n");
+                            }
+                            break;
+                        }
+                        case "2": {
+                            for (String organizer: organizerManager.getAllOrganizerIds()) {
+                                ui.present(organizer + "\n");
+                            }
+                            break;
+                        }
+                        case "3": {
+                            for(String speaker: speakerManager.getAllSpeakerIds()){
+                                ui.present(speaker + "\n");
+                            }
+                            break;
+                        }
+                        case "4": {
+                            ui.present("Please enter the speaker's username");
+                            String speakerName = scanner.nextLine();
+                            ui.present("Please enter the time");
+                            String time = scanner.nextLine();
+                            boolean free = speakerManager.isSpeakerFreeAtTime(speakerName, time);
+                            if(free){
+                                ui.present("No, the speaker doesn't have an event at " + time);
+                            }
+                            else{
+                                ui.present("Yes, the speaker is talking at an event at " + time);
+                            }
+                            break;
+                        }
+                        case "5":{
                             ui.usernameprompt();
                             String speakerUsername = scanner.nextLine();
                             ui.passwordprompt();
@@ -149,7 +181,7 @@ public class MasterSystem {
                             }
                             break;
                         }
-                        case "2": {
+                        case "6": {
                             ui.present("Please enter roomID:");
                             String roomID = scanner.nextLine();
                             ui.present("Please enter room capacity");
@@ -162,7 +194,7 @@ public class MasterSystem {
                             }
                             break;
                         }
-                        case "3": {
+                        case "7": {
                             ui.present("Please enter event name");
                             String eventName = scanner.nextLine();
                             ui.present("Please enter event time");
@@ -172,35 +204,104 @@ public class MasterSystem {
                             String err = userEventController.createEvent(username, eventName, eventTime, speakerName);
                             if (!err.equals("YES"))
                                 ui.showError(err);
+                            else {
+                                ui.present("Successful");
+                            }
                             break;
                         }
-                        case "4": {
-                            ui.present("Please enter the event name");
+                        case "8": {
+                            ui.present("Please enter the event name.");
                             String eventName = scanner.nextLine();
                             ui.present("Please enter new speaker's username");
                             String speakerName = scanner.nextLine();
+                            if(!eventManager.isEvent(eventName)){
+                                ui.showError("EDE");
+                                break;
+                            }
                             String eventTime = eventManager.getEventTime(eventName);
                             userEventController.removeCreatedEvent(username, eventName);
                             String err = userEventController.createEvent(username, eventName, eventTime, speakerName);
                             if (!err.equals("YES"))
                                 ui.showError(err);
+                            else {
+                                ui.present("Successful");
+                            }
                             break;
                         }
-                        case "5": {
+                        case "9": {
+                            ui.present("Please enter the event name");
+                            String eventName = scanner.nextLine();
+                            ui.present("Please enter a new time for the event");
+                            String eventTime = scanner.nextLine();
+                            String speakerName = eventManager.getSpeakerEvent(eventName);
+                            userEventController.removeCreatedEvent(username, eventName);
+                            if(speakerManager.isSpeaker(speakerName)) {
+                                String err = userEventController.createEvent(username, eventName, eventTime, speakerName);
+                                ui.present("Successful");
+                            }
+                            else{
+                                ui.showError("EDE");
+                            }
+                        }
+                        case "10": {
                             ArrayList<String> eventsNotSignedUpFor = userEventController.getOrganizerEventsNotAttending(username);
                             for (String event : eventsNotSignedUpFor)
                                 ui.present(event);
                             break;
                         }
-                        case "6": {
+                        case "11": {
+                            ui.present("Please enter the title of the event you want to attend (exactly as it appears on the list of titles displayed)");
+                            String eventName = scanner.nextLine();
+                            String err = userEventController.enrolUserInEvent(username, eventName);
+                            if(!err.equals("YES")){
+                                ui.showError(err);
+                            }
+                            else{
+                                ui.present("Successful");
+                            }
+                        }
+                        case "12": {
                             ui.present("Please enter the event's name");
                             String eventName = scanner.nextLine();
                             userEventController.cancelSeatForUser(username, eventName);
                             ui.present("You are no longer attending " + eventName);
                             break;
                         }
-                        case "7": {
+                        case "13": {
+                            for (String event: organizerManager.getEventsAttending(username))
+                                ui.present(event + eventManager.getEventTime(event) + eventManager.getRoomNumber(event) + eventManager.getSpeakerEvent(username));
                             break;
+                        }
+                        case "14": {
+                            ui.present("Please enter attendee ID");
+                            String attendeeID = scanner.nextLine();
+                            ui.present("Please enter the message that you want to send");
+                            String content = scanner.nextLine();
+                            userMessageController.organizerSendMessageToSingle(username, attendeeID, content, "attendee");
+                            break;
+                        }
+                        case "15": {
+                            ui.present("Please enter the message that you want to send");
+                            String content = scanner.nextLine();
+                            userMessageController.organizerSendMessageToAll(username, content, "attendee");
+                            break;
+                        }
+                        case "16": {
+                            ui.present("Please enter the speaker's username");
+                            String speakerName = scanner.nextLine();
+                            ui.present("Please enter the message that you want to send");
+                            String content = scanner.nextLine();
+                            userMessageController.organizerSendMessageToSingle(username, speakerName, content, "speaker");
+                            break;
+                        }
+                        case "17": {
+                            ui.present("Please enter the message that you want to send");
+                            String content = scanner.nextLine();
+                            userMessageController.organizerSendMessageToAll(username, content, "speaker");
+                            break;
+                        }
+                        case "0": {
+                            return;
                         }
                     }
                 }
