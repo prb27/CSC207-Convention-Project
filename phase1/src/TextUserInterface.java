@@ -180,6 +180,7 @@ public class TextUserInterface implements Serializable {
         System.out.println("16: Send message to all attendees");
         System.out.println("17: Send message to a speaker");
         System.out.println("18: Send message to all speakers");
+        System.out.println("19: View all conversations");
         System.out.println("\n0: Sign-out");
 
     }
@@ -197,6 +198,7 @@ public class TextUserInterface implements Serializable {
         System.out.println("4: Message an attendee attending a talk");
         System.out.println("\n0: Sign-out");
     }
+
     /*
     public void speakerMessagingMenu(String username){
         System.out.println("MESSAGING:");

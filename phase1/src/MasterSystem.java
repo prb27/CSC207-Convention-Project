@@ -416,6 +416,38 @@ public class MasterSystem implements Serializable {
                             userMessageController.organizerSendMessageToAll(username, content, "speaker");
                             break;
                         }
+                        case "19": {
+                            Integer i = 1;
+                            for(String conversationId: organizerManager.getConversations(username)) {
+                                ArrayList<String> recipientsOfConversation = userMessageController.recipientsOfConvo(conversationId);
+                                StringBuilder recipients = new StringBuilder();
+                                ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
+                                for (String recipient: recipientsOfConversation){
+                                    recipients.append(recipient);
+                                    recipients.append(", ");
+                                }
+                                ui.present("Recipients: " + recipients);
+                            }
+                            if(recipientsOfConversation.isEmpty()){
+                                ui.present("You have no conversations");
+                                break;
+                            }
+                            ui.present("Choose a Coversation Number");
+                            int conversationNumber = scanner.nextInt();
+                            String conversationIdFinal = organizerManager.getConversations(username).get(conversationNumber - 1);
+                            ArrayList<String> messagesInThisConversation = userMessageController.orderedMessagesInConvo(conversationIdFinal);
+                            for (String s : messagesInThisConversation) {
+                                ui.present(s);
+                            }
+                            ui.present("Enter \"r\" to reply in this conversation. [Any other input will exit this menu]");
+                            String reply = scanner.nextLine();
+                            if(!reply.equals("r")){
+                                break;
+                            }
+                            ui.present("Please enter the message you want to send");
+                            String content = scanner.nextLine();
+                            userMessageController.reply(username, conversationIdFinal, content);
+                        }
                         default: {
                             ui.showError("INO");
                         }
