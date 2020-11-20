@@ -23,32 +23,95 @@ public class UserEventController {
 
     }
 
-    public String enrolOrganizerInEvent(String username, String eventName){
-        // If event with eventName and organizer with username exist, then check room capacity and enrol organizer in event.
-        // ODE - Organizer doesn't exist
-        // EDE - Event doesn't exist
-        // EFC - Event at full capacity
-        if (organizerManager.isOrganizer(username)) {
-            if (eventManager.isEvent(eventName)){
-                if (organizerManager.isAttending(username, eventName).equals("YES")) {
-                    return "AE";
-                }
-                String roomId = eventManager.getRoomNumber(eventName);
-                int capacity = roomManager.getCapacityOfRoom(roomId);
-                ArrayList<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
-                if (attendeesOfEvent.size() < capacity) {
-                    String erMessage = eventManager.reserveAttendee(eventName, username);
-                    if (erMessage.equals("YES")) {
-                        organizerManager.addAttendingEvent(username, eventName);
-                        return "YES";
-                    }
-                    return erMessage;
-                }
-                return "EFC";
+    /**
+     * enroll an Organizer with </username> to an Event </eventName>
+     * If event with </eventName> exists,
+     * check room capacity and enrol that Attendee to that Event
+     * @author Ashwin Karthikeyan
+     * @param username: the username of an Attendee to be enrolled in an event (param_type: String)
+     * @param eventName: the intended event (param_type: String)
+     * @return "AE" - Already attending the event
+     *         "EDE" - Event doesn't exist
+     *         "EFC" - Event at full capacity
+     *         "YES" - Organizer has newly been registered for this event
+     */
+    private String enrolOrganizerInEvent(String username, String eventName){
+
+        if (eventManager.isEvent(eventName)){
+            if (organizerManager.isAttending(username, eventName).equals("YES")) {
+                return "AE";
             }
-            return "EDE";
+            String roomId = eventManager.getRoomNumber(eventName);
+            int capacity = roomManager.getCapacityOfRoom(roomId);
+            ArrayList<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
+            if (attendeesOfEvent.size() < capacity) {
+                String erMessage = eventManager.reserveAttendee(eventName, username);
+                if (erMessage.equals("YES")) {
+                    organizerManager.addAttendingEvent(username, eventName);
+                    return "YES";
+                }
+                return erMessage;
+            }
+            return "EFC";
         }
-        return "ODE";
+        return "EDE";
+    }
+
+    /**
+     * enroll an Attendee with </username> to an Event </eventName>
+     * If event with </eventName> and Attendee with </username> exist,
+     * check room capacity and enrol that Attendee to that Event
+     * @author Khoa Pham
+     * @param username: the username of an Attendee to be enrolled in an event (param_type: String)
+     * @param eventName: the intended event (param_type: String)
+     * @return : "AE" - Already attending event
+     *           "EDE" - Event doesn't exist
+     *           "EFC" - Event at full capacity
+     *           "YES" - Attendee has newly been registered for this event
+     */
+    private String enrolAttendeeInEvent(String username, String eventName) {
+        // ent.
+        if (eventManager.getEvent(eventName) != null) {
+            if (attendeeManager.isAttending(username, eventName)) {
+                return "AE";
+            }
+            String roomId = eventManager.getEvent(eventName).getRoomNumber();
+            int capacity = roomManager.getCapacityOfRoom(roomId);
+            ArrayList<String> attendeesOfEvent = eventManager.getEvent(eventName).getAttendeeList();
+            if (attendeesOfEvent.size() < capacity) {
+                String erMessage = eventManager.reserveAttendee(eventName, username);
+                if (erMessage.equals("YES")) {
+                    attendeeManager.addAttendingEvent(username, eventName);
+                    return "YES";
+                }
+                return erMessage;
+            }
+            return "EFC";
+        }
+        return "EDE";
+    }
+
+    /**
+     * enroll User (Organizer/Attendee) with </username> to an Event </eventName>
+     * by calling enrolOrganizerInEvent() or enrolAttendeeInEvent()
+     * @author Ashwin Karthikeyan
+     * @param username: the username of an Attendee to be enrolled in an event (param_type: String)
+     * @param eventName: the intended event (param_type: String)
+     * @return : "AE" - Already attending event
+     *           "EDE" - Event doesn't exist
+     *           "EFC" - Event at full capacity
+     *           "YES" - Attendee has newly been registered for this event
+     */
+    public String enrolUserInEvent(String username, String eventName){
+
+        if(organizerManager.isOrganizer(username)){
+            return enrolOrganizerInEvent(username, eventName);
+        }
+        else if(attendeeManager.isAttendee(username)){
+            return enrolAttendeeInEvent(username, eventName);
+        }
+        return "UDE";
+
     }
 
     /**
@@ -230,43 +293,6 @@ public class UserEventController {
             }
         }
         return eventsAttendable;
-    }
-
-
-    /**
-     * enroll an Attendee with <username> to an Event <eventName>
-     * If event with <eventName> and Attendee with <username> exist,
-     * check room capacity and enrol that Attendee to that Event
-     * Notes:
-     * ADE - Attendee doesn't exist
-     * EDE - Event doesn't exist
-     * EFC - Event at full capacity
-     * @author Khoa Pham
-     * @param username: the username of an Attendee to be enrolled in an event (param_type: String)
-     * @param eventName: the intended event (param_type: String)
-     * @return String
-     */
-    public String enrolAttendeeInEvent(String username, String eventName) {
-        // ent.
-
-        if (attendeeManager.isAttendee(username)) {
-            if (eventManager.getEvent(eventName) != null) {
-                String roomId = eventManager.getEvent(eventName).getRoomNumber();
-                int capacity = roomManager.getCapacityOfRoom(roomId);
-                ArrayList<String> attendeesOfEvent = eventManager.getEvent(eventName).getAttendeeList();
-                if (attendeesOfEvent.size() < capacity) {
-                    String erMessage = eventManager.reserveAttendee(eventName, username);
-                    if (erMessage.equals("YES")) {
-                        attendeeManager.addAttendingEvent(username, eventName);
-                        return "YES";
-                    }
-                    return erMessage;
-                }
-                return "EFC";
-            }
-            return "EDE";
-        }
-        return "ADE";
     }
 
     public ArrayList<HashMap<String, String>> seeAllEventsForSpeaker(String speakerUsername){
