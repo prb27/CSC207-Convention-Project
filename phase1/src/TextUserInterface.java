@@ -22,6 +22,9 @@ public class TextUserInterface {
         System.out.println("Please create a username and password.");
     }
 
+    public void present(String input) {
+        System.out.println(input);
+    }
 
     public void usernameprompt() {
         System.out.println("Please enter your username:");
@@ -97,7 +100,7 @@ public class TextUserInterface {
                 break;
             case "UC":
                 System.out.println("Account successfully created!");
-                System.out.println("Please log in to your account.");
+                System.out.println("Please log in to the account.");
                 break;
             case "SF":
                 System.out.println("Signup failed. Please try again :p");
