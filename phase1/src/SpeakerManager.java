@@ -29,6 +29,9 @@ public class SpeakerManager {
 
     private final ArrayList<Speaker> speakers;
 
+    /**
+     * a constructor that creates a SpeakerManager object
+     */
     public SpeakerManager(){
         speakers = new ArrayList<>();
     }
