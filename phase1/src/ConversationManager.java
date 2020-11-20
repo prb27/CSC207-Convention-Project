@@ -33,7 +33,7 @@ public class ConversationManager implements Serializable {
 
     public void setConvoRoot(String convoId, String messageId) {
         for(Conversation c: allConversations){
-            if(c.getId() == convoId){
+            if(c.getId().equals(convoId)){
                 c.setConvoRoot(messageId);
             }
         }
