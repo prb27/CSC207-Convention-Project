@@ -76,4 +76,5 @@ public class MessageManager implements Serializable {
     public String getTime(String messageId){
         return getMessage(messageId).getTime().toString();
     }
+
 }

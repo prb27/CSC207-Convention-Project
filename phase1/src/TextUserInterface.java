@@ -88,6 +88,13 @@ public class TextUserInterface implements Serializable {
      */
     public void showError(String error) {
         switch (error) {
+            case "TNA":
+                System.out.println("You can not schedule an event at this time. Please choose one of the following times \n");
+                System.out.println("9, 10, 11, 12, 1, 2, 3, 4, 5");
+                break;
+            case "ARO":
+                System.out.println("All Rooms Occupied");
+                break;
             case "INO":
                 System.out.println("Invalid Input: please choose from one of the available integer options");
                 break;
@@ -120,13 +127,6 @@ public class TextUserInterface implements Serializable {
                 break;
             case "RO":
                 System.out.println("Room occupied");
-                break;
-            case "TNA":
-                System.out.println("You can not schedule an event at this time. Please choose one of the following times \n");
-                System.out.println("9, 10, 11, 12, 1, 2, 3, 4, 5");
-                break;
-            case "ARO":
-                System.out.println("All rooms occupied");
                 break;
         }
     }
@@ -178,14 +178,15 @@ public class TextUserInterface implements Serializable {
         System.out.println("What would you like to do?");
 
         System.out.println("\nEVENT FUNCTIONS:");
-        System.out.println("1: Available events to sign up for"); //Basic for loop iterates over list that prints out line by line.
-        System.out.println("2: Cancel spot in an event"); // Returns an error if spot doesn't exist otherwise, prints success.
-        System.out.println("3: See schedule of event signed up for"); //Basic for loop iterates over list that prints out line by line.
+        System.out.println("1: Available events to sign up for");
+        System.out.println("2: Sign up for an event");
+        System.out.println("3: Cancel spot in an event");
+        System.out.println("4: See schedule of event signed up for");
 
         System.out.println("\nMESSAGING FUNCTIONS:");
-        System.out.println("4: Send message to an attendee");
-        System.out.println("5: Send message to a speaker of a talk");
-        System.out.println("6: View all conversations");
+        System.out.println("5: Send message to an attendee");
+        System.out.println("6: Send message to a speaker of a talk");
+        System.out.println("7: View all conversations");
         System.out.println("\n0: Sign-out");
     }
 
@@ -223,7 +224,7 @@ public class TextUserInterface implements Serializable {
         System.out.println("16: Send message to all attendees");
         System.out.println("17: Send message to a speaker");
         System.out.println("18: Send message to all speakers");
-        System.out.println("19: View all conversations");
+        System.out.println("19: View Conversations");
         System.out.println("\n0: Sign-out");
 
     }
@@ -240,11 +241,10 @@ public class TextUserInterface implements Serializable {
         System.out.println("\nEVENT FUNCTIONS:");
         System.out.println("1: View list of talks to be given");
 
-        System.out.println("\nMESSAGING FUNCTIONS[Note: Since you are an speaker, you can send a message to attendees in a single talk, or multiple]:");
+        System.out.println("\nMESSAGING FUNCTIONS:");
         System.out.println("2: Message all attendees signed up for a talk");
         System.out.println("3: Message all attendees attending multiple talks");
         System.out.println("4: Message an attendee attending a talk");
-        System.out.println("5: View all conversations");
         System.out.println("\n0: Sign-out");
     }
 
