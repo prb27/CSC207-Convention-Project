@@ -16,11 +16,10 @@ public class Speaker extends User implements Serializable {
     private ArrayList<HashMap<String, String>> listOfTalks;
 
     /**
-     * a constructor that creates a Entities.Speaker object
+     * A constructor that creates a Entities.Speaker object
      *
      * @param username: the username of this Entities.Speaker
      * @param password: the password of this Entities.Speaker
-     * @return a Entities.Speaker object
      */
     public Speaker(String username, String password){
         super(username, password);
@@ -28,15 +27,16 @@ public class Speaker extends User implements Serializable {
     }
 
     /**
-     * returns the list of all talks that this Entities.Speaker is speaking at
-     * @return HashMap<String, String> listOfTalks
+     * Returns the list of all talks that this Entities.Speaker is speaking at
+     * @return ArrayList<HashMap<String, String>>: Returns an ArrayList of HashMaps containing a reference to an
+     * event time as the key and event name as the value
      */
     public ArrayList<HashMap<String, String>> getListOfTalks() {
         return listOfTalks;
     }
     /**
-     * updates the list of all events that this Entities.Speaker is speaking at
-     * @param listOfTalks: the new list of all talks(param_type: HashMap<String, String>)
+     * Updates the list of all events that this Entities.Speaker is speaking at
+     * @param listOfTalks: The new list of all talks(param_type: HashMap<String, String>)
      * @return void
      */
     public void setListOfTalks(ArrayList<HashMap<String, String>> listOfTalks){
