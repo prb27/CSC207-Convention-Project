@@ -507,7 +507,7 @@ public class MasterSystem implements Serializable {
             case "speaker":
                 switch(option) {
                     case "1":
-                        ui.present(userEventController.seeAllEventsForSpeaker(username).toString());
+                        ui.present(userEventController.seeListOfEventsForSpeaker(username).toString());
                         break;
                     case "2":
                         ui.eventnameprompt();
