@@ -246,6 +246,7 @@ public class MasterSystem implements Serializable {
                         ui.present("Please enter the message you want to send");
                         String contents = scanner.nextLine();
                         userMessageController.reply(username, conversationIdFinal, contents);
+                        break;
                     case "8":
                         ui.present("Please enter the name of the attendee to be added");
                         String friendName = scanner.nextLine();
@@ -258,6 +259,7 @@ public class MasterSystem implements Serializable {
                             ui.present("Entities.Attendee "+friendName+" already exist in the contact list");
                         else
                             ui.present("Success!");
+                        break;
                     default: {
                         ui.showError("INO");
                     }
@@ -511,6 +513,7 @@ public class MasterSystem implements Serializable {
                             ui.present("Please enter the message you want to send");
                             String content = scanner.nextLine();
                             userMessageController.reply(username, conversationIdFinal, content);
+                            break;
                         }
                         case "20":{
                             ui.present("Please enter the event name");
@@ -554,6 +557,7 @@ public class MasterSystem implements Serializable {
                         String content1 = scanner.nextLine();
                         userMessageController.speakerMessageByMultiTalks(username, listOfTalkNames, content1);
                         ui.showPrompt("MMS");
+                        break;
                     case "4":
                         ui.present("Please enter the username of the Entities.Attendee you wish to message:");
                         String attendeeUsername = scanner.nextLine();
