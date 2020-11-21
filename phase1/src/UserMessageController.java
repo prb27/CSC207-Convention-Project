@@ -9,6 +9,7 @@ import java.util.Set;
  * The following responsibilities include:
  * - allows an organizer to send a message to all user types
  * - allows an organizer to send a message to a single user type
+ * - allows an organizer to send a message to all attendees of a particular event
  * - allows a speaker to send a message to all attendees of a talk
  * - allows a speaker to send a message to all attendees of multiple talks
  * - allows an attendee to send a message to another attendee
@@ -38,6 +39,14 @@ public class UserMessageController implements Serializable {
 
     }
 
+    /**
+     * Allows an attendee to send a message to another attendee or speaker
+     * @param username: id of attendee sending the message
+     * @param recipientId: id of the recipient
+     * @param content: content of the message
+     * @param userType: designates whether message is being sent to attendee or speaker
+     * @return true if the message could be sent, false if the message was not sent
+     */
     public boolean attendeeSendMessage(String username, String recipientId, String content, String userType) {
         if(userType.equals("attendee")){
             if(attendeeManager.isAttendee(username) && attendeeManager.isAttendee(recipientId)){
@@ -120,6 +129,14 @@ public class UserMessageController implements Serializable {
 
     }
 
+    /**
+     *
+     * @param organizerId: id of the organizer sending the message
+     * @param eventName: name of the event whose attendees the message is sent to
+     * @param content: content of the message
+     * @return true if message is sent, false if otherwise
+     * @author Vladimir Caterov and Peter Bilski
+     */
     public boolean organizerMessageByEvent(String organizerId, String eventName, String content){
 
         ArrayList<String> recipientIds;
@@ -197,6 +214,14 @@ public class UserMessageController implements Serializable {
         return "SDE";
     }
 
+    /**
+     * Allows as speaker to message a specific attendee of an event they speak at
+     * @param speakerId: id of the speaker sending the message
+     * @param eventNames: the list of events the speaker speaks at
+     * @param recipientId: the id of the recipient of the message
+     * @param content: the content of the message
+     * @return true if message was sent, false otherwise
+     */
     public boolean speakerMessageAttendee(String speakerId, ArrayList<String> eventNames, String recipientId, String content){
         if (speakerManager.isSpeaker(speakerId)){
             for(String eventName: eventNames){
@@ -209,6 +234,13 @@ public class UserMessageController implements Serializable {
         return false;
     }
 
+    /**
+     * Allows a user to reply to a message they recieved
+     * @param senderId: the id of the sender
+     * @param convoId: the id of the convo to which they are replying
+     * @param content: the content of the reply
+     * @return: true if reply was sent, false otherwise
+     */
     public boolean reply(String senderId, String convoId, String content){
         if(!convoManager.isConversation(convoId)){
             return false;
@@ -223,6 +255,11 @@ public class UserMessageController implements Serializable {
         return true;
     }
 
+    /**
+     * Returns an ArrayList of all the messages in a conversation, formatted for display
+     * @param convoId: the id of the convo
+     * @return the ArrayList of formatted strings
+     */
     public ArrayList<String> orderedMessagesInConvo(String convoId){
         ArrayList<String> rawMessages = new ArrayList<>();
         String current = convoManager.getConvoRoot(convoId);
