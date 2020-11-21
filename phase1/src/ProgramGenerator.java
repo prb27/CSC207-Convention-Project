@@ -59,6 +59,3 @@ public class ProgramGenerator implements Serializable{
 
 }
 
-
-
-// Note, that serialization is for objects.
