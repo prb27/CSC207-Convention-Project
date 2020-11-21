@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.lang.reflect.Array;
+import java.sql.Time;
 import java.util.*;
 
 /**
@@ -334,9 +335,25 @@ public class UserEventController implements Serializable {
         return eventsAttendable;
     }
 
-    public ArrayList<HashMap<String, String>> seeAllEventsForSpeaker(String speakerUsername){
+    public ArrayList<String> seeListOfEventsForSpeaker(String speakerUsername){
+        ArrayList<HashMap<String, String>> listOfTalks = speakerManager.getListOfTalks(speakerUsername);
+
+       ArrayList<String> masterList = new ArrayList<>();
+
+       for (HashMap<String, String> talk: listOfTalks){
+           for(String eventName: talk.values()){
+               String eventTime = eventManager.getEventTime(eventName);
+               masterList.add("Event Name: " + eventName + ", " + "Event Time: " + eventTime);
+           }
+
+       }
+        return masterList;
+    }
+
+    private ArrayList<HashMap<String, String>> seeAllEventsForSpeaker(String speakerUsername){
         return speakerManager.getListOfTalks(speakerUsername);
     }
+
 
     public ArrayList<String> seeAllEventNamesForSpeaker(String speakerUsername){
         ArrayList<HashMap<String, String>> listOfTalks = seeAllEventsForSpeaker(speakerUsername);
