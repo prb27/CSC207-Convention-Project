@@ -43,9 +43,9 @@ public class SpeakerManager implements Serializable {
 
     /**
      * Creates a Entities.Speaker object and adds it to the list of all Entities.Speaker objects.
-     * @param username
-     * @param password
-     * @return boolean
+     * @param username: The username of a Entities.Speaker wanting to be created
+     * @param password: The password of a Entities.Speaker wanting to be created
+     * @return boolean: Returns a boolean validating that a Entities.Speaker has been created
      * @see Speaker
      */
     public boolean createSpeaker(String username, String password){
@@ -61,9 +61,9 @@ public class SpeakerManager implements Serializable {
 
     /**
      * Updates the contact information of a Entities.Speaker to include a new contact
-     * @param speakerUsername
-     * @param otherUsername
-     * @return boolean
+     * @param speakerUsername: The username of a given Entities.Speaker
+     * @param otherUsername: The username of the contact wished to be added
+     * @return boolean: Returns a boolean validating that a contact has been added to a Entities.Speaker's list of contacts
      */
     public boolean addContact(String speakerUsername, String otherUsername){
 
@@ -86,10 +86,10 @@ public class SpeakerManager implements Serializable {
     /**
      * Updates a Entities.Speaker object's list of all given talks with a new talk stored as a hash map with
      * event time as the key and event name as the value. Returns true if the talk was added. Else returns false.
-     * @param speakerUsername
-     * @param eventTime
-     * @param eventName
-     * @return boolean
+     * @param speakerUsername: The username of a given Entities.Speaker
+     * @param eventTime: The time of a given event
+     * @param eventName: The name of a given event
+     * @return boolean: Return a boolean validating that a talk has been added to a Entities.Speaker's list of talks
      */
     public boolean addTalkToListOfTalks(String speakerUsername, String eventTime, String eventName){
 
@@ -119,9 +119,9 @@ public class SpeakerManager implements Serializable {
     /**
      * Updates a Entities.Speaker object's list of all conversations with a new conversation. Returns true if
      * the conversation was added successfully. Else returns false.
-     * @param username
-     * @param conversation
-     * @return boolean
+     * @param username: The username of a given Entities.Speaker
+     * @param conversation: A new conversation to be created
+     * @return boolean: Returns a boolean validating that a conversation has been added to a Entities.Speaker's list of conversations
      */
     public boolean addConversation(String username, String conversation){
         Speaker speaker = getSpeaker(username);
@@ -151,8 +151,9 @@ public class SpeakerManager implements Serializable {
 
     /**
      * Returns a list of contact usernames that are available for the Entities.Speaker with given username to message.
-     * @param username
-     * @return ArrayList <String>
+     * @param username: The username of a given Entities.Speaker
+     * @return ArrayList <String>: Returns an ArrayList containing strings the represent the contacts
+     * of a given Entities.Speaker
      */
     public ArrayList<String> getContactsForSpeaker(String username){
         Speaker speaker = getSpeaker(username);
@@ -165,8 +166,9 @@ public class SpeakerManager implements Serializable {
     /**
      * Returns a a list of all events (NOTE* events are stored as a HashMap with key as event time
      * and value as event Name) for a given Entities.Speaker with specified username.
-     * @param username
-     * @return ArrayList <HashMap <String, String>>
+     * @param username: The username of a given Entities.Speaker
+     * @return ArrayList <HashMap <String, String>>: Returns an ArrayList containing HashMaps with key as event time
+     * and value as event Name
      */
     public ArrayList<HashMap<String, String>> getListOfTalks(String username){
         Speaker speaker = getSpeaker(username);
@@ -178,8 +180,9 @@ public class SpeakerManager implements Serializable {
 
     /**
      * Returns a list of all conversations for a given Entities.Speaker with specified username
-     * @param username
-     * @return ArrayList <String>
+     * @param username: The username of a given Entities.Speaker
+     * @return ArrayList <String>: Returns an ArrayList of strings containing conversation ids
+     * that a Entities.Speaker has
      */
     public ArrayList<String> getConversations(String username){
         Speaker speaker = getSpeaker(username);
@@ -191,7 +194,8 @@ public class SpeakerManager implements Serializable {
 
     /**
      * Return a list of all Entities.Speaker identifiers (Entities.Speaker usernames)
-     * @return ArrayList <String>
+     * @return ArrayList <String>: Returns an ArrayList of String objects where each String is a Entities.Speaker id
+     * for each Entities.Speaker
      */
     public ArrayList<String> getAllSpeakerIds(){
         ArrayList<String> speakerIds = new ArrayList<>();
@@ -204,9 +208,10 @@ public class SpeakerManager implements Serializable {
     /**
      * Validates if password is the password of a Entities.Speaker with given username. Returns true if a given speaker password
      * is associated with a speaker. Else returns false.
-     * @param username
-     * @param password
-     * @return boolean
+     * @param username: The username of a given Entities.Speaker
+     * @param password: The password of a given Entities.Speaker
+     * @return boolean: Returns a boolean validating that a given password is the password
+     * associated with a speaker password
      */
     public boolean checkPassword(String username, String password){
         Speaker speaker = getSpeaker(username);
@@ -219,10 +224,10 @@ public class SpeakerManager implements Serializable {
     }
 
     /**
-     * Validates if a given speaker with specified username is free at a a given time
-     * @param username
-     * @param time
-     * @return boolean
+     * Validates if a given speaker with specified username is free at a given time
+     * @param username: The username of a given Entities.Speaker
+     * @param time: A given time in the conference
+     * @return boolean: Returns a boolean validating that a speaker is free at a given time
      */
     public boolean isSpeakerFreeAtTime(String username, String time){
         Speaker speaker = getSpeaker(username);
@@ -244,8 +249,8 @@ public class SpeakerManager implements Serializable {
     /**
      * Validates if username is the id of a Entities.Speaker object. Returns true if a given speaker username is associated
      * with a speaker. Else returns false.
-     * @param username
-     * @return boolean
+     * @param username: The username of a given Entities.Speaker
+     * @return boolean: Returns a boolean validating that a given username is associated with a Entities.Speaker
      */
     public boolean isSpeaker(String username){
         if (getAllSpeakerIds().contains(username)){
@@ -260,10 +265,11 @@ public class SpeakerManager implements Serializable {
      * If a talk from a Entities.Speaker object's listOfTalks has been successfully removed, returns true.
      * Else returns false.
      *
-     * @param speakerUsername
-     * @param eventTime
-     * @param eventName
-     * @return boolean
+     * @param speakerUsername: The username of a given Entities.Speaker
+     * @param eventTime: The time of a selected event
+     * @param eventName: The name of a selected event
+     * @return boolean: Returns a boolean validating that an event has been removed from a
+     * Entities.Speaker list of events
      */
 
     public boolean removeTalkFromListOfTalks(String speakerUsername, String eventTime, String eventName){
