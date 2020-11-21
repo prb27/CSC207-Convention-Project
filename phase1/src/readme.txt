@@ -10,8 +10,9 @@ Preconditions:
     - User can’t remove people from their contacts list
     - Client must type exact integers as inputs when making choices
     - Only Attendee is allowed to signup for the program
-    - The creation of Speaker Account and Organizer Account are taken place through Organizer Account
-    - The first Organizer Account is available for anyone who runs the program at least once is the Admin Organizer
+    - The creation of Speaker Account and Organizer Account are taken place only through Organizer Accounts
+    - The first Organizer Account is available for anyone who runs the program at least once. This
+     Organizer has username - "admin" and password "admin"
 
 
 Supported functions:
@@ -68,6 +69,7 @@ Instructions:
             17: Send message to a speaker
             18: Send message to all speakers
             19: View Conversations
+            20: Send message to everyone attending an event
         - AttendeeMenu Process (7 options):
             EVENT FUNCTIONS:
             1: Available events to sign up for
