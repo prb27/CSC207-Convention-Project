@@ -101,19 +101,19 @@ public class TextUserInterface implements Serializable {
                 System.out.println("Invalid Input: please choose from one of the available integer options");
                 break;
             case "ODE":
-                System.out.println("Entities.Organizer doesn't exist");
+                System.out.println("Organizer doesn't exist");
                 break;
             case "EDE":
-                System.out.println("Entities.Event doesn't exist");
+                System.out.println("Event doesn't exist");
                 break;
             case "SDE":
-                System.out.println("Entities.Speaker doesn't exist");
+                System.out.println("Speaker doesn't exist");
                 break;
             case "EFC":
-                System.out.println("Entities.Event at full capacity");
+                System.out.println("Event at full capacity");
                 break;
             case "RAE":
-                System.out.println("Entities.Room already exists");
+                System.out.println("Room already exists");
                 break;
             case "UDE":
                 System.out.println("The user doesn't exist!");
@@ -122,13 +122,13 @@ public class TextUserInterface implements Serializable {
                 System.out.println("Already attending the event.");
                 break;
             case "ETC":
-                System.out.println("Entities.Event time conflict");
+                System.out.println("Event time conflict");
                 break;
             case "STC":
-                System.out.println("Entities.Speaker time conflict");
+                System.out.println("Speaker time conflict");
                 break;
             case "RO":
-                System.out.println("Entities.Room occupied");
+                System.out.println("Room occupied");
                 break;
         }
     }
@@ -151,22 +151,22 @@ public class TextUserInterface implements Serializable {
                 System.out.println("Signup failed. Please try again :p");
                 break;
             case "EDE":
-                System.out.println("Entities.Event doesn't exist");
+                System.out.println("Event doesn't exist");
                 break;
             case "SDE":
-                System.out.println("Entities.Speaker doesn't exist");
+                System.out.println("Speaker doesn't exist");
                 break;
             case "EFC":
-                System.out.println("Entities.Event at full capacity");
+                System.out.println("Event at full capacity");
                 break;
             case "RAE":
-                System.out.println("Entities.Room already exists");
+                System.out.println("Room already exists");
                 break;
             case "MS":
-                System.out.println("Entities.Message Sent Successfully!");
+                System.out.println("Message sent successfully!");
                 break;
             case "AMS":
-                System.out.println("Multiple Messages Sent Successfully!");
+                System.out.println("Multiple messages sent successfully!");
         }
     }
 
@@ -246,9 +246,9 @@ public class TextUserInterface implements Serializable {
         System.out.println("1: View list of talks to be given");
 
         System.out.println("\nMESSAGING FUNCTIONS:");
-        System.out.println("2: Entities.Message all attendees signed up for a talk");
-        System.out.println("3: Entities.Message all attendees attending multiple talks");
-        System.out.println("4: Entities.Message an attendee attending a talk");
+        System.out.println("2: Message all attendees signed up for a talk");
+        System.out.println("3: Message all attendees attending multiple talks");
+        System.out.println("4: Message an attendee attending a talk");
         System.out.println("5: View Conversations");
         System.out.println("\n0: Sign-out");
     }

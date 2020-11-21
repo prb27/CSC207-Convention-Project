@@ -83,6 +83,7 @@ Instructions:
             5: Send message to an attendee
             6: Send message to a speaker of a talk
             7: View all conversations
+            8: Add another attendee to friend list
         - SpeakerMenu Process (5 options):
             EVENT FUNCTIONS:
             1: View list of talks to be given
