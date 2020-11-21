@@ -1,6 +1,6 @@
 @author Khoa Pham
 This file offers important information regarding how to run the program.
-The first time the master system is instantiated, an Organizer with username "Admin" and password "Admin" is created
+The first time the program is run, an Organizer with username "Admin" and password "Admin" is created if it doesn't already exist.
 
 Preconditions:
     - The client is not allowed to change username and password after creation
@@ -10,11 +10,14 @@ Preconditions:
     - User can’t remove people from their contacts list
     - Client must type exact integers as inputs when making choices
     - Only Attendee is allowed to signup for the program
-    - The creation of Speaker Account and Organizer Account are taken place through Organizer Account
-    - The first Organizer Account is available for anyone who runs the program at least once is the Admin Organizer
+    - The creation of Speaker Account and Organizer Account are taken place only through Organizer Accounts
+    - The first Organizer Account is available for anyone who runs the program at least once. This
+     Organizer has username - "admin" and password "admin"
 
 
 Supported functions:
+    - Any Attendee/Organizer can see and reply to messages from other User
+    - Any Attendee/Organizer can add other Users to list of people they can message
     - Any Attendee/Organizer can send a message to all their contacts
     - Any Attendee/Organizer can send a message to some of their contacts
     - Any Attendee/Organizer can send a message to one of their contacts
@@ -24,6 +27,7 @@ Supported functions:
     - Any Attendee can see all their participating events
     - Client can create accounts with appropriate username and password of various user types and sign in to the
      conference
+    - Any Organizer can message everyone who is signed up for a particular event
     - Any Organizer can create an event
     - Any Organizer can remove an event
     - Any Organizer can send a message to all user types
@@ -68,6 +72,7 @@ Instructions:
             17: Send message to a speaker
             18: Send message to all speakers
             19: View Conversations
+            20: Send message to everyone attending an event
         - AttendeeMenu Process (7 options):
             EVENT FUNCTIONS:
             1: Available events to sign up for

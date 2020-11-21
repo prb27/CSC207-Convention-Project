@@ -157,21 +157,20 @@ public class MasterSystem implements Serializable {
                 switch(option) {
                     case "1":
                         Hashtable<String, ArrayList<String>> eventsNotSignedUpFor = userEventController.seeAttendableEvents(username);
-                        for(String event : eventsNotSignedUpFor.keySet()) {
+                        for (String event : eventsNotSignedUpFor.keySet()) {
                             ui.present(event);
-                            for(String eventInfo: eventsNotSignedUpFor.get(event))
+                            for (String eventInfo : eventsNotSignedUpFor.get(event))
                                 ui.present(eventInfo);
                         }
-                            ui.present("\n\n");
+                        ui.present("\n\n");
                         break;
                     case "2":
                         ui.present("Please enter the title of the event you want to attend (exactly as it appears on the list of titles displayed)");
                         String eventName = scanner.nextLine();
                         String err = userEventController.enrolUserInEvent(username, eventName);
-                        if(!err.equals("YES")){
+                        if (!err.equals("YES")) {
                             ui.showError(err);
-                        }
-                        else{
+                        } else {
                             ui.present("Successful");
                         }
                         break;
@@ -182,7 +181,7 @@ public class MasterSystem implements Serializable {
                         ui.present("You are no longer attending " + eventname);
                         break;
                     case "4":
-                        for (String event: attendeeManager.getEventsAttending(username))
+                        for (String event : attendeeManager.getEventsAttending(username))
                             ui.present("Event Title: " + event + "\nTime: " + eventManager.getEventTime(event) + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
                         break;
                     case "5":
@@ -191,10 +190,9 @@ public class MasterSystem implements Serializable {
                         ui.present("Please enter the message that you want to send");
                         String content = scanner.nextLine();
                         boolean error = userMessageController.attendeeSendMessage(username, attendeeID, content, "attendee");
-                        if(error){
+                        if (error) {
                             ui.present("Successful");
-                        }
-                        else{
+                        } else {
                             ui.present("Something went wrong");
                         }
                         break;
@@ -205,27 +203,26 @@ public class MasterSystem implements Serializable {
                         String message = scanner.nextLine();
                         userMessageController.organizerSendMessageToSingle(username, speakerName, message, "speaker");
                         boolean error1 = userMessageController.attendeeSendMessage(username, speakerName, message, "speaker");
-                        if(error1){
+                        if (error1) {
                             ui.present("Successful");
-                        }
-                        else{
+                        } else {
                             ui.present("Something went wrong");
                         }
                         break;
                     case "7":
                         Integer i = 1;
-                        for(String conversationId: attendeeManager.getConversations(username)) {
+                        for (String conversationId : attendeeManager.getConversations(username)) {
                             ArrayList<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
                             StringBuilder recipients = new StringBuilder();
                             ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
-                            for (String recipient: recipientsOfConversation){
+                            for (String recipient : recipientsOfConversation) {
                                 recipients.append(recipient);
                                 recipients.append(", ");
                             }
                             ui.present("Recipients: " + recipients);
                             i += 1;
                         }
-                        if(attendeeManager.getConversations(username).isEmpty()){
+                        if (attendeeManager.getConversations(username).isEmpty()) {
                             ui.present("You have no conversations");
                             break;
                         }
@@ -238,12 +235,24 @@ public class MasterSystem implements Serializable {
                         }
                         ui.present("Enter \"r\" to reply in this conversation. [Any other input will exit this menu]");
                         String reply = scanner.nextLine();
-                        if(!reply.equals("r")){
+                        if (!reply.equals("r")) {
                             break;
                         }
                         ui.present("Please enter the message you want to send");
                         String contents = scanner.nextLine();
                         userMessageController.reply(username, conversationIdFinal, contents);
+                    case "8":
+                        ui.present("Please enter the name of the attendee to be added");
+                        String friendName = scanner.nextLine();
+                        if (!attendeeManager.isAttendee(friendName)) {
+                            ui.showError("UDE");
+                            break;
+                        }
+                        String errorCode = attendeeManager.aAddContactB(username, friendName);
+                        if(errorCode.equals("No"))
+                            ui.present("Attendee "+friendName+" already exist in the contact list");
+                        else
+                            ui.present("Success!");
                     default: {
                         ui.showError("INO");
                     }
@@ -498,6 +507,23 @@ public class MasterSystem implements Serializable {
                             String content = scanner.nextLine();
                             userMessageController.reply(username, conversationIdFinal, content);
                         }
+                        case "20":{
+                            ui.present("Please enter the event name");
+                            String eventName = scanner.nextLine();
+                            ui.present("Please enter the message that you want to send");
+                            String message = scanner.nextLine();
+                            if(!eventManager.isEvent(eventName)){
+                                ui.showError("EDE");
+                                break;
+                            }
+                            boolean messageByEvent = userMessageController.organizerMessageByEvent(username, eventName, message);
+                            if(messageByEvent){
+                                ui.present("Sent");
+                                break;
+                            }
+                            ui.present("Something went wrong");
+                            break;
+                        }
                         default: {
                             ui.showError("INO");
                         }
@@ -507,7 +533,7 @@ public class MasterSystem implements Serializable {
             case "speaker":
                 switch(option) {
                     case "1":
-                        ui.present(userEventController.seeAllEventsForSpeaker(username).toString());
+                        ui.present(userEventController.seeListOfEventsForSpeaker(username).toString());
                         break;
                     case "2":
                         ui.eventnameprompt();
@@ -578,95 +604,3 @@ public class MasterSystem implements Serializable {
         }
     }
 }
-
-
-// This is the flow of the program. Broadly we will separate the flow into the following.
-
-// Login/Signup Process:
-
-// Step 1) Prompt if the user wants to login or signup.
-// Step 2) Show the right menu depending on if the user wants to login or signup.
-// Step 3.1) Show the login menu if the user wants to login. The login menu will prompt for username and password.
-//             The mastercontroller will read the username and password input and return whether it was successful in
-//              logging in. If it was successful in logging in, proceed. Else, go back to the landing menu.
-// Step 3.2) Show the signup menu if the user wants to sign up. The signup menu should prompt what type of account
-//            the user would like to create (Organizer, Speaker, Attendee). The mastercontroller will store that
-//             selection. Then it will prompt for the username and password and check if the username is already
-//              inside the list of usernames available. If we fail in signing up, the MasterController should then prompt
-//              the user with an error that the username already exists, then it should prompt for a new username and password.
-//               If the signup is successful. Go back to the landing menu.
-// Step 4) At this point, the user should be able to log in and the MasterController should provide the right menu
-//          for the user that is viewing. There will be 3 types of menus that can be displayed based on the type of user.
-
-// Menu Selection Process:
-// Basically one huge fucking switch statement with nested switch statements.
-//
-// I will lay out how the menu works for each type of user.
-
-// OrganizerMenu Process:
-// The organizer menu will have 8 options. We see the options listed below:
-//public void organizermenu(String username) {
-//    System.out.println("Hello " + username + "!");
-//    System.out.println("What would you like to do?\n\n");
-//
-//    System.out.println("EVENT FUNCTIONS:");
-//    System.out.println("1: Create speaker account");
-//    System.out.println("2: Add a room into the system");
-//    System.out.println("3: Schedule speakers to speak in a room");
-//    System.out.println("4: Available events to sign up for");
-//    System.out.println("5: Cancel spot in an event");
-//    System.out.println("6: See schedule of event signed up for\n\n");
-//
-//    System.out.println("MESSAGING FUNCTIONS:");
-//    System.out.println("7: Send message to an attendee");
-//    System.out.println("8: Send message to all attendees");
-//    System.out.println("9: Send message to a speaker");
-//    System.out.println("10: Send message to all speakers");
-//    System.out.println("\n\n0: quit");
-//
-//}
-
-// If the organizer chooses 1. We will have to prompt for the username and password. Then we will need to signup for a
-//
-//
-//
-
-// AttendeeMenu Process:
-// The attendee menu will have 5 options. We see the options listed below:
-//public void attendeemenu(String username) {
-//    System.out.println("Hello " + username + "!");
-//    System.out.println("What would you like to do?\n\n");
-//
-//    System.out.println("EVENT FUNCTIONS:");
-//    System.out.println("1: Available events to sign up for"); //Basic for loop iterates over list that prints out line by line.
-//    System.out.println("2: Cancel spot in an event"); // Returns an error if spot doesn't exist otherwise, prints success.
-//    System.out.println("3: See schedule of event signed up for\n\n"); //Basic for loop iterates over list that prints out line by line.
-//
-//    System.out.println("MESSAGING FUNCTIONS:");
-//    System.out.println("4: Send message to an attendee");
-//    System.out.println("5: Send message to a speaker of a talk");
-//    System.out.println("\n\n0: quit");
-//}
-//
-// If the user chooses 4, first we show a list of contacts. We retrieve the list of contatcs from the attendeemanager.
-// Print a line that says who do you wanna send a message to?.
-// Use UserMessageController.AttendeetoSingle to send a message to one of the people that the user has inputted.
-
-//SpeakerMenu Process:
-// The organizer menu will have 3 options. We see the options listed below:
-//public void speakermenu(String username) {
-//    System.out.println("Hello " + username + "!");
-//    System.out.println("What would you like to do?\n\n");
-//
-//    System.out.println("EVENT FUNCTIONS:");
-//    System.out.println("1: View list of talks to be given\n\n");
-//
-//    System.out.println("MESSAGING FUNCTIONS:");
-//    System.out.println("2: Message all attendees signed up for a talk or multiple talks");
-//    System.out.println("3: Message an attendee attending a talk");
-//    System.out.println("\n\n0: quit");
-//}
-
-
-// If the user picks 1. Then the MasterController will have to reach into the UserEventController for it to call
-//  the getter method in the Use Case

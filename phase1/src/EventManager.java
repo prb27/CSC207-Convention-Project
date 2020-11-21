@@ -19,6 +19,11 @@ public class EventManager implements Serializable {
 
     private ArrayList <Event> EventList = new ArrayList<>();
 
+    /**
+     * Returns a list of all event objects
+     * @return : ArrayList<Event>
+     */
+
     public ArrayList<Event> getEventList() {
 
         return EventList;
@@ -187,8 +192,8 @@ public class EventManager implements Serializable {
     }
 
     /**
-     * Returns a hashtable of the hashtable of all events
-     * @return :
+     * Returns a hashtable of all events; with eventName as the key, and the value as a list of event info
+     * @return : Hashtable<String, ArrayList<String>>
      */
     public Hashtable<String, ArrayList<String> > getAllEventsWithInfo(){
         Hashtable<String, ArrayList<String>> AllEventsWithInfo = new Hashtable<>();
