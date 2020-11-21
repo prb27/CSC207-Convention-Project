@@ -187,7 +187,7 @@ public class MasterSystem implements Serializable {
                         break;
                     case "4":
                         for (String event : attendeeManager.getEventsAttending(username))
-                            ui.present("Entities.Event Title: " + event + "\nTime: " + eventManager.getEventTime(event) + "\nEntities.Room: " + eventManager.getRoomNumber(event) + "\nEntities.Speaker: " + eventManager.getSpeakerEvent(event) + "\n");
+                            ui.present("Event Title: " + event + "\nTime: " + eventManager.getEventTime(event) + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
                         break;
                     case "5":
                         ui.present("Please enter attendee ID");
@@ -219,7 +219,7 @@ public class MasterSystem implements Serializable {
                         for (String conversationId : attendeeManager.getConversations(username)) {
                             ArrayList<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
                             StringBuilder recipients = new StringBuilder();
-                            ui.present("Entities.Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
+                            ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
                             for (String recipient : recipientsOfConversation) {
                                 recipients.append(recipient);
                                 recipients.append(", ");
@@ -256,7 +256,7 @@ public class MasterSystem implements Serializable {
                         }
                         String errorCode = attendeeManager.aAddContactB(username, friendName);
                         if(errorCode.equals("No"))
-                            ui.present("Entities.Attendee "+friendName+" already exist in the contact list");
+                            ui.present("Attendee "+friendName+" already exist in the contact list");
                         else
                             ui.present("Success!");
                         break;
@@ -420,7 +420,7 @@ public class MasterSystem implements Serializable {
                         case "11": {
                             ArrayList<String> eventsNotSignedUpFor = userEventController.getOrganizerEventsNotAttending(username);
                             for (String event : eventsNotSignedUpFor)
-                                    ui.present("Entities.Event Title: " + event + "\nTime: " + eventManager.getEventTime(event) + "\nEntities.Room: " + eventManager.getRoomNumber(event) + "\nEntities.Speaker: " + eventManager.getSpeakerEvent(event) + "\n");
+                                    ui.present("Event Title: " + event + "\nTime: " + eventManager.getEventTime(event) + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
                             break;
                         }
                         case "12": {
@@ -444,7 +444,7 @@ public class MasterSystem implements Serializable {
                         }
                         case "14": {
                             for (String event: organizerManager.getEventsAttending(username))
-                                ui.present("Entities.Event Title: " + event + "\nTime: " + eventManager.getEventTime(event) + "\nEntities.Room: " + eventManager.getRoomNumber(event) + "\nEntities.Speaker: " + eventManager.getSpeakerEvent(event) + "\n");
+                                ui.present("Event Title: " + event + "\nTime: " + eventManager.getEventTime(event) + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
                             break;
                         }
                         case "15": {
@@ -486,7 +486,7 @@ public class MasterSystem implements Serializable {
                             for(String conversationId: organizerManager.getConversations(username)) {
                                 ArrayList<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
                                 StringBuilder recipients = new StringBuilder();
-                                ui.present("Entities.Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
+                                ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
                                 for (String recipient: recipientsOfConversation){
                                     recipients.append(recipient);
                                     recipients.append(", ");
@@ -559,7 +559,7 @@ public class MasterSystem implements Serializable {
                         ui.showPrompt("MMS");
                         break;
                     case "4":
-                        ui.present("Please enter the username of the Entities.Attendee you wish to message:");
+                        ui.present("Please enter the username of the Attendee you wish to message:");
                         String attendeeUsername = scanner.nextLine();
                         ui.messageprompt();
                         String message = scanner.nextLine();
@@ -577,7 +577,7 @@ public class MasterSystem implements Serializable {
                         for(String conversationId: speakerManager.getConversations(username)) {
                             ArrayList<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
                             StringBuilder recipients = new StringBuilder();
-                            ui.present("Entities.Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
+                            ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
                             for (String recipient: recipientsOfConversation){
                                 recipients.append(recipient);
                                 recipients.append(", ");
@@ -589,7 +589,7 @@ public class MasterSystem implements Serializable {
                             ui.present("You have no conversations");
                             break;
                         }
-                        ui.present("Choose a Entities.Conversation Number");
+                        ui.present("Choose a Conversation Number");
                         String conversationNumber = scanner.nextLine();
                         String conversationIdFinal = speakerManager.getConversations(username).get(Integer.parseInt(conversationNumber) - 1);
                         ArrayList<String> messagesInThisConversation = userMessageController.orderedMessagesInConvo(conversationIdFinal);
