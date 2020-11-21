@@ -1,6 +1,6 @@
 @author Khoa Pham
 This file offers important information regarding how to run the program.
-The first time the master system is instantiated, an Organizer with username "Admin" and password "Admin" is created
+The first time the program is run, an Organizer with username "Admin" and password "Admin" is created if it doesn't already exist.
 
 Preconditions:
     - The client is not allowed to change username and password after creation
