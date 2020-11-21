@@ -79,7 +79,7 @@ public class MasterSystem implements Serializable {
 
             switch (landingOption) {
                 case "0":
-                    programGenerator.saveToFile(this, "phase1"+File.separator+"conference_system");
+                    programGenerator.saveToFile(this, "conference_system");
                     return;
                 case "1":
                     ui.usernameprompt();
@@ -132,7 +132,7 @@ public class MasterSystem implements Serializable {
                 if (option.equals("0")) {
                     loggedIn = false;
                     currentUsername = null;
-                    programGenerator.saveToFile(this, "phase1"+File.separator+"conference_system");
+                    programGenerator.saveToFile(this, "conference_system");
                 } else {
                     userCommandHandler(option, currentUsername, currentAccountType);
                 }
