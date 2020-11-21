@@ -343,7 +343,7 @@ public class UserEventController implements Serializable {
        for (HashMap<String, String> talk: listOfTalks){
            for(String eventName: talk.values()){
                String eventTime = eventManager.getEventTime(eventName);
-               masterList.add("Event Name: " + eventName + ", " + "Event Time: " + eventTime);
+               masterList.add("(Event Name: " + eventName + ", " + "Event Time: " + eventTime + ")");
            }
 
        }
