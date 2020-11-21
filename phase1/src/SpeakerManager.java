@@ -173,7 +173,7 @@ public class SpeakerManager implements Serializable {
     }
 
     /**
-     * Returns a list of
+     * Returns a list of all conversations for a given Speaker with specified username
      * @param username
      * @return ArrayList <String>
      */
@@ -186,7 +186,7 @@ public class SpeakerManager implements Serializable {
     }
 
     /**
-     *
+     * Return a list of all Speaker identifiers (Speaker usernames)
      * @return ArrayList <String>
      */
     public ArrayList<String> getAllSpeakerIds(){
@@ -198,7 +198,8 @@ public class SpeakerManager implements Serializable {
     }
 
     /**
-     *
+     * Validates if password is the password of a Speaker with given username. Returns true if a given speaker password
+     * is associated with a speaker. Else returns false.
      * @param username
      * @param password
      * @return boolean
@@ -214,7 +215,7 @@ public class SpeakerManager implements Serializable {
     }
 
     /**
-     *
+     * Validates if a given speaker with specified username is free at a a given time
      * @param username
      * @param time
      * @return boolean
