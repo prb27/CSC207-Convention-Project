@@ -48,16 +48,6 @@ public abstract class User implements Serializable {
     }
 
 
-
-//  This code is for allowing users to change their username and/or password
-//    public void setUsername(String username) {
-//        this.username = username;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
-
     /**
      * return the password used by this User
      * @return String password
