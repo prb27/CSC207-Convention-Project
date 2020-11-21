@@ -157,21 +157,20 @@ public class MasterSystem implements Serializable {
                 switch(option) {
                     case "1":
                         Hashtable<String, ArrayList<String>> eventsNotSignedUpFor = userEventController.seeAttendableEvents(username);
-                        for(String event : eventsNotSignedUpFor.keySet()) {
+                        for (String event : eventsNotSignedUpFor.keySet()) {
                             ui.present(event);
-                            for(String eventInfo: eventsNotSignedUpFor.get(event))
+                            for (String eventInfo : eventsNotSignedUpFor.get(event))
                                 ui.present(eventInfo);
                         }
-                            ui.present("\n\n");
+                        ui.present("\n\n");
                         break;
                     case "2":
                         ui.present("Please enter the title of the event you want to attend (exactly as it appears on the list of titles displayed)");
                         String eventName = scanner.nextLine();
                         String err = userEventController.enrolUserInEvent(username, eventName);
-                        if(!err.equals("YES")){
+                        if (!err.equals("YES")) {
                             ui.showError(err);
-                        }
-                        else{
+                        } else {
                             ui.present("Successful");
                         }
                         break;
@@ -182,7 +181,7 @@ public class MasterSystem implements Serializable {
                         ui.present("You are no longer attending " + eventname);
                         break;
                     case "4":
-                        for (String event: attendeeManager.getEventsAttending(username))
+                        for (String event : attendeeManager.getEventsAttending(username))
                             ui.present("Event Title: " + event + "\nTime: " + eventManager.getEventTime(event) + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
                         break;
                     case "5":
@@ -191,10 +190,9 @@ public class MasterSystem implements Serializable {
                         ui.present("Please enter the message that you want to send");
                         String content = scanner.nextLine();
                         boolean error = userMessageController.attendeeSendMessage(username, attendeeID, content, "attendee");
-                        if(error){
+                        if (error) {
                             ui.present("Successful");
-                        }
-                        else{
+                        } else {
                             ui.present("Something went wrong");
                         }
                         break;
@@ -205,27 +203,26 @@ public class MasterSystem implements Serializable {
                         String message = scanner.nextLine();
                         userMessageController.organizerSendMessageToSingle(username, speakerName, message, "speaker");
                         boolean error1 = userMessageController.attendeeSendMessage(username, speakerName, message, "speaker");
-                        if(error1){
+                        if (error1) {
                             ui.present("Successful");
-                        }
-                        else{
+                        } else {
                             ui.present("Something went wrong");
                         }
                         break;
                     case "7":
                         Integer i = 1;
-                        for(String conversationId: attendeeManager.getConversations(username)) {
+                        for (String conversationId : attendeeManager.getConversations(username)) {
                             ArrayList<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
                             StringBuilder recipients = new StringBuilder();
                             ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
-                            for (String recipient: recipientsOfConversation){
+                            for (String recipient : recipientsOfConversation) {
                                 recipients.append(recipient);
                                 recipients.append(", ");
                             }
                             ui.present("Recipients: " + recipients);
                             i += 1;
                         }
-                        if(attendeeManager.getConversations(username).isEmpty()){
+                        if (attendeeManager.getConversations(username).isEmpty()) {
                             ui.present("You have no conversations");
                             break;
                         }
@@ -238,12 +235,24 @@ public class MasterSystem implements Serializable {
                         }
                         ui.present("Enter \"r\" to reply in this conversation. [Any other input will exit this menu]");
                         String reply = scanner.nextLine();
-                        if(!reply.equals("r")){
+                        if (!reply.equals("r")) {
                             break;
                         }
                         ui.present("Please enter the message you want to send");
                         String contents = scanner.nextLine();
                         userMessageController.reply(username, conversationIdFinal, contents);
+                    case "8":
+                        ui.present("Please enter the name of the attendee to be added");
+                        String friendName = scanner.nextLine();
+                        if (!attendeeManager.isAttendee(friendName)) {
+                            ui.showError("UDE");
+                            break;
+                        }
+                        String errorCode = attendeeManager.aAddContactB(username, friendName);
+                        if(errorCode.equals("No"))
+                            ui.present("Attendee "+friendName+" already exist in the contact list");
+                        else
+                            ui.present("Success!");
                     default: {
                         ui.showError("INO");
                     }
