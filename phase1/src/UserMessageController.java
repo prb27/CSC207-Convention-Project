@@ -122,23 +122,21 @@ public class UserMessageController implements Serializable {
 
     public boolean organizerMessageByEvent(String organizerId, String eventName, String content){
 
-        ArrayList<String> recipientIds = new ArrayList<>();
+        ArrayList<String> recipientIds;
         if (eventManager.isEvent(eventName)){
-            recipientIds.addAll(eventManager.getAttendeeList(eventName));
+            recipientIds = new ArrayList<>(eventManager.getAttendeeList(eventName));
+        } else {
+            return false;
         }
         String convoId = multiMessage(organizerId, recipientIds, content);
-
-        if(!recipientIds.isEmpty()){
-            for(String id: recipientIds){
-                if(organizerManager.isOrganizer(id)){
-                    organizerManager.addConversation(id, convoId);
-                } else if(attendeeManager.isAttendee(id)){
-                    attendeeManager.addConversation(id, convoId);
-                }
+        for(String id: recipientIds){
+            if(organizerManager.isOrganizer(id)){
+                organizerManager.addConversation(id, convoId);
+            } else if(attendeeManager.isAttendee(id)){
+                attendeeManager.addConversation(id, convoId);
             }
-            return true;
         }
-        return false;
+        return true;
     }
 
     /**
