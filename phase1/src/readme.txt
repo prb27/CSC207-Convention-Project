@@ -16,6 +16,8 @@ Preconditions:
 
 
 Supported functions:
+    - Any Attendee/Organizer can see and reply to messages from other User
+    - Any Attendee/Organizer can add other Users to list of people they can message
     - Any Attendee/Organizer can send a message to all their contacts
     - Any Attendee/Organizer can send a message to some of their contacts
     - Any Attendee/Organizer can send a message to one of their contacts
@@ -25,6 +27,7 @@ Supported functions:
     - Any Attendee can see all their participating events
     - Client can create accounts with appropriate username and password of various user types and sign in to the
      conference
+    - Any Organizer can message everyone who is signed up for a particular event
     - Any Organizer can create an event
     - Any Organizer can remove an event
     - Any Organizer can send a message to all user types
