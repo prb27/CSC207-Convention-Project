@@ -1,3 +1,7 @@
+package UseCases;
+
+import Entities.Event;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -21,7 +25,7 @@ public class EventManager implements Serializable {
 
     /**
      * Returns a list of all event objects
-     * @return : ArrayList<Event>
+     * @return : ArrayList<Entities.Event>
      */
 
     public ArrayList<Event> getEventList() {
@@ -46,7 +50,7 @@ public class EventManager implements Serializable {
      * @param eventTime: time of event
      * @param roomNumber: roomnumber of event
      * @param speakerName: speakername of event
-     * EAE - Event Already Exist
+     * EAE - Entities.Event Already Exist
      * @return String
      */
     public String addEvent(String eventName, String eventTime, String roomNumber, String speakerName){
@@ -80,7 +84,7 @@ public class EventManager implements Serializable {
      * @param eventName : name of event
      * @param UserId : userID of attendee
      *
-     * @return : "EDE" - Event Doesn't Exist
+     * @return : "EDE" - Entities.Event Doesn't Exist
      *           "YES" - Request Successful
      */
     public String reserveAttendee(String eventName, String UserId){
@@ -92,7 +96,7 @@ public class EventManager implements Serializable {
 
     }
     /**
-     * Removes the User spot from eventList, if user is attending this event
+     * Removes the Entities.User spot from eventList, if user is attending this event
      * @param eventName: name of event
      * @param UserId: UserID of a user who is attending this event
      */
@@ -107,7 +111,7 @@ public class EventManager implements Serializable {
     /**
      * Returns event object
      * @param eventName: name of event
-     * @return : Event
+     * @return : Entities.Event
      */
     private Event getEvent(String eventName){
 

@@ -1,11 +1,13 @@
+package Entities;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * this class stores all info relating to an User
+ * this class stores all info relating to an Entities.User
  * and provides getters to extract those info
- * User is an abstract class -- no instantiation is allowed
- * User serves as a parent for a few other classes
+ * Entities.User is an abstract class -- no instantiation is allowed
+ * Entities.User serves as a parent for a few other classes
  * @author Khoa Pham
  * A few notes to consider:
  *    * disallows changes in username, password for now
@@ -22,9 +24,9 @@ public abstract class User implements Serializable {
 
     /**
      * a constructor for subclasses to call
-     * creating a User object is DISALLOWED!
-     * @param username: the username of this User
-     * @param password: the password of this User
+     * creating a Entities.User object is DISALLOWED!
+     * @param username: the username of this Entities.User
+     * @param password: the password of this Entities.User
      */
     public User(String username, String password) {
         this.username = username;
@@ -32,7 +34,7 @@ public abstract class User implements Serializable {
     }
 
     /**
-     * update the list of conversation that this User participates in
+     * update the list of conversation that this Entities.User participates in
      * @param conversations: the new list of conversations to update to (param_type: ArrayList<String>)
      */
     public void setConversations(ArrayList<String> conversations) {
@@ -40,7 +42,7 @@ public abstract class User implements Serializable {
     }
 
     /**
-     * return the list of conversations this User participates in
+     * return the list of conversations this Entities.User participates in
      * @return ArrayList<String> of conversations
      */
     public ArrayList<String> getConversations() {
@@ -49,7 +51,7 @@ public abstract class User implements Serializable {
 
 
     /**
-     * return the password used by this User
+     * return the password used by this Entities.User
      * @return String password
      */
     public String getPassword() {
@@ -57,7 +59,7 @@ public abstract class User implements Serializable {
     }
 
     /**
-     * return the list of contacts this User has already connected to
+     * return the list of contacts this Entities.User has already connected to
      * @return ArrayList<String> contacts
      */
     public ArrayList<String> getContacts() {
@@ -65,7 +67,7 @@ public abstract class User implements Serializable {
     }
 
     /**
-     * return the username (userId) of this User
+     * return the username (userId) of this Entities.User
      * @return String username
      */
     public String getUserId() {
@@ -74,7 +76,7 @@ public abstract class User implements Serializable {
 
 
     /**
-     * update the list of contacts that this User connects to
+     * update the list of contacts that this Entities.User connects to
      * @param contacts: the new list of conversations to update to (param_type: ArrayList<String>)
      */
     public void setContacts(ArrayList<String> contacts) {

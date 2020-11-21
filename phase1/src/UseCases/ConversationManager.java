@@ -1,3 +1,8 @@
+package UseCases;
+
+import Entities.Message;
+import Entities.Conversation;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 

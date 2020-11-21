@@ -1,3 +1,7 @@
+package UseCases;
+
+import Entities.Room;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -60,8 +64,8 @@ public class RoomManager implements Serializable {
 
     /**
      * Return the room with id </roomId>
-     * @param roomId : id of the Room we want (param_type: String)
-     * @return : the Room object with id </roomId>
+     * @param roomId : id of the Entities.Room we want (param_type: String)
+     * @return : the Entities.Room object with id </roomId>
      */
     private Room getRoom(String roomId){
 
@@ -112,7 +116,7 @@ public class RoomManager implements Serializable {
 
     /**
      * Relieves the booking of the room with </roomId> at </time>
-     * @param roomId : id of the Room we want to free at </time> (param_type: String)
+     * @param roomId : id of the Entities.Room we want to free at </time> (param_type: String)
      * @param time : time at which we want to reliev this room (param_type: String)
      */
     public void freeRoomAt(String roomId, String time){

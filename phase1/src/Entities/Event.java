@@ -1,8 +1,10 @@
+package Entities;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * This is the Event entity class, creates an Event object and initiates all values of event. Responsible for the getters and setters of event.
+ * This is the Entities.Event entity class, creates an Entities.Event object and initiates all values of event. Responsible for the getters and setters of event.
  * @author aribshaikh
  */
 public class Event implements Serializable {

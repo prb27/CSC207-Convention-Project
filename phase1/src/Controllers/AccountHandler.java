@@ -1,3 +1,9 @@
+package Controllers;
+
+import UseCases.AttendeeManager;
+import UseCases.OrganizerManager;
+import UseCases.SpeakerManager;
+
 import java.io.Serializable;
 
 /**
@@ -15,11 +21,11 @@ public class AccountHandler implements Serializable {
     private final SpeakerManager speakerManager;
 
     /**
-     * A constructor to create an object of AccountHandler
+     * A constructor to create an object of Controllers.AccountHandler
      *
-     * @param attendeeManager: an object of AttendeeManager class
-     * @param organizerManager: an object of OrganizerManager class
-     * @param speakerManager: an object of SpeakerManager class
+     * @param attendeeManager: an object of UseCases.AttendeeManager class
+     * @param organizerManager: an object of UseCases.OrganizerManager class
+     * @param speakerManager: an object of UseCases.SpeakerManager class
      */
     public AccountHandler(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager) {
         this.attendeeManager = attendeeManager;

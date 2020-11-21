@@ -1,27 +1,31 @@
+package UseCases;
+
+import Entities.Speaker;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * This class is responsible for keeping track of all Speaker objects (Speakers at the tech-conference)
+ * This class is responsible for keeping track of all Entities.Speaker objects (Speakers at the tech-conference)
  * and allowing certain functionality.
  *
  * Responsibilities:
- *  - stores a list of Speaker objects
- *  - creates a new Speaker and adding it to the list of Speaker objects
+ *  - stores a list of Entities.Speaker objects
+ *  - creates a new Entities.Speaker and adding it to the list of Entities.Speaker objects
  *  - adds a contact for the speaker
  *  - adds a conversation to the speakers list of conversations
- *  - gets a list of all contacts for a given Speaker
- *  - gets a list of all talks for a given Speaker
- *  - gets a list of all conversations for a given Speaker
- *  - gets a list of all Speaker usernames
- *  - validates a Speaker's password
- *  - validates a Speaker's availability
- *  - validates if a given username is an actual Speaker username
- *  - removes a talk from a Speaker's list of talks
+ *  - gets a list of all contacts for a given Entities.Speaker
+ *  - gets a list of all talks for a given Entities.Speaker
+ *  - gets a list of all conversations for a given Entities.Speaker
+ *  - gets a list of all Entities.Speaker usernames
+ *  - validates a Entities.Speaker's password
+ *  - validates a Entities.Speaker's availability
+ *  - validates if a given username is an actual Entities.Speaker username
+ *  - removes a talk from a Entities.Speaker's list of talks
  *
- * SpeakerManager contains two methods to support this:
- *  - gets a Speaker
+ * UseCases.SpeakerManager contains two methods to support this:
+ *  - gets a Entities.Speaker
  *  - gets a list of all Speakers
  * @author Vladimir Caterov
  * @see Speaker
@@ -31,14 +35,14 @@ public class SpeakerManager implements Serializable {
     private final ArrayList<Speaker> speakers;
 
     /**
-     * a constructor that creates a SpeakerManager object that stores a list of all speakers
+     * a constructor that creates a UseCases.SpeakerManager object that stores a list of all speakers
      */
     public SpeakerManager(){
         speakers = new ArrayList<>();
     }
 
     /**
-     * Creates a Speaker object and adds it to the list of all Speaker objects.
+     * Creates a Entities.Speaker object and adds it to the list of all Entities.Speaker objects.
      * @param username
      * @param password
      * @return boolean
@@ -56,7 +60,7 @@ public class SpeakerManager implements Serializable {
     }
 
     /**
-     * Updates the contact information of a Speaker to include a new contact
+     * Updates the contact information of a Entities.Speaker to include a new contact
      * @param speakerUsername
      * @param otherUsername
      * @return boolean
@@ -80,7 +84,7 @@ public class SpeakerManager implements Serializable {
 
 
     /**
-     * Updates a Speaker object's list of all given talks with a new talk stored as a hash map with
+     * Updates a Entities.Speaker object's list of all given talks with a new talk stored as a hash map with
      * event time as the key and event name as the value. Returns true if the talk was added. Else returns false.
      * @param speakerUsername
      * @param eventTime
@@ -113,7 +117,7 @@ public class SpeakerManager implements Serializable {
     }
 
     /**
-     * Updates a Speaker object's list of all conversations with a new conversation. Returns true if
+     * Updates a Entities.Speaker object's list of all conversations with a new conversation. Returns true if
      * the conversation was added successfully. Else returns false.
      * @param username
      * @param conversation
@@ -146,7 +150,7 @@ public class SpeakerManager implements Serializable {
     }
 
     /**
-     * Returns a list of contact usernames that are available for the Speaker with given username to message.
+     * Returns a list of contact usernames that are available for the Entities.Speaker with given username to message.
      * @param username
      * @return ArrayList <String>
      */
@@ -160,7 +164,7 @@ public class SpeakerManager implements Serializable {
 
     /**
      * Returns a a list of all events (NOTE* events are stored as a HashMap with key as event time
-     * and value as event Name) for a given Speaker with specified username.
+     * and value as event Name) for a given Entities.Speaker with specified username.
      * @param username
      * @return ArrayList <HashMap <String, String>>
      */
@@ -173,7 +177,7 @@ public class SpeakerManager implements Serializable {
     }
 
     /**
-     * Returns a list of all conversations for a given Speaker with specified username
+     * Returns a list of all conversations for a given Entities.Speaker with specified username
      * @param username
      * @return ArrayList <String>
      */
@@ -186,7 +190,7 @@ public class SpeakerManager implements Serializable {
     }
 
     /**
-     * Return a list of all Speaker identifiers (Speaker usernames)
+     * Return a list of all Entities.Speaker identifiers (Entities.Speaker usernames)
      * @return ArrayList <String>
      */
     public ArrayList<String> getAllSpeakerIds(){
@@ -198,7 +202,7 @@ public class SpeakerManager implements Serializable {
     }
 
     /**
-     * Validates if password is the password of a Speaker with given username. Returns true if a given speaker password
+     * Validates if password is the password of a Entities.Speaker with given username. Returns true if a given speaker password
      * is associated with a speaker. Else returns false.
      * @param username
      * @param password
@@ -238,7 +242,7 @@ public class SpeakerManager implements Serializable {
     }
 
     /**
-     * Validates if username is the id of a Speaker object. Returns true if a given speaker username is associated
+     * Validates if username is the id of a Entities.Speaker object. Returns true if a given speaker username is associated
      * with a speaker. Else returns false.
      * @param username
      * @return boolean
@@ -253,7 +257,7 @@ public class SpeakerManager implements Serializable {
     }
 
     /**
-     * If a talk from a Speaker object's listOfTalks has been successfully removed, returns true.
+     * If a talk from a Entities.Speaker object's listOfTalks has been successfully removed, returns true.
      * Else returns false.
      *
      * @param speakerUsername

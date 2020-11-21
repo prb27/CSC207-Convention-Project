@@ -1,3 +1,7 @@
+package UseCases;
+
+import Entities.Message;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -15,7 +19,7 @@ public class MessageManager implements Serializable {
     private ArrayList<Message> allMessages;
 
     /**
-     * Constructor for a MessageManager, initializes the list of messages to be empty
+     * Constructor for a UseCases.MessageManager, initializes the list of messages to be empty
      */
     public MessageManager(){
         allMessages = new ArrayList<>();

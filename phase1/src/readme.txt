@@ -1,46 +1,46 @@
 @author Khoa Pham
 This file offers important information regarding how to run the program.
-The first time the program is run, an Organizer with username "Admin" and password "Admin" is created if it doesn't already exist.
+The first time the program is run, an Entities.Organizer with username "Admin" and password "Admin" is created if it doesn't already exist.
 
 Preconditions:
     - The client is not allowed to change username and password after creation
-    - Event names, usernames are unique strings!
+    - Entities.Event names, usernames are unique strings!
     - all IDs are stored as strings!
-    - User can’t delete their accounts
-    - User can’t remove people from their contacts list
+    - Entities.User can’t delete their accounts
+    - Entities.User can’t remove people from their contacts list
     - Client must type exact integers as inputs when making choices
-    - Only Attendee is allowed to signup for the program
-    - The creation of Speaker Account and Organizer Account are taken place only through Organizer Accounts
-    - The first Organizer Account is available for anyone who runs the program at least once. This
-     Organizer has username - "admin" and password "admin"
+    - Only Entities.Attendee is allowed to signup for the program
+    - The creation of Entities.Speaker Account and Entities.Organizer Account are taken place only through Entities.Organizer Accounts
+    - The first Entities.Organizer Account is available for anyone who runs the program at least once. This
+     Entities.Organizer has username - "admin" and password "admin"
 
 
 Supported functions:
-    - Any Attendee/Organizer can see and reply to messages from other User
-    - Any Attendee/Organizer can add other Users to list of people they can message
-    - Any Attendee/Organizer can send a message to all their contacts
-    - Any Attendee/Organizer can send a message to some of their contacts
-    - Any Attendee/Organizer can send a message to one of their contacts
-    - Any Attendee/Organizer can sign up for a particular event
-    - Any Attendee/Organizer can cancel their reservation for a particular event
-    - Any Attendee/Organizer can see all the events
-    - Any Attendee can see all their participating events
+    - Any Entities.Attendee/Entities.Organizer can see and reply to messages from other Entities.User
+    - Any Entities.Attendee/Entities.Organizer can add other Users to list of people they can message
+    - Any Entities.Attendee/Entities.Organizer can send a message to all their contacts
+    - Any Entities.Attendee/Entities.Organizer can send a message to some of their contacts
+    - Any Entities.Attendee/Entities.Organizer can send a message to one of their contacts
+    - Any Entities.Attendee/Entities.Organizer can sign up for a particular event
+    - Any Entities.Attendee/Entities.Organizer can cancel their reservation for a particular event
+    - Any Entities.Attendee/Entities.Organizer can see all the events
+    - Any Entities.Attendee can see all their participating events
     - Client can create accounts with appropriate username and password of various user types and sign in to the
      conference
-    - Any Organizer can message everyone who is signed up for a particular event
-    - Any Organizer can create an event
-    - Any Organizer can remove an event
-    - Any Organizer can send a message to all user types
-    - Any Organizer can send a message to a single user type
-    - Any Speaker can send a message to all attendees of a talk
-    - Any Speaker can send a message to all attendees of multiple talks
-    - Any Attendee can send a message to another attendee
+    - Any Entities.Organizer can message everyone who is signed up for a particular event
+    - Any Entities.Organizer can create an event
+    - Any Entities.Organizer can remove an event
+    - Any Entities.Organizer can send a message to all user types
+    - Any Entities.Organizer can send a message to a single user type
+    - Any Entities.Speaker can send a message to all attendees of a talk
+    - Any Entities.Speaker can send a message to all attendees of multiple talks
+    - Any Entities.Attendee can send a message to another attendee
 
 Instructions:
     - Login/Signup Process:
         Prompt if the user wants to login or signup and show the according menu
             - Login: enter username and password and wait for them to be checked
-            - Signup: choose type of user to sign up (Organizer, Speaker, Attendee), then choose the username and
+            - Signup: choose type of user to sign up (Entities.Organizer, Entities.Speaker, Entities.Attendee), then choose the username and
              password and wait to check if the username is taken (choose different username!)
     - According to ur type of users, u can see appropriate menus on what u can do (see supported functions)
     - There will be 3 types of menus that can be displayed based on the type of user.
@@ -87,7 +87,7 @@ Instructions:
             EVENT FUNCTIONS:
             1: View list of talks to be given
             MESSAGING FUNCTIONS:
-            2: Message all attendees signed up for a talk
-            3: Message all attendees attending multiple talks
-            4: Message an attendee attending a talk
+            2: Entities.Message all attendees signed up for a talk
+            3: Entities.Message all attendees attending multiple talks
+            4: Entities.Message an attendee attending a talk
             5: View Conversations

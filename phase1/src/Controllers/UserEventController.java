@@ -1,15 +1,17 @@
+package Controllers;
+
+import UseCases.*;
+
 import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.sql.Time;
 import java.util.*;
 
 /**
  * This class is responsible for taking input and implementing all logic/actions related to a user and events.
  * The following manipulations a user can work on are:
- * - enrol an Organizer in an event
- * - enrol an Attendee in an event
- * - enrol a User in event
- * - cancel enrolment for User
+ * - enrol an Entities.Organizer in an event
+ * - enrol an Entities.Attendee in an event
+ * - enrol a Entities.User in event
+ * - cancel enrolment for Entities.User
  * - view list of available events
  * - create an event
  * - remove an event
@@ -36,16 +38,16 @@ public class UserEventController implements Serializable {
     }
 
     /**
-     * enroll an Organizer with </username> to an Event </eventName>
+     * enroll an Entities.Organizer with </username> to an Entities.Event </eventName>
      * If event with </eventName> exists,
-     * check room capacity and enrol that Attendee to that Event
+     * check room capacity and enrol that Entities.Attendee to that Entities.Event
      * @author Ashwin Karthikeyan
-     * @param username: the username of an Organizer to be enrolled in an event (param_type: String)
+     * @param username: the username of an Entities.Organizer to be enrolled in an event (param_type: String)
      * @param eventName: the intended event (param_type: String)
      * @return "AE" - Already attending the event
-     *         "EDE" - Event doesn't exist
-     *         "EFC" - Event at full capacity
-     *         "YES" - Organizer has newly been registered for this event
+     *         "EDE" - Entities.Event doesn't exist
+     *         "EFC" - Entities.Event at full capacity
+     *         "YES" - Entities.Organizer has newly been registered for this event
      */
     private String enrolOrganizerInEvent(String username, String eventName){
 
@@ -70,16 +72,16 @@ public class UserEventController implements Serializable {
     }
 
     /**
-     * enroll an Attendee with </username> to an Event </eventName>
-     * If event with </eventName> and Attendee with </username> exist,
-     * check room capacity and enrol that Attendee to that Event
+     * enroll an Entities.Attendee with </username> to an Entities.Event </eventName>
+     * If event with </eventName> and Entities.Attendee with </username> exist,
+     * check room capacity and enrol that Entities.Attendee to that Entities.Event
      * @author Khoa Pham
-     * @param username: the username of an Attendee to be enrolled in an event (param_type: String)
+     * @param username: the username of an Entities.Attendee to be enrolled in an event (param_type: String)
      * @param eventName: the intended event (param_type: String)
      * @return : "AE" - Already attending event
-     *           "EDE" - Event doesn't exist
-     *           "EFC" - Event at full capacity
-     *           "YES" - Attendee has newly been registered for this event
+     *           "EDE" - Entities.Event doesn't exist
+     *           "EFC" - Entities.Event at full capacity
+     *           "YES" - Entities.Attendee has newly been registered for this event
      */
     private String enrolAttendeeInEvent(String username, String eventName) {
         // ent.
@@ -104,15 +106,15 @@ public class UserEventController implements Serializable {
     }
 
     /**
-     * enroll User (Organizer/Attendee) with </username> to an Event </eventName>
+     * enroll Entities.User (Entities.Organizer/Entities.Attendee) with </username> to an Entities.Event </eventName>
      * by calling enrolOrganizerInEvent() or enrolAttendeeInEvent()
      * @author Ashwin Karthikeyan
-     * @param username: the username of a User (Organizer/Attendee) to be enrolled in an event (param_type: String)
+     * @param username: the username of a Entities.User (Entities.Organizer/Entities.Attendee) to be enrolled in an event (param_type: String)
      * @param eventName: the intended event (param_type: String)
      * @return : "AE" - Already attending event
-     *           "EDE" - Event doesn't exist
-     *           "EFC" - Event at full capacity
-     *           "YES" - Attendee has newly been registered for this event
+     *           "EDE" - Entities.Event doesn't exist
+     *           "EFC" - Entities.Event at full capacity
+     *           "YES" - Entities.Attendee has newly been registered for this event
      */
     public String enrolUserInEvent(String username, String eventName){
 
@@ -127,10 +129,10 @@ public class UserEventController implements Serializable {
     }
 
     /**
-     * By the end of the execution of this method, the User (Organizer/Attendee) with username </username> is no longer
+     * By the end of the execution of this method, the Entities.User (Entities.Organizer/Entities.Attendee) with username </username> is no longer
      * attending the event with title </eventName>.
      * @author Khoa Pham, Ashwin Karthikeyan
-     * @param username: the username of the User who wants to cancel
+     * @param username: the username of the Entities.User who wants to cancel
      *                  reservation for an event (param_type: String)
      * @param eventName: the intended event (param_type: String)
      */
@@ -154,11 +156,11 @@ public class UserEventController implements Serializable {
     }
 
     /**
-     * By the end of the execution of this method, the Organizer with username </organizerUsername> would have
+     * By the end of the execution of this method, the Entities.Organizer with username </organizerUsername> would have
      * created a room with Id </roomId> and capacity </capacity>
      * @author Ashwin Karthikeyan
-     * @param organizerUsername: the username of the Organizer who wants to create a new room (param_type: String)
-     * @param roomId: an ID for the new room that the Organizer wants to create (param_type: String)
+     * @param organizerUsername: the username of the Entities.Organizer who wants to create a new room (param_type: String)
+     * @param roomId: an ID for the new room that the Entities.Organizer wants to create (param_type: String)
      * @param capacity: the capacity of the new room being created (param_type: int)
      * @return : "RAE" - room already exists
      *           "ODE" - organizer doesn't exist
@@ -175,9 +177,9 @@ public class UserEventController implements Serializable {
     }
 
     /**
-     * If Organizer with given username </username> exists, then this method returns the list of event titles that
-     * @param username username of Organizer
-     * @return List of Events that this Organizer is not attending
+     * If Entities.Organizer with given username </username> exists, then this method returns the list of event titles that
+     * @param username username of Entities.Organizer
+     * @return List of Events that this Entities.Organizer is not attending
      */
     public ArrayList<String> getOrganizerEventsNotAttending(String username) {
 
@@ -201,9 +203,9 @@ public class UserEventController implements Serializable {
      * @param eventTime: time of event
      * @param speakerName: name of speaker
      * "ARO" - All Rooms Occupied
-     * "STC" - Speaker Time Conflict
+     * "STC" - Entities.Speaker Time Conflict
      * "TNA" - Time not allowed
-     * "ODE" - Organizer Doesn't Exist
+     * "ODE" - Entities.Organizer Doesn't Exist
      * @return Strings of the values listed above
      */
     public String createEvent(String organizerName, String eventName, String eventTime, String speakerName){
@@ -255,8 +257,8 @@ public class UserEventController implements Serializable {
      * of attending events for Organizers and Attendees
      * @param organizerName: name of organizer
      * @param eventName: name of event
-     * "EDE" - Event Doesn't Exist
-     * "ODE" - Organizer Doesn't Exist
+     * "EDE" - Entities.Event Doesn't Exist
+     * "ODE" - Entities.Organizer Doesn't Exist
      * "YES" - Request Successful
      * @return String of the values listed above
      * @author aribshaikh
@@ -298,10 +300,10 @@ public class UserEventController implements Serializable {
     }
 
     /**
-     * allow an Attendee to see the list of all their participating events
+     * allow an Entities.Attendee to see the list of all their participating events
      * call eventManager to perform!
      * @author Khoa Pham
-     * @param attendee: the username of an Attendee whose list of
+     * @param attendee: the username of an Entities.Attendee whose list of
      *                participating events is returned (param_type: String)
      * @return Hashtable<String, ArrayList<String>> eventsWithInfo
      */
@@ -316,10 +318,10 @@ public class UserEventController implements Serializable {
 
 
     /**
-     * allow an Attendee to see the list of all their available to signup events
+     * allow an Entities.Attendee to see the list of all their available to signup events
      * call eventManager to perform!
      * @author Khoa Pham
-     * @param attendee: the username of an Attendee whose list of
+     * @param attendee: the username of an Entities.Attendee whose list of
      *          all their available to signup events is returned (param_type: String)
      * @return Hashtable<String, ArrayList<String>> eventsWithInfo
      */
@@ -348,7 +350,7 @@ public class UserEventController implements Serializable {
        for (HashMap<String, String> talk: listOfTalks){
            for(String eventName: talk.values()){
                String eventTime = eventManager.getEventTime(eventName);
-               masterList.add("(Event Name: " + eventName + ", " + "Event Time: " + eventTime + ")");
+               masterList.add("(Entities.Event Name: " + eventName + ", " + "Entities.Event Time: " + eventTime + ")");
            }
 
        }

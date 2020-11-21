@@ -1,3 +1,7 @@
+package Controllers;
+
+import UseCases.*;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -161,9 +165,9 @@ public class UserMessageController implements Serializable {
      * @param speakerId : id of speaker
      * @param eventName : name of event
      * @param content : content of message
-     * @return "SDE" - Speaker Doesn't Exist
-     *         "EDE" - Event Doesn't Exist
-     *         "SEC" - Speaker Event Conflict
+     * @return "SDE" - Entities.Speaker Doesn't Exist
+     *         "EDE" - Entities.Event Doesn't Exist
+     *         "SEC" - Entities.Speaker Entities.Event Conflict
      *         "YES" - Request Successful
      * @author Vladimir Caterov
      */
@@ -189,9 +193,9 @@ public class UserMessageController implements Serializable {
      * @param speakerId
      * @param eventNames
      * @param content
-     * @return "SDE" - Speaker Doesn't Exist
-     *         "EDE" - Event Doesn't Exist
-     *         "SEC" - Speaker Event Conflict
+     * @return "SDE" - Entities.Speaker Doesn't Exist
+     *         "EDE" - Entities.Event Doesn't Exist
+     *         "SEC" - Entities.Speaker Entities.Event Conflict
      *         "YES" - Request Successful
      * @author Vladimir Caterov
      */

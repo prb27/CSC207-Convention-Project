@@ -1,3 +1,5 @@
+package Entities;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -8,7 +10,7 @@ import java.util.ArrayList;
  * @author Peter Bilski
  */
 public class Message implements Serializable {
-    private String sender; //the id of the User who sent
+    private String sender; //the id of the Entities.User who sent
     private ArrayList<String> recipients = new ArrayList<>(); //list of Ids of Users who received messages
     private String content; //the actual content of the message
 
