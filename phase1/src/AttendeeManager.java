@@ -29,8 +29,6 @@ public class AttendeeManager implements Serializable {
      */
     public boolean createAttendee(String username, String password) {
         if (attendees.containsKey(username)) {
-            //System.out.println("username "+ username +" is taken!");
-            // raise Exception
             return false;
         }
         attendees.put(username, new Attendee(username, password));
@@ -75,7 +73,6 @@ public class AttendeeManager implements Serializable {
      */
     public String addConversation(String attendee, String conversation) {
         if (!attendees.containsKey(attendee)) {
-            //System.out.println("user with userID " + attendee + " not found");
             return "ADE";
         }
         Attendee a = attendees.get(attendee);
