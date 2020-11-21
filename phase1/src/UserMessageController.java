@@ -120,6 +120,25 @@ public class UserMessageController implements Serializable {
 
     }
 
+    public boolean organizerMessageByEvent(String organizerId, String eventName, String content){
+
+        ArrayList<String> recipientIds;
+        if (eventManager.isEvent(eventName)){
+            recipientIds = new ArrayList<>(eventManager.getAttendeeList(eventName));
+        } else {
+            return false;
+        }
+        String convoId = multiMessage(organizerId, recipientIds, content);
+        for(String id: recipientIds){
+            if(organizerManager.isOrganizer(id)){
+                organizerManager.addConversation(id, convoId);
+            } else if(attendeeManager.isAttendee(id)){
+                attendeeManager.addConversation(id, convoId);
+            }
+        }
+        return true;
+    }
+
     /**
      * Checks if speaker, event is valid in order to send a message by speaker to a talk
      * @param speakerId : id of speaker
@@ -362,6 +381,7 @@ public class UserMessageController implements Serializable {
         }
         organizerManager.addConversation(organizerId, convoId);
     }
+
 
     /**
      * Allows an attendee to send a message to a single speaker, or a fellow attendee

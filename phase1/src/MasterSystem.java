@@ -507,6 +507,23 @@ public class MasterSystem implements Serializable {
                             String content = scanner.nextLine();
                             userMessageController.reply(username, conversationIdFinal, content);
                         }
+                        case "20":{
+                            ui.present("Please enter the event name");
+                            String eventName = scanner.nextLine();
+                            ui.present("Please enter the message that you want to send");
+                            String message = scanner.nextLine();
+                            if(!eventManager.isEvent(eventName)){
+                                ui.showError("EDE");
+                                break;
+                            }
+                            boolean messageByEvent = userMessageController.organizerMessageByEvent(username, eventName, message);
+                            if(messageByEvent){
+                                ui.present("Sent");
+                                break;
+                            }
+                            ui.present("Something went wrong");
+                            break;
+                        }
                         default: {
                             ui.showError("INO");
                         }
@@ -516,7 +533,7 @@ public class MasterSystem implements Serializable {
             case "speaker":
                 switch(option) {
                     case "1":
-                        ui.present(userEventController.seeAllEventsForSpeaker(username).toString());
+                        ui.present(userEventController.seeListOfEventsForSpeaker(username).toString());
                         break;
                     case "2":
                         ui.eventnameprompt();
