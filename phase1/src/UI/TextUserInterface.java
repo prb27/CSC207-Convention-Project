@@ -203,11 +203,11 @@ public class TextUserInterface implements Serializable {
         System.out.println("What would you like to do?");
 
         System.out.println("\nCONFERENCE FUNCTIONS:");
-        System.out.println("1. List of all attendees in the conference");
-        System.out.println("2. List of all organizers in the conference");
-        System.out.println("3. List of all speakers in the conference");
-        System.out.println("4. Check if a speaker has an event at a certain time");
-        System.out.println("5. Create a new organizer account");
+        System.out.println("1: List of all attendees in the conference");
+        System.out.println("2: List of all organizers in the conference");
+        System.out.println("3: List of all speakers in the conference");
+        System.out.println("4: Check if a speaker has an event at a certain time");
+        System.out.println("5: Create a new organizer account");
         System.out.println("6: Create speaker account");
 
         System.out.println("\nEVENT FUNCTIONS:");
