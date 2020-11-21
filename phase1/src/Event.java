@@ -69,18 +69,34 @@ public class Event implements Serializable {
         return attendeeList;
     }
 
+    /**
+     * Changes value of the name of event
+     * @param eventName : name of event
+     */
     public void setEventName(String eventName) {
         this.eventName = eventName;
     }
 
+    /**
+     * Changes value for the speaker name of event
+     * @param speakerName
+     */
     public void setSpeakerName(String speakerName) {
         this.speakerName = speakerName;
     }
 
+    /**
+     * Changes value for the event time
+     * @param eventTime
+     */
     public void setEventTime(String eventTime){
         this.eventTime = eventTime;
     }
 
+    /**
+     * Changes value for the room number
+     * @param roomNumber
+     */
     public void setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
     }

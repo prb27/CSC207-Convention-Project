@@ -335,6 +335,11 @@ public class UserEventController implements Serializable {
         return eventsAttendable;
     }
 
+    /**
+     * Allows the speaker to see the list of events they are hosting with event name and time
+     * @param speakerUsername : username of speaker
+     * @return : Returns the list of events they are hosting (param_type: ArrayList<String>)
+     */
     public ArrayList<String> seeListOfEventsForSpeaker(String speakerUsername){
         ArrayList<HashMap<String, String>> listOfTalks = speakerManager.getListOfTalks(speakerUsername);
 
@@ -350,11 +355,20 @@ public class UserEventController implements Serializable {
         return masterList;
     }
 
+    /**
+     * Can see the event information
+     * @param speakerUsername : name of speaker
+     * @return : list of talks for the speaker (param_type: ArrayList<HashMap<String, String>>)
+     */
     private ArrayList<HashMap<String, String>> seeAllEventsForSpeaker(String speakerUsername){
         return speakerManager.getListOfTalks(speakerUsername);
     }
 
-
+    /**
+     * Can see all the event names for the speaker
+     * @param speakerUsername : name of speaker
+     * @return list of all event names of talks (param_type: ArrayList<String>)
+     */
     public ArrayList<String> seeAllEventNamesForSpeaker(String speakerUsername){
         ArrayList<HashMap<String, String>> listOfTalks = seeAllEventsForSpeaker(speakerUsername);
         ArrayList<String> listOfNamedTalks = new ArrayList<>();
