@@ -1,8 +1,12 @@
 package UseCases;
 
 import Entities.Event;
+import Entities.Events.MultiSpeakerEvent;
+import Entities.Events.NoSpeakerEvent;
+import Entities.Events.SingleSpeakerEvent;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -22,6 +26,8 @@ import java.util.Hashtable;
 public class EventManager implements Serializable {
 
     private ArrayList <Event> EventList = new ArrayList<>();
+    private ArrayList <NoSpeakerEvent> NoSpeakerEventList = new ArrayList<>();
+    private ArrayList <SingleSpeakerEvent> SingleSpeakerEventList = new ArrayList<>();
 
     /**
      * Returns a list of all event objects
@@ -31,6 +37,15 @@ public class EventManager implements Serializable {
     public ArrayList<Event> getEventList() {
 
         return EventList;
+    }
+    public ArrayList<NoSpeakerEvent> getNoSpeakerEventList(){
+        return NoSpeakerEventList;
+    }
+
+
+
+    public ArrayList<SingleSpeakerEvent> getSingleSpeakerEventList() {
+        return SingleSpeakerEventList;
     }
 
     /**
