@@ -7,7 +7,7 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0"
             xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Presenters.LoginScreenPresenter">
+            fx:controller="Presenters.LoginMenuPresenter">
     <children>
         <HBox id="Username" alignment="CENTER"
               layoutX="163.0" layoutY="123.0"
