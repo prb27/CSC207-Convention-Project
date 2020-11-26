@@ -31,7 +31,7 @@
             </children>
         </HBox>
 
-        <Button layoutX="287.0" layoutY="200.0" prefHeight="25.0" prefWidth="55.0" text="Login" fx:id="submit"/>
+        <Button layoutX="287.0" layoutY="200.0" prefHeight="25.0" prefWidth="55.0" fx:id="loginButton"/>
 
       <Label layoutX="176.0" layoutY="59.0" prefHeight="43.0" prefWidth="248.0" text="Tech-Conference System" textAlignment="JUSTIFY">
          <font>
