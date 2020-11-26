@@ -240,7 +240,7 @@ public class UserEventController implements Serializable {
 
                 }
 
-                String roomNumber = roomManager.occupyRoomFreeAt(eventTime);
+                String roomNumber = roomManager.occupyRoomFreeAt(startTime, duration);
                 int roomCapacity = roomManager.getCapacityOfRoom(roomNumber);
 
 
