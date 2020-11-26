@@ -1,13 +1,16 @@
 package Presenters;
 
+import Controllers.AccountHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 
 public class LoginScreenPresenter {
+
+    private AccountHandler accountHandler;
+
     @FXML
     private TextField usernameField;
     @FXML
@@ -37,6 +40,7 @@ public class LoginScreenPresenter {
     }
     @FXML
     private void callUserMenu(){
+       String accountType = accountHandler.login(usernameField.getText(), passwordField.getText());
 
     }
 }
