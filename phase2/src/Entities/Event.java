@@ -12,7 +12,7 @@ public class Event implements Serializable {
     private ArrayList<String> speakerName;
     private String eventTime;
     private String roomNumber;
-    private String eventCapacity;
+    private int eventCapacity;
     private final ArrayList<String> attendeeList;
 
     /**
@@ -23,7 +23,7 @@ public class Event implements Serializable {
      * @param roomNumber: room number
      * @param attendeeList: list of attendees
      */
-    public Event(String eventName, ArrayList<String> speakerName, String eventTime, String roomNumber, String eventCapacity, ArrayList<String>attendeeList){
+    public Event(String eventName, ArrayList<String> speakerName, String eventTime, String roomNumber, int eventCapacity, ArrayList<String>attendeeList){
         this.eventName = eventName;
         this.speakerName = speakerName;
         this.eventTime = eventTime;
@@ -65,7 +65,7 @@ public class Event implements Serializable {
         return roomNumber;
     }
 
-    public String getEventCapacity() {
+    public int getEventCapacity() {
         return eventCapacity;
     }
 
@@ -109,7 +109,7 @@ public class Event implements Serializable {
         this.roomNumber = roomNumber;
     }
 
-    public void setEventCapacity(String eventCapacity) {
+    public void setEventCapacity(int eventCapacity) {
         this.eventCapacity = eventCapacity;
     }
 }

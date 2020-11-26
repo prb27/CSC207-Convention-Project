@@ -208,7 +208,7 @@ public class UserEventController implements Serializable {
      * "ODE" - Entities.Organizer Doesn't Exist
      * @return Strings of the values listed above
      */
-    public String createEvent(String organizerName, String eventName, String eventTime, String eventCapacity, ArrayList<String> speakerName){
+    public String createEvent(String organizerName, String eventName, String eventTime, int eventCapacity, ArrayList<String> speakerName){
         ArrayList<String> allowedTimes = new ArrayList<String>();
         allowedTimes.add("9");
         allowedTimes.add("10");
@@ -233,8 +233,10 @@ public class UserEventController implements Serializable {
                 }
 
                 String roomNumber = roomManager.occupyRoomFreeAt(eventTime);
+                int roomCapacity = roomManager.getCapacityOfRoom(roomNumber);
 
-                if(!roomNumber.equals("-")){
+
+                if(!roomNumber.equals("-") && eventCapacity <= roomCapacity){
                     for (String speaker: speakerName) {
                         speakerManager.addTalkToListOfTalks(speaker, eventTime, eventName);
                     }
@@ -303,7 +305,7 @@ public class UserEventController implements Serializable {
      * @author Khoa Pham
      * @return Hashtable<String, ArrayList<String>> eventsWithInfo
      */
-    public Hashtable<String, List> seeAllEventsWithInfo() {
+    public Hashtable<String, List<String>> seeAllEventsWithInfo() {
         return eventManager.getAllEventsWithInfo();
     }
 
@@ -315,9 +317,9 @@ public class UserEventController implements Serializable {
      *                participating events is returned (param_type: String)
      * @return Hashtable<String, ArrayList<String>> eventsWithInfo
      */
-    public Hashtable<String, List> seeParticipatingEvents(String attendee) {
+    public Hashtable<String, List<String>> seeParticipatingEvents(String attendee) {
         ArrayList<String> eventIdsAttending = attendeeManager.getEventsAttending(attendee);
-        Hashtable<String, List> events = new Hashtable<>();
+        Hashtable<String, List<String>> events = new Hashtable<>();
         for (String eventId : eventIdsAttending) {
             events.put(eventId, eventManager.getEventInfo(eventId));
         }
@@ -333,10 +335,10 @@ public class UserEventController implements Serializable {
      *          all their available to signup events is returned (param_type: String)
      * @return Hashtable<String, ArrayList<String>> eventsWithInfo
      */
-    public Hashtable<String, List> seeAttendableEvents(String attendee) {
+    public Hashtable<String, List<String>> seeAttendableEvents(String attendee) {
         ArrayList<String> eventIdsAttending = attendeeManager.getEventsAttending(attendee);
         ArrayList<String> eventIdsAll = eventManager.getEventNamesList();
-        Hashtable<String, List> eventsAttendable = new Hashtable<>();
+        Hashtable<String, List<String>> eventsAttendable = new Hashtable<>();
         for (String eventId : eventIdsAll) {
             if (!eventIdsAttending.contains(eventId)) {
                 eventsAttendable.put(eventId, eventManager.getEventInfo(eventId));

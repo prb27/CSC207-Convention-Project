@@ -7,6 +7,7 @@ import UseCases.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -163,7 +164,7 @@ public class MasterSystem implements Serializable {
             case "attendee":
                 switch(option) {
                     case "1":
-                        Hashtable<String, ArrayList<String>> eventsNotSignedUpFor = userEventController.seeAttendableEvents(username);
+                        Hashtable<String, List<String>> eventsNotSignedUpFor = userEventController.seeAttendableEvents(username);
                         for (String event : eventsNotSignedUpFor.keySet()) {
                             ui.present(event);
                             for (String eventInfo : eventsNotSignedUpFor.get(event))
@@ -403,7 +404,7 @@ public class MasterSystem implements Serializable {
                             String eventName = scanner.nextLine();
                             ui.present("Please enter a new time for the event");
                             String eventTime = scanner.nextLine();
-                            String speakerName = eventManager.getSpeakerEvent(eventName);
+                            ArrayList<String> speakerName = eventManager.getSpeakerEvent(eventName);
                             userEventController.removeCreatedEvent(username, eventName);
                             if(speakerManager.isSpeaker(speakerName)) {
                                 String err = userEventController.createEvent(username, eventName, eventTime, speakerName);

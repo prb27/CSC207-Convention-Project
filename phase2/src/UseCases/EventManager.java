@@ -60,7 +60,7 @@ public class EventManager implements Serializable {
      * EAE - Entities.Event Already Exist
      * @return String
      */
-    public String addEvent(String eventName, String eventTime, String roomNumber, String eventCapacity, ArrayList<String> speakerName){
+    public String addEvent(String eventName, String eventTime, String roomNumber, int eventCapacity, ArrayList<String> speakerName){
 
         ArrayList<String> attendeeList = new ArrayList<>();
         for (Event event: EventList){
@@ -185,7 +185,7 @@ public class EventManager implements Serializable {
      * @param eventName: title of event
      * @return ArrayList
      */
-    public List getEventInfo(String eventName){
+    public List<String> getEventInfo(String eventName){
         Event event = getEvent(eventName);
         List eventInfo = null;
 
@@ -206,8 +206,8 @@ public class EventManager implements Serializable {
      * Returns a hashtable of all events; with eventName as the key, and the value as a list of event info
      * @return : Hashtable<String, ArrayList<String>>
      */
-    public Hashtable<String, List > getAllEventsWithInfo(){
-        Hashtable<String, List> AllEventsWithInfo = new Hashtable<>();
+    public Hashtable<String, List<String> > getAllEventsWithInfo(){
+        Hashtable<String, List<String>> AllEventsWithInfo = new Hashtable<>();
 
         for(Event event: EventList){
             String eventName = event.getEventName();
@@ -234,7 +234,15 @@ public class EventManager implements Serializable {
         }
         return eventTitles;
     }
-
+    /**
+     * Returns the event capacity
+     * @param eventName
+     * @return
+     */
+    public int getEventCapacities(String eventName) {
+        Event event = getEvent(eventName);
+        return event.getEventCapacity();
+    }
 }
 
 
