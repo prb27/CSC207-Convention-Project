@@ -233,8 +233,11 @@ public class UserEventController implements Serializable {
                                     return "STC";
                                 }
                             }
+
                         }
+
                     }
+
                 }
 
                 String roomNumber = roomManager.occupyRoomFreeAt(eventTime);

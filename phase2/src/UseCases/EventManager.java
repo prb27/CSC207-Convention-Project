@@ -54,13 +54,12 @@ public class EventManager implements Serializable {
     /** Initiates a new event object, and adds it to the list of events
      *
       * @param eventName: name of event
-     * @param eventTime: time of event
      * @param roomNumber: roomnumber of event
      * @param speakerName: speakername of event
      * EAE - Entities.Event Already Exist
      * @return String
      */
-    public String addEvent(String eventName, String eventTime, String roomNumber, int eventCapacity, ArrayList<String> speakerName){
+    public String addEvent(String eventName, String startTime, int duration, String roomNumber, int eventCapacity, ArrayList<String> speakerName){
 
         ArrayList<String> attendeeList = new ArrayList<>();
         for (Event event: EventList){
@@ -68,7 +67,7 @@ public class EventManager implements Serializable {
                 return "EAE";
             }
         }
-        Event newEvent = new Event(eventName, speakerName, eventTime, roomNumber, eventCapacity, attendeeList);
+        Event newEvent = new Event(eventName, speakerName, startTime, duration, roomNumber, eventCapacity, attendeeList);
         EventList.add(newEvent);
         return "YES";
 
@@ -155,9 +154,14 @@ public class EventManager implements Serializable {
      * @param eventName: name of event
      * @return : String
      */
-    public String getEventTime(String eventName){
+    public String getStartTime(String eventName){
         Event event = getEvent(eventName);
-        return event.getEventTime();
+        return event.getStartTime();
+    }
+    public int getDuration(String eventName){
+        Event event = getEvent(eventName);
+        return event.getDuration();
+
     }
 
     /**
@@ -191,7 +195,8 @@ public class EventManager implements Serializable {
 
         if(EventList.contains(event)){
             eventInfo.add(event.getSpeakerName());
-            eventInfo.add(event.getEventTime());
+            eventInfo.add(event.getStartTime());
+            eventInfo.add(event.getDuration());
             eventInfo.add(event.getRoomNumber());
             return eventInfo;
         }
