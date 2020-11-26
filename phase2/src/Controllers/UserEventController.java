@@ -228,6 +228,7 @@ public class UserEventController implements Serializable {
                 if(index + duration < allowedTimes.size()) {
                     for(int i = 0; i<duration; i++) {
                         // changes go here
+
                         if (speakerName != null) {
                             for (String speaker : speakerName) {
                                 if (!speakerManager.isSpeakerFreeAtTime(speaker, eventTime)) {

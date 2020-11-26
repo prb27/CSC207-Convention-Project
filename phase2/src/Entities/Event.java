@@ -10,7 +10,8 @@ import java.util.ArrayList;
 public class Event implements Serializable {
     private String eventName;
     private ArrayList<String> speakerName;
-    private String eventTime;
+    private String startTime;
+    private int duration;
     private String roomNumber;
     private int eventCapacity;
     private final ArrayList<String> attendeeList;
@@ -19,14 +20,14 @@ public class Event implements Serializable {
      * A constructor to create the event object
      * @param eventName: name of event
      * @param speakerName: name of speaker
-     * @param eventTime: time of event
      * @param roomNumber: room number
      * @param attendeeList: list of attendees
      */
-    public Event(String eventName, ArrayList<String> speakerName, String eventTime, String roomNumber, int eventCapacity, ArrayList<String>attendeeList){
+    public Event(String eventName, ArrayList<String> speakerName, String startTime, int duration, String roomNumber, int eventCapacity, ArrayList<String>attendeeList){
         this.eventName = eventName;
         this.speakerName = speakerName;
-        this.eventTime = eventTime;
+        this.startTime = startTime;
+        this.duration = duration;
         this.roomNumber = roomNumber;
         this.eventCapacity = eventCapacity;
         this.attendeeList = attendeeList;
@@ -53,8 +54,12 @@ public class Event implements Serializable {
      * returns the time of event
      * @return eventTime
      */
-    public String getEventTime() {
-        return eventTime;
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public int getDuration() {
+        return duration;
     }
 
     /**
@@ -93,12 +98,12 @@ public class Event implements Serializable {
         this.speakerName = speakerName;
     }
 
-    /**
-     * Changes value for the event time
-     * @param eventTime
-     */
-    public void setEventTime(String eventTime){
-        this.eventTime = eventTime;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     /**
