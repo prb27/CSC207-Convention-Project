@@ -208,7 +208,7 @@ public class UserEventController implements Serializable {
      * "ODE" - Entities.Organizer Doesn't Exist
      * @return Strings of the values listed above
      */
-    public String createEvent(String organizerName, String eventName, String eventTime, int eventCapacity, ArrayList<String> speakerName){
+    public String createEvent(String organizerName, String startName, int duration, String eventTime, int eventCapacity, ArrayList<String> speakerName){
         ArrayList<String> allowedTimes = new ArrayList<String>();
         allowedTimes.add("9");
         allowedTimes.add("10");
@@ -223,11 +223,17 @@ public class UserEventController implements Serializable {
 
         if(organizerManager.isOrganizer(organizerName)){
 
-            if(allowedTimes.contains(eventTime)){
-                if(speakerName!=null){
-                    for (String speaker: speakerName){
-                        if(!speakerManager.isSpeakerFreeAtTime(speaker, eventTime)){
-                            return "STC";
+            if(allowedTimes.contains(startName)){
+                int index = allowedTimes.indexOf(startName);
+                if(index + duration < allowedTimes.size()) {
+                    for(int i = 0; i<duration; i++) {
+                        // changes go here
+                        if (speakerName != null) {
+                            for (String speaker : speakerName) {
+                                if (!speakerManager.isSpeakerFreeAtTime(speaker, eventTime)) {
+                                    return "STC";
+                                }
+                            }
                         }
                     }
                 }
