@@ -1,5 +1,6 @@
 package Controllers;
 
+import UseCases.AdminManager;
 import UseCases.AttendeeManager;
 import UseCases.OrganizerManager;
 import UseCases.SpeakerManager;
@@ -10,15 +11,17 @@ import java.io.Serializable;
  * This class is responsible for creating accounts of all user types
  * with a unique username and password and allowing a user to sign in
  * to the conference using their username and password
- * @author Akshat Ayush
+ * @author Akshat Ayush, Khoa Pham
  * @see AttendeeManager
  * @see OrganizerManager
  * @see SpeakerManager
+ * @see UseCases.AdminManager
  */
 public class AccountHandler implements Serializable {
     private final AttendeeManager attendeeManager;
     private final OrganizerManager organizerManager;
     private final SpeakerManager speakerManager;
+    private final AdminManager adminManager;
 
     /**
      * A constructor to create an object of Controllers.AccountHandler
@@ -27,10 +30,12 @@ public class AccountHandler implements Serializable {
      * @param organizerManager: an object of UseCases.OrganizerManager class
      * @param speakerManager: an object of UseCases.SpeakerManager class
      */
-    public AccountHandler(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager) {
+    public AccountHandler(AttendeeManager attendeeManager, OrganizerManager organizerManager,
+                          SpeakerManager speakerManager, AdminManager adminManager) {
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
         this.speakerManager = speakerManager;
+        this.adminManager = adminManager;
     }
 
     /**
@@ -65,11 +70,11 @@ public class AccountHandler implements Serializable {
      *Login the user with the given username and password if a user with
      *the given username exists and return the account type of the user
      *if login is successful.
-     *
+     * @author Akshat Ayush, Khoa Pham
      * @param username: username inputted by the user
      * @param password: password inputted by the user
      * @return String representing the account type of the user logging in.
-     * "attendee", "organizer", "speaker" for the type of user,
+     * "attendee", "organizer", "speaker", "admin" for the type of user,
      * null if the user with the given username does not exist
      */
     public String login(String username, String password) {
@@ -79,6 +84,8 @@ public class AccountHandler implements Serializable {
             return "organizer";
         else if(speakerManager.checkPassword(username, password))
             return "speaker";
+        else if(adminManager.checkPassword(username, password))
+            return "admin";
         else
             return null;
     }

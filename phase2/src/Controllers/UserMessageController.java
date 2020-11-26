@@ -443,5 +443,19 @@ public class UserMessageController implements Serializable {
         attendeeManager.addConversation(attendeeId, convoId);
     }
 
+    /**
+     * Allows the admin to delete a message
+     * @param message: the id of the to-be-deleted message
+     * @return String:
+     * MDE -- Message Doesn't Exist
+     * Yes -- successfully deleted the message
+     */
+    public String deleteMessage(String message) {
+        if (!messageManager.messageExists(message)) {
+            return "MDE";
+        }
+        messageManager.deleteMessage(message);
+        return "Yes";
+    }
 
 }

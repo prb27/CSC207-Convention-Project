@@ -243,6 +243,21 @@ public class EventManager implements Serializable {
         Event event = getEvent(eventName);
         return event.getEventCapacity();
     }
+
+    /**
+     * Returns the list of empty events
+     * @author Khoa Pham
+     * @return ArrayList<String> empty events (events without attendees)
+     */
+    public ArrayList<String> getEmptyEvents() {
+        ArrayList<String> emptyEvents = new ArrayList<>();
+        for (Event e : EventList) {
+            if (e.getAttendeeList().isEmpty()) {
+                emptyEvents.add(e.getEventName());
+            }
+        }
+        return emptyEvents;
+    }
 }
 
 

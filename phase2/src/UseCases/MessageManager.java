@@ -11,8 +11,9 @@ import java.util.ArrayList;
  * - adding messages (both single and multiple recipients) to the program
  * - adding replies to messages
  * - searching and returning messages based on their id
+ * - checking if a message exists based on its id without modification
  * - getting various data about messages based off of their id
- * @author Peter Bilski
+ * @author Peter Bilski, Khoa Pham
  * @see Message
  */
 public class MessageManager implements Serializable {
@@ -54,6 +55,16 @@ public class MessageManager implements Serializable {
     }
 
     /**
+     * Delete a message with given id
+     * @author Khoa Pham
+     * @param message: the to-be-deleted message
+     * @return the id of the message
+     */
+    public void deleteMessage(String message) {
+        allMessages.remove(this.getMessage(message));
+    }
+
+    /**
      * Adds a reply to the message specified by messageId
      * @param senderId the id of the sender of the reply
      * @param recipientIds the ids of the recipients
@@ -84,6 +95,18 @@ public class MessageManager implements Serializable {
             }
         }
         return null;
+    }
+
+    /**
+     * Check if a message with ID exists in allMessages
+     * @author Khoa Pham
+     * @param messageId the id of the message to be searched for
+     * @return boolean
+     * true -- message exits
+     * false -- message doesn't exist
+     */
+    public boolean messageExists(String messageId){
+        return allMessages.contains(this.getMessage(messageId));
     }
 
     /**
