@@ -9,9 +9,10 @@ import java.util.ArrayList;
  */
 public class Event implements Serializable {
     private String eventName;
-    private String speakerName;
+    private ArrayList<String> speakerName;
     private String eventTime;
     private String roomNumber;
+    private String eventCapacity;
     private final ArrayList<String> attendeeList;
 
     /**
@@ -22,11 +23,12 @@ public class Event implements Serializable {
      * @param roomNumber: room number
      * @param attendeeList: list of attendees
      */
-    public Event(String eventName, String speakerName, String eventTime, String roomNumber, ArrayList<String>attendeeList){
+    public Event(String eventName, ArrayList<String> speakerName, String eventTime, String roomNumber, String eventCapacity, ArrayList<String>attendeeList){
         this.eventName = eventName;
         this.speakerName = speakerName;
         this.eventTime = eventTime;
         this.roomNumber = roomNumber;
+        this.eventCapacity = eventCapacity;
         this.attendeeList = attendeeList;
 
     }
@@ -43,7 +45,7 @@ public class Event implements Serializable {
      * returns the name of speaker
      * @return speakerName
      */
-    public String getSpeakerName() {
+    public ArrayList<String> getSpeakerName() {
         return speakerName;
     }
 
@@ -61,6 +63,10 @@ public class Event implements Serializable {
      */
     public String getRoomNumber() {
         return roomNumber;
+    }
+
+    public String getEventCapacity() {
+        return eventCapacity;
     }
 
     /**
@@ -83,7 +89,7 @@ public class Event implements Serializable {
      * Changes value for the speaker name of event
      * @param speakerName
      */
-    public void setSpeakerName(String speakerName) {
+    public void setSpeakerName(ArrayList<String> speakerName) {
         this.speakerName = speakerName;
     }
 
@@ -103,5 +109,7 @@ public class Event implements Serializable {
         this.roomNumber = roomNumber;
     }
 
-
+    public void setEventCapacity(String eventCapacity) {
+        this.eventCapacity = eventCapacity;
+    }
 }

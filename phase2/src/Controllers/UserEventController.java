@@ -3,10 +3,7 @@ package Controllers;
 import UseCases.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Hashtable;
+import java.util.*;
 
 /**
  * This class is responsible for taking input and implementing all logic/actions related to a user and events.
@@ -211,7 +208,7 @@ public class UserEventController implements Serializable {
      * "ODE" - Entities.Organizer Doesn't Exist
      * @return Strings of the values listed above
      */
-    public String createEvent(String organizerName, String eventName, String eventTime, String speakerName){
+    public String createEvent(String organizerName, String eventName, String eventTime, String eventCapacity, ArrayList<String> speakerName){
         ArrayList<String> allowedTimes = new ArrayList<String>();
         allowedTimes.add("9");
         allowedTimes.add("10");
@@ -222,38 +219,43 @@ public class UserEventController implements Serializable {
         allowedTimes.add("3");
         allowedTimes.add("4");
         allowedTimes.add("5");
+        boolean check = true;
 
         if(organizerManager.isOrganizer(organizerName)){
 
             if(allowedTimes.contains(eventTime)){
-
-                if(speakerManager.isSpeakerFreeAtTime(speakerName, eventTime)){
-                    String roomNumber = roomManager.occupyRoomFreeAt(eventTime);
-
-                    if(!roomNumber.equals("-")){
-                        speakerManager.addTalkToListOfTalks(speakerName,eventTime,eventName);
-                        roomManager.occupyRoomAt(roomNumber,eventTime);
-                        return eventManager.addEvent(eventName,eventTime,roomNumber,speakerName);
+                if(speakerName!=null){
+                    for (String speaker: speakerName){
+                        if(!speakerManager.isSpeakerFreeAtTime(speaker, eventTime)){
+                            return "STC";
+                        }
                     }
-                    else{
-                        return "RO";
+                }
+
+                String roomNumber = roomManager.occupyRoomFreeAt(eventTime);
+
+                if(!roomNumber.equals("-")){
+                    for (String speaker: speakerName) {
+                        speakerManager.addTalkToListOfTalks(speaker, eventTime, eventName);
                     }
+                    roomManager.occupyRoomAt(roomNumber,eventTime);
+                    return eventManager.addEvent(eventName,eventTime,roomNumber,eventCapacity, speakerName);
+                }
+                else{
+                    return "RO";
+                }
 
                 }
                 else{
-                    return "STC";
+                    return "ETC";
                 }
             }
             else{
-                return "ETC";
+                return "ODE";
             }
 
-        }
-        else{
-            return "ODE";
-        }
-
     }
+
 
     /**
      * Allows an organizer to remove a created event, also removes it from the list of talks of the speaker, and list
@@ -269,12 +271,15 @@ public class UserEventController implements Serializable {
     public String removeCreatedEvent(String organizerName,String eventName) {
         if (organizerManager.isOrganizer(organizerName)) {
             if (eventManager.isEvent(eventName)) {
-                String speakerUserName = eventManager.getSpeakerEvent(eventName);
+                ArrayList<String> speakerUserName = eventManager.getSpeakerEvent(eventName);
                 String eventTime = eventManager.getEventTime(eventName);
                 String roomId = eventManager.getRoomNumber(eventName);
-
                 eventManager.removeEvent(eventName);
-                speakerManager.removeTalkFromListOfTalks(speakerUserName, eventTime, eventName);
+
+                for(String speaker: speakerUserName){
+                    speakerManager.removeTalkFromListOfTalks(speaker, eventTime, eventName);
+
+                }
                 for(String attendeeID: attendeeManager.getAllAttendeeIds()){
                     attendeeManager.removeAttendingEvent(attendeeID, eventName);
                 }
@@ -298,7 +303,7 @@ public class UserEventController implements Serializable {
      * @author Khoa Pham
      * @return Hashtable<String, ArrayList<String>> eventsWithInfo
      */
-    public Hashtable<String, ArrayList<String>> seeAllEventsWithInfo() {
+    public Hashtable<String, List> seeAllEventsWithInfo() {
         return eventManager.getAllEventsWithInfo();
     }
 
@@ -310,9 +315,9 @@ public class UserEventController implements Serializable {
      *                participating events is returned (param_type: String)
      * @return Hashtable<String, ArrayList<String>> eventsWithInfo
      */
-    public Hashtable<String, ArrayList<String>> seeParticipatingEvents(String attendee) {
+    public Hashtable<String, List> seeParticipatingEvents(String attendee) {
         ArrayList<String> eventIdsAttending = attendeeManager.getEventsAttending(attendee);
-        Hashtable<String, ArrayList<String>> events = new Hashtable<>();
+        Hashtable<String, List> events = new Hashtable<>();
         for (String eventId : eventIdsAttending) {
             events.put(eventId, eventManager.getEventInfo(eventId));
         }
@@ -328,10 +333,10 @@ public class UserEventController implements Serializable {
      *          all their available to signup events is returned (param_type: String)
      * @return Hashtable<String, ArrayList<String>> eventsWithInfo
      */
-    public Hashtable<String, ArrayList<String>> seeAttendableEvents(String attendee) {
+    public Hashtable<String, List> seeAttendableEvents(String attendee) {
         ArrayList<String> eventIdsAttending = attendeeManager.getEventsAttending(attendee);
         ArrayList<String> eventIdsAll = eventManager.getEventNamesList();
-        Hashtable<String, ArrayList<String>> eventsAttendable = new Hashtable<>();
+        Hashtable<String, List> eventsAttendable = new Hashtable<>();
         for (String eventId : eventIdsAll) {
             if (!eventIdsAttending.contains(eventId)) {
                 eventsAttendable.put(eventId, eventManager.getEventInfo(eventId));

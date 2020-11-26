@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 /**
  * This is a use-case class that interacts with the event entity, and performs various tasks related to events.
@@ -26,8 +27,7 @@ import java.util.Hashtable;
 public class EventManager implements Serializable {
 
     private ArrayList <Event> EventList = new ArrayList<>();
-    private ArrayList <NoSpeakerEvent> NoSpeakerEventList = new ArrayList<>();
-    private ArrayList <SingleSpeakerEvent> SingleSpeakerEventList = new ArrayList<>();
+
 
     /**
      * Returns a list of all event objects
@@ -38,15 +38,7 @@ public class EventManager implements Serializable {
 
         return EventList;
     }
-    public ArrayList<NoSpeakerEvent> getNoSpeakerEventList(){
-        return NoSpeakerEventList;
-    }
 
-
-
-    public ArrayList<SingleSpeakerEvent> getSingleSpeakerEventList() {
-        return SingleSpeakerEventList;
-    }
 
     /**
      * Returns all the event names of the current list of events
@@ -68,7 +60,7 @@ public class EventManager implements Serializable {
      * EAE - Entities.Event Already Exist
      * @return String
      */
-    public String addEvent(String eventName, String eventTime, String roomNumber, String speakerName){
+    public String addEvent(String eventName, String eventTime, String roomNumber, String eventCapacity, ArrayList<String> speakerName){
 
         ArrayList<String> attendeeList = new ArrayList<>();
         for (Event event: EventList){
@@ -76,7 +68,7 @@ public class EventManager implements Serializable {
                 return "EAE";
             }
         }
-        Event newEvent = new Event(eventName, speakerName, eventTime, roomNumber,attendeeList);
+        Event newEvent = new Event(eventName, speakerName, eventTime, roomNumber, eventCapacity, attendeeList);
         EventList.add(newEvent);
         return "YES";
 
@@ -153,7 +145,7 @@ public class EventManager implements Serializable {
      * @param eventName: name of event
      * @return : speakerName (param_type: String)
      */
-    public String getSpeakerEvent(String eventName){
+    public ArrayList<String> getSpeakerEvent(String eventName){
         Event event = getEvent(eventName);
         return event.getSpeakerName();
     }
@@ -193,9 +185,9 @@ public class EventManager implements Serializable {
      * @param eventName: title of event
      * @return ArrayList
      */
-    public ArrayList<String> getEventInfo(String eventName){
+    public List getEventInfo(String eventName){
         Event event = getEvent(eventName);
-        ArrayList<String> eventInfo = new ArrayList<String>();
+        List eventInfo = null;
 
         if(EventList.contains(event)){
             eventInfo.add(event.getSpeakerName());
@@ -214,12 +206,12 @@ public class EventManager implements Serializable {
      * Returns a hashtable of all events; with eventName as the key, and the value as a list of event info
      * @return : Hashtable<String, ArrayList<String>>
      */
-    public Hashtable<String, ArrayList<String> > getAllEventsWithInfo(){
-        Hashtable<String, ArrayList<String>> AllEventsWithInfo = new Hashtable<>();
+    public Hashtable<String, List > getAllEventsWithInfo(){
+        Hashtable<String, List> AllEventsWithInfo = new Hashtable<>();
 
         for(Event event: EventList){
             String eventName = event.getEventName();
-            ArrayList<String> eventInfo = getEventInfo(eventName);
+            List eventInfo = getEventInfo(eventName);
 
             if (eventInfo!=null){
                 AllEventsWithInfo.put(eventName, eventInfo);
