@@ -154,15 +154,28 @@ public class RoomManager implements Serializable {
     public String occupyRoomFreeAt(String time, int duration){
     // '-' means no room is free at time
         int flag = 0;
-        int timeInt = 0;
+        int timeInt;
+        String roomId;
+        String tempTime = time;
         for(Room room: rooms){
             for (int i = 0; i < duration; i++) {
-                if (!(room.getOccupiedTimes().contains(time))) {
+                if (!(room.getOccupiedTimes().contains(tempTime))) {
                     flag = flag + 1;
                 }
-                timeInt = Integer.parseInt(time);
+                timeInt = Integer.parseInt(tempTime);
                 timeInt = timeInt + 1;
-                time = Integer.toString(timeInt);
+                tempTime = Integer.toString(timeInt);
+            }
+            if(flag == duration){
+                tempTime = time;
+                roomId = room.getRoomId();
+                for (int i = 0; i < duration; i++) {
+                    occupyRoomAt(roomId, tempTime);
+                    timeInt = Integer.parseInt(tempTime);
+                    timeInt = timeInt + 1;
+                    tempTime = Integer.toString(timeInt);
+                }
+                return roomId;
             }
         }
         return "-";
