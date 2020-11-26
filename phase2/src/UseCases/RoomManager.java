@@ -101,7 +101,7 @@ public class RoomManager implements Serializable {
      * @return : true if and only if room with </roomId> exists and the room is occupied at </time> by
      *           the end of the method execution.
      */
-    public boolean occupyRoomAt(String roomId, String time){
+    private boolean occupyRoomAtTime(String roomId, String time){
 
         Room room = getRoom(roomId);
         if(room != null && (!isRoomOccupiedAt(roomId, time))){
@@ -146,18 +146,38 @@ public class RoomManager implements Serializable {
     }
 
     /**
-     * Occupies a room that is free at </time>
+     * Occupies the room with </roomId> if starting at </time> for </duration> hours
+     * @param roomId: room Id of the room that we intend to occupy
      * @param time: time at which we want to occupy a room
-     * @return "-" if no room is free at time
-     *         id of the room that is occupied
+     * @param duration: duration for which the room needs to be occupied
      */
-    public String occupyRoomFreeAt(String time, int duration){
-    // '-' means no room is free at time
+    public void occupyRoomAt(String roomId, String time, int duration){
+
+        int timeInt;
+        String tempTime = time;
+        tempTime = time;
+        for (int i = 0; i < duration; i++) {
+            occupyRoomAtTime(roomId, tempTime);
+            timeInt = Integer.parseInt(tempTime);
+            timeInt = timeInt + 1;
+            tempTime = Integer.toString(timeInt);
+        }
+    }
+
+    /**
+     * Checks if a room that is free at </time>
+     * @param time: The starting time at which we want to check if a room is free
+     * @param duration: duration for which we want to check the availability of the room
+     * @return "-" if no room is free at time
+     *         id of a room that is free at time
+     */
+    public String checkRoomFreeAt(String time, int duration) {
+
         int flag = 0;
         int timeInt;
         String roomId;
         String tempTime = time;
-        for(Room room: rooms){
+        for (Room room : rooms) {
             for (int i = 0; i < duration; i++) {
                 if (!(room.getOccupiedTimes().contains(tempTime))) {
                     flag = flag + 1;
@@ -166,20 +186,11 @@ public class RoomManager implements Serializable {
                 timeInt = timeInt + 1;
                 tempTime = Integer.toString(timeInt);
             }
-            if(flag == duration){
-                tempTime = time;
+            if (flag == duration){
                 roomId = room.getRoomId();
-                for (int i = 0; i < duration; i++) {
-                    occupyRoomAt(roomId, tempTime);
-                    timeInt = Integer.parseInt(tempTime);
-                    timeInt = timeInt + 1;
-                    tempTime = Integer.toString(timeInt);
-                }
                 return roomId;
             }
         }
         return "-";
-
     }
-
 }

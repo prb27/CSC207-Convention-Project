@@ -240,19 +240,21 @@ public class UserEventController implements Serializable {
 
                 }
 
-                String roomNumber = roomManager.occupyRoomFreeAt(startTime, duration);
-                int roomCapacity = roomManager.getCapacityOfRoom(roomNumber);
+                String roomNumber = roomManager.checkRoomFreeAt(startTime, duration);
 
-
-                if(!roomNumber.equals("-") && eventCapacity <= roomCapacity){
-                    for (String speaker: speakerName) {
-                        speakerManager.addTalkToListOfTalks(speaker, eventTime, eventName);
+                if(!roomNumber.equals("-")){
+                    int roomCapacity = roomManager.getCapacityOfRoom(roomNumber);
+                    if(eventCapacity < roomCapacity) {
+                        // changes from here
+                        for (String speaker : speakerName) {
+                            speakerManager.addTalkToListOfTalks(speaker, eventTime, eventName);
+                        }
+                        roomManager.occupyRoomAt(roomNumber, eventTime);
+                        return eventManager.addEvent(eventName, eventTime, roomNumber, eventCapacity, speakerName);
                     }
-                    roomManager.occupyRoomAt(roomNumber,eventTime);
-                    return eventManager.addEvent(eventName,eventTime,roomNumber,eventCapacity, speakerName);
                 }
                 else{
-                    return "RO";
+                    return "ARO";
                 }
 
                 }
