@@ -200,7 +200,7 @@ public class UserEventController implements Serializable {
      * Allows an organizer to create an event, by adding it to the list of events, as well as the list of speaker talks
      * @param organizerName: name of organizer
      * @param eventName: name of event
-     * @param eventTime: time of event
+     * @param startTime: time of event
      * @param speakerName: name of speaker
      * "ARO" - All Rooms Occupied
      * "STC" - Entities.Speaker Time Conflict
@@ -225,13 +225,11 @@ public class UserEventController implements Serializable {
 
             if(allowedTimes.contains(startTime)){
                 int index = allowedTimes.indexOf(startTime);
-                if(index + duration < allowedTimes.size()) {
-                    for(int i = 0; i<duration; i++) {
-                        // changes go here
-
+                if(index + duration <= allowedTimes.size()) {
+                    for(int i = 0; i < duration; i++) {
                         if (speakerName != null) {
                             for (String speaker : speakerName) {
-                                if (!speakerManager.isSpeakerFreeAtTime(speaker, eventTime)) {
+                                if (!speakerManager.isSpeakerFreeAtTime(speaker, allowedTimes.get(index + i))) {
                                     return "STC";
                                 }
                             }
