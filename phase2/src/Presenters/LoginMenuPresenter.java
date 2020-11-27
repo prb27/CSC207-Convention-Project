@@ -41,7 +41,10 @@ public class LoginMenuPresenter {
     }
     @FXML
     private void callUserMenu(){
-       String accountType = loginMenuController.login(usernameField.getText(), passwordField.getText());
+       if(loginMenuController.login(usernameField.getText(), passwordField.getText())){
 
+       }
     }
+
+
 }

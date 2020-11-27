@@ -3,9 +3,18 @@ package Controllers;
 public class LoginMenuController {
 
     private AccountHandler accountHandler;
-    public String login(String username, String password){
 
+    public LoginMenuController(AccountHandler accountHandler){
+        this.accountHandler = accountHandler;
+    }
+
+    public boolean loggedIn = false;
+    public boolean login(String username, String password){
         String accountType = accountHandler.login(username, password);
-        return accountType; //JUST FILLER
+
+        if (){
+            loggedIn = true;
+        }
+        return loggedIn;
     }
 }
