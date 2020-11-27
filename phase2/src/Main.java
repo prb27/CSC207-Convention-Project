@@ -10,9 +10,7 @@ public class Main extends Application {
 
 
     private Stage stage;
-    public Stage getStage(){
-        return stage;
-    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
@@ -24,6 +22,11 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
+    public Stage getStage(){
+        return stage;
+    }
+
     /**
      * main method to run the program
      * @param args: string arguments for main method
