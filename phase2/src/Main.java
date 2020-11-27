@@ -1,8 +1,25 @@
 import Controllers.MasterSystem;
 import Gateways.ProgramGenerator;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
-public class Main {
+public class Main extends Application {
 
+
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/LoginMenu.fxml"));
+        AnchorPane loginPage = (AnchorPane) loader.load();
+        Scene scene = new Scene(loginPage);
+
+        primaryStage.setTitle("Tech-Conference Login");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
     /**
      * main method to run the program
      * @param args: string arguments for main method
@@ -11,5 +28,7 @@ public class Main {
         ProgramGenerator programGenerator = new ProgramGenerator();
         MasterSystem masterSystem = programGenerator.readFromFile("conference_system");
         masterSystem.run();
+        launch(args); // for javafx launching application
     }
+
 }

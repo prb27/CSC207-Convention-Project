@@ -41,10 +41,6 @@ public class LoginMenuPresenter {
     }
     @FXML
     private void callUserMenu(){
-       if(loginMenuController.login(usernameField.getText(), passwordField.getText())){
-
+           loginMenuController.login(usernameField.getText(), passwordField.getText());
        }
     }
-
-
-}
