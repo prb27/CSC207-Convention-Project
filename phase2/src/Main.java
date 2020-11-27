@@ -14,7 +14,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/LoginMenu.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/SignUpMenu.fxml"));
         AnchorPane loginPage = (AnchorPane) loader.load();
         Scene scene = new Scene(loginPage);
 
