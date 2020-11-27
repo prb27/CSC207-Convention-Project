@@ -9,16 +9,20 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 
-
+    private Stage stage;
+    public Stage getStage(){
+        return stage;
+    }
     @Override
     public void start(Stage primaryStage) throws Exception {
+        stage = primaryStage;
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/LoginMenu.fxml"));
         AnchorPane loginPage = (AnchorPane) loader.load();
         Scene scene = new Scene(loginPage);
 
-        primaryStage.setTitle("Tech-Conference Login");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setTitle("Tech-Conference");
+        stage.setScene(scene);
+        stage.show();
     }
     /**
      * main method to run the program

@@ -20,7 +20,7 @@ public class LoginMenuController {
     }
 
 
-    public boolean login(String username, String password, Stage primaryStage){
+    public void login(String username, String password){
         String accountType = accountHandler.login(username, password);
 
         switch (accountType){
