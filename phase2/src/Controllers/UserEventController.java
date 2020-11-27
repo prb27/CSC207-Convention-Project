@@ -209,28 +209,19 @@ public class UserEventController implements Serializable {
      * @return Strings of the values listed above
      */
     public String createEvent(String organizerName, String eventName, String startTime, int duration, int eventCapacity, ArrayList<String> speakerName){
-        ArrayList<String> allowedTimes = new ArrayList<String>();
-        allowedTimes.add("9");
-        allowedTimes.add("10");
-        allowedTimes.add("11");
-        allowedTimes.add("12");
-        allowedTimes.add("1");
-        allowedTimes.add("2");
-        allowedTimes.add("3");
-        allowedTimes.add("4");
-        allowedTimes.add("5");
-        boolean check = true;
+        ArrayList<String> allowedTimes = eventManager.getAllowedTimes();
+
 
         if(organizerManager.isOrganizer(organizerName)){
 
             if(allowedTimes.contains(startTime)){
                 int index = allowedTimes.indexOf(startTime);
                 if(index + duration <= allowedTimes.size()) {
-                    for(int i = 0; i < duration; i++) {
                         if (speakerName != null) {
                             for (String speaker : speakerName) {
-                                if (!speakerManager.isSpeakerFreeAtTime(speaker, allowedTimes.get(index + i))) {
-                                    return "STC";
+                                for(int i = 0; i < duration; i++) {
+                                    if (!speakerManager.isSpeakerFreeAtTime(speaker, allowedTimes.get(index + i))) {
+                                        return "STC";
                                 }
                             }
 
@@ -246,13 +237,22 @@ public class UserEventController implements Serializable {
                     int roomCapacity = roomManager.getCapacityOfRoom(roomNumber);
                     if(eventCapacity < roomCapacity) {
                         // changes from here
+
                         for (String speaker : speakerName) {
-                            speakerManager.addTalkToListOfTalks(speaker, eventTime, eventName);
+                            for (int i = 0; i < duration; i++) {
+                                speakerManager.addTalkToListOfTalks(speaker, allowedTimes.get(index + i), eventName);
+                            }
                         }
-                        roomManager.occupyRoomAt(roomNumber, eventTime);
-                        return eventManager.addEvent(eventName, eventTime, roomNumber, eventCapacity, speakerName);
+                        roomManager.occupyRoomAt(roomNumber,startTime, duration );
+
+                        return eventManager.addEvent(eventName, startTime, duration, roomNumber, eventCapacity, speakerName);
                     }
+                    else{
+                        return "ECF";
+                    }
+
                 }
+
                 else{
                     return "ARO";
                 }
@@ -269,6 +269,8 @@ public class UserEventController implements Serializable {
     }
 
 
+
+
     /**
      * Allows an organizer to remove a created event, also removes it from the list of talks of the speaker, and list
      * of attending events for Organizers and Attendees
@@ -281,16 +283,22 @@ public class UserEventController implements Serializable {
      * @author aribshaikh
      */
     public String removeCreatedEvent(String organizerName,String eventName) {
+        ArrayList<String> allowedTimes = eventManager.getAllowedTimes();
+
+
         if (organizerManager.isOrganizer(organizerName)) {
             if (eventManager.isEvent(eventName)) {
                 ArrayList<String> speakerUserName = eventManager.getSpeakerEvent(eventName);
-                String eventTime = eventManager.getEventTime(eventName);
+                String startTime = eventManager.getStartTime(eventName);
+                int index = allowedTimes.indexOf(startTime);
+                int duration = eventManager.getDuration(eventName);
                 String roomId = eventManager.getRoomNumber(eventName);
                 eventManager.removeEvent(eventName);
 
                 for(String speaker: speakerUserName){
-                    speakerManager.removeTalkFromListOfTalks(speaker, eventTime, eventName);
-
+                    for (int i = 0; i < duration; i++) {
+                        speakerManager.removeTalkFromListOfTalks(speaker, allowedTimes.get(index+ i), eventName);
+                    }
                 }
                 for(String attendeeID: attendeeManager.getAllAttendeeIds()){
                     attendeeManager.removeAttendingEvent(attendeeID, eventName);
@@ -298,7 +306,7 @@ public class UserEventController implements Serializable {
                 for(String organizerID: organizerManager.getAllOrganizerIds()){
                     organizerManager.removeAttendingEvent(organizerID, eventName);
                 }
-                roomManager.freeRoomAt(roomId, eventTime);
+                roomManager.freeRoomAt(roomId, startTime);
                 return "YES";
 
             } else {

@@ -263,6 +263,20 @@ public class EventManager implements Serializable {
         }
         return emptyEvents;
     }
+    public ArrayList<String> getAllowedTimes(){
+        ArrayList<String> allowedTimes = new ArrayList<String>();
+        allowedTimes.add("9");
+        allowedTimes.add("10");
+        allowedTimes.add("11");
+        allowedTimes.add("12");
+        allowedTimes.add("1");
+        allowedTimes.add("2");
+        allowedTimes.add("3");
+        allowedTimes.add("4");
+        allowedTimes.add("5");
+        return allowedTimes;
+
+    }
 }
 
 
