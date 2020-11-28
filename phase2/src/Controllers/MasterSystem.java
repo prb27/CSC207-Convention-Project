@@ -85,6 +85,7 @@ public class MasterSystem implements Serializable {
             ui.landingmenu();
             String landingOption = scanner.nextLine();
 
+
             switch (landingOption) {
                 case "0":
                     programGenerator.saveToFile(this, "conference_system");

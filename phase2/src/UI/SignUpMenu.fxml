@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="138.0" layoutY="22.0" prefHeight="73.0" prefWidth="325.0" text="CSC207 Tech-Conference" textAlignment="JUSTIFY">
          <font>
@@ -19,25 +16,19 @@
             <Font size="28.0" />
          </font>
       </Label>
-      <HBox layoutX="12.0" layoutY="145.0" prefHeight="25.0" prefWidth="264.0">
-         <children>
-            <Label prefHeight="25.0" prefWidth="124.0" text="Enter Name:">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <TextField prefHeight="25.0" prefWidth="139.0" />
-         </children>
-      </HBox>
-      <HBox layoutX="12.0" layoutY="181.0" prefHeight="25.0" prefWidth="264.0">
-         <children>
-            <Label prefHeight="25.0" prefWidth="123.0" text="Enter Username:">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <TextField prefHeight="25.0" prefWidth="144.0" />
-         </children>
-      </HBox>
+      <HBox layoutX="12.0" layoutY="145.0" prefHeight="25.0" prefWidth="264.0" />
+      <HBox layoutX="12.0" layoutY="181.0" prefHeight="25.0" prefWidth="264.0" />
+      <TextField layoutX="231.0" layoutY="168.0" prefHeight="25.0" prefWidth="139.0" />
+      <TextField layoutX="229.0" layoutY="231.0" prefHeight="25.0" prefWidth="144.0" />
+      <Label alignment="CENTER" layoutX="239.0" layoutY="145.0" prefHeight="25.0" prefWidth="124.0" text="Enter Name:" textAlignment="CENTER">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="234.0" layoutY="205.0" prefHeight="25.0" prefWidth="123.0" text="Enter Username:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
