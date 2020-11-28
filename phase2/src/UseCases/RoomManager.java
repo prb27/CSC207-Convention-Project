@@ -119,7 +119,7 @@ public class RoomManager implements Serializable {
      * @param roomId : id of the Entities.Room we want to free at </time> (param_type: String)
      * @param time : time at which we want to reliev this room (param_type: String)
      */
-    public void freeRoomAt(String roomId, String time){
+    private void freeRoomAtTime(String roomId, String time){
 
         Room room = getRoom(roomId);
         if(room != null && isRoomOccupiedAt(roomId, time)){
@@ -146,7 +146,7 @@ public class RoomManager implements Serializable {
     }
 
     /**
-     * Occupies the room with </roomId> if starting at </time> for </duration> hours
+     * Occupies the room with </roomId> starting at </time> for </duration> hours
      * @param roomId: room Id of the room that we intend to occupy
      * @param time: time at which we want to occupy a room
      * @param duration: duration for which the room needs to be occupied
@@ -155,7 +155,6 @@ public class RoomManager implements Serializable {
 
         int timeInt;
         String tempTime = time;
-        tempTime = time;
         for (int i = 0; i < duration; i++) {
             occupyRoomAtTime(roomId, tempTime);
             timeInt = Integer.parseInt(tempTime);
@@ -193,4 +192,23 @@ public class RoomManager implements Serializable {
         }
         return "-";
     }
+
+    /**
+     * Frees the room with </roomId> starting at </time> for </duration> hours
+     * @param roomId: room Id of the room that we intend to occupy
+     * @param time: time at which we want to occupy a room
+     * @param duration: duration for which the room needs to be occupied
+     */
+    public void freeRoomAt(String roomId, String time, int duration){
+
+        int timeInt;
+        String tempTime = time;
+        for (int i = 0; i < duration; i++) {
+            freeRoomAtTime(roomId, tempTime);
+            timeInt = Integer.parseInt(tempTime);
+            timeInt = timeInt + 1;
+            tempTime = Integer.toString(timeInt);
+        }
+    }
+
 }
