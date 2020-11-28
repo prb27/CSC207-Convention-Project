@@ -7,14 +7,14 @@ import UseCases.RoomManager;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class OrganizerMenuContoller implements Serializable {
+public class OrganizerMenuController implements Serializable {
 
     private OrganizerManager organizerManager;
     private EventManager eventManager;
     private RoomManager roomManager;
 
 
-    public OrganizerMenuContoller(OrganizerManager organizerManager, EventManager eventManager, RoomManager roomManager){
+    public OrganizerMenuController(OrganizerManager organizerManager, EventManager eventManager, RoomManager roomManager){
 
         this.organizerManager = organizerManager;
         this.eventManager = eventManager;
