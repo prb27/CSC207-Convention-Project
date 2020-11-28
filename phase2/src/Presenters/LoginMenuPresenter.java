@@ -48,6 +48,7 @@ public class LoginMenuPresenter{
         String accountType = accountHandler.login(usernameField.getText(), passwordField.getText());
         switch (accountType){
             case "attendee":
+
             case "organizer":
             case "speaker":
         }
