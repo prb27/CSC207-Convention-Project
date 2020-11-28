@@ -1,5 +1,5 @@
 package Presenters;
 
 public interface ILoginMenu {
-    public void wrongInvalidUser();
+    public void invalidUser();
 }

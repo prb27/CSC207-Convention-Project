@@ -56,7 +56,7 @@ public class LoginMenuPresenter implements ILoginMenu{
        }
 
     @Override
-    public void wrongInvalidUser() {
+    public void invalidUser() {
 
     }
 }
