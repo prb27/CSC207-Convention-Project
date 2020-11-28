@@ -4,12 +4,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presenters.LoginMenuPresenter">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presenters.LoginMenuPresenter">
     <children>
 
-        <Button fx:id="loginButton" layoutX="266.0" layoutY="269.0" prefHeight="25.0" prefWidth="55.0" text="Login"/>
+        <Button fx:id="loginButton" layoutX="273.0" layoutY="268.0" prefHeight="25.0" prefWidth="55.0" />
 
-      <Label layoutX="197.0" layoutY="58.0" prefHeight="43.0" prefWidth="248.0" text="Tech-Conference System" textAlignment="JUSTIFY">
+      <Label layoutX="185.0" layoutY="55.0" prefHeight="43.0" prefWidth="230.0" text="Tech-Conference System" textAlignment="JUSTIFY">
          <font>
             <Font size="21.0" />
          </font></Label>

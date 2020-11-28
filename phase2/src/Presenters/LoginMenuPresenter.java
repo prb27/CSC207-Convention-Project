@@ -48,6 +48,7 @@ public class LoginMenuPresenter implements ILoginMenu{
         String accountType = accountHandler.login(usernameField.getText(), passwordField.getText());
         switch (accountType){
             case "attendee":
+
             case "organizer":
             case "speaker":
         }
