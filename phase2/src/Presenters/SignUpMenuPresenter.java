@@ -1,6 +1,7 @@
 package Presenters;
 
 import Controllers.LoginMenuController;
+import Controllers.SignUpMenuController;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -10,7 +11,7 @@ import javafx.scene.layout.HBox;
 public class SignUpMenuPresenter {
 
 
-    private LoginMenuController loginMenuController;
+    private SignUpMenuController signUpMenuController;
 
     @FXML
     private TextField usernameField;
@@ -23,24 +24,22 @@ public class SignUpMenuPresenter {
     @FXML
     private HBox Password;
     @FXML
-    private Button loginButton;
+    private Button signUpButton;
 
+    public SignUpMenuPresenter(){
 
+    }
     @FXML
     private void initialize(){
         //search panel
-        loginButton.setText("Login");
-        loginButton.setOnAction(event -> callUserMenu());
-        loginButton.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
-
-        loginButton.setOnKeyPressed(event -> {
-            if (event.getCode().equals(KeyCode.ENTER)) {
-                callUserMenu();
-            }
-        });
-    }
-    @FXML
-    private void callUserMenu(){
-        loginMenuController.login(usernameField.getText(), passwordField.getText());
+        signUpButton.setText("Sign Up");
+//        loginButton.setOnAction(event -> callLoginMenu());
+//        loginButton.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
+//
+//        loginButton.setOnKeyPressed(event -> {
+//            if (event.getCode().equals(KeyCode.ENTER)) {
+//                callLoginMenu();
+//            }
+//        });
     }
 }
