@@ -1,24 +1,30 @@
 package Controllers;
 
-import UseCases.EventManager;
-import UseCases.OrganizerManager;
-import UseCases.RoomManager;
+import UseCases.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class OrganizerMenuContoller implements Serializable {
+public class OrganizerMenuController implements Serializable {
 
+    private AttendeeManager attendeeManager;
     private OrganizerManager organizerManager;
+    private SpeakerManager speakerManager;
     private EventManager eventManager;
     private RoomManager roomManager;
+    private final ConversationManager conversationManager;
+    private final MessageManager messageManager;
 
 
-    public OrganizerMenuContoller(OrganizerManager organizerManager, EventManager eventManager, RoomManager roomManager){
+    public OrganizerMenuController(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager, EventManager eventManager, RoomManager roomManager, ConversationManager conversationManager, MessageManager messageManager){
 
+        this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
+        this.speakerManager = speakerManager;
         this.eventManager = eventManager;
         this.roomManager = roomManager;
+        this.conversationManager = conversationManager;
+        this.messageManager = messageManager;
 
     }
 
@@ -115,6 +121,71 @@ public class OrganizerMenuContoller implements Serializable {
             }
         }
         return eventsNotSignedUpFor;
+    }
+
+    /**
+     * Allows the organizer to send a message to any user
+     * @param organizerId : ID of organizer
+     * @param content : content of message
+     * @param userType : the user an organizer wishes to send a message to
+     * @return true if message is sent, false otherwise
+     */
+    public boolean organizerSendMessageToAll(String organizerId, String content, String userType){
+
+        if(organizerManager.isOrganizer(organizerId)){
+            if(userType.equals("attendee")) {
+                ArrayList<String> attendeeIDs = attendeeManager.getAllAttendeeIds();
+                organizerToAll(organizerId, content, userType, attendeeIDs);
+                return true;
+            }
+            if(userType.equals("organizer")) {
+                ArrayList<String> organizerIDs = organizerManager.getAllOrganizerIds();
+                organizerToAll(organizerId, content, userType, organizerIDs);
+                return true;
+            }
+            if(userType.equals("speaker")) {
+                ArrayList<String> speakerIds = speakerManager.getAllSpeakerIds();
+                organizerToAll(organizerId, content, userType, speakerIds);
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    /**
+     * Allows an organizer to send a message to a single yser.
+     * @param organizerId : id of organizer
+     * @param recipientId : id of recipient
+     * @param content : content of message
+     * @param userType : type of user (speaker, organizer, attendee)
+     * @return true if message is sent, false otherwise
+     */
+    public boolean organizerSendMessageToSingle(String organizerId, String recipientId, String content, String userType){
+
+        if(userType.equals("attendee")){
+            if(organizerManager.isOrganizer(organizerId) && attendeeManager.isAttendee(recipientId)){
+                organizerToSingle(organizerId, recipientId, content, userType);
+                return true;
+            }
+            return false;
+        }
+        if(userType.equals("organizer")){
+            if(organizerManager.isOrganizer(organizerId) && organizerManager.isOrganizer(recipientId)){
+                organizerToSingle(organizerId, recipientId, content, userType);
+                return true;
+            }
+            return false;
+        }
+        if(userType.equals("speaker")){
+            if(organizerManager.isOrganizer(organizerId) && speakerManager.isSpeaker(recipientId)){
+                organizerToSingle(organizerId, recipientId, content, userType);
+                return true;
+            }
+            return false;
+        }
+        return false;
+
     }
 
 }

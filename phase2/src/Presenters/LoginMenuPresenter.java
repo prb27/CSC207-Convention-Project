@@ -2,13 +2,9 @@ package Presenters;
 
 import Controllers.AccountHandler;
 import Controllers.LoginMenuController;
-import javafx.application.Application;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -52,6 +48,7 @@ public class LoginMenuPresenter{
         String accountType = accountHandler.login(usernameField.getText(), passwordField.getText());
         switch (accountType){
             case "attendee":
+
             case "organizer":
             case "speaker":
         }
