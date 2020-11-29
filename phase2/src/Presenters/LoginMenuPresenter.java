@@ -9,7 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 
-public class LoginMenuPresenter{
+public class LoginMenuPresenter implements ILoginMenu{
 
 
     private LoginMenuController loginMenuController;
@@ -54,4 +54,9 @@ public class LoginMenuPresenter{
         }
 
        }
+
+    @Override
+    public void invalidUser() {
+
     }
+}
