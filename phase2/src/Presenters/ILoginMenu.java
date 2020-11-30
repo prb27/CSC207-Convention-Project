@@ -1,5 +1,16 @@
 package Presenters;
 
 public interface ILoginMenu {
-    public void invalidUser();
+
+    String getUsername();
+    void setUsername();
+
+    String getPassword();
+    String setPassword();
+
+    interface LoginMenuViewListener{
+        void onLoginButtonClicked();
+    }
+
+    void invalidUser();
 }
