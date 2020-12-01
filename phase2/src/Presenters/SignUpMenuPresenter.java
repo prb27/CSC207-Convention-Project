@@ -22,18 +22,34 @@ public class SignUpMenuPresenter {
     private Button loginFromSignUp;
 
     public SignUpMenuPresenter(){
-
     }
+
     @FXML
     private void initialize(){
         signUp.setText("Sign Up");
-//        loginButton.setOnAction(event -> callLoginMenu());
-//        loginButton.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
-//
-//        loginButton.setOnKeyPressed(event -> {
-//            if (event.getCode().equals(KeyCode.ENTER)) {
-//                callLoginMenu();
-//            }
-//        });
+        signUp.setOnAction(event -> createUser());
+        signUp.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
+
+        signUp.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                createUser();
+            }
+        });
+
+        loginFromSignUp.setText("Login");
+        loginFromSignUp.setOnAction(event -> returnToLogin());
+        loginFromSignUp.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
+        loginFromSignUp.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                returnToLogin();
+            }
+        });
     }
+
+    private void returnToLogin(){
+
+    }
+    private void createUser(){
+
+        }
 }
