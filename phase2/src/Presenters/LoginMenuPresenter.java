@@ -30,7 +30,7 @@ public class LoginMenuPresenter implements ILoginMenu{
 
     @FXML
     private void initialize(){
-        //search panel
+        //login panel
         loginButton.setText("Login");
         loginButton.setOnAction(event -> callUserMenu());
         loginButton.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
@@ -45,13 +45,6 @@ public class LoginMenuPresenter implements ILoginMenu{
     @FXML
     private void callUserMenu(){
         loginMenuController.login(usernameField.getText(), passwordField.getText());
-        String accountType = accountHandler.login(usernameField.getText(), passwordField.getText());
-        switch (accountType){
-            case "attendee":
-            case "organizer":
-            case "speaker":
-        }
-
        }
 
     @Override

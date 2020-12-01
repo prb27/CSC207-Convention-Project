@@ -10,29 +10,23 @@ import javafx.scene.layout.HBox;
 
 public class SignUpMenuPresenter {
 
-
     private SignUpMenuController signUpMenuController;
 
     @FXML
-    private TextField usernameField;
+    private TextField createUsername;
     @FXML
-    private Label usernameLabel;
+    private PasswordField createPassword;
     @FXML
-    private PasswordField passwordField;
+    private Button signUp;
     @FXML
-    private HBox Username;
-    @FXML
-    private HBox Password;
-    @FXML
-    private Button signUpButton;
+    private Button loginFromSignUp;
 
     public SignUpMenuPresenter(){
 
     }
     @FXML
     private void initialize(){
-        //search panel
-        signUpButton.setText("Sign Up");
+        signUp.setText("Sign Up");
 //        loginButton.setOnAction(event -> callLoginMenu());
 //        loginButton.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
 //

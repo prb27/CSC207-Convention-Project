@@ -15,8 +15,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/SignUpMenuView.fxml"));
-        AnchorPane loginPage = (AnchorPane) loader.load();
-        Scene scene = new Scene(loginPage);
+        AnchorPane signUpPage = (AnchorPane) loader.load();
+        Scene scene = new Scene(signUpPage);
 
         stage.setTitle("Tech-Conference");
         stage.setScene(scene);
