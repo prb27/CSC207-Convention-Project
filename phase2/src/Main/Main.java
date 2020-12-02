@@ -1,3 +1,5 @@
+package Main;
+
 import Controllers.MasterSystem;
 import Gateways.ProgramGenerator;
 import javafx.application.Application;
@@ -26,6 +28,7 @@ public class Main extends Application{
     public Stage getStage(){
         return stage;
     }
+
 
     /**
      * main method to run the program

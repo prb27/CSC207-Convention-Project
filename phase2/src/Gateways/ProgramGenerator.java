@@ -5,7 +5,7 @@ import Controllers.MasterSystem;
 import java.io.*;
 
 /**
- * This class stores the methods used by the Controllers.MasterSystem and Main class to read the state of the program upon
+ * This class stores the methods used by the Controllers.MasterSystem and Main.Main class to read the state of the program upon
  * running the program and save the state of the program upon closing the program.
  * The functionalities include:
  *  - reading the serialized Controllers.MasterSystem file.
