@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 public class OrganizerMenuController implements Serializable {
 
+    private String currentUsername;
+
     private AttendeeManager attendeeManager;
     private OrganizerManager organizerManager;
     private SpeakerManager speakerManager;
@@ -16,7 +18,7 @@ public class OrganizerMenuController implements Serializable {
     private final MessageManager messageManager;
 
 
-    public OrganizerMenuController(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager, EventManager eventManager, RoomManager roomManager, ConversationManager conversationManager, MessageManager messageManager){
+    public OrganizerMenuController(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager, EventManager eventManager, RoomManager roomManager, ConversationManager conversationManager, MessageManager messageManager, String currentUsername){
 
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
@@ -25,6 +27,7 @@ public class OrganizerMenuController implements Serializable {
         this.roomManager = roomManager;
         this.conversationManager = conversationManager;
         this.messageManager = messageManager;
+        this.currentUsername = currentUsername;
 
     }
 

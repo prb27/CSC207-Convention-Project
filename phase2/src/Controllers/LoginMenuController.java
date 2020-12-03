@@ -3,6 +3,8 @@ package Controllers;
 import Presenters.*;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class LoginMenuController {
 
     private AccountHandler accountHandler;
@@ -13,13 +15,16 @@ public class LoginMenuController {
         this.loginMenu = loginMenu;
     }
 
-    public void login(String username, String password){
+    public void login(String username, String password) throws IOException {
         String accountType = accountHandler.login(username, password);
         if(accountType != null){
             switch (accountType){
                 case "attendee":
+                    loginMenu.showAttendeeMenu(username);
                 case "organizer":
+                    loginMenu.showOrganizerMenu(username);
                 case "speaker":
+                    loginMenu.showSpeakerMenu(username);
             }
         } else {
             loginMenu.invalidUser();

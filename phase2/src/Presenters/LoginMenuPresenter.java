@@ -2,14 +2,20 @@ package Presenters;
 
 import Controllers.LoginMenuController;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
+import Main.Main;
 
+import java.io.IOException;
 
 public class LoginMenuPresenter implements ILoginMenu{
 
 
     private LoginMenuController loginMenuController;
+    private Main main;
 
     @FXML
     private TextField usernameField;
@@ -28,33 +34,57 @@ public class LoginMenuPresenter implements ILoginMenu{
     private void initialize(){
         //login panel
         loginButton.setText("Login");
-        loginButton.setOnAction(event -> callUserMenu());
+        loginButton.setOnAction(event -> {
+            try {
+                callUserMenu();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         loginButton.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
 
         signUpFromLogin.setText("Sign Up");
-        signUpFromLogin.setOnAction(event -> returnToSignUp());
+        signUpFromLogin.setOnAction(event -> {
+            try {
+                returnToSignUp();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         signUpFromLogin.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
 
         loginButton.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER)) {
-                callUserMenu();
+                try {
+                    callUserMenu();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
         signUpFromLogin.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER)) {
-                returnToSignUp();
+                try {
+                    returnToSignUp();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
 
     @FXML
-    private void callUserMenu(){
+    private void callUserMenu() throws IOException {
         loginMenuController.login(usernameField.getText(), passwordField.getText());
     }
 
-    private void returnToSignUp(){
+    private void returnToSignUp() throws IOException {
+        FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/SignUpMenuView.fxml"));
+        AnchorPane signUpPage = (AnchorPane) loader.load();
+        Scene signUpPageScene = new Scene(signUpPage);
 
+        main.getStage().setScene(signUpPageScene);
     }
 
     @Override
@@ -73,17 +103,29 @@ public class LoginMenuPresenter implements ILoginMenu{
     }
 
     @Override
-    public void showAttendeeMenu() {
-        
+    public void showAttendeeMenu(String username) throws IOException {
+        FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/AttendeeMenuView.fxml"));
+        AnchorPane attendeeMenu = (AnchorPane) loader.load();
+        Scene attendeeMenuScene = new Scene(attendeeMenu);
+
+        main.getStage().setScene(attendeeMenuScene);
     }
 
     @Override
-    public void showOrganizerMenu() {
+    public void showOrganizerMenu(String username) throws IOException {
+        FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/OrganizerMenuView.fxml"));
+        AnchorPane organizerMenu = (AnchorPane) loader.load();
+        Scene organizerMenuScene = new Scene(organizerMenu);
 
+        main.getStage().setScene(organizerMenuScene);
     }
 
     @Override
-    public void showSpeakerMenu() {
+    public void showSpeakerMenu(String username) throws IOException {
+        FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/SpeakerMenuView.fxml"));
+        AnchorPane speakerMenu = (AnchorPane) loader.load();
+        Scene speakerMenuScene = new Scene(speakerMenu);
 
+        main.getStage().setScene(speakerMenuScene);
     }
 }

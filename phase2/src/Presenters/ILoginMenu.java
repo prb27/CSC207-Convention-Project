@@ -1,5 +1,7 @@
 package Presenters;
 
+import java.io.IOException;
+
 public interface ILoginMenu {
 
     String getUsername();
@@ -8,9 +10,9 @@ public interface ILoginMenu {
 
     void invalidUser();
 
-    void showAttendeeMenu();
+    void showAttendeeMenu(String username) throws IOException;
 
-    void showOrganizerMenu();
+    void showOrganizerMenu(String username) throws IOException;
 
-    void showSpeakerMenu();
+    void showSpeakerMenu(String username) throws IOException;
 }
