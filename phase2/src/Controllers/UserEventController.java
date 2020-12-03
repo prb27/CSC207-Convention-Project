@@ -50,13 +50,13 @@ public class UserEventController implements Serializable {
      *           "YES" - Entities.Attendee has newly been registered for this event
      */
     private String enrolAttendeeInEvent(String username, String eventName) {
-        // ent.
         if (eventManager.isEvent(eventName)) {
             if (attendeeManager.isAttending(username, eventName)) {
                 return "AE";
             }
             String roomId = eventManager.getRoomNumber(eventName);
-            int capacity = roomManager.getCapacityOfRoom(roomId);
+//            int capacity = roomManager.getCapacityOfRoom(roomId);
+            int capacity = eventManager.getEventCapacities(eventName);
             ArrayList<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
             if (attendeesOfEvent.size() < capacity) {
                 String erMessage = eventManager.reserveAttendee(eventName, username);
@@ -151,7 +151,7 @@ public class UserEventController implements Serializable {
      * @author Khoa Pham
      * @param attendee: the username of an Entities.Attendee whose list of
      *                participating events is returned (param_type: String)
-     * @return Hashtable<String, ArrayList<String>> eventsWithInfo
+     * @return Hashtable<String, List<String>> eventsWithInfo
      */
     public Hashtable<String, List<String>> seeParticipatingEvents(String attendee) {
         ArrayList<String> eventIdsAttending = attendeeManager.getEventsAttending(attendee);
@@ -169,7 +169,7 @@ public class UserEventController implements Serializable {
      * @author Khoa Pham
      * @param attendee: the username of an Entities.Attendee whose list of
      *          all their available to signup events is returned (param_type: String)
-     * @return Hashtable<String, ArrayList<String>> eventsWithInfo
+     * @return Hashtable<String, List<String>> eventsWithInfo
      */
     public Hashtable<String, List<String>> seeAttendableEvents(String attendee) {
         ArrayList<String> eventIdsAttending = attendeeManager.getEventsAttending(attendee);
