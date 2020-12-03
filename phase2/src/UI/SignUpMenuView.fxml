@@ -11,15 +11,15 @@
             <Font size="28.0" />
          </font>
       </Label>
-      <Label layoutX="244.0" layoutY="72.0" prefHeight="73.0" prefWidth="113.0" text="SIGN UP" textAlignment="JUSTIFY">
+      <Label layoutX="186.0" layoutY="72.0" prefHeight="73.0" prefWidth="230.0" text="Attendee Sign Up" textAlignment="JUSTIFY">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
 
-      <TextField layoutX="231.0" layoutY="168.0" prefHeight="25.0" prefWidth="139.0" fx:id="createUsername"/>
+      <TextField fx:id="createUsername" layoutX="231.0" layoutY="168.0" prefHeight="25.0" prefWidth="139.0" />
 
-      <PasswordField layoutX="229.0" layoutY="231.0" prefHeight="25.0" prefWidth="144.0" fx:id="createPassword"/>
+      <PasswordField fx:id="createPassword" layoutX="229.0" layoutY="231.0" prefHeight="25.0" prefWidth="144.0" />
 
       <Label alignment="CENTER" layoutX="197.0" layoutY="145.0" prefHeight="25.0" prefWidth="197.0" text="Enter Username you wish:" textAlignment="CENTER">
          <font>
@@ -31,12 +31,12 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="175.0" layoutY="317.0" text="Already Signed Up? Click here to Login">
+      <Label layoutX="122.0" layoutY="315.0" text="Not an Attendee or already signed up? Click here to Login">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="270.0" layoutY="271.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" fx:id="signUp"/>
-      <Button layoutX="272.0" layoutY="349.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" fx:id="loginFromSignUp"/>
+      <Button fx:id="signUp" layoutX="270.0" layoutY="271.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" />
+      <Button fx:id="loginFromSignUp" layoutX="272.0" layoutY="349.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" />
    </children>
 </AnchorPane>

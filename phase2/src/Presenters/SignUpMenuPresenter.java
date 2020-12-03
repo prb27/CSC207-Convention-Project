@@ -8,14 +8,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-
 import Main.Main;
-import java.io.IOException;
 
 
 public class SignUpMenuPresenter  {
 
     private SignUpMenuController signUpMenuController;
+    private Main main;
 
     @FXML
     private TextField createUsername;
@@ -44,7 +43,7 @@ public class SignUpMenuPresenter  {
         loginFromSignUp.setText("Login");
         loginFromSignUp.setOnAction(event -> {
             try {
-                signUpMenuController.returnToLogin();
+                returnToLogin();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -53,12 +52,19 @@ public class SignUpMenuPresenter  {
         loginFromSignUp.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER)) {
                 try {
-                    signUpMenuController.returnToLogin();
+                    returnToLogin();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
+    }
+    public void returnToLogin() throws Exception {
+        FXMLLoader loader = new FXMLLoader(SignUpMenuPresenter.class.getResource("/LoginMenuView.fxml"));
+        AnchorPane loginPage = (AnchorPane) loader.load();
+        Scene loginPageScene = new Scene(loginPage);
+
+        main.getStage().setScene(loginPageScene);
     }
 
 
