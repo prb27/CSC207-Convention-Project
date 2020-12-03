@@ -39,11 +39,7 @@ public class SignUpMenuPresenter {
     private void initialize(){
         signUp.setText("Sign Up");
         signUp.setOnAction(event -> {
-            try {
-                signUpAttendee();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            signUpAttendee();
         });
         signUp.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
 
@@ -70,10 +66,19 @@ public class SignUpMenuPresenter {
     }
 
 
-    private void signUpAttendee() throws IOException {
+    private void signUpAttendee(){
         if (signUpMenuController.signUp(createUsername.getText(), createPassword.getText())){
-            returnToLogin();
+            try {
+                returnToLogin();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        signUpWithInvalidUsername.setVisible(true);
+        else {
+            createUsername.clear();
+            createPassword.clear();
+            signUpWithInvalidUsername.setVisible(true);
+
+        }
    }
 }
