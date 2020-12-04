@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 public class Main extends Application{
 
 
-    private static Stage stage;
+    private Stage stage;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -25,7 +25,7 @@ public class Main extends Application{
         stage.show();
     }
 
-    public static Stage getStage(){
+    public Stage getStage(){
         return stage;
     }
 

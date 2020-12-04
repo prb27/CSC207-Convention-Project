@@ -38,9 +38,7 @@ public class SignUpMenuPresenter {
     @FXML
     private void initialize(){
         signUp.setText("Sign Up");
-        signUp.setOnAction(event -> {
-            signUpAttendee();
-        });
+        signUp.setOnAction(event -> { signUpAttendee(); });
         signUp.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
 
         toLoginFromSignUp.setText("Login");
@@ -56,13 +54,10 @@ public class SignUpMenuPresenter {
     }
 
     public void returnToLogin() throws IOException {
-        AnchorPane loginPage = FXMLLoader.load(getClass().getResource("/UI/LoginMenuView.fxml"));
-        System.out.println(loginPage);
-        Scene loginPageScene = new Scene(loginPage);
-        System.out.println(loginPageScene);
-        Stage stage = Main.getStage();
-        stage.setScene(loginPageScene);
-        stage.show();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
+        Stage stage = (Stage) toLoginFromSignUp.getScene().getWindow();
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
     }
 
 

@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import Main.Main;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -80,11 +81,10 @@ public class LoginMenuPresenter implements ILoginMenu{
     }
 
     private void returnToSignUp() throws IOException {
-        FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/SignUpMenuView.fxml"));
-        AnchorPane signUpPage = (AnchorPane) loader.load();
-        Scene signUpPageScene = new Scene(signUpPage);
-
-        main.getStage().setScene(signUpPageScene);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/SignUpMenuView.fxml"));
+        Stage stage = (Stage) signUpFromLogin.getScene().getWindow();
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
     }
 
     @Override
