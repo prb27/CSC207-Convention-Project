@@ -12,6 +12,9 @@ public class SignUpMenuController {
         this.accountHandler = accountHandler;
     }
     public boolean signUp(String username, String password){
+        if (!accountHandler.signup(username, password, "attendee")){
+            signUpMenu.invalidUser();
+        }
         return accountHandler.signup(username, password, "attendee");
     }
 

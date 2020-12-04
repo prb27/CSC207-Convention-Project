@@ -69,16 +69,12 @@ public class SignUpMenuPresenter implements ISignUpMenu{
                 e.printStackTrace();
             }
         }
-        else {
-            createUsername.clear();
-            createPassword.clear();
-            invalidUser();
-
-        }
    }
 
     @Override
     public void invalidUser() {
+        createUsername.clear();
+        createPassword.clear();
         signUpWithInvalidUsername.setVisible(true);
     }
 }
