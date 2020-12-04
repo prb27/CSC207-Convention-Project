@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 
-public class SignUpMenuPresenter {
+public class SignUpMenuPresenter implements ISignUpMenu{
 
     private SignUpMenuController signUpMenuController;
 
@@ -72,8 +72,13 @@ public class SignUpMenuPresenter {
         else {
             createUsername.clear();
             createPassword.clear();
-            signUpWithInvalidUsername.setVisible(true);
+            invalidUser();
 
         }
    }
+
+    @Override
+    public void invalidUser() {
+        signUpWithInvalidUsername.setVisible(true);
+    }
 }
