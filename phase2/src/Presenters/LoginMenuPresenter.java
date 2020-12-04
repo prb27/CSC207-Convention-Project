@@ -105,27 +105,24 @@ public class LoginMenuPresenter implements ILoginMenu{
     @Override
     public void showAttendeeMenu(String username) throws IOException {
         FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/AttendeeMenuView.fxml"));
-        AnchorPane attendeeMenu = (AnchorPane) loader.load();
-        Scene attendeeMenuScene = new Scene(attendeeMenu);
-
-        main.getStage().setScene(attendeeMenuScene);
+        Stage stage = (Stage) loginButton.getScene().getWindow();
+        Scene attendeeMenuScene = new Scene(loader.load());
+        stage.setScene(attendeeMenuScene);
     }
 
     @Override
     public void showOrganizerMenu(String username) throws IOException {
         FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/OrganizerMenuView.fxml"));
-        AnchorPane organizerMenu = (AnchorPane) loader.load();
-        Scene organizerMenuScene = new Scene(organizerMenu);
-
-        main.getStage().setScene(organizerMenuScene);
+        Stage stage = (Stage) loginButton.getScene().getWindow();
+        Scene organizerMenuScene = new Scene(loader.load());
+        stage.setScene(organizerMenuScene);
     }
 
     @Override
     public void showSpeakerMenu(String username) throws IOException {
         FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/SpeakerMenuView.fxml"));
-        AnchorPane speakerMenu = (AnchorPane) loader.load();
-        Scene speakerMenuScene = new Scene(speakerMenu);
-
-        main.getStage().setScene(speakerMenuScene);
+        Stage stage = (Stage) loginButton.getScene().getWindow();
+        Scene speakerMenuScene = new Scene(loader.load());
+        stage.setScene(speakerMenuScene);
     }
 }

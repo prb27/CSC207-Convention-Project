@@ -11,11 +11,11 @@ import javafx.stage.Stage;
 public class Main extends Application{
 
 
-    private Stage stage;
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        stage = primaryStage;
+        Stage stage = primaryStage;
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/SignUpMenuView.fxml"));
         AnchorPane signUpPage = (AnchorPane) loader.load();
         Scene scene = new Scene(signUpPage);
@@ -23,10 +23,6 @@ public class Main extends Application{
         stage.setTitle("Tech-Conference");
         stage.setScene(scene);
         stage.show();
-    }
-
-    public Stage getStage(){
-        return stage;
     }
 
 
