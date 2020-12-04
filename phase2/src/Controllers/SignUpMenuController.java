@@ -1,23 +1,23 @@
 package Controllers;
 
+import Presenters.ISignUpMenu;
 import UseCases.AttendeeManager;
 
 
 public class SignUpMenuController {
     private AccountHandler accountHandler;
+    private ISignUpMenu signUpMenu;
 
-    private AttendeeManager attendeeManager;
-
-    public SignUpMenuController(AccountHandler accountHandler, AttendeeManager attendeeManager){
-        this.attendeeManager = attendeeManager;
+    public SignUpMenuController(AccountHandler accountHandler){
         this.accountHandler = accountHandler;
     }
     public boolean signUp(String username, String password){
-
         return accountHandler.signup(username, password, "attendee");
-
     }
 
+    public void setSignUpMenu(ISignUpMenu signUpMenu){
+        this.signUpMenu = signUpMenu;
+    }
 
 
 }

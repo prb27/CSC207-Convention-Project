@@ -10,9 +10,8 @@ public class LoginMenuController {
     private AccountHandler accountHandler;
     private ILoginMenu loginMenu;
 
-    public LoginMenuController(AccountHandler accountHandler, ILoginMenu loginMenu){
+    public LoginMenuController(AccountHandler accountHandler){
         this.accountHandler = accountHandler;
-        this.loginMenu = loginMenu;
     }
 
     public void login(String username, String password) throws IOException {
@@ -29,5 +28,9 @@ public class LoginMenuController {
         } else {
             loginMenu.invalidUser();
         }
+    }
+
+    public void setLoginMenu(ILoginMenu loginMenu){
+        this.loginMenu = loginMenu;
     }
 }
