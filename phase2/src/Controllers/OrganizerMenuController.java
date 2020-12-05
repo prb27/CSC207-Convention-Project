@@ -4,301 +4,318 @@ import UseCases.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class OrganizerMenuController implements Serializable {
 
-    private String currentUsername;
-
+    private AccountHandler accountHandler;
     private AttendeeManager attendeeManager;
     private OrganizerManager organizerManager;
     private SpeakerManager speakerManager;
+    private AdminManager adminManager;
     private EventManager eventManager;
     private RoomManager roomManager;
-    private final ConversationManager conversationManager;
-    private final MessageManager messageManager;
+    private MessageController messageController;
 
 
-    public OrganizerMenuController(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager, EventManager eventManager, RoomManager roomManager, ConversationManager conversationManager, MessageManager messageManager, String currentUsername){
+    public OrganizerMenuController(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager, AdminManager adminManager, AccountHandler accountHandler, EventManager eventManager, RoomManager roomManager, MessageController messageController, ConversationManager conversationManager, MessageManager messageManager, String currentUsername){
 
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
         this.speakerManager = speakerManager;
+        this.adminManager = adminManager;
+        this.accountHandler = accountHandler;
         this.eventManager = eventManager;
         this.roomManager = roomManager;
-        this.conversationManager = conversationManager;
-        this.messageManager = messageManager;
-        this.currentUsername = currentUsername;
+        this.messageController = messageController;
 
     }
 
-    /**
-     * enroll an Entities.Organizer with </username> to an Entities.Event </eventName>
-     * If event with </eventName> exists,
-     * check room capacity and enrol that Entities.Attendee to that Entities.Event
-     * @author Ashwin Karthikeyan
-     * @param username: the username of an Entities.Organizer to be enrolled in an event (param_type: String)
-     * @param eventName: the intended event (param_type: String)
-     * @return "AE" - Already attending the event
-     *         "EDE" - Entities.Event doesn't exist
-     *         "EFC" - Entities.Event at full capacity
-     *         "YES" - Entities.Organizer has newly been registered for this event
-     */
-    private String enrolOrganizerInEvent(String username, String eventName){
+    public ArrayList<String> listOfUsers(String type){
 
-        if (eventManager.isEvent(eventName)){
-            if (organizerManager.isAttending(username, eventName).equals("YES")) {
-                return "AE";
-            }
-            String roomId = eventManager.getRoomNumber(eventName);
-            int capacity = roomManager.getCapacityOfRoom(roomId);
-            ArrayList<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
-            if (attendeesOfEvent.size() < capacity) {
-                String erMessage = eventManager.reserveAttendee(eventName, username);
-                if (erMessage.equals("YES")) {
-                    organizerManager.addAttendingEvent(username, eventName);
-                    return "YES";
-                }
-                return erMessage;
-            }
-            return "EFC";
+        ArrayList<String> users = new ArrayList<>();
+        if(type.equals("attendee") || type.equals("all")){
+            users.addAll(attendeeManager.getAllAttendeeIds());
         }
-        return "EDE";
-    }
-
-    /**
-     * By the end of the execution of this method, the Entities.Organizer with username </username> is no longer
-     * attending the event with title </eventName>.
-     * @author Ashwin Karthikeyan
-     * @param username: the username of the Entities.Organizer who wants to cancel
-     *                  reservation for an event (param_type: String)
-     * @param eventName: the intended event (param_type: String)
-     */
-    public void cancelSeatForOrganizer(String username, String eventName){
-
-        if(organizerManager.isOrganizer(username)){
-            if(organizerManager.isAttending(username, eventName).equals("YES")) {
-                organizerManager.removeAttendingEvent(username, eventName);
-                eventManager.removeAttendee(eventName, username);
-            }
+        if(type.equals("organizer") || type.equals("all")){
+            users.addAll(organizerManager.getAllOrganizerIds());
         }
-    }
-
-
-    /**
-     * By the end of the execution of this method, the Entities.Organizer with username </organizerUsername> would have
-     * created a room with Id </roomId> and capacity </capacity>
-     * @author Ashwin Karthikeyan
-     * @param organizerUsername: the username of the Entities.Organizer who wants to create a new room (param_type: String)
-     * @param roomId: an ID for the new room that the Entities.Organizer wants to create (param_type: String)
-     * @param capacity: the capacity of the new room being created (param_type: int)
-     * @return : "RAE" - room already exists
-     *           "ODE" - organizer doesn't exist
-     */
-    public String organizerAddNewRoom(String organizerUsername, String roomId, int capacity){
-        // RAE - room already exists
-        if(organizerManager.isOrganizer(organizerUsername)){
-            if(!roomManager.createRoom(roomId, capacity)){
-                return "RAE";
-            }
-            return "YES";
+        if(type.equals("speaker") || type.equals("all")){
+            users.addAll(speakerManager.getAllSpeakerIds());
         }
-        return "ODE";
-    }
-
-    /**
-     * If Entities.Organizer with given username </username> exists, then this method returns the list of event titles that
-     * @param username username of Entities.Organizer
-     * @return List of Events that this Entities.Organizer is not attending
-     */
-    public ArrayList<String> getOrganizerEventsNotAttending(String username) {
-
-        ArrayList<String> eventsNotSignedUpFor = new ArrayList<>();
-        for(String event: eventManager.getAllEventTitles()){
-            eventsNotSignedUpFor.add(event);
+        if(type.equals("admin") || type.equals("all")){
+            users.addAll(adminManager.getAllAdminIds());
         }
-        if(organizerManager.isOrganizer(username)) {
-            if (organizerManager.getEventsAttending(username) != null) {
-                for (String event : organizerManager.getEventsAttending(username)) {
-                    eventsNotSignedUpFor.remove(event);
-                }
-            }
-        }
-        return eventsNotSignedUpFor;
-    }
-
-    /**
-     * Allows the organizer to send a message to any user
-     * @param organizerId : ID of organizer
-     * @param content : content of message
-     * @param userType : the user an organizer wishes to send a message to
-     * @return true if message is sent, false otherwise
-     */
-    public boolean organizerSendMessageToAll(String organizerId, String content, String userType){
-
-        if(organizerManager.isOrganizer(organizerId)){
-            if(userType.equals("attendee")) {
-                ArrayList<String> attendeeIDs = attendeeManager.getAllAttendeeIds();
-                organizerToAll(organizerId, content, userType, attendeeIDs);
-                return true;
-            }
-            if(userType.equals("organizer")) {
-                ArrayList<String> organizerIDs = organizerManager.getAllOrganizerIds();
-                organizerToAll(organizerId, content, userType, organizerIDs);
-                return true;
-            }
-            if(userType.equals("speaker")) {
-                ArrayList<String> speakerIds = speakerManager.getAllSpeakerIds();
-                organizerToAll(organizerId, content, userType, speakerIds);
-                return true;
-            }
-        }
-        return false;
+        return users;
 
     }
 
-    /**
-     * Allows an organizer to send a message to a single yser.
-     * @param organizerId : id of organizer
-     * @param recipientId : id of recipient
-     * @param content : content of message
-     * @param userType : type of user (speaker, organizer, attendee)
-     * @return true if message is sent, false otherwise
-     */
-    public boolean organizerSendMessageToSingle(String organizerId, String recipientId, String content, String userType){
+    // This can be handled at the GUI level
+    //ui.present("Please enter the speaker's username");
+    //        String speakerName = scanner.nextLine();
+    //        ui.present("Please enter the time");
+    //        String time = scanner.nextLine();
+    // Drop down menu offers only the following times
+    //        allowedTimes.add("9");
+    //        allowedTimes.add("10");
+    //        allowedTimes.add("11");
+    //        allowedTimes.add("12");
+    //        allowedTimes.add("1");
+    //        allowedTimes.add("2");
+    //        allowedTimes.add("3");
+    //        allowedTimes.add("4");
+    //        allowedTimes.add("5");
+    //
 
-        if(userType.equals("attendee")){
-            if(organizerManager.isOrganizer(organizerId) && attendeeManager.isAttendee(recipientId)){
-                organizerToSingle(organizerId, recipientId, content, userType);
-                return true;
-            }
-            return false;
+    public void checkIfSpeakerFreeAt(String speakerName, String time) {
+
+        if (!speakerManager.isSpeaker(speakerName)) {
+            ui.present("Not a speaker"); // Need an equivalent
+            return;
         }
-        if(userType.equals("organizer")){
-            if(organizerManager.isOrganizer(organizerId) && organizerManager.isOrganizer(recipientId)){
-                organizerToSingle(organizerId, recipientId, content, userType);
-                return true;
-            }
-            return false;
+        boolean free = speakerManager.isSpeakerFreeAtTime(speakerName, time);
+        if (free) {
+            ui.present("No, the speaker doesn't have an event at " + time); //Need an equivalent
+        } else {
+            ui.present("Yes, the speaker is talking at an event at " + time); //Need an equivalent
         }
-        if(userType.equals("speaker")){
-            if(organizerManager.isOrganizer(organizerId) && speakerManager.isSpeaker(recipientId)){
-                organizerToSingle(organizerId, recipientId, content, userType);
-                return true;
-            }
-            return false;
-        }
-        return false;
 
     }
-    public String createEvent(String organizerName, String eventName, String startTime, int duration, int eventCapacity, ArrayList<String> speakerName){
-        ArrayList<String> allowedTimes = eventManager.getAllowedTimes();
+------// These 2 methods don't make sense -------
 
+    //ui.present("Please enter the new organizer's username");
+    //String username = scanner.nextLine();
+    //ui.present("Please enter the password for this new organizer");
+    //String password = scanner.nextLine();
+    public void createNewOrganizerAccount(String username, String password){
 
-        if(organizerManager.isOrganizer(organizerName)){
-
-            if(allowedTimes.contains(startTime)){
-                int index = allowedTimes.indexOf(startTime);
-                if(index + duration <= allowedTimes.size()) {
-                    if (speakerName != null) {
-                        for (String speaker : speakerName) {
-                            for(int i = 0; i < duration; i++) {
-                                if (!speakerManager.isSpeakerFreeAtTime(speaker, allowedTimes.get(index + i))) {
-                                    return "STC";
-                                }
-                            }
-
-                        }
-
-                    }
-
-                }
-
-                String roomNumber = roomManager.checkRoomFreeAt(startTime, duration);
-
-                if(!roomNumber.equals("-")){
-                    int roomCapacity = roomManager.getCapacityOfRoom(roomNumber);
-                    if(eventCapacity < roomCapacity) {
-                        // changes from here
-
-                        for (String speaker : speakerName) {
-                            for (int i = 0; i < duration; i++) {
-                                speakerManager.addTalkToListOfTalks(speaker, allowedTimes.get(index + i), eventName);
-                            }
-                        }
-                        roomManager.occupyRoomAt(roomNumber,startTime, duration );
-
-                        return eventManager.addEvent(eventName, startTime, duration, roomNumber, eventCapacity, speakerName);
-                    }
-                    else{
-                        return "ECF";
-                    }
-
-                }
-
-                else{
-                    return "ARO";
-                }
-
-            }
-            else{
-                return "ETC";
-            }
+        boolean err = accountHandler.signup(username, password, "organizer");
+        if(err){
+            ui.present("Successful");//Need an equivalent
         }
         else{
-            return "ODE";
+            ui.present("The username already exists");//Need an equivalent
         }
 
     }
 
+    //ui.present("Please enter new speaker's username");
+    //                    String speakerUsername = scanner.nextLine();
+    //                    ui.present("Please enter password for this speaker");
+    //                    String speakerPassword = scanner.nextLine();
+    public void createNewSpeakerAccount(String username, String password){
+
+        if(accountHandler.signup(username, password, "speaker")){
+            ui.showPrompt("UC"); //Need an equivalent
+        }
+        else {
+            ui.showPrompt("SF"); //Need an equivalent
+        }
+
+    }
+
+-----
+
+    // EVENT FUNCTIONS
 
 
+    //ui.present("Please enter roomID:");
+    //                    String roomID = scanner.nextLine();
+    //                    ui.present("Please enter room capacity");
+    //                    int capacity = scanner.nextInt();
+    public void organizerCreateNewRoom
 
-    /**
-     * Allows an organizer to remove a created event, also removes it from the list of talks of the speaker, and list
-     * of attending events for Organizers and Attendees
-     * @param organizerName: name of organizer
-     * @param eventName: name of event
-     * "EDE" - Entities.Event Doesn't Exist
-     * "ODE" - Entities.Organizer Doesn't Exist
-     * "YES" - Request Successful
-     * @return String of the values listed above
-     * @author aribshaikh
-     */
-    public String removeCreatedEvent(String organizerName,String eventName) {
-        ArrayList<String> allowedTimes = eventManager.getAllowedTimes();
-
-
-        if (organizerManager.isOrganizer(organizerName)) {
-            if (eventManager.isEvent(eventName)) {
-                ArrayList<String> speakerUserName = eventManager.getSpeakerEvent(eventName);
-                String startTime = eventManager.getStartTime(eventName);
-                int index = allowedTimes.indexOf(startTime);
-                int duration = eventManager.getDuration(eventName);
-                String roomId = eventManager.getRoomNumber(eventName);
-
-                eventManager.removeEvent(eventName);
-
-                for(String speaker: speakerUserName){
-                    for (int i = 0; i < duration; i++) {
-                        speakerManager.removeTalkFromListOfTalks(speaker, allowedTimes.get(index+ i), eventName);
+    public void organizerCommandHandler(String username, String option){
+        Scanner scanner = new Scanner(System.in);
+        if(organizerManager.isOrganizer(username)) {
+            switch (option) {
+                case "7": {
+                    String err = organizerAddNewRoom(username, roomID, capacity);
+                    if (!err.equals("YES")) {
+                        ui.showError(err);
+                    } else {
+                        ui.present("Successful");
                     }
+                    break;
                 }
-
-                for(String attendeeID: attendeeManager.getAllAttendeeIds()){
-                    attendeeManager.removeAttendingEvent(attendeeID, eventName);
+                case "8": {
+                    ui.present("Please enter event name");
+                    String eventName = scanner.nextLine();
+                    ui.present("Please enter event time");
+                    String eventTime = scanner.nextLine();
+                    ui.present("Please enter the speaker's username");
+                    String speakerName = scanner.nextLine();
+                    String err = userEventController.createEvent(username, eventName, eventTime, speakerName);
+                    if (!err.equals("YES"))
+                        ui.showError(err);
+                    else {
+                        ui.present("Successful");
+                    }
+                    break;
                 }
-
-                for(String organizerID: organizerManager.getAllOrganizerIds()){
-                    organizerManager.removeAttendingEvent(organizerID, eventName);
+                case "9": {
+                    ui.present("Please enter the event name.");
+                    String eventName = scanner.nextLine();
+                    ui.present("Please enter new speaker's username");
+                    String speakerName = scanner.nextLine();
+                    if(!eventManager.isEvent(eventName)){
+                        ui.showError("EDE");
+                        break;
+                    }
+                    if(!speakerManager.isSpeaker(speakerName)){
+                        ui.showError("SDE");
+                        break;
+                    }
+                    String eventTime = eventManager.getEventTime(eventName);
+                    userEventController.removeCreatedEvent(username, eventName);
+                    String err = userEventController.createEvent(username, eventName, eventTime, speakerName);
+                    if (!err.equals("YES"))
+                        ui.showError(err);
+                    else {
+                        ui.present("Successful");
+                    }
+                    break;
                 }
-                roomManager.freeRoomAt(roomId, startTime, duration);
-                return "YES";
-
-            } else {
-                return "EDE";
+                case "10": {
+                    ui.present("Please enter the event name");
+                    String eventName = scanner.nextLine();
+                    ui.present("Please enter a new time for the event");
+                    String eventTime = scanner.nextLine();
+                    ArrayList<String> speakerName = eventManager.getSpeakerEvent(eventName);
+                    userEventController.removeCreatedEvent(username, eventName);
+                    if(speakerManager.isSpeaker(speakerName)) {
+                        String err = userEventController.createEvent(username, eventName, eventTime, speakerName);
+                        if(err.equals("YES")) {
+                            ui.present("Successful");
+                        }
+                        else{
+                            ui.showError(err);
+                        }
+                    }
+                    else{
+                        ui.showError("EDE");
+                    }
+                    break;
+                }
+                case "11": {
+                    ArrayList<String> eventsNotSignedUpFor = userEventController.getOrganizerEventsNotAttending(username);
+                    for (String event : eventsNotSignedUpFor)
+                        ui.present("Event Title: " + event + "\nTime: " + eventManager.getEventTime(event) + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
+                    break;
+                }
+                case "12": {
+                    ui.present("Please enter the title of the event you want to attend (exactly as it appears on the list of titles displayed)");
+                    String eventName = scanner.nextLine();
+                    String err = userEventController.enrolUserInEvent(username, eventName);
+                    if(!err.equals("YES")){
+                        ui.showError(err);
+                    }
+                    else{
+                        ui.present("Successful");
+                    }
+                    break;
+                }
+                case "13": {
+                    ui.present("Please enter the event's name");
+                    String eventName = scanner.nextLine();
+                    cancelSeatForOrganizer(username, eventName);
+                    ui.present("You are no longer attending " + eventName);
+                    break;
+                }
+                case "14": {
+                    for (String event: organizerManager.getEventsAttending(username))
+                        ui.present("Event Title: " + event + "\nTime: " + eventManager.getEventTime(event) + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
+                    break;
+                }
+                case "15": {
+                    ui.present("Please enter attendee ID");
+                    String attendeeID = scanner.nextLine();
+                    ui.present("Please enter the message that you want to send");
+                    String content = scanner.nextLine();
+                    boolean err = organizerSendMessageToSingle(username, attendeeID, content, "attendee");
+                    if(err){
+                        ui.present("Successful");
+                    }
+                    else{
+                        ui.present("Something went wrong");
+                    }
+                    break;
+                }
+                case "16": {
+                    ui.present("Please enter the message that you want to send");
+                    String content = scanner.nextLine();
+                    organizerSendMessageToAll(username, content, "attendee");
+                    break;
+                }
+                case "17": {
+                    ui.present("Please enter the speaker's username");
+                    String speakerName = scanner.nextLine();
+                    ui.present("Please enter the message that you want to send");
+                    String content = scanner.nextLine();
+                    organizerSendMessageToSingle(username, speakerName, content, "speaker");
+                    break;
+                }
+                case "18": {
+                    ui.present("Please enter the message that you want to send");
+                    String content = scanner.nextLine();
+                    organizerSendMessageToAll(username, content, "speaker");
+                    break;
+                }
+                case "19": {
+                    Integer i = 1;
+                    for(String conversationId: organizerManager.getConversations(username)) {
+                        ArrayList<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
+                        StringBuilder recipients = new StringBuilder();
+                        ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
+                        for (String recipient: recipientsOfConversation){
+                            recipients.append(recipient);
+                            recipients.append(", ");
+                        }
+                        ui.present("Recipients: " + recipients);
+                        i += 1;
+                    }
+                    if(organizerManager.getConversations(username).isEmpty()){
+                        ui.present("You have no conversations");
+                        break;
+                    }
+                    ui.present("Choose a Entities.Conversation Number");
+                    String conversationNumber = scanner.nextLine();
+                    String conversationIdFinal = organizerManager.getConversations(username).get(Integer.parseInt(conversationNumber) - 1);
+                    ArrayList<String> messagesInThisConversation = messageController.orderedMessagesInConvo(conversationIdFinal);
+                    for (String s : messagesInThisConversation) {
+                        ui.present(s);
+                    }
+                    ui.present("Enter \"r\" to reply in this conversation. [Any other input will exit this menu]");
+                    String reply = scanner.nextLine();
+                    if(!reply.equals("r")){
+                        break;
+                    }
+                    ui.present("Please enter the message you want to send");
+                    String content = scanner.nextLine();
+                    messageController.reply(username, conversationIdFinal, content);
+                    break;
+                }
+                case "20":{
+                    ui.present("Please enter the event name");
+                    String eventName = scanner.nextLine();
+                    ui.present("Please enter the message that you want to send");
+                    String message = scanner.nextLine();
+                    if(!eventManager.isEvent(eventName)){
+                        ui.showError("EDE");
+                        break;
+                    }
+                    boolean messageByEvent = messageController.organizerMessageByEvent(username, eventName, message);
+                    if(messageByEvent){
+                        ui.present("Sent");
+                        break;
+                    }
+                    ui.present("Something went wrong");
+                    break;
+                }
+                default: {
+                    ui.showError("INO");
+                }
             }
-        } else {
-            return "ODE";
         }
     }
 

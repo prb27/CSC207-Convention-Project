@@ -19,7 +19,7 @@ import java.util.Set;
  * - allows an attendee to send a message to another attendee
  *
  */
-public class UserMessageController implements Serializable {
+public class MessageController implements Serializable {
 
     private final AttendeeManager attendeeManager;
     private final OrganizerManager organizerManager;
@@ -30,7 +30,7 @@ public class UserMessageController implements Serializable {
     private final ConversationManager convoManager;
     private final MessageManager messageManager;
 
-    public UserMessageController(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager, EventManager eventManager, ConversationManager conversationManager, MessageManager messageManager){
+    public MessageController(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager, EventManager eventManager, ConversationManager conversationManager, MessageManager messageManager){
 
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
@@ -40,6 +40,71 @@ public class UserMessageController implements Serializable {
 
         this.convoManager = conversationManager;
         this.messageManager = messageManager;
+
+    }
+
+    /**
+     * Allows the organizer to send a message to any user
+     * @param organizerId : ID of organizer
+     * @param content : content of message
+     * @param userType : the user an organizer wishes to send a message to
+     * @return true if message is sent, false otherwise
+     */
+    public boolean organizerSendMessageToAll(String organizerId, String content, String userType){
+
+        if(organizerManager.isOrganizer(organizerId)){
+            if(userType.equals("attendee")) {
+                ArrayList<String> attendeeIDs = attendeeManager.getAllAttendeeIds();
+                organizerToAll(organizerId, content, userType, attendeeIDs);
+                return true;
+            }
+            if(userType.equals("organizer")) {
+                ArrayList<String> organizerIDs = organizerManager.getAllOrganizerIds();
+                organizerToAll(organizerId, content, userType, organizerIDs);
+                return true;
+            }
+            if(userType.equals("speaker")) {
+                ArrayList<String> speakerIds = speakerManager.getAllSpeakerIds();
+                organizerToAll(organizerId, content, userType, speakerIds);
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    /**
+     * Allows an organizer to send a message to a single yser.
+     * @param organizerId : id of organizer
+     * @param recipientId : id of recipient
+     * @param content : content of message
+     * @param userType : type of user (speaker, organizer, attendee)
+     * @return true if message is sent, false otherwise
+     */
+    public boolean organizerSendMessageToSingle(String organizerId, String recipientId, String content, String userType){
+
+        if(userType.equals("attendee")){
+            if(organizerManager.isOrganizer(organizerId) && attendeeManager.isAttendee(recipientId)){
+                organizerToSingle(organizerId, recipientId, content, userType);
+                return true;
+            }
+            return false;
+        }
+        if(userType.equals("organizer")){
+            if(organizerManager.isOrganizer(organizerId) && organizerManager.isOrganizer(recipientId)){
+                organizerToSingle(organizerId, recipientId, content, userType);
+                return true;
+            }
+            return false;
+        }
+        if(userType.equals("speaker")){
+            if(organizerManager.isOrganizer(organizerId) && speakerManager.isSpeaker(recipientId)){
+                organizerToSingle(organizerId, recipientId, content, userType);
+                return true;
+            }
+            return false;
+        }
+        return false;
 
     }
 
@@ -67,33 +132,6 @@ public class UserMessageController implements Serializable {
             return false;
         }
         return false;
-    }
-
-    /**
-     *
-     * @param organizerId: id of the organizer sending the message
-     * @param eventName: name of the event whose attendees the message is sent to
-     * @param content: content of the message
-     * @return true if message is sent, false if otherwise
-     * @author Vladimir Caterov and Peter Bilski
-     */
-    public boolean organizerMessageByEvent(String organizerId, String eventName, String content){
-
-        ArrayList<String> recipientIds;
-        if (eventManager.isEvent(eventName)){
-            recipientIds = new ArrayList<>(eventManager.getAttendeeList(eventName));
-        } else {
-            return false;
-        }
-        String convoId = multiMessage(organizerId, recipientIds, content);
-        for(String id: recipientIds){
-            if(organizerManager.isOrganizer(id)){
-                organizerManager.addConversation(id, convoId);
-            } else if(attendeeManager.isAttendee(id)){
-                attendeeManager.addConversation(id, convoId);
-            }
-        }
-        return true;
     }
 
     /**
@@ -223,7 +261,7 @@ public class UserMessageController implements Serializable {
      * @param content : content of message
      * @return ID of the conversation made between a sender and recipient (param_type: String)
      */
-    private String singleMessage(String senderId, String recipientId, String content){
+    public String singleMessage(String senderId, String recipientId, String content){
         ArrayList<String> p = new ArrayList<>();
         p.add(senderId);
         p.add(recipientId);
@@ -245,7 +283,7 @@ public class UserMessageController implements Serializable {
      * @param content : content of message
      * @return ID of the conversation made between the sender and multiple recipient (param_type: String)
      */
-    private String multiMessage(String senderId, ArrayList<String> recipientIds, String content){
+    public String multiMessage(String senderId, ArrayList<String> recipientIds, String content){
         ArrayList<String> p = new ArrayList<>();
         p.add(senderId);
         p.addAll(recipientIds);
@@ -265,7 +303,7 @@ public class UserMessageController implements Serializable {
      * @param eventName : name of event
      * @param content : content of message
      */
-    private void speakerByTalk(String speakerId, String eventName, String content){
+    public void speakerByTalk(String speakerId, String eventName, String content){
 
         ArrayList<String> recipientIds = new ArrayList<>(eventManager.getAttendeeList(eventName));
         String convoId = multiMessage(speakerId, recipientIds, content);
@@ -284,7 +322,7 @@ public class UserMessageController implements Serializable {
      * @param eventNames : name of event
      * @param content : content of message
      */
-    private void speakerByMultiTalks(String speakerId, ArrayList<String> eventNames, String content){
+    public void speakerByMultiTalks(String speakerId, ArrayList<String> eventNames, String content){
         ArrayList<String> recipientIds = new ArrayList<>();
 
         for(String eventName: eventNames){
@@ -315,7 +353,7 @@ public class UserMessageController implements Serializable {
      * @param userType : type of user
      * @param recipientIds : IDs of all users
      */
-    private void organizerToAll(String organizerId, String content, String userType, ArrayList<String> recipientIds){
+    public void organizerToAll(String organizerId, String content, String userType, ArrayList<String> recipientIds){
 
         String convoId = multiMessage(organizerId, recipientIds, content);
         switch(userType){
@@ -344,7 +382,7 @@ public class UserMessageController implements Serializable {
      * @param content : content of message
      * @param userType : type of user
      */
-    private void organizerToSingle(String organizerId, String recipientId, String content, String userType){
+    public void organizerToSingle(String organizerId, String recipientId, String content, String userType){
 
         String convoId = singleMessage(organizerId, recipientId, content);
 
@@ -359,6 +397,32 @@ public class UserMessageController implements Serializable {
         organizerManager.addConversation(organizerId, convoId);
     }
 
+    /**
+     *
+     * @param organizerId: id of the organizer sending the message
+     * @param eventName: name of the event whose attendees the message is sent to
+     * @param content: content of the message
+     * @return true if message is sent, false if otherwise
+     * @author Vladimir Caterov and Peter Bilski
+     */
+    public boolean organizerMessageByEvent(String organizerId, String eventName, String content){
+
+        ArrayList<String> recipientIds;
+        if (eventManager.isEvent(eventName)){
+            recipientIds = new ArrayList<>(eventManager.getAttendeeList(eventName));
+        } else {
+            return false;
+        }
+        String convoId = multiMessage(organizerId, recipientIds, content);
+        for(String id: recipientIds){
+            if(organizerManager.isOrganizer(id)){
+                organizerManager.addConversation(id, convoId);
+            } else if(attendeeManager.isAttendee(id)){
+                attendeeManager.addConversation(id, convoId);
+            }
+        }
+        return true;
+    }
 
     /**
      * Allows an attendee to send a message to a single speaker, or a fellow attendee
@@ -367,7 +431,7 @@ public class UserMessageController implements Serializable {
      * @param content : content of message
      * @param userType : type of user
      */
-    private void attendeeToSingle(String attendeeId, String recipientId, String content, String userType){
+    public void attendeeToSingle(String attendeeId, String recipientId, String content, String userType){
         String convoId = singleMessage(attendeeId, recipientId, content);
 
         switch(userType){
