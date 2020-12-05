@@ -2,18 +2,19 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presenters.AttendeEventMenuPresenter">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presenters.AttendeeEventMenuPresenter">
    <children>
-      <Label layoutX="174.0" layoutY="14.0" prefHeight="61.0" prefWidth="252.0" text="Attendee Events Menu" textAlignment="CENTER">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <ListView layoutX="27.0" layoutY="133.0" prefHeight="200.0" prefWidth="163.0" />
-      <ListView layoutX="412.0" layoutY="133.0" prefHeight="200.0" prefWidth="163.0" />
-      <ListView layoutX="219.0" layoutY="133.0" prefHeight="200.0" prefWidth="163.0" />
+      <ScrollPane prefHeight="400.0" prefWidth="600.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="669.0" prefWidth="583.0">
+               <children>
+                  <ListView layoutX="21.0" layoutY="138.0" prefHeight="254.0" prefWidth="154.0" fx:id="listOfAllEvents" />
+                  <ListView layoutX="201.0" layoutY="137.0" prefHeight="256.0" prefWidth="176.0" fx:id="listOfInvitedEvents"/>
+                  <ListView layoutX="402.0" layoutY="138.0" prefHeight="255.0" prefWidth="145.0" fx:id="listOfAttendedEvents" />
+               </children>
+          </AnchorPane>
+        </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
