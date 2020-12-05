@@ -20,6 +20,9 @@ public class AttendeeMenuPresenter implements IAttendeeMenu{
     @FXML
     private Button toMessagingFromAttendee;
 
+    @FXML
+    private Button signOut;
+
 
     public AttendeeMenuPresenter(){
     }
@@ -46,6 +49,16 @@ public class AttendeeMenuPresenter implements IAttendeeMenu{
             }
         });
 
+        signOut.setText("Sign Out");
+        signOut.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
+        signOut.setOnAction(event -> {
+            try {
+                signOut();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 
     private void goToEvents() throws IOException {
@@ -57,7 +70,14 @@ public class AttendeeMenuPresenter implements IAttendeeMenu{
     }
     private void goToMessaging() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/MessagingMenuView.fxml"));
-        Stage stage = (Stage) toEventsFromAttendee.getScene().getWindow();
+        Stage stage = (Stage) toMessagingFromAttendee.getScene().getWindow();
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
+    }
+
+    private void signOut() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
+        Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
     }
