@@ -1,7 +1,6 @@
 package Controllers;
 
-import Presenters.ISignUpMenu;
-import UseCases.AttendeeManager;
+import Presenters.Interfaces.ISignUpMenu;
 
 
 public class SignUpMenuController {

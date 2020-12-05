@@ -1,7 +1,6 @@
 package Controllers;
 
-import Presenters.*;
-import javafx.stage.Stage;
+import Presenters.Interfaces.ILoginMenu;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package Presenters;
+package Presenters.Interfaces;
 
 public interface IAttendeeMenu {
 }

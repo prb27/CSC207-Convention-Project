@@ -1,18 +1,18 @@
 package Presenters;
 
 import Controllers.LoginMenuController;
+import Presenters.Interfaces.ILoginMenu;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
 import Main.Main;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class LoginMenuPresenter implements ILoginMenu{
+public class LoginMenuPresenter implements ILoginMenu {
 
 
     private LoginMenuController loginMenuController;
