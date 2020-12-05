@@ -381,6 +381,7 @@ public class UserMessageController implements Serializable {
 
     /**
      * Allows the admin to delete a message
+     * @author Khoa Pham
      * @param message: the id of the to-be-deleted message
      * @return String:
      * MDE -- Message Doesn't Exist
