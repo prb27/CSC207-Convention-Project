@@ -51,6 +51,9 @@ public class SignUpMenuPresenter implements ISignUpMenu{
         });
         toLoginFromSignUp.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
         signUpWithInvalidUsername.setVisible(false);
+
+        createUsername.setPromptText("Username");
+        createPassword.setPromptText("Password");
     }
 
     public void returnToLogin() throws IOException {
@@ -75,6 +78,8 @@ public class SignUpMenuPresenter implements ISignUpMenu{
     public void invalidUser() {
         createUsername.clear();
         createPassword.clear();
+        createUsername.setPromptText("Username");
+        createPassword.setPromptText("Password");
         signUpWithInvalidUsername.setVisible(true);
     }
 }

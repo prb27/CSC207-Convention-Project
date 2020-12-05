@@ -25,4 +25,6 @@ public class AttendeeMenuController {
         this.messageManager = messageManager;
 
     }
+
+
 }
