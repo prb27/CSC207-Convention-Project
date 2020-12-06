@@ -26,6 +26,6 @@ public class Admin extends User implements Serializable {
      * returns the username of this Admin
      */
     public String getUsername() {
-        return "Khoa";
+        return this.getUserId();
     }
 }
