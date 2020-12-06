@@ -29,4 +29,8 @@ public class AdminManager implements Serializable {
     public boolean checkPassword(String username, String password){
         return username.equals(admin.getUsername()) && password.equals(admin.getPassword());
     }
+
+    public String getAdminName(){
+        return admin.getUsername();
+    }
 }

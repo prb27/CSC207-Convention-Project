@@ -2,6 +2,7 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * this class stores all info relating to an Attendee
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  *    * disallows changes in username, password for now
  */
 public class Attendee extends User implements Serializable {
-    private ArrayList<String> eventsAttending = new ArrayList<>();
+    private List<String> eventsAttending = new ArrayList<>();
 
     /**
      * a constructor to create an Attendee object
@@ -28,7 +29,7 @@ public class Attendee extends User implements Serializable {
      * return the list of all events that this Attendee is participating
      * @return ArrayList<String> participating events
      */
-    public ArrayList<String> getEventsAttending() {
+    public List<String> getEventsAttending() {
         return eventsAttending;
     }
 
@@ -36,7 +37,7 @@ public class Attendee extends User implements Serializable {
      * update the list of all events that this Attendee is participating
      * @param eventsAttending: the new list of all participating events (param_type: ArrayList<String>)
      */
-    public void setEventsAttending(ArrayList<String> eventsAttending) {
+    public void setEventsAttending(List<String> eventsAttending) {
         this.eventsAttending = eventsAttending;
     }
 

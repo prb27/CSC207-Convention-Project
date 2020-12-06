@@ -13,7 +13,7 @@
       </Label>
       <Button fx:id="toEventsFromAttendee" layoutX="107.0" layoutY="151.0" mnemonicParsing="false" prefHeight="99.0" prefWidth="155.0" />
       <Button fx:id="toMessagingFromAttendee" layoutX="325.0" layoutY="151.0" mnemonicParsing="false" prefHeight="99.0" prefWidth="155.0" />
-      <Label layoutX="262.0" layoutY="93.0" prefHeight="17.0" prefWidth="63.0" text="WELCOME" />
+      <Label fx:id="welcome" layoutX="199.0" layoutY="83.0" prefHeight="17.0" prefWidth="155.0" text="WELCOME" textAlignment="CENTER" />
       <Button fx:id="signOut" layoutX="216.0" layoutY="339.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="155.0" />
    </children>
 </AnchorPane>

@@ -4,16 +4,21 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presenters.AttendeeEventMenuPresenter">
+  <content>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="596.0">
+         <children>
+            <Label layoutX="179.0" prefHeight="90.0" prefWidth="238.0" text="Attendee Event Menu">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presenters.AttendeEventMenuPresenter">
-   <children>
-      <Label layoutX="174.0" layoutY="14.0" prefHeight="61.0" prefWidth="252.0" text="Attendee Events Menu" textAlignment="CENTER">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <ListView layoutX="27.0" layoutY="133.0" prefHeight="200.0" prefWidth="163.0" />
-      <ListView layoutX="412.0" layoutY="133.0" prefHeight="200.0" prefWidth="163.0" />
-      <ListView layoutX="219.0" layoutY="133.0" prefHeight="200.0" prefWidth="163.0" />
-   </children>
-</AnchorPane>
+             <VBox fx:id="events">
+                 <Label fx:id="welcome" layoutX="270.0" layoutY="62.0" text="Welcome: " />
+                 <ListView layoutX="48.0" layoutY="110.0" prefHeight="119.0" prefWidth="500.0" />
+             </VBox>
+         </children>
+    </AnchorPane>
+  </content>
+</ScrollPane>

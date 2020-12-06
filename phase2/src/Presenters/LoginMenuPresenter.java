@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import Main.Main;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,10 +15,9 @@ public class LoginMenuPresenter implements ILoginMenu {
 
 
     private LoginMenuController loginMenuController;
-    private Main main;
 
     @FXML
-    private TextField usernameField;
+    public TextField usernameField;
     @FXML
     private PasswordField passwordField;
     @FXML
