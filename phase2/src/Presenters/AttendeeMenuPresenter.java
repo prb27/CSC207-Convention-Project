@@ -2,11 +2,13 @@ package Presenters;
 
 
 import Presenters.Interfaces.IAttendeeMenu;
+import Presenters.LoginMenuPresenter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 // import javafx.scene.control.Label;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,8 +25,14 @@ public class AttendeeMenuPresenter implements IAttendeeMenu {
     @FXML
     private Button signOut;
 
+    @FXML
+    private Label welcome;
 
-    public AttendeeMenuPresenter(){
+    private LoginMenuPresenter loginMenuPresenter;
+
+
+    public AttendeeMenuPresenter(LoginMenuPresenter loginMenuPresenter){
+        this.loginMenuPresenter = loginMenuPresenter;
     }
 
     @FXML
@@ -58,6 +66,8 @@ public class AttendeeMenuPresenter implements IAttendeeMenu {
                 e.printStackTrace();
             }
         });
+
+        welcome.setText("Welcome!" + loginMenuPresenter.getUsername() + "!");
 
     }
 
