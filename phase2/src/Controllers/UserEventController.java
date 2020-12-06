@@ -376,17 +376,17 @@ public class UserEventController implements Serializable {
      * @return : Returns the list of events they are hosting (param_type: ArrayList<String>)
      */
     public ArrayList<String> seeListOfEventsForSpeaker(String speakerUsername){
-        ArrayList<HashMap<String, String>> listOfTalks = speakerManager.getListOfTalks(speakerUsername);
+        HashMap<String, String> listOfTalks = speakerManager.getListOfTalks(speakerUsername);
 
-       ArrayList<String> masterList = new ArrayList<>();
+        ArrayList<String> masterList = new ArrayList<>();
 
-       for (HashMap<String, String> talk: listOfTalks){
-           for(String eventName: talk.values()){
-               String eventTime = eventManager.getEventTime(eventName);
-               masterList.add("(Entities.Event Name: " + eventName + ", " + "Entities.Event Time: " + eventTime + ")");
-           }
 
+       for(Map.Entry<String, String> event: listOfTalks.entrySet()){
+           String eventTime = eventManager.getStartTime(event.getKey());
+           masterList.add("(Entities.Event Name: " + event.getValue() + ", " + "Entities.Event Time: " + eventTime + ")");
        }
+
+
         return masterList;
     }
 
@@ -395,7 +395,7 @@ public class UserEventController implements Serializable {
      * @param speakerUsername : name of speaker
      * @return : list of talks for the speaker (param_type: ArrayList<HashMap<String, String>>)
      */
-    private ArrayList<HashMap<String, String>> seeAllEventsForSpeaker(String speakerUsername){
+    private HashMap<String, String> seeAllEventsForSpeaker(String speakerUsername){
         return speakerManager.getListOfTalks(speakerUsername);
     }
 
@@ -405,15 +405,25 @@ public class UserEventController implements Serializable {
      * @return list of all event names of talks (param_type: ArrayList<String>)
      */
     public ArrayList<String> seeAllEventNamesForSpeaker(String speakerUsername){
-        ArrayList<HashMap<String, String>> listOfTalks = seeAllEventsForSpeaker(speakerUsername);
-        ArrayList<String> listOfNamedTalks = new ArrayList<>();
-        for(HashMap<String, String> talk: listOfTalks){
-            Collection<String> talkname1 =  talk.values();
-            for (String talk3: talkname1){
-                listOfNamedTalks.add(talk3);
-            }
+//        ArrayList<HashMap<String, String>> listOfTalks = seeAllEventsForSpeaker(speakerUsername);
+//        ArrayList<String> listOfNamedTalks = new ArrayList<>();
+//        for(HashMap<String, String> talk: listOfTalks){
+//            Collection<String> talkname1 =  talk.values();
+//            for (String talk3: talkname1){
+//                listOfNamedTalks.add(talk3);
+//            }
+//        }
+//        return listOfNamedTalks;
+        HashMap<String, String> listOfTalks = speakerManager.getListOfTalks(speakerUsername);
+
+        ArrayList<String> masterList = new ArrayList<>();
+
+        for(Map.Entry<String, String> event: listOfTalks.entrySet()){
+            masterList.add("(Entities.Event Name: " +  event.getValue() + ")");
         }
-        return listOfNamedTalks;
+
+
+        return masterList;
     }
 
     /**

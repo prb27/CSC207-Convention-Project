@@ -5,6 +5,8 @@ import UseCases.AttendeeManager;
 import UseCases.EventManager;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
 
 public class AttendeeEventMenuController {
 
@@ -16,12 +18,21 @@ public class AttendeeEventMenuController {
         this.eventManager = eventManager;
     }
 
-    public ArrayList<String> getListOfAllEvents(){
-        return eventManager.getAllEventTitles();
+    public Hashtable<String, List<String>> seeAttendableEvents(String attendee) {
+        ArrayList<String> eventIdsAttending = attendeeManager.getEventsAttending(attendee);
+        ArrayList<String> eventIdsAll = eventManager.getEventNamesList();
+        Hashtable<String, List<String>> eventsAttendable = new Hashtable<>();
+        for (String eventId : eventIdsAll) {
+            if (!eventIdsAttending.contains(eventId)) {
+                eventsAttendable.put(eventId, eventManager.getEventInfo(eventId));
+            }
+        }
+        return eventsAttendable;
     }
 
     public ArrayList<String> getListOfAllAttendedEvents(String attendeeUsername){
         return attendeeManager.getEventsAttending(attendeeUsername);
     }
+
 
 }
