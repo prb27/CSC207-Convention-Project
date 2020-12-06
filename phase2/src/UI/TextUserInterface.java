@@ -202,6 +202,8 @@ public class TextUserInterface implements Serializable {
         System.out.println("\n\nHello " + username + "!");
         System.out.println("What would you like to do?");
 
+        //can create any type of user
+        //list of all users in the conference
         System.out.println("\nCONFERENCE FUNCTIONS:");
         System.out.println("1: List of all attendees in the conference");
         System.out.println("2: List of all organizers in the conference");
