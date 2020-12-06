@@ -2,6 +2,7 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * this class stores all info relating to an Entities.User
@@ -19,8 +20,8 @@ import java.util.ArrayList;
 public abstract class User implements Serializable {
     private final String username; // disallows changes in username for now
     private final String password; // disallows changes in password for now
-    private ArrayList<String> contacts = new ArrayList<>();
-    private ArrayList<String> conversations = new ArrayList<>();
+    private List<String> contacts = new ArrayList<>();
+    private List<String> conversations = new ArrayList<>();
 
     /**
      * a constructor for subclasses to call
@@ -45,7 +46,7 @@ public abstract class User implements Serializable {
      * return the list of conversations this Entities.User participates in
      * @return ArrayList<String> of conversations
      */
-    public ArrayList<String> getConversations() {
+    public List<String> getConversations() {
         return conversations;
     }
 
@@ -62,7 +63,7 @@ public abstract class User implements Serializable {
      * return the list of contacts this Entities.User has already connected to
      * @return ArrayList<String> contacts
      */
-    public ArrayList<String> getContacts() {
+    public List<String> getContacts() {
         return contacts;
     }
 
@@ -79,7 +80,7 @@ public abstract class User implements Serializable {
      * update the list of contacts that this Entities.User connects to
      * @param contacts: the new list of conversations to update to (param_type: ArrayList<String>)
      */
-    public void setContacts(ArrayList<String> contacts) {
+    public void setContacts(List<String> contacts) {
         this.contacts = contacts;
     }
 
