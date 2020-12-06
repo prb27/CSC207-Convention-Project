@@ -13,7 +13,7 @@ import java.util.HashMap;
  * @see User
  */
 public class Speaker extends User implements Serializable {
-    private ArrayList<HashMap<String, String>> listOfTalks;
+    private HashMap<String, String> listOfTalks;
 
     /**
      * A constructor that creates a Entities.Speaker object
@@ -23,7 +23,7 @@ public class Speaker extends User implements Serializable {
      */
     public Speaker(String username, String password){
         super(username, password);
-        this.listOfTalks = new ArrayList<>();
+        this.listOfTalks = new HashMap<>();
     }
 
     /**
@@ -31,7 +31,7 @@ public class Speaker extends User implements Serializable {
      * @return ArrayList<HashMap<String, String>>: Returns an ArrayList of HashMaps containing a reference to an
      * event time as the key and event name as the value
      */
-    public ArrayList<HashMap<String, String>> getListOfTalks() {
+    public HashMap<String, String> getListOfTalks() {
         return listOfTalks;
     }
     /**
@@ -39,7 +39,7 @@ public class Speaker extends User implements Serializable {
      * @param listOfTalks: The new list of all talks(param_type: HashMap<String, String>)
      * @return void
      */
-    public void setListOfTalks(ArrayList<HashMap<String, String>> listOfTalks){
+    public void setListOfTalks(HashMap<String, String> listOfTalks){
         this.listOfTalks = listOfTalks;
 
     }
