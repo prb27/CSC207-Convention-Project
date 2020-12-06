@@ -13,9 +13,9 @@ import java.io.IOException;
 public class MessengerMenuPresenter {
 
     @FXML
-    private ComboBox eventIDs;
+    private TextField eventIDs;
     @FXML
-    private ComboBox<String> recipientIDs;
+    private TextField recipientIDs;
     @FXML
     private TextArea content;
     @FXML
@@ -43,6 +43,31 @@ public class MessengerMenuPresenter {
     @FXML
     private void initialize(){
         welcome.setText("Welcome: " + loginMenuPresenter.getUsername() + "!");
+        recipientIDs.setPromptText("Please enter the usernames of the recipients");
+        eventIDs.setPromptText("Please enter the names of the events");
+
+        if(allRecipients.isSelected()){
+            StringBuilder listOfRecipients = new StringBuilder();
+           for (String recipient: messengerMenuController.getUsersToMessage(loginMenuPresenter.getUsername())){
+               listOfRecipients.append(recipient + ", ");
+           }
+           recipientIDs.setText(listOfRecipients.toString());
+        }
+        else if (!allRecipients.isSelected()){
+            recipientIDs.setPromptText("Please enter the usernames of the recipients");
+        }
+
+        if(allEvents.isSelected()){
+            StringBuilder listOfRecipients = new StringBuilder();
+            for (String event: messengerMenuController.getEventsToMessage(loginMenuPresenter.getUsername())){
+                listOfRecipients.append(event + ", ");
+            }
+            recipientIDs.setText(listOfRecipients.toString());
+        }
+        else if (!allEvents.isSelected()){
+            eventIDs.setPromptText("Please enter the names of the events");
+        }
+
         goBack.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
         goBack.setOnAction(event -> {
             try {

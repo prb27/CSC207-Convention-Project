@@ -5,6 +5,7 @@ import Entities.Speaker;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class is responsible for keeping track of all Entities.Speaker objects (Speakers at the tech-conference)
@@ -290,5 +291,19 @@ public class SpeakerManager implements Serializable {
         }
 
     }
+
+    public ArrayList<String> seeAllEventNamesForSpeaker(String speakerUsername){
+
+        HashMap<String, String> listOfTalks = getListOfTalks(speakerUsername);
+        ArrayList<String> masterList = new ArrayList<>();
+
+        for(Map.Entry<String, String> event: listOfTalks.entrySet()){
+            masterList.add(event.getValue());
+        }
+
+
+        return masterList;
+    }
+
 
 }

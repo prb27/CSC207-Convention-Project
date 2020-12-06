@@ -60,7 +60,10 @@ public class MessengerMenuController {
             return organizerManager.getEventsAttending(username);
         }
         if (speakerManager.isSpeaker(username)) {
+            return speakerManager.seeAllEventNamesForSpeaker(username);
         }
         return null;
     }
+
+
 }
