@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
+import java.util.List;
 
 /**
  * this class manages (stores and updates) all Entities.Attendee objects
@@ -159,7 +160,7 @@ public class AttendeeManager implements Serializable {
             return "ADE";
         }
         Attendee a = attendees.get(attendee);
-        ArrayList<String> participatingEvents = a.getEventsAttending();
+        List<String> participatingEvents = a.getEventsAttending();
         // if <event> not in participatingEvents, add it in. If it's in, then do nothing!
         if (participatingEvents.contains(event)) {
             return "No";
@@ -186,7 +187,7 @@ public class AttendeeManager implements Serializable {
             return "ADE";
         }
         Attendee a = attendees.get(attendee);
-        ArrayList<String> participatingEvents = a.getEventsAttending();
+        List<String> participatingEvents = a.getEventsAttending();
         // if <event> not in participatingEvents, do nothing!
         // if in, remove it
         participatingEvents.remove(event);
@@ -226,7 +227,7 @@ public class AttendeeManager implements Serializable {
      * @return ArrayList<String> participating events
      * empty list if Entities.Attendee doesn't exist
      */
-    public ArrayList<String> getEventsAttending(String attendee) {
+    public List<String> getEventsAttending(String attendee) {
         Attendee a = attendees.get(attendee);
         if (a == null) {
             return new ArrayList<>();
