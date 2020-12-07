@@ -1,12 +1,10 @@
 package UseCases;
 
 import Entities.Attendee;
+import Gateways.IAttendeeDatabase;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Hashtable;
-import java.util.List;
+import java.util.*;
 
 /**
  * this class manages (stores and updates) all Entities.Attendee objects
@@ -23,6 +21,12 @@ import java.util.List;
  */
 public class AttendeeManager implements Serializable {
     private final Hashtable<String, Attendee> attendees = new Hashtable<>();
+    private final IAttendeeDatabase db;
+
+    public AttendeeManager(IAttendeeDatabase db) {
+        this.db = db;
+    }
+
     /**
      * create an Entities.Attendee given a pair of username and password
      * if the username is used, return false!
@@ -56,7 +60,7 @@ public class AttendeeManager implements Serializable {
             return "ADE";
         }
         Attendee attendee = attendees.get(a);
-        ArrayList<String> contacts = attendee.getContacts();
+        List<String> contacts = attendee.getContacts();
         if (contacts.contains(b)) {
             return "No";
         }
@@ -81,7 +85,7 @@ public class AttendeeManager implements Serializable {
             return "ADE";
         }
         Attendee a = attendees.get(attendee);
-        ArrayList<String> conversations = a.getConversations();
+        List<String> conversations = a.getConversations();
         if (conversations.contains(conversation)) {
             return "No";
         }
@@ -96,7 +100,7 @@ public class AttendeeManager implements Serializable {
      * @return ArrayList<String> list of contacts
      * empty list if Entities.Attendee doesn't exist
      */
-    public ArrayList<String> getMessagableUsers(String a) {
+    public List<String> getMessagableUsers(String a) {
         Attendee attendee = attendees.get(a);
         if (attendee == null) {
             return new ArrayList<>();
@@ -241,7 +245,7 @@ public class AttendeeManager implements Serializable {
      * @return ArrayList<String> conversations' id
      * empty list if Entities.Attendee doesn't exist
      */
-    public ArrayList<String> getConversations(String attendee) {
+    public List<String> getConversations(String attendee) {
         Attendee a = attendees.get(attendee);
         if (a == null) {
             return new ArrayList<>();
@@ -255,6 +259,21 @@ public class AttendeeManager implements Serializable {
      */
     public ArrayList<String> getAllAttendeeIds() {
         return Collections.list(attendees.keys());
+    }
+
+
+    public void loadFromDatabase() {
+        Map<String, String> users = db.getAllAttendeesFromDb();
+        for(String username: users.keySet()) {
+            List<String> contacts = db.getContactsFromDb(username);
+            Attendee attendee = new Attendee(username, users.get(username));
+            attendee.setContacts(contacts);
+            List<String> conversations = db.getConversationsFromDb(username);
+            attendee.setConversations(conversations);
+            List<String> eventsAttending = getEventsAttendingFromDb(username);
+            attendee.setEventsAttending(eventsAttending);
+            attendees.put(username, attendee);
+        }
     }
 
 }
