@@ -2,6 +2,7 @@ package Controllers;
 
 import UseCases.*;
 
+import javax.sound.sampled.AudioSystem;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +93,7 @@ public class OrganizerMenuController implements Serializable {
     //String username = scanner.nextLine();
     //ui.present("Please enter the password for this new organizer");
     //String password = scanner.nextLine();
-    public void createNewOrganizerAccount(String username, String password){
+    //public void createNewOrganizerAccount(String username, String password){
 
         //boolean err = accountHandler.signup(username, password, "organizer");
         //        if(err){
@@ -102,7 +103,7 @@ public class OrganizerMenuController implements Serializable {
         //            ui.present("The username already exists");//Need an equivalent
         //        }
 
-    }
+    //}
 
     //ui.present("Please enter new speaker's username");
     //                    String speakerUsername = scanner.nextLine();
@@ -140,10 +141,10 @@ public class OrganizerMenuController implements Serializable {
      * @return : "RAE" - room already exists
      *           "ODE" - organizer doesn't exist
      */
-    public String organizerAddNewRoom(String username, String roomId, int capacity){
+    public String organizerAddNewRoom(String username, String roomId, int capacity, boolean hasProjector, boolean hasAudioSystem, int powerSockets){
         // RAE - room already exists
         if(organizerManager.isOrganizer(username)){
-            if(!roomManager.createRoom(roomId, capacity)){
+            if(!roomManager.createRoom(roomId, capacity, hasProjector, hasAudioSystem, powerSockets)){
                 return "RAE";
             }
             return "YES";
@@ -340,46 +341,47 @@ public class OrganizerMenuController implements Serializable {
 
     }
 
-    public void organizerCommandHandler(String username, String option){
-        Scanner scanner = new Scanner(System.in);
-        if(organizerManager.isOrganizer(username)) {
-            switch (option) {
-                case "19": {
-                    Integer i = 1;
-                    for(String conversationId: organizerManager.getConversations(username)) {
-                        List<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
-                        StringBuilder recipients = new StringBuilder();
-                        ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
-                        for (String recipient: recipientsOfConversation){
-                            recipients.append(recipient);
-                            recipients.append(", ");
-                        }
-                        ui.present("Recipients: " + recipients);
-                        i += 1;
-                    }
-                    if(organizerManager.getConversations(username).isEmpty()){
-                        ui.present("You have no conversations");
-                        break;
-                    }
-                    ui.present("Choose a Entities.Conversation Number");
-                    String conversationNumber = scanner.nextLine();
-                    String conversationIdFinal = organizerManager.getConversations(username).get(Integer.parseInt(conversationNumber) - 1);
-                    List<String> messagesInThisConversation = messageController.orderedMessagesInConvo(conversationIdFinal);
-                    for (String s : messagesInThisConversation) {
-                        ui.present(s);
-                    }
-                    ui.present("Enter \"r\" to reply in this conversation. [Any other input will exit this menu]");
-                    String reply = scanner.nextLine();
-                    if(!reply.equals("r")){
-                        break;
-                    }
-                    ui.present("Please enter the message you want to send");
-                    String content = scanner.nextLine();
-                    messageController.reply(username, conversationIdFinal, content);
-                    break;
-                }
-            }
-        }
-    }
+
+    //public void organizerCommandHandler(String username, String option){
+    //        Scanner scanner = new Scanner(System.in);
+    //        if(organizerManager.isOrganizer(username)) {
+    //            switch (option) {
+    //                case "19": {
+    //                    Integer i = 1;
+    //                    for(String conversationId: organizerManager.getConversations(username)) {
+    //                        List<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
+    //                        StringBuilder recipients = new StringBuilder();
+    //                        ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
+    //                        for (String recipient: recipientsOfConversation){
+    //                            recipients.append(recipient);
+    //                            recipients.append(", ");
+    //                        }
+    //                        ui.present("Recipients: " + recipients);
+    //                        i += 1;
+    //                    }
+    //                    if(organizerManager.getConversations(username).isEmpty()){
+    //                        ui.present("You have no conversations");
+    //                        break;
+    //                    }
+    //                    ui.present("Choose a Entities.Conversation Number");
+    //                    String conversationNumber = scanner.nextLine();
+    //                    String conversationIdFinal = organizerManager.getConversations(username).get(Integer.parseInt(conversationNumber) - 1);
+    //                    List<String> messagesInThisConversation = messageController.orderedMessagesInConvo(conversationIdFinal);
+    //                    for (String s : messagesInThisConversation) {
+    //                        ui.present(s);
+    //                    }
+    //                    ui.present("Enter \"r\" to reply in this conversation. [Any other input will exit this menu]");
+    //                    String reply = scanner.nextLine();
+    //                    if(!reply.equals("r")){
+    //                        break;
+    //                    }
+    //                    ui.present("Please enter the message you want to send");
+    //                    String content = scanner.nextLine();
+    //                    messageController.reply(username, conversationIdFinal, content);
+    //                    break;
+    //                }
+    //            }
+    //        }
+    //    }
 
 }

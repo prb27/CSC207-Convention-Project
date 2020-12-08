@@ -26,13 +26,13 @@ public class RoomManager implements Serializable {
      * @param capacity capacity of this room (param_type: int)
      * @return true if and only if there is no room with </roomId> and a room with </roomId> and capacity </capacity>
      */
-    public boolean createRoom(String roomId, int capacity){
+    public boolean createRoom(String roomId, int capacity, boolean hasProjector, boolean hasAudioSystem, int powerSockets){
 
         if(isRoom(roomId)){
             return false;
         }
         else{
-            Room newRoom = new Room(roomId, capacity, new ArrayList<>());
+            Room newRoom = new Room(roomId, capacity, new ArrayList<>(), hasProjector, hasAudioSystem, powerSockets);
             rooms.add(newRoom);
             return true;
         }
@@ -210,6 +210,34 @@ public class RoomManager implements Serializable {
             timeInt = timeInt + 1;
             tempTime = Integer.toString(timeInt);
         }
+    }
+
+    public List<String> roomsWithRequirements(boolean hasAudioSystem, boolean hasProjector, int powerSockets) {
+
+        List<String> rooms = getAllRoomIds();
+        List<String> eligibleRooms = new ArrayList<>();
+        for (String roomId : rooms) {
+            Room room = getRoom(roomId);
+            if (room.hasAudioSystem() == hasAudioSystem) {
+                if (room.hasProjector() == hasProjector) {
+                    if (room.getPowerSockets() >= powerSockets) {
+                        eligibleRooms.add(room.getRoomId());
+                    }
+                }
+            }
+        }
+        return eligibleRooms;
+
+    }
+
+    private List<String> getAllRoomIds(){
+
+        List<String> roomIds = new ArrayList<>();
+        for(Room room: rooms){
+            roomIds.add(room.getRoomId());
+        }
+        return roomIds;
+
     }
 
 }
