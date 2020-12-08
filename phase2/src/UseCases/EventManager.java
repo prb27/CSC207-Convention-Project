@@ -244,7 +244,7 @@ public class EventManager implements Serializable {
      * @param eventName
      * @return
      */
-    public int getEventCapacities(String eventName) {
+    public int getEventCapacity(String eventName) {
         Event event = getEvent(eventName);
         return event.getEventCapacity();
     }

@@ -38,7 +38,7 @@ public abstract class User implements Serializable {
      * update the list of conversation that this Entities.User participates in
      * @param conversations: the new list of conversations to update to (param_type: ArrayList<String>)
      */
-    public void setConversations(ArrayList<String> conversations) {
+    public void setConversations(List<String> conversations) {
         this.conversations = conversations;
     }
 

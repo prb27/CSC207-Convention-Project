@@ -37,8 +37,8 @@ public class UserEventController implements Serializable {
 
     }
 
-    public String createEvent(String organizerName, String eventName, String startTime, int duration, int eventCapacity, ArrayList<String> speakerName){
-        ArrayList<String> allowedTimes = eventManager.getAllowedTimes();
+    public String createEvent(String organizerName, String eventName, String startTime, int duration, int eventCapacity, List<String> speakerName){
+        List<String> allowedTimes = eventManager.getAllowedTimes();
 
 
         if(organizerManager.isOrganizer(organizerName)){
@@ -110,12 +110,12 @@ public class UserEventController implements Serializable {
      * @author aribshaikh
      */
     public String removeCreatedEvent(String organizerName,String eventName) {
-        ArrayList<String> allowedTimes = eventManager.getAllowedTimes();
+        List<String> allowedTimes = eventManager.getAllowedTimes();
 
 
         if (organizerManager.isOrganizer(organizerName)) {
             if (eventManager.isEvent(eventName)) {
-                ArrayList<String> speakerUserName = eventManager.getSpeakerEvent(eventName);
+                List<String> speakerUserName = eventManager.getSpeakerEvent(eventName);
                 String startTime = eventManager.getStartTime(eventName);
                 int index = allowedTimes.indexOf(startTime);
                 int duration = eventManager.getDuration(eventName);
@@ -243,7 +243,7 @@ public class UserEventController implements Serializable {
             }
             String roomId = eventManager.getRoomNumber(eventName);
 //            int capacity = roomManager.getCapacityOfRoom(roomId);
-            int capacity = eventManager.getEventCapacities(eventName);
+            int capacity = eventManager.getEventCapacity(eventName);
             ArrayList<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
             if (attendeesOfEvent.size() < capacity) {
                 String erMessage = eventManager.reserveAttendee(eventName, username);
@@ -341,7 +341,7 @@ public class UserEventController implements Serializable {
      * @return Hashtable<String, List<String>> eventsWithInfo
      */
     public Hashtable<String, List<String>> seeParticipatingEvents(String attendee) {
-        ArrayList<String> eventIdsAttending = attendeeManager.getEventsAttending(attendee);
+        List<String> eventIdsAttending = attendeeManager.getEventsAttending(attendee);
         Hashtable<String, List<String>> events = new Hashtable<>();
         for (String eventId : eventIdsAttending) {
             events.put(eventId, eventManager.getEventInfo(eventId));
@@ -359,7 +359,7 @@ public class UserEventController implements Serializable {
      * @return Hashtable<String, List<String>> eventsWithInfo
      */
     public Hashtable<String, List<String>> seeAttendableEvents(String attendee) {
-        ArrayList<String> eventIdsAttending = attendeeManager.getEventsAttending(attendee);
+        List<String> eventIdsAttending = attendeeManager.getEventsAttending(attendee);
         ArrayList<String> eventIdsAll = eventManager.getEventNamesList();
         Hashtable<String, List<String>> eventsAttendable = new Hashtable<>();
         for (String eventId : eventIdsAll) {
