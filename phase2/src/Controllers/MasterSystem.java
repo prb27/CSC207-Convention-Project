@@ -229,7 +229,7 @@ public class MasterSystem implements Serializable {
                     case "7":
                         Integer i = 1;
                         for (String conversationId : attendeeManager.getConversations(username)) {
-                            ArrayList<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
+                            List<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
                             StringBuilder recipients = new StringBuilder();
                             ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
                             for (String recipient : recipientsOfConversation) {
@@ -246,7 +246,7 @@ public class MasterSystem implements Serializable {
                         ui.present("Choose a Entities.Conversation Number");
                         String conversationNumber = scanner.nextLine();
                         String conversationIdFinal = attendeeManager.getConversations(username).get(Integer.parseInt(conversationNumber) - 1);
-                        ArrayList<String> messagesInThisConversation = userMessageController.orderedMessagesInConvo(conversationIdFinal);
+                        List<String> messagesInThisConversation = userMessageController.orderedMessagesInConvo(conversationIdFinal);
                         for (String s : messagesInThisConversation) {
                             ui.present(s);
                         }
@@ -307,7 +307,7 @@ public class MasterSystem implements Serializable {
                                 ui.present("Not a speaker");
                                 break;
                             }
-                            ArrayList<String> allowedTimes = new ArrayList<String>();
+                            List<String> allowedTimes = new ArrayList<String>();
                             allowedTimes.add("9");
                             allowedTimes.add("10");
                             allowedTimes.add("11");
@@ -413,7 +413,7 @@ public class MasterSystem implements Serializable {
                             String eventName = scanner.nextLine();
                             ui.present("Please enter a new time for the event");
                             String eventTime = scanner.nextLine();
-                            ArrayList<String> speakerName = eventManager.getSpeakerEvent(eventName);
+                            List<String> speakerName = eventManager.getSpeakerEvent(eventName);
                             userEventController.removeCreatedEvent(username, eventName);
                             if(speakerManager.isSpeaker(speakerName)) {
                                 String err = userEventController.createEvent(username, eventName, eventTime, speakerName);
@@ -430,7 +430,7 @@ public class MasterSystem implements Serializable {
                             break;
                         }
                         case "11": {
-                            ArrayList<String> eventsNotSignedUpFor = userEventController.getOrganizerEventsNotAttending(username);
+                            List<String> eventsNotSignedUpFor = userEventController.getOrganizerEventsNotAttending(username);
                             for (String event : eventsNotSignedUpFor)
                                     ui.present("Event Title: " + event + "\nTime: " + eventManager.getEventTime(event) + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
                             break;
@@ -496,7 +496,7 @@ public class MasterSystem implements Serializable {
                         case "19": {
                             Integer i = 1;
                             for(String conversationId: organizerManager.getConversations(username)) {
-                                ArrayList<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
+                                List<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
                                 StringBuilder recipients = new StringBuilder();
                                 ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
                                 for (String recipient: recipientsOfConversation){
@@ -513,7 +513,7 @@ public class MasterSystem implements Serializable {
                             ui.present("Choose a Entities.Conversation Number");
                             String conversationNumber = scanner.nextLine();
                             String conversationIdFinal = organizerManager.getConversations(username).get(Integer.parseInt(conversationNumber) - 1);
-                            ArrayList<String> messagesInThisConversation = userMessageController.orderedMessagesInConvo(conversationIdFinal);
+                            List<String> messagesInThisConversation = userMessageController.orderedMessagesInConvo(conversationIdFinal);
                             for (String s : messagesInThisConversation) {
                                 ui.present(s);
                             }
@@ -564,7 +564,7 @@ public class MasterSystem implements Serializable {
                         ui.showPrompt("MS");
                         break;
                     case "3":
-                        ArrayList<String> listOfTalkNames = userEventController.seeAllEventNamesForSpeaker(username);
+                        List<String> listOfTalkNames = userEventController.seeAllEventNamesForSpeaker(username);
                         ui.messageprompt();
                         String content1 = scanner.nextLine();
                         userMessageController.speakerMessageByMultiTalks(username, listOfTalkNames, content1);
@@ -575,7 +575,7 @@ public class MasterSystem implements Serializable {
                         String attendeeUsername = scanner.nextLine();
                         ui.messageprompt();
                         String message = scanner.nextLine();
-                        ArrayList<String> listOfTalkNames1 = userEventController.seeAllEventNamesForSpeaker(username);
+                        List<String> listOfTalkNames1 = userEventController.seeAllEventNamesForSpeaker(username);
                         boolean err = userMessageController.speakerMessageAttendee(username, listOfTalkNames1, attendeeUsername, message);
                         if(err){
                             ui.present("Successful");
@@ -587,7 +587,7 @@ public class MasterSystem implements Serializable {
                     case "5":
                         Integer i = 1;
                         for(String conversationId: speakerManager.getConversations(username)) {
-                            ArrayList<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
+                            List<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
                             StringBuilder recipients = new StringBuilder();
                             ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
                             for (String recipient: recipientsOfConversation){
@@ -604,7 +604,7 @@ public class MasterSystem implements Serializable {
                         ui.present("Choose a Conversation Number");
                         String conversationNumber = scanner.nextLine();
                         String conversationIdFinal = speakerManager.getConversations(username).get(Integer.parseInt(conversationNumber) - 1);
-                        ArrayList<String> messagesInThisConversation = userMessageController.orderedMessagesInConvo(conversationIdFinal);
+                        List<String> messagesInThisConversation = userMessageController.orderedMessagesInConvo(conversationIdFinal);
                         for (String s : messagesInThisConversation) {
                             ui.present(s);
                         }

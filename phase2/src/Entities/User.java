@@ -36,15 +36,15 @@ public abstract class User implements Serializable {
 
     /**
      * update the list of conversation that this Entities.User participates in
-     * @param conversations: the new list of conversations to update to (param_type: ArrayList<String>)
+     * @param conversations: the new list of conversations to update to (param_type: List<String>)
      */
-    public void setConversations(ArrayList<String> conversations) {
+    public void setConversations(List<String> conversations) {
         this.conversations = conversations;
     }
 
     /**
      * return the list of conversations this Entities.User participates in
-     * @return ArrayList<String> of conversations
+     * @return List<String> of conversations
      */
     public List<String> getConversations() {
         return conversations;
@@ -61,7 +61,7 @@ public abstract class User implements Serializable {
 
     /**
      * return the list of contacts this Entities.User has already connected to
-     * @return ArrayList<String> contacts
+     * @return List<String> contacts
      */
     public List<String> getContacts() {
         return contacts;
@@ -78,7 +78,7 @@ public abstract class User implements Serializable {
 
     /**
      * update the list of contacts that this Entities.User connects to
-     * @param contacts: the new list of conversations to update to (param_type: ArrayList<String>)
+     * @param contacts: the new list of conversations to update to (param_type: List<String>)
      */
     public void setContacts(List<String> contacts) {
         this.contacts = contacts;

@@ -26,15 +26,15 @@ import java.util.List;
  */
 public class EventManager implements Serializable {
 
-    private ArrayList <Event> EventList = new ArrayList<>();
+    private List <Event> EventList = new ArrayList<>();
 
 
     /**
      * Returns a list of all event objects
-     * @return : ArrayList<Entities.Event>
+     * @return : List<Entities.Event>
      */
 
-    public ArrayList<Event> getEventList() {
+    public List<Event> getEventList() {
 
         return EventList;
     }
@@ -42,10 +42,10 @@ public class EventManager implements Serializable {
 
     /**
      * Returns all the event names of the current list of events
-     * @return ArrayList<String></String>
+     * @return List<String></String>
      */
-    public ArrayList<String> getEventNamesList(){
-        ArrayList<String> eventNamesList = new ArrayList<String>();
+    public List<String> getEventNamesList(){
+        List<String> eventNamesList = new ArrayList<String>();
         for(Event event: EventList){
             eventNamesList.add(event.getEventName());
         }
@@ -59,9 +59,9 @@ public class EventManager implements Serializable {
      * EAE - Entities.Event Already Exist
      * @return String
      */
-    public String addEvent(String eventName, String startTime, int duration, String roomNumber, int eventCapacity, ArrayList<String> speakerName){
+    public String addEvent(String eventName, String startTime, int duration, String roomNumber, int eventCapacity, List<String> speakerName){
 
-        ArrayList<String> attendeeList = new ArrayList<>();
+        List<String> attendeeList = new ArrayList<>();
         for (Event event: EventList){
             if(event.getEventName().equals(eventName)){
                 return "EAE";
@@ -144,7 +144,7 @@ public class EventManager implements Serializable {
      * @param eventName: name of event
      * @return : speakerName (param_type: String)
      */
-    public ArrayList<String> getSpeakerEvent(String eventName){
+    public List<String> getSpeakerEvent(String eventName){
         Event event = getEvent(eventName);
         return event.getSpeakerName();
     }
@@ -177,17 +177,17 @@ public class EventManager implements Serializable {
     /**
      * Returns the list of attendees/organizers who are attending given the event name
      * @param eventName : name of event
-     * @return : ArrayList<String>
+     * @return : List<String>
      */
-    public ArrayList<String> getAttendeeList(String eventName){
+    public List<String> getAttendeeList(String eventName){
         Event event = getEvent(eventName);
         return event.getAttendeeList();
     }
 
-    /** Returns an arraylist of an event in the order of speaker name, event time, room number
+    /** Returns an list of an event in the order of speaker name, event time, room number
      *
      * @param eventName: title of event
-     * @return ArrayList
+     * @return List
      */
     public List<String> getEventInfo(String eventName){
         Event event = getEvent(eventName);
@@ -209,7 +209,7 @@ public class EventManager implements Serializable {
 
     /**
      * Returns a hashtable of all events; with eventName as the key, and the value as a list of event info
-     * @return : Hashtable<String, ArrayList<String>>
+     * @return : Hashtable<String, List<String>>
      */
     public Hashtable<String, List<String> > getAllEventsWithInfo(){
         Hashtable<String, List<String>> AllEventsWithInfo = new Hashtable<>();
@@ -228,12 +228,12 @@ public class EventManager implements Serializable {
     }
 
     /**
-     * Returns an ArrayList of all event titles
+     * Returns an List of all event titles
      * @return : String
      */
-    public ArrayList<String> getAllEventTitles(){
+    public List<String> getAllEventTitles(){
 
-        ArrayList<String> eventTitles = new ArrayList<>();
+        List<String> eventTitles = new ArrayList<>();
         for(Event event: EventList){
             eventTitles.add(event.getEventName());
         }
@@ -242,7 +242,7 @@ public class EventManager implements Serializable {
     /**
      * Returns the event capacity
      * @param eventName
-     * @return
+     * @return int
      */
     public int getEventCapacities(String eventName) {
         Event event = getEvent(eventName);
@@ -252,10 +252,10 @@ public class EventManager implements Serializable {
     /**
      * Returns the list of empty events
      * @author Khoa Pham
-     * @return ArrayList<String> empty events (events without attendees)
+     * @return List<String> empty events (events without attendees)
      */
-    public ArrayList<String> getEmptyEvents() {
-        ArrayList<String> emptyEvents = new ArrayList<>();
+    public List<String> getEmptyEvents() {
+        List<String> emptyEvents = new ArrayList<>();
         for (Event e : EventList) {
             if (e.getAttendeeList().isEmpty()) {
                 emptyEvents.add(e.getEventName());
@@ -263,8 +263,8 @@ public class EventManager implements Serializable {
         }
         return emptyEvents;
     }
-    public ArrayList<String> getAllowedTimes(){
-        ArrayList<String> allowedTimes = new ArrayList<String>();
+    public List<String> getAllowedTimes(){
+        List<String> allowedTimes = new ArrayList<String>();
         allowedTimes.add("9");
         allowedTimes.add("10");
         allowedTimes.add("11");

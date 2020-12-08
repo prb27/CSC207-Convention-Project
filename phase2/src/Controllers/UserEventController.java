@@ -8,10 +8,10 @@ import java.util.*;
 /**
  * This class is responsible for taking input and implementing all logic/actions related to a user and events.
  * The following manipulations a user can work on are:
- * - enrol an Entities.Organizer in an event
- * - enrol an Entities.Attendee in an event
- * - enrol a Entities.User in event
- * - cancel enrolment for Entities.User
+ * - enrol an Organizer in an event
+ * - enrol an Attendee in an event
+ * - enrol a User in event
+ * - cancel enrolment for User
  * - view list of available events
  * - create an event
  * - remove an event
@@ -38,16 +38,16 @@ public class UserEventController implements Serializable {
     }
 
     /**
-     * enroll an Entities.Attendee with </username> to an Entities.Event </eventName>
-     * If event with </eventName> and Entities.Attendee with </username> exist,
-     * check room capacity and enrol that Entities.Attendee to that Entities.Event
+     * enroll an Attendee with </username> to an Event </eventName>
+     * If event with </eventName> and Attendee with </username> exist,
+     * check room capacity and enrol that Attendee to that Event
      * @author Khoa Pham
-     * @param username: the username of an Entities.Attendee to be enrolled in an event (param_type: String)
+     * @param username: the username of an Attendee to be enrolled in an event (param_type: String)
      * @param eventName: the intended event (param_type: String)
      * @return : "AE" - Already attending event
-     *           "EDE" - Entities.Event doesn't exist
-     *           "EFC" - Entities.Event at full capacity
-     *           "YES" - Entities.Attendee has newly been registered for this event
+     *           "EDE" - Event doesn't exist
+     *           "EFC" - Event at full capacity
+     *           "YES" - Attendee has newly been registered for this event
      */
     private String enrolAttendeeInEvent(String username, String eventName) {
         if (eventManager.isEvent(eventName)) {
@@ -57,7 +57,7 @@ public class UserEventController implements Serializable {
             String roomId = eventManager.getRoomNumber(eventName);
 //            int capacity = roomManager.getCapacityOfRoom(roomId);
             int capacity = eventManager.getEventCapacities(eventName);
-            ArrayList<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
+            List<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
             if (attendeesOfEvent.size() < capacity) {
                 String erMessage = eventManager.reserveAttendee(eventName, username);
                 if (erMessage.equals("YES")) {
@@ -72,15 +72,15 @@ public class UserEventController implements Serializable {
     }
 
     /**
-     * enroll Entities.User (Entities.Organizer/Entities.Attendee) with </username> to an Entities.Event </eventName>
+     * enroll User (Organizer/Attendee) with </username> to an Event </eventName>
      * by calling enrolOrganizerInEvent() or enrolAttendeeInEvent()
      * @author Ashwin Karthikeyan
-     * @param username: the username of a Entities.User (Entities.Organizer/Entities.Attendee) to be enrolled in an event (param_type: String)
+     * @param username: the username of a User (Organizer/Attendee) to be enrolled in an event (param_type: String)
      * @param eventName: the intended event (param_type: String)
      * @return : "AE" - Already attending event
-     *           "EDE" - Entities.Event doesn't exist
-     *           "EFC" - Entities.Event at full capacity
-     *           "YES" - Entities.Attendee has newly been registered for this event
+     *           "EDE" - Event doesn't exist
+     *           "EFC" - Event at full capacity
+     *           "YES" - Attendee has newly been registered for this event
      */
     public String enrolUserInEvent(String username, String eventName){
 
@@ -95,10 +95,10 @@ public class UserEventController implements Serializable {
     }
 
     /**
-     * By the end of the execution of this method, the Entities.User (Entities.Organizer/Entities.Attendee) with username </username> is no longer
+     * By the end of the execution of this method, the User (Organizer/Attendee) with username </username> is no longer
      * attending the event with title </eventName>.
      * @author Khoa Pham, Ashwin Karthikeyan
-     * @param username: the username of the Entities.User who wants to cancel
+     * @param username: the username of the User who wants to cancel
      *                  reservation for an event (param_type: String)
      * @param eventName: the intended event (param_type: String)
      */
@@ -128,9 +128,9 @@ public class UserEventController implements Serializable {
      * @param startTime: time of event
      * @param speakerName: name of speaker
      * "ARO" - All Rooms Occupied
-     * "STC" - Entities.Speaker Time Conflict
+     * "STC" - Speaker Time Conflict
      * "TNA" - Time not allowed
-     * "ODE" - Entities.Organizer Doesn't Exist
+     * "ODE" - Organizer Doesn't Exist
      * @return Strings of the values listed above
      */
 
@@ -139,22 +139,22 @@ public class UserEventController implements Serializable {
      * return the list of all events
      * call eventManager to perform!
      * @author Khoa Pham
-     * @return Hashtable<String, ArrayList<String>> eventsWithInfo
+     * @return Hashtable<String, List<String>> eventsWithInfo
      */
     public Hashtable<String, List<String>> seeAllEventsWithInfo() {
         return eventManager.getAllEventsWithInfo();
     }
 
     /**
-     * allow an Entities.Attendee to see the list of all their participating events
+     * allow an Attendee to see the list of all their participating events
      * call eventManager to perform!
      * @author Khoa Pham
-     * @param attendee: the username of an Entities.Attendee whose list of
+     * @param attendee: the username of an Attendee whose list of
      *                participating events is returned (param_type: String)
      * @return Hashtable<String, List<String>> eventsWithInfo
      */
     public Hashtable<String, List<String>> seeParticipatingEvents(String attendee) {
-        ArrayList<String> eventIdsAttending = attendeeManager.getEventsAttending(attendee);
+        List<String> eventIdsAttending = attendeeManager.getEventsAttending(attendee);
         Hashtable<String, List<String>> events = new Hashtable<>();
         for (String eventId : eventIdsAttending) {
             events.put(eventId, eventManager.getEventInfo(eventId));
@@ -164,16 +164,16 @@ public class UserEventController implements Serializable {
 
 
     /**
-     * allow an Entities.Attendee to see the list of all their available to signup events
+     * allow an Attendee to see the list of all their available to signup events
      * call eventManager to perform!
      * @author Khoa Pham
-     * @param attendee: the username of an Entities.Attendee whose list of
+     * @param attendee: the username of an Attendee whose list of
      *          all their available to signup events is returned (param_type: String)
      * @return Hashtable<String, List<String>> eventsWithInfo
      */
     public Hashtable<String, List<String>> seeAttendableEvents(String attendee) {
-        ArrayList<String> eventIdsAttending = attendeeManager.getEventsAttending(attendee);
-        ArrayList<String> eventIdsAll = eventManager.getEventNamesList();
+        List<String> eventIdsAttending = attendeeManager.getEventsAttending(attendee);
+        List<String> eventIdsAll = eventManager.getEventNamesList();
         Hashtable<String, List<String>> eventsAttendable = new Hashtable<>();
         for (String eventId : eventIdsAll) {
             if (!eventIdsAttending.contains(eventId)) {
@@ -186,17 +186,18 @@ public class UserEventController implements Serializable {
     /**
      * Allows the speaker to see the list of events they are hosting with event name and time
      * @param speakerUsername : username of speaker
-     * @return : Returns the list of events they are hosting (param_type: ArrayList<String>)
+     * @return : Returns the list of events they are hosting (param_type: List<String>)
      */
-    public ArrayList<String> seeListOfEventsForSpeaker(String speakerUsername){
+    public List<String> seeListOfEventsForSpeaker(String speakerUsername){
         HashMap<String, String> listOfTalks = speakerManager.getListOfTalks(speakerUsername);
 
-        ArrayList<String> masterList = new ArrayList<>();
+        List<String> masterList = new ArrayList<>();
 
 
        for(Map.Entry<String, String> event: listOfTalks.entrySet()){
            String eventTime = eventManager.getStartTime(event.getKey());
-           masterList.add("(Entities.Event Name: " + event.getValue() + ", " + "Entities.Event Time: " + eventTime + ")");
+           masterList.add("(Event Name: " + event.getValue() + ", " + "Event Time: "
+                   + eventTime + ")");
        }
 
 
@@ -206,7 +207,7 @@ public class UserEventController implements Serializable {
     /**
      * Can see the event information
      * @param speakerUsername : name of speaker
-     * @return : list of talks for the speaker (param_type: ArrayList<HashMap<String, String>>)
+     * @return : list of talks for the speaker (param_type: List<HashMap<String, String>>)
      */
     private HashMap<String, String> seeAllEventsForSpeaker(String speakerUsername){
         return speakerManager.getListOfTalks(speakerUsername);
@@ -215,11 +216,11 @@ public class UserEventController implements Serializable {
     /**
      * Can see all the event names for the speaker
      * @param speakerUsername : name of speaker
-     * @return list of all event names of talks (param_type: ArrayList<String>)
+     * @return list of all event names of talks (param_type: List<String>)
      */
-    public ArrayList<String> seeAllEventNamesForSpeaker(String speakerUsername){
-//        ArrayList<HashMap<String, String>> listOfTalks = seeAllEventsForSpeaker(speakerUsername);
-//        ArrayList<String> listOfNamedTalks = new ArrayList<>();
+    public List<String> seeAllEventNamesForSpeaker(String speakerUsername){
+//        List<HashMap<String, String>> listOfTalks = seeAllEventsForSpeaker(speakerUsername);
+//        List<String> listOfNamedTalks = new ArrayList<>();
 //        for(HashMap<String, String> talk: listOfTalks){
 //            Collection<String> talkname1 =  talk.values();
 //            for (String talk3: talkname1){
@@ -229,10 +230,10 @@ public class UserEventController implements Serializable {
 //        return listOfNamedTalks;
         HashMap<String, String> listOfTalks = speakerManager.getListOfTalks(speakerUsername);
 
-        ArrayList<String> masterList = new ArrayList<>();
+        List<String> masterList = new ArrayList<>();
 
         for(Map.Entry<String, String> event: listOfTalks.entrySet()){
-            masterList.add("(Entities.Event Name: " +  event.getValue() + ")");
+            masterList.add("(Event Name: " +  event.getValue() + ")");
         }
 
 
@@ -247,7 +248,7 @@ public class UserEventController implements Serializable {
      * @author Khoa Pham
      */
     public void deleteEventWithoutAttendee() {
-        ArrayList<String> allEmptyEvents = eventManager.getEmptyEvents();
+        List<String> allEmptyEvents = eventManager.getEmptyEvents();
         for (String event : allEmptyEvents) {
             eventManager.removeEvent(event);
         }

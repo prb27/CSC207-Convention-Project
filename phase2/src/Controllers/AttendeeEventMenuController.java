@@ -4,9 +4,8 @@ import Presenters.AttendeeMenuPresenter;
 import UseCases.AttendeeManager;
 import UseCases.EventManager;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
+import java.util.Hashtable;
 
 public class AttendeeEventMenuController {
 
@@ -19,8 +18,8 @@ public class AttendeeEventMenuController {
     }
 
     public Hashtable<String, List<String>> seeAttendableEvents(String attendee) {
-        ArrayList<String> eventIdsAttending = attendeeManager.getEventsAttending(attendee);
-        ArrayList<String> eventIdsAll = eventManager.getEventNamesList();
+        List<String> eventIdsAttending = attendeeManager.getEventsAttending(attendee);
+        List<String> eventIdsAll = eventManager.getEventNamesList();
         Hashtable<String, List<String>> eventsAttendable = new Hashtable<>();
         for (String eventId : eventIdsAll) {
             if (!eventIdsAttending.contains(eventId)) {
@@ -30,7 +29,7 @@ public class AttendeeEventMenuController {
         return eventsAttendable;
     }
 
-    public ArrayList<String> getListOfAllAttendedEvents(String attendeeUsername){
+    public List<String> getListOfAllAttendedEvents(String attendeeUsername){
         return attendeeManager.getEventsAttending(attendeeUsername);
     }
 

@@ -4,6 +4,7 @@ import Entities.Organizer;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is responsible for keeping track of and enabling proper use of all Entities.Organizer objects (all organizers in the conference).
@@ -29,7 +30,7 @@ import java.util.ArrayList;
  */
 public class OrganizerManager implements Serializable {
 
-    private final ArrayList<Organizer> organizerList;
+    private final List<Organizer> organizerList;
 
 
     public OrganizerManager(){
@@ -78,7 +79,7 @@ public class OrganizerManager implements Serializable {
             return false;
         }
         else {
-            ArrayList<String> newContacts = organizer.getContacts();
+            List<String> newContacts = organizer.getContacts();
             if (!(isContact(organizer, contactUsername))) {
                 newContacts.add(contactUsername);
                 organizer.setContacts(newContacts);
@@ -105,9 +106,9 @@ public class OrganizerManager implements Serializable {
      * Else returns the list of usernames in Organizers contacts.
      * @param username: the username in the Entities.Organizer object that we intend to manipulate (param_type: String)
      * @return : null if no Entities.Organizer object with username </username> exists.
-     *          Else, ArrayList<String> of contacts of Entities.Organizer object with username </username>.
+     *          Else, List<String> of contacts of Entities.Organizer object with username </username>.
      */
-    public ArrayList<String> getContactList(String username){
+    public List<String> getContactList(String username){
     //     returns null if organizer not found or organizer has no contacts
         Organizer organizer = getOrganizer(username);
         if(organizer == null){
@@ -132,7 +133,7 @@ public class OrganizerManager implements Serializable {
 
     /**
      * If Entities.Organizer object with given username </organizerUsername> exists, then it adds </conversationID> to that
-     * Entities.Organizer object's ArrayList of conversation IDs.
+     * Entities.Organizer object's List of conversation IDs.
      * @param organizerUsername: the username in the Entities.Organizer object that we intend to manipulate (param_type: String)
      * @param conversationID: the ID of the conversation that is intended to be added as a conversation with Entities.Organizer
      *                      object with username </organizerUsername>
@@ -141,7 +142,7 @@ public class OrganizerManager implements Serializable {
 
         Organizer organizer = getOrganizer(organizerUsername);
         if(organizer != null){
-            ArrayList<String> newConversations = organizer.getConversations();
+            List<String> newConversations = organizer.getConversations();
             newConversations.add(conversationID);
             organizer.setConversations(newConversations);
         }
@@ -154,7 +155,7 @@ public class OrganizerManager implements Serializable {
      * @return : If Entities.Organizer with username </organizerUsername> doesn't exist, returns null. Else returns
      *         the IDs of the conversations that the Entities.Organizer object with username </organizerUsername> holds
      */
-    public ArrayList<String> getConversations(String organizerUsername){
+    public List<String> getConversations(String organizerUsername){
 
         Organizer organizer = getOrganizer(organizerUsername);
         if(organizer == null){
@@ -210,7 +211,7 @@ public class OrganizerManager implements Serializable {
         Organizer organizer = getOrganizer(username);
         if(organizer != null){
             if (isAttending(username, eventTitle).equals("NO")) {
-                ArrayList<String> eventsAttending = organizer.getEventsAttending();
+                List<String> eventsAttending = organizer.getEventsAttending();
                 eventsAttending.add(eventTitle);
                 organizer.setEventsAttending(eventsAttending);
             }
@@ -257,7 +258,7 @@ public class OrganizerManager implements Serializable {
         Organizer organizer = getOrganizer(username);
         if(organizer != null) {
             if (isAttending(username, eventTitle).equals("YES")) {
-                ArrayList<String> eventsAttending = organizer.getEventsAttending();
+                List<String> eventsAttending = organizer.getEventsAttending();
                 eventsAttending.remove(eventTitle);
                 organizer.setEventsAttending(eventsAttending);
             }
@@ -272,10 +273,10 @@ public class OrganizerManager implements Serializable {
      * Else, this method returns null.
      * @param username: the username in the Entities.Organizer object that we intend to manipulate (param_type: String)
      * @return : if Entities.Organizer object with username </username> exists then
-     *          ArrayList<String> of event titles that the Entities.Organizer object with username </username> stores.\
+     *          List<String> of event titles that the Entities.Organizer object with username </username> stores.\
      *          Else, null
      */
-    public ArrayList<String> getEventsAttending(String username){
+    public List<String> getEventsAttending(String username){
 
         Organizer organizer = getOrganizer(username);
         if(organizer != null) {
@@ -285,13 +286,13 @@ public class OrganizerManager implements Serializable {
     }
 
     /**
-     * Returns ArrayList<String> of usernames of all Entities.Organizer objects stored in this object of UseCases.OrganizerManager.
+     * Returns List<String> of usernames of all Entities.Organizer objects stored in this object of UseCases.OrganizerManager.
      * This method is intended for use in message related fields.
-     * @return : ArrayList<String> of usernames of all Entities.Organizer objects stored in this object of UseCases.OrganizerManager.
+     * @return : List<String> of usernames of all Entities.Organizer objects stored in this object of UseCases.OrganizerManager.
      */
-    public ArrayList<String> getAllOrganizerIds(){
+    public List<String> getAllOrganizerIds(){
 
-        ArrayList<String> organizerUsernames = new ArrayList<>();
+        List<String> organizerUsernames = new ArrayList<>();
         for(Organizer organizer: organizerList){
             organizerUsernames.add(organizer.getUserId());
         }

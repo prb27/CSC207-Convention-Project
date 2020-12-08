@@ -3,10 +3,7 @@ package Controllers;
 import UseCases.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * This class is responsible to compute all the user interactions and messaging operations needed
@@ -79,7 +76,7 @@ public class UserMessageController implements Serializable {
      */
     public boolean organizerMessageByEvent(String organizerId, String eventName, String content){
 
-        ArrayList<String> recipientIds;
+        List<String> recipientIds;
         if (eventManager.isEvent(eventName)){
             recipientIds = new ArrayList<>(eventManager.getAttendeeList(eventName));
         } else {
@@ -101,9 +98,9 @@ public class UserMessageController implements Serializable {
      * @param speakerId : id of speaker
      * @param eventName : name of event
      * @param content : content of message
-     * @return "SDE" - Entities.Speaker Doesn't Exist
-     *         "EDE" - Entities.Event Doesn't Exist
-     *         "SEC" - Entities.Speaker Entities.Event Conflict
+     * @return "SDE" - Speaker Doesn't Exist
+     *         "EDE" - Event Doesn't Exist
+     *         "SEC" - Speaker Event Conflict
      *         "YES" - Request Successful
      * @author Vladimir Caterov
      */
@@ -129,13 +126,13 @@ public class UserMessageController implements Serializable {
      * @param speakerId
      * @param eventNames
      * @param content
-     * @return "SDE" - Entities.Speaker Doesn't Exist
-     *         "EDE" - Entities.Event Doesn't Exist
-     *         "SEC" - Entities.Speaker Entities.Event Conflict
+     * @return "SDE" - Speaker Doesn't Exist
+     *         "EDE" - Event Doesn't Exist
+     *         "SEC" - Speaker Event Conflict
      *         "YES" - Request Successful
      * @author Vladimir Caterov
      */
-    public String speakerMessageByMultiTalks(String speakerId, ArrayList<String> eventNames, String content){
+    public String speakerMessageByMultiTalks(String speakerId, List<String> eventNames, String content){
 
         if(speakerManager.isSpeaker(speakerId)) {
             for (String eventName : eventNames) {
@@ -162,7 +159,7 @@ public class UserMessageController implements Serializable {
      * @param content: the content of the message
      * @return true if message was sent, false otherwise
      */
-    public boolean speakerMessageAttendee(String speakerId, ArrayList<String> eventNames, String recipientId, String content){
+    public boolean speakerMessageAttendee(String speakerId, List<String> eventNames, String recipientId, String content){
         if (speakerManager.isSpeaker(speakerId)){
             for(String eventName: eventNames){
                 if(attendeeManager.isAttending(recipientId, eventName)){
@@ -189,26 +186,26 @@ public class UserMessageController implements Serializable {
         while(messageManager.getReply(current) != null){
             current = messageManager.getReply(current);
         }
-        ArrayList<String> recipients = convoManager.getConvoParticipants(convoId);
+        List<String> recipients = convoManager.getConvoParticipants(convoId);
         recipients.remove(senderId);
         messageManager.addReply(senderId, recipients, content, current);
         return true;
     }
 
     /**
-     * Returns an ArrayList of all the messages in a conversation, formatted for display
+     * Returns an List of all the messages in a conversation, formatted for display
      * @param convoId: the id of the convo
-     * @return the ArrayList of formatted strings
+     * @return the List of formatted strings
      */
-    public ArrayList<String> orderedMessagesInConvo(String convoId){
-        ArrayList<String> rawMessages = new ArrayList<>();
+    public List<String> orderedMessagesInConvo(String convoId){
+        List<String> rawMessages = new ArrayList<>();
         String current = convoManager.getConvoRoot(convoId);
         rawMessages.add(current);
         while(messageManager.getReply(current) != null){
             current = messageManager.getReply(current);
             rawMessages.add(current);
         }
-        ArrayList<String> formattedMessages = new ArrayList<>();
+        List<String> formattedMessages = new ArrayList<>();
         for(String messageId: rawMessages){
             String message = messageManager.getSender(messageId) + ": " + messageManager.getContent(messageId) + " (" + messageManager.getTime(messageId) + ")";
             formattedMessages.add(message);
@@ -224,7 +221,7 @@ public class UserMessageController implements Serializable {
      * @return ID of the conversation made between a sender and recipient (param_type: String)
      */
     private String singleMessage(String senderId, String recipientId, String content){
-        ArrayList<String> p = new ArrayList<>();
+        List<String> p = new ArrayList<>();
         p.add(senderId);
         p.add(recipientId);
 
@@ -245,8 +242,8 @@ public class UserMessageController implements Serializable {
      * @param content : content of message
      * @return ID of the conversation made between the sender and multiple recipient (param_type: String)
      */
-    private String multiMessage(String senderId, ArrayList<String> recipientIds, String content){
-        ArrayList<String> p = new ArrayList<>();
+    private String multiMessage(String senderId, List<String> recipientIds, String content){
+        List<String> p = new ArrayList<>();
         p.add(senderId);
         p.addAll(recipientIds);
 
@@ -267,7 +264,7 @@ public class UserMessageController implements Serializable {
      */
     private void speakerByTalk(String speakerId, String eventName, String content){
 
-        ArrayList<String> recipientIds = new ArrayList<>(eventManager.getAttendeeList(eventName));
+        List<String> recipientIds = new ArrayList<>(eventManager.getAttendeeList(eventName));
         String convoId = multiMessage(speakerId, recipientIds, content);
         for(String id: recipientIds){
             if(organizerManager.isOrganizer(id)){
@@ -284,8 +281,8 @@ public class UserMessageController implements Serializable {
      * @param eventNames : name of event
      * @param content : content of message
      */
-    private void speakerByMultiTalks(String speakerId, ArrayList<String> eventNames, String content){
-        ArrayList<String> recipientIds = new ArrayList<>();
+    private void speakerByMultiTalks(String speakerId, List<String> eventNames, String content){
+        List<String> recipientIds = new ArrayList<>();
 
         for(String eventName: eventNames){
             recipientIds.addAll(eventManager.getAttendeeList(eventName));
@@ -315,7 +312,7 @@ public class UserMessageController implements Serializable {
      * @param userType : type of user
      * @param recipientIds : IDs of all users
      */
-    private void organizerToAll(String organizerId, String content, String userType, ArrayList<String> recipientIds){
+    private void organizerToAll(String organizerId, String content, String userType, List<String> recipientIds){
 
         String convoId = multiMessage(organizerId, recipientIds, content);
         switch(userType){

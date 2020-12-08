@@ -3,7 +3,7 @@ package Controllers;
 import UseCases.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.*;
 
 public class OrganizerMenuController implements Serializable {
 
@@ -51,7 +51,7 @@ public class OrganizerMenuController implements Serializable {
             }
             String roomId = eventManager.getRoomNumber(eventName);
             int capacity = roomManager.getCapacityOfRoom(roomId);
-            ArrayList<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
+            List<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
             if (attendeesOfEvent.size() < capacity) {
                 String erMessage = eventManager.reserveAttendee(eventName, username);
                 if (erMessage.equals("YES")) {
@@ -110,9 +110,9 @@ public class OrganizerMenuController implements Serializable {
      * @param username username of Entities.Organizer
      * @return List of Events that this Entities.Organizer is not attending
      */
-    public ArrayList<String> getOrganizerEventsNotAttending(String username) {
+    public List<String> getOrganizerEventsNotAttending(String username) {
 
-        ArrayList<String> eventsNotSignedUpFor = new ArrayList<>();
+        List<String> eventsNotSignedUpFor = new ArrayList<>();
         for(String event: eventManager.getAllEventTitles()){
             eventsNotSignedUpFor.add(event);
         }
@@ -137,17 +137,17 @@ public class OrganizerMenuController implements Serializable {
 
         if(organizerManager.isOrganizer(organizerId)){
             if(userType.equals("attendee")) {
-                ArrayList<String> attendeeIDs = attendeeManager.getAllAttendeeIds();
+                List<String> attendeeIDs = attendeeManager.getAllAttendeeIds();
                 organizerToAll(organizerId, content, userType, attendeeIDs);
                 return true;
             }
             if(userType.equals("organizer")) {
-                ArrayList<String> organizerIDs = organizerManager.getAllOrganizerIds();
+                List<String> organizerIDs = organizerManager.getAllOrganizerIds();
                 organizerToAll(organizerId, content, userType, organizerIDs);
                 return true;
             }
             if(userType.equals("speaker")) {
-                ArrayList<String> speakerIds = speakerManager.getAllSpeakerIds();
+                List<String> speakerIds = speakerManager.getAllSpeakerIds();
                 organizerToAll(organizerId, content, userType, speakerIds);
                 return true;
             }
@@ -190,8 +190,8 @@ public class OrganizerMenuController implements Serializable {
         return false;
 
     }
-    public String createEvent(String organizerName, String eventName, String startTime, int duration, int eventCapacity, ArrayList<String> speakerName){
-        ArrayList<String> allowedTimes = eventManager.getAllowedTimes();
+    public String createEvent(String organizerName, String eventName, String startTime, int duration, int eventCapacity, List<String> speakerName){
+        List<String> allowedTimes = eventManager.getAllowedTimes();
 
 
         if(organizerManager.isOrganizer(organizerName)){
@@ -265,12 +265,12 @@ public class OrganizerMenuController implements Serializable {
      * @author aribshaikh
      */
     public String removeCreatedEvent(String organizerName,String eventName) {
-        ArrayList<String> allowedTimes = eventManager.getAllowedTimes();
+        List<String> allowedTimes = eventManager.getAllowedTimes();
 
 
         if (organizerManager.isOrganizer(organizerName)) {
             if (eventManager.isEvent(eventName)) {
-                ArrayList<String> speakerUserName = eventManager.getSpeakerEvent(eventName);
+                List<String> speakerUserName = eventManager.getSpeakerEvent(eventName);
                 String startTime = eventManager.getStartTime(eventName);
                 int index = allowedTimes.indexOf(startTime);
                 int duration = eventManager.getDuration(eventName);

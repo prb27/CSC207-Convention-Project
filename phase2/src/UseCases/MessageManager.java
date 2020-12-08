@@ -4,6 +4,7 @@ import Entities.Message;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class stores and updates all the messages in the system, as well as send information about those messages to appropriate classes
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  * @see Message
  */
 public class MessageManager implements Serializable {
-    private ArrayList<Message> allMessages;
+    private List<Message> allMessages;
 
     /**
      * Constructor for a UseCases.MessageManager, initializes the list of messages to be empty
@@ -48,7 +49,7 @@ public class MessageManager implements Serializable {
      * @param convoID the id of the conversation that stores this method
      * @return the id of the message
      */
-    public String sendMessageMulti(String senderId, ArrayList<String> recipientIds, String content, String convoID){
+    public String sendMessageMulti(String senderId, List<String> recipientIds, String content, String convoID){
         Message message = new Message(senderId, recipientIds, content, convoID);
         allMessages.add(message);
         return message.getId();
@@ -72,7 +73,7 @@ public class MessageManager implements Serializable {
      * @param messageId the message to which the reply is being made
      * @return true if the reply was succesfully added, false otherwise
      */
-    public boolean addReply(String senderId, ArrayList<String> recipientIds, String content, String messageId){
+    public boolean addReply(String senderId, List<String> recipientIds, String content, String messageId){
         Message message = getMessage(messageId);
         if(message == null){
             return false;

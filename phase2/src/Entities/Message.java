@@ -3,6 +3,7 @@ package Entities;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The entity that represents a message between users in the program
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  */
 public class Message implements Serializable {
     private String sender; //the id of the Entities.User who sent
-    private ArrayList<String> recipients = new ArrayList<>(); //list of Ids of Users who received messages
+    private List<String> recipients = new ArrayList<>(); //list of Ids of Users who received messages
     private String content; //the actual content of the message
 
     private String id;
@@ -53,7 +54,7 @@ public class Message implements Serializable {
      * @param content the content of the message
      * @param convoNumber the id of the conversation to which this message belongs
      */
-    public Message(String sender, ArrayList<String> recipients, String content, String convoNumber){
+    public Message(String sender, List<String> recipients, String content, String convoNumber){
         this.sender = sender;
         this.recipients.addAll(recipients);
         this.content = content;
@@ -70,9 +71,9 @@ public class Message implements Serializable {
 
     /**
      * Getter for the recipients of the message
-     * @return the ArrayList of the ids of the recipients of the message
+     * @return the List of the ids of the recipients of the message
      */
-    public ArrayList<String> getRecipients(){ return recipients; }
+    public List<String> getRecipients(){ return recipients; }
 
     /**
      * Getter for the content of the message

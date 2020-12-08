@@ -2,6 +2,7 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class represents information related to an Entities.Organizer. An Entities.Organizer is a Entities.User. This is Serializable class.
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Organizer extends User implements Serializable {
 
-    private ArrayList<String> eventsAttending;
+    private List<String> eventsAttending;
 
     public Organizer(String username, String password){
 
@@ -20,18 +21,18 @@ public class Organizer extends User implements Serializable {
     }
 
     /**
-     * returns an ArrayList of event titles of events that this Entities.Organizer object is attending
-     * @return ArrayList of events that this Entities.Organizer object is attending
+     * returns an List of event titles of events that this Entities.Organizer object is attending
+     * @return List of events that this Entities.Organizer object is attending
      */
-    public ArrayList<String> getEventsAttending() {
+    public List<String> getEventsAttending() {
         return eventsAttending;
     }
 
     /**
      * Stores a list of event titles that this Entities.Organizer object is attending in this object
-     * @param eventsAttending : A list of event titles that this Entities.Organizer object is attending (param_type :ArrayList<String>)
+     * @param eventsAttending : A list of event titles that this Entities.Organizer object is attending (param_type :List<String>)
      */
-    public void setEventsAttending(ArrayList<String> eventsAttending) {
+    public void setEventsAttending(List<String> eventsAttending) {
         this.eventsAttending = eventsAttending;
     }
 

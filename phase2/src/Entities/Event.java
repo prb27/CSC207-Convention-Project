@@ -1,7 +1,7 @@
 package Entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the Entities.Event entity class, creates an Entities.Event object and initiates all values of event. Responsible for the getters and setters of event.
@@ -9,12 +9,12 @@ import java.util.ArrayList;
  */
 public class Event implements Serializable {
     private String eventName;
-    private ArrayList<String> speakerName;
+    private List<String> speakerName;
     private String startTime;
     private int duration;
     private String roomNumber;
     private int eventCapacity;
-    private final ArrayList<String> attendeeList;
+    private final List<String> attendeeList;
 
     /**
      * A constructor to create the event object
@@ -23,7 +23,7 @@ public class Event implements Serializable {
      * @param roomNumber: room number
      * @param attendeeList: list of attendees
      */
-    public Event(String eventName, ArrayList<String> speakerName, String startTime, int duration, String roomNumber, int eventCapacity, ArrayList<String>attendeeList){
+    public Event(String eventName, List<String> speakerName, String startTime, int duration, String roomNumber, int eventCapacity, List<String>attendeeList){
         this.eventName = eventName;
         this.speakerName = speakerName;
         this.startTime = startTime;
@@ -46,7 +46,7 @@ public class Event implements Serializable {
      * returns the name of speaker
      * @return speakerName
      */
-    public ArrayList<String> getSpeakerName() {
+    public List<String> getSpeakerName() {
         return speakerName;
     }
 
@@ -78,7 +78,7 @@ public class Event implements Serializable {
      * returns the list of attendees
      * @return attendeeList
      */
-    public ArrayList<String> getAttendeeList() {
+    public List<String> getAttendeeList() {
         return attendeeList;
     }
 
@@ -94,7 +94,7 @@ public class Event implements Serializable {
      * Changes value for the speaker name of event
      * @param speakerName
      */
-    public void setSpeakerName(ArrayList<String> speakerName) {
+    public void setSpeakerName(List<String> speakerName) {
         this.speakerName = speakerName;
     }
 

@@ -6,11 +6,12 @@ import Entities.Events.MultiSpeakerEvent;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MultiEventManager implements Serializable {
-    private ArrayList<MultiSpeakerEvent> MultiSpeakerEventList = new ArrayList<>();
+    private List<MultiSpeakerEvent> MultiSpeakerEventList = new ArrayList<>();
 
-    public ArrayList<MultiSpeakerEvent> getMultiSpeakerEventList() {
+    public List<MultiSpeakerEvent> getMultiSpeakerEventList() {
         return MultiSpeakerEventList;
     }
 
@@ -28,7 +29,7 @@ public class MultiEventManager implements Serializable {
         return MultiSpeakerEventList.contains(getEvent(eventName));
     }
 
-    public ArrayList<String> getSpeakerEvent(String eventName){
+    public List<String> getSpeakerEvent(String eventName){
         MultiSpeakerEvent event = getEvent(eventName);
         return event.getSpeakerNames();
     }
