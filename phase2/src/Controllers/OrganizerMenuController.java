@@ -18,9 +18,10 @@ public class OrganizerMenuController implements Serializable {
     private MessageController messageController;
     private ConversationManager conversationManager;
     private UserEventController userEventController;
+    private RoomManager roomManager;
 
 
-    public OrganizerMenuController(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager, AdminManager adminManager, AccountHandler accountHandler, EventManager eventManager, RoomManager roomManager, MessageController messageController, ConversationManager conversationManager, UserEventController userEventController){
+    public OrganizerMenuController(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager, AdminManager adminManager, AccountHandler accountHandler, EventManager eventManager, MessageController messageController, ConversationManager conversationManager, UserEventController userEventController, RoomManager roomManager){
 
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
@@ -31,6 +32,7 @@ public class OrganizerMenuController implements Serializable {
         this.messageController = messageController;
         this.conversationManager = conversationManager;
         this.userEventController = userEventController;
+        this.roomManager = roomManager;
 
     }
 
@@ -128,14 +130,26 @@ public class OrganizerMenuController implements Serializable {
     //                    String roomID = scanner.nextLine();
     //                    ui.present("Please enter room capacity");
     //                    int capacity = scanner.nextInt();
-    //String err = userEventController.organizerAddNewRoom(username, roomID, capacity);
-    //                    if (!err.equals("YES")) {
-    //                        ui.showError(err);
-    //                    } else {
-    //                        ui.present("Successful");
-    //                    }
-    //                    break;
-    //public void organizerCreateNewRoom - this method can be handled by GUI
+    /**
+     * By the end of the execution of this method, the Entities.Organizer with username </organizerUsername> would have
+     * created a room with Id </roomId> and capacity </capacity>
+     * @author Ashwin Karthikeyan
+     * @param username: the username of the Entities.Organizer who wants to create a new room (param_type: String)
+     * @param roomId: an ID for the new room that the Entities.Organizer wants to create (param_type: String)
+     * @param capacity: the capacity of the new room being created (param_type: int)
+     * @return : "RAE" - room already exists
+     *           "ODE" - organizer doesn't exist
+     */
+    public String organizerAddNewRoom(String username, String roomId, int capacity){
+        // RAE - room already exists
+        if(organizerManager.isOrganizer(username)){
+            if(!roomManager.createRoom(roomId, capacity)){
+                return "RAE";
+            }
+            return "YES";
+        }
+        return "ODE";
+    }
 
 
     // case "8": {

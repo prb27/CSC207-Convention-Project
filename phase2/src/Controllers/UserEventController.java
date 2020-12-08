@@ -183,27 +183,6 @@ public class UserEventController implements Serializable {
 
 
     /**
-     * By the end of the execution of this method, the Entities.Organizer with username </organizerUsername> would have
-     * created a room with Id </roomId> and capacity </capacity>
-     * @author Ashwin Karthikeyan
-     * @param organizerUsername: the username of the Entities.Organizer who wants to create a new room (param_type: String)
-     * @param roomId: an ID for the new room that the Entities.Organizer wants to create (param_type: String)
-     * @param capacity: the capacity of the new room being created (param_type: int)
-     * @return : "RAE" - room already exists
-     *           "ODE" - organizer doesn't exist
-     */
-    public String organizerAddNewRoom(String organizerUsername, String roomId, int capacity){
-        // RAE - room already exists
-        if(organizerManager.isOrganizer(organizerUsername)){
-            if(!roomManager.createRoom(roomId, capacity)){
-                return "RAE";
-            }
-            return "YES";
-        }
-        return "ODE";
-    }
-
-    /**
      * If Entities.Organizer with given username </username> exists, then this method returns the list of event titles that
      * @param username username of Entities.Organizer
      * @return List of Events that this Entities.Organizer is not attending
