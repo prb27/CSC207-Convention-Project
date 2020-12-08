@@ -27,7 +27,7 @@ public class Attendee extends User implements Serializable {
 
     /**
      * return the list of all events that this Attendee is participating
-     * @return ArrayList<String> participating events
+     * @return List<String> participating events
      */
     public List<String> getEventsAttending() {
         return eventsAttending;
@@ -35,7 +35,7 @@ public class Attendee extends User implements Serializable {
 
     /**
      * update the list of all events that this Attendee is participating
-     * @param eventsAttending: the new list of all participating events (param_type: ArrayList<String>)
+     * @param eventsAttending: the new list of all participating events (param_type: List<String>)
      */
     public void setEventsAttending(List<String> eventsAttending) {
         this.eventsAttending = eventsAttending;

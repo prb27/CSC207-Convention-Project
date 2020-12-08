@@ -5,6 +5,7 @@ import Entities.Message;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class stores and updates all the conversation in the system, as well as send information about those conversations to appropriate classes
@@ -17,15 +18,15 @@ import java.util.ArrayList;
  * @see Conversation
  */
 public class ConversationManager implements Serializable {
-    private ArrayList<Conversation> allConversations = new ArrayList<>();
+    private List<Conversation> allConversations = new ArrayList<>();
 
     /**
      * Helper that generates the participants of a conversation based off of the message at its root
      * @param message the message that we need the participants for
-     * @return the ArrayList of participants for the conversation
+     * @return the List of participants for the conversation
      */
-    private ArrayList<String> participants(Message message){
-        ArrayList<String> participantList = new ArrayList<>();
+    private List<String> participants(Message message){
+        List<String> participantList = new ArrayList<>();
         participantList.add(message.getSender());
         participantList.addAll(message.getRecipients());
 
@@ -37,7 +38,7 @@ public class ConversationManager implements Serializable {
      * @param participants the list of participants
      * @return the id of the conversation
      */
-    public String createNewConversation(ArrayList<String> participants){
+    public String createNewConversation(List<String> participants){
 
         Conversation convo = new Conversation(participants, "");
 
@@ -92,9 +93,9 @@ public class ConversationManager implements Serializable {
     /**
      * Returns the participants of the conversation with the specified id
      * @param convoId the id of the convo of which the participants are to be returned
-     * @return the ArrayList of the ids of the participants of the convo
+     * @return the List of the ids of the participants of the convo
      */
-    public ArrayList<String> getConvoParticipants(String convoId){
+    public List<String> getConvoParticipants(String convoId){
         for(Conversation c: allConversations){
             if(c.getId().equals(convoId)){
                 return c.getParticipants();

@@ -1,7 +1,7 @@
 package Entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The entity that represents a message thread between users
@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @author Peter Bilski
  */
 public class Conversation implements Serializable {
-    private ArrayList<String> participants;
+    private List<String> participants;
     private String convoRoot;
     private String id;
 
@@ -28,7 +28,7 @@ public class Conversation implements Serializable {
      * @param participants the participants in the conversatoin
      * @param convoRoot the id of the message that started the convo
      */
-    public Conversation(ArrayList<String> participants, String convoRoot){
+    public Conversation(List<String> participants, String convoRoot){
         this.participants = participants;
         this.convoRoot = convoRoot;
         id = generateID();
@@ -38,7 +38,7 @@ public class Conversation implements Serializable {
      * Returns the list of participants in the conversation
      * @return list of participant usernames
      */
-    public ArrayList<String> getParticipants(){ return participants; }
+    public List<String> getParticipants(){ return participants; }
 
     /**
      * Returns the conversation's root message's id

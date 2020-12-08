@@ -4,6 +4,7 @@ import Entities.Speaker;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +34,7 @@ import java.util.Map;
  */
 public class SpeakerManager implements Serializable {
 
-    private final ArrayList<Speaker> speakers;
+    private final List<Speaker> speakers;
 
 
     /**
@@ -74,7 +75,7 @@ public class SpeakerManager implements Serializable {
             return false;
         }
         else {
-            ArrayList<String> contacts = getContactsForSpeaker(speakerUsername);
+            List<String> contacts = getContactsForSpeaker(speakerUsername);
             if (!contacts.contains(otherUsername)) {
                 contacts.add(otherUsername);
                 speaker.setContacts(contacts);
@@ -127,7 +128,7 @@ public class SpeakerManager implements Serializable {
             return false;
         }
         else{
-            ArrayList<String> conversations = speaker.getConversations();
+            List<String> conversations = speaker.getConversations();
             conversations.add(conversation);
             speaker.setConversations(conversations);
             return true;
@@ -143,17 +144,17 @@ public class SpeakerManager implements Serializable {
         return null;
     }
 
-    private ArrayList<Speaker> getAllSpeakers(){
+    private List<Speaker> getAllSpeakers(){
         return speakers;
     }
 
     /**
      * Returns a list of contact usernames that are available for the Entities.Speaker with given username to message.
      * @param username: The username of a given Entities.Speaker
-     * @return ArrayList <String>: Returns an ArrayList containing strings the represent the contacts
+     * @return List <String>: Returns an List containing strings the represent the contacts
      * of a given Entities.Speaker
      */
-    public ArrayList<String> getContactsForSpeaker(String username){
+    public List<String> getContactsForSpeaker(String username){
         Speaker speaker = getSpeaker(username);
         if (speaker == null){
             return null;
@@ -165,7 +166,7 @@ public class SpeakerManager implements Serializable {
      * Returns a a list of all events (NOTE* events are stored as a HashMap with key as event time
      * and value as event Name) for a given Entities.Speaker with specified username.
      * @param username: The username of a given Entities.Speaker
-     * @return ArrayList <HashMap <String, String>>: Returns an ArrayList containing HashMaps with key as event time
+     * @return List <HashMap <String, String>>: Returns an List containing HashMaps with key as event time
      * and value as event Name
      */
     public HashMap<String, String> getListOfTalks(String username){
@@ -179,10 +180,10 @@ public class SpeakerManager implements Serializable {
     /**
      * Returns a list of all conversations for a given Entities.Speaker with specified username
      * @param username: The username of a given Entities.Speaker
-     * @return ArrayList <String>: Returns an ArrayList of strings containing conversation ids
+     * @return List <String>: Returns an List of strings containing conversation ids
      * that a Entities.Speaker has
      */
-    public ArrayList<String> getConversations(String username){
+    public List<String> getConversations(String username){
         Speaker speaker = getSpeaker(username);
         if(speaker == null){
             return null;
@@ -192,11 +193,11 @@ public class SpeakerManager implements Serializable {
 
     /**
      * Return a list of all Entities.Speaker identifiers (Entities.Speaker usernames)
-     * @return ArrayList <String>: Returns an ArrayList of String objects where each String is a Entities.Speaker id
+     * @return List <String>: Returns an List of String objects where each String is a Entities.Speaker id
      * for each Entities.Speaker
      */
-    public ArrayList<String> getAllSpeakerIds(){
-        ArrayList<String> speakerIds = new ArrayList<>();
+    public List<String> getAllSpeakerIds(){
+        List<String> speakerIds = new ArrayList<>();
         for (Speaker speaker: speakers){
             speakerIds.add(speaker.getUserId());
         }
@@ -292,10 +293,10 @@ public class SpeakerManager implements Serializable {
 
     }
 
-    public ArrayList<String> seeAllEventNamesForSpeaker(String speakerUsername){
+    public List<String> seeAllEventNamesForSpeaker(String speakerUsername){
 
         HashMap<String, String> listOfTalks = getListOfTalks(speakerUsername);
-        ArrayList<String> masterList = new ArrayList<>();
+        List<String> masterList = new ArrayList<>();
 
         for(Map.Entry<String, String> event: listOfTalks.entrySet()){
             masterList.add(event.getValue());

@@ -97,7 +97,7 @@ public class AttendeeManager implements Serializable {
     /**
      * return the list of all contacts that an Entities.Attendee connects to
      * @param a: the Entities.Attendee whose contact list is returned (param_type: String)
-     * @return ArrayList<String> list of contacts
+     * @return List<String> list of contacts
      * empty list if Entities.Attendee doesn't exist
      */
     public List<String> getMessagableUsers(String a) {
@@ -120,10 +120,10 @@ public class AttendeeManager implements Serializable {
 
     /**
      * return the list of all Attendees
-     * @return ArrayList<Entities.Attendee> Attendees
+     * @return List<Entities.Attendee> Attendees
      */
-    public ArrayList<Attendee> getAllAttendees() {
-        ArrayList<Attendee> allAttendees = new ArrayList<>();
+    public List<Attendee> getAllAttendees() {
+        List<Attendee> allAttendees = new ArrayList<>();
         for (String username: attendees.keySet()) {
             allAttendees.add(attendees.get(username));
         }
@@ -228,7 +228,7 @@ public class AttendeeManager implements Serializable {
     /**
      * return the list of all events that an Entities.Attendee is participating
      * @param attendee: the username of the Entities.Attendee to get the according list of participating events
-     * @return ArrayList<String> participating events
+     * @return List<String> participating events
      * empty list if Entities.Attendee doesn't exist
      */
     public List<String> getEventsAttending(String attendee) {
@@ -242,7 +242,7 @@ public class AttendeeManager implements Serializable {
     /**
      * return the list of all conversations that an Entities.Attendee is participating
      * @param attendee: the username of the Entities.Attendee to get the according list of participating conversations
-     * @return ArrayList<String> conversations' id
+     * @return List<String> conversations' id
      * empty list if Entities.Attendee doesn't exist
      */
     public List<String> getConversations(String attendee) {
@@ -255,9 +255,9 @@ public class AttendeeManager implements Serializable {
 
     /**
      * return the list of all Attendees' ids
-     * @return ArrayList<String> ids
+     * @return List<String> ids
      */
-    public ArrayList<String> getAllAttendeeIds() {
+    public List<String> getAllAttendeeIds() {
         return Collections.list(attendees.keys());
     }
 

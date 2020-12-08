@@ -4,6 +4,7 @@ import Entities.Room;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is the class that keeps track of all the rooms that can be used for this conference. This is Serializable class.
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  */
 public class RoomManager implements Serializable {
 
-    private final ArrayList<Room> rooms;
+    private final List<Room> rooms;
 
     public RoomManager(){
         rooms = new ArrayList<>();
@@ -87,7 +88,7 @@ public class RoomManager implements Serializable {
     // true only if room with 'roomId' exists and that room is occupied at 'time'
         Room room =  getRoom(roomId);
         if(room != null){
-            ArrayList<String> occupiedTimes = room.getOccupiedTimes();
+            List<String> occupiedTimes = room.getOccupiedTimes();
             return occupiedTimes.contains(time);
         }
         return false;
@@ -105,7 +106,7 @@ public class RoomManager implements Serializable {
 
         Room room = getRoom(roomId);
         if(room != null && (!isRoomOccupiedAt(roomId, time))){
-            ArrayList<String> occupiedTimes = room.getOccupiedTimes();
+            List<String> occupiedTimes = room.getOccupiedTimes();
             occupiedTimes.add(time);
             room.setOccupiedTimes(occupiedTimes);
             return true;
@@ -123,7 +124,7 @@ public class RoomManager implements Serializable {
 
         Room room = getRoom(roomId);
         if(room != null && isRoomOccupiedAt(roomId, time)){
-            ArrayList<String> occupiedTimes = room.getOccupiedTimes();
+            List<String> occupiedTimes = room.getOccupiedTimes();
             occupiedTimes.remove(time);
             room.setOccupiedTimes(occupiedTimes);
         }
