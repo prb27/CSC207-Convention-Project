@@ -199,7 +199,7 @@ public class MasterSystem implements Serializable {
                         break;
                     case "4":
                         for (String event : attendeeManager.getEventsAttending(username))
-                            ui.present("Event Title: " + event + "\nTime: " + eventManager.getEventTime(event) + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
+                            ui.present("Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "(" + eventManager.getDuration(event) + " hours)" + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
                         break;
                     case "5":
                         ui.present("Please enter attendee ID");
@@ -229,7 +229,7 @@ public class MasterSystem implements Serializable {
                     case "7":
                         Integer i = 1;
                         for (String conversationId : attendeeManager.getConversations(username)) {
-                            ArrayList<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
+                            List<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
                             StringBuilder recipients = new StringBuilder();
                             ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
                             for (String recipient : recipientsOfConversation) {
@@ -314,7 +314,7 @@ public class MasterSystem implements Serializable {
                     case "5":
                         Integer i = 1;
                         for(String conversationId: speakerManager.getConversations(username)) {
-                            ArrayList<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
+                            List<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
                             StringBuilder recipients = new StringBuilder();
                             ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
                             for (String recipient: recipientsOfConversation){
