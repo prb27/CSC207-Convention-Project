@@ -95,6 +95,34 @@ public class RoomManager implements Serializable {
 
     }
 
+
+    /**
+     * Check if a room is occupied at a given time </time> for duration </duration>
+     * @param roomId : room id of the room we intend to check (param_type: String)
+     * @param time : time at which we want to check if the room is occupied. (param_type: String)
+     * @param duration: duration for which we check availability (param_type: int)
+     * @return true if and only if a room with </roomId> exists and is occupied at </time>
+     */
+    public boolean isRoomOccupiedAtTimeForDuration(String roomId, String time, int duration){
+        // true only if room with 'roomId' exists and that room is occupied at 'time' for 'duration' hours
+        int k = 0;
+        int occupancyFlag = 0;
+        for(int i = 1; i < 13; i++){
+            if(Integer.toString(i).equals(time)){
+                k = i;
+                break;
+            }
+        }
+        for(int i = 0; i < duration; i++) {
+            if(isRoomOccupiedAt(roomId, Integer.toString(k))){
+                occupancyFlag++;
+            }
+            k++;
+        }
+        return k==duration;
+
+    }
+
     /**
      * Books room with </roomId> for an event at </time>
      * @param roomId : id of the room that we intend to occupy (param_type: String)
@@ -212,15 +240,15 @@ public class RoomManager implements Serializable {
         }
     }
 
-    public List<String> roomsWithRequirements(boolean hasAudioSystem, boolean hasProjector, int powerSockets) {
+    public List<String> roomsWithRequirements(boolean hasAudioSystem, boolean hasProjector, int powerSockets, String time, int duration) {
 
         List<String> rooms = getAllRoomIds();
         List<String> eligibleRooms = new ArrayList<>();
         for (String roomId : rooms) {
             Room room = getRoom(roomId);
-            if (room.hasAudioSystem() == hasAudioSystem) {
+            if (room != null && room.hasAudioSystem() == hasAudioSystem) {
                 if (room.hasProjector() == hasProjector) {
-                    if (room.getPowerSockets() >= powerSockets) {
+                    if (room.getPowerSockets() >= powerSockets && !isRoomOccupiedAtTimeForDuration(roomId, time, duration)) {
                         eligibleRooms.add(room.getRoomId());
                     }
                 }
