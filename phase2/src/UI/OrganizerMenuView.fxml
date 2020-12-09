@@ -2,19 +2,32 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presenters.OrganizerMenuPresenter">
    <children>
-      <Label layoutX="91.0" layoutY="14.0" text="Username" />
-      <Label layoutX="14.0" layoutY="14.0" text="Signed in as:" />
-      <MenuButton layoutX="9.0" layoutY="47.0" mnemonicParsing="false" text="See all users of type:">
-         <items>
-            <MenuItem mnemonicParsing="false" text="Attendee" />
-            <MenuItem mnemonicParsing="false" text="Organizer" />
-            <MenuItem mnemonicParsing="false" text="Speaker" />
-         </items>
-      </MenuButton>
-      <Button layoutX="175.0" layoutY="47.0" mnemonicParsing="false" text="Create a new account" />
+      <Pane layoutX="9.0" layoutY="9.0">
+         <children>
+            <Label layoutX="82.0" layoutY="5.0" text="Username" />
+            <Label layoutX="5.0" layoutY="5.0" text="Signed in as:" />
+            <MenuButton layoutY="52.0" mnemonicParsing="false" text="See all users of type:">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Attendee" />
+                  <MenuItem mnemonicParsing="false" text="Organizer" />
+                  <MenuItem mnemonicParsing="false" text="Speaker" />
+                  <MenuItem mnemonicParsing="false" text="Admin" />
+               </items>
+            </MenuButton>
+            <Button fx:id="createNewAccountButton" layoutX="440.0" layoutY="52.0" mnemonicParsing="false" text="Create a new account" />
+            <Label layoutX="176.0" text="Organizer Menu">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <Button fx:id="toEventsFromOrganizer" layoutX="98.0" layoutY="142.0" mnemonicParsing="false" prefHeight="99.0" prefWidth="155.0" text="Events" />
+            <Button fx:id="toMessagingFromOrganizer" layoutX="316.0" layoutY="142.0" mnemonicParsing="false" prefHeight="99.0" prefWidth="155.0" text="Messaging" />
+         </children>
+      </Pane>
+      <Pane prefHeight="200.0" prefWidth="200.0" />
    </children>
 </AnchorPane>
