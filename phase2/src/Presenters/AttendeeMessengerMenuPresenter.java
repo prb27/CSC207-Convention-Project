@@ -92,6 +92,9 @@ public class AttendeeMessengerMenuPresenter {
         allRecipients.setOnAction(event -> {
             recipientIDs.setDisable(allRecipients.isSelected());
         });
+        recipientIDs.setOnAction(event -> {
+            allRecipients.setDisable(recipientIDs.getText().equals(""));
+        });
 
     }
     private void sendMessage() throws IOException {
@@ -102,6 +105,15 @@ public class AttendeeMessengerMenuPresenter {
             String receiverType = messengerMenuController.getAccountType(recipientID);
             if(messengerMenuController.attendeeSendMessage(sender, recipientID, message, receiverType)){
                 goBack();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Something went wrong");
+                alert.setHeaderText("Something went wrong");
+                alert.setContentText("Please look into it");
+                recipientIDs.clear();
+                recipientIDs.setDisable(false);
+                allRecipients.setDisable(false);
             }
 
         }
