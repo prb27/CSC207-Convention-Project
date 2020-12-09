@@ -10,5 +10,15 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="Presenters.SpeakerEventMenuPresenter"
             prefHeight="400.0" prefWidth="600.0">
+    <children>
+        <MenuButton layoutX="9.0" layoutY="47.0" mnemonicParsing="false" text="Manage Event Options:">
+            <items>
+                <MenuItem mnemonicParsing="false" text="View Speakable Events" />
+                <MenuItem mnemonicParsing="false" text="Organizer" />
+                <MenuItem mnemonicParsing="false" text="Speaker" />
+            </items>
+        </MenuButton>
+        <Button layoutX="175.0" layoutY="47.0" mnemonicParsing="false" text="Create a new account" />
+    </children>
 
 </AnchorPane>

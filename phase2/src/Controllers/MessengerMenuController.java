@@ -162,6 +162,131 @@ public class MessengerMenuController {
         }
         attendeeManager.addConversation(attendeeId, convoId);
     }
+    /**
+     * Checks if speaker, event is valid in order to send a message by speaker to a talk
+     * @param speakerId : id of speaker
+     * @param eventName : name of event
+     * @param content : content of message
+     * @return "SDE" - Entities.Speaker Doesn't Exist
+     *         "EDE" - Entities.Event Doesn't Exist
+     *         "SEC" - Entities.Speaker Entities.Event Conflict
+     *         "YES" - Request Successful
+     * @author Vladimir Caterov
+     */
+    public String speakerMessageByTalk(String speakerId, String eventName, String content){
+        HashMap<String, String> selectedTalk = new HashMap<>();
+        selectedTalk.put(eventManager.getEventTime(eventName), eventName);
+
+        if(speakerManager.isSpeaker(speakerId)){
+            if (eventManager.isEvent(eventName)){
+                if (speakerManager.getListOfTalks(speakerId).contains(selectedTalk)){
+                    speakerByTalk(speakerId, eventName, content);
+                    return "YES";
+                }
+                return "SEC";
+            }
+            return "EDE";
+        }
+        return "SDE";
+    }
+
+    /**
+     * Check if speaker, event is valid to allow a speaker to send message for multiple talks
+     * @param speakerId
+     * @param eventNames
+     * @param content
+     * @return "SDE" - Entities.Speaker Doesn't Exist
+     *         "EDE" - Entities.Event Doesn't Exist
+     *         "SEC" - Entities.Speaker Entities.Event Conflict
+     *         "YES" - Request Successful
+     * @author Vladimir Caterov
+     */
+    public String speakerMessageByMultiTalks(String speakerId, List<String> eventNames, String content){
+
+        if(speakerManager.isSpeaker(speakerId)) {
+            for (String eventName : eventNames) {
+                if (eventManager.isEvent(eventName)) {
+                    HashMap<String, String> selectedTalk = new HashMap<>();
+                    selectedTalk.put(eventManager.getEventTime(eventName), eventName);
+                    if (speakerManager.getListOfTalks(speakerId).contains(selectedTalk)) {
+                        speakerByTalk(speakerId, eventName, content);
+                        return "YES";
+                    }
+                    return "SEC";
+                }
+                return "EDE";
+            }
+        }
+        return "SDE";
+    }
+
+    /**
+     * Allows as speaker to message a specific attendee of an event they speak at
+     * @param speakerId: id of the speaker sending the message
+     * @param eventNames: the list of events the speaker speaks at
+     * @param recipientId: the id of the recipient of the message
+     * @param content: the content of the message
+     * @return true if message was sent, false otherwise
+     */
+    public boolean speakerMessageAttendee(String speakerId, List<String> eventNames, String recipientId, String content){
+        if (speakerManager.isSpeaker(speakerId)){
+            for(String eventName: eventNames){
+                if(attendeeManager.isAttending(recipientId, eventName)){
+                    singleMessage(speakerId, recipientId, content);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    /**
+     * Correctly creates the conversations and sends the messages to enable a speaker to send a message to everyone in a talk
+     * @param speakerId : ID of speaker
+     * @param eventName : name of event
+     * @param content : content of message
+     */
+    public void speakerByTalk(String speakerId, String eventName, String content){
+
+        List<String> recipientIds = new ArrayList<>(eventManager.getAttendeeList(eventName));
+        String convoId = multiMessage(speakerId, recipientIds, content);
+        for(String id: recipientIds){
+            if(organizerManager.isOrganizer(id)){
+                organizerManager.addConversation(id, convoId);
+            } else if(attendeeManager.isAttendee(id)){
+                attendeeManager.addConversation(id, convoId);
+            }
+        }
+    }
+
+    /**
+     * sends the messages to enable a speaker to send a message to everyone in multiple talks
+     * @param speakerId : speaker ID
+     * @param eventNames : name of event
+     * @param content : content of message
+     */
+    public void speakerByMultiTalks(String speakerId, List<String> eventNames, String content){
+        List<String> recipientIds = new ArrayList<>();
+
+        for(String eventName: eventNames){
+            recipientIds.addAll(eventManager.getAttendeeList(eventName));
+        }
+        //do the below 3 lines to remove duplicate attendees so they dont get messaged multiple times
+        Set<String> set = new HashSet<>(recipientIds);
+        recipientIds.clear();
+        recipientIds.addAll(set);
+
+        String convoId = multiMessage(speakerId, recipientIds, content);
+
+        if(!recipientIds.isEmpty()){
+            for(String id: recipientIds){
+                if(organizerManager.isOrganizer(id)){
+                    organizerManager.addConversation(id, convoId);
+                } else if(attendeeManager.isAttendee(id)){
+                    attendeeManager.addConversation(id, convoId);
+                }
+            }
+        }
+    }
 
 
 }
