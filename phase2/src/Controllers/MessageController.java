@@ -175,9 +175,8 @@ public class MessageController implements Serializable {
         if(speakerManager.isSpeaker(speakerId)) {
             for (String eventName : eventNames) {
                 if (eventManager.isEvent(eventName)) {
-                    HashMap<String, String> selectedTalk = new HashMap<>();
-                    selectedTalk.put(eventManager.getEventTime(eventName), eventName);
-                    if (speakerManager.getListOfTalks(speakerId).contains(selectedTalk)) {
+                    String evenTime = eventManager.getStartTime(eventName);
+                    if (speakerManager.getListOfTalks(speakerId).containsKey(evenTime)) {
                         speakerByTalk(speakerId, eventName, content);
                         return "YES";
                     }
