@@ -49,9 +49,9 @@ public class OrganizerMenuController implements Serializable {
         if(type.equals("speaker") || type.equals("all")){
             users.addAll(speakerManager.getAllSpeakerIds());
         }
-        if(type.equals("admin") || type.equals("all")){
-            users.addAll(adminManager.getAllAdminIds());
-        }
+        //if(type.equals("admin") || type.equals("all")){
+        //            users.addAll(adminManager.getAllAdminIds());
+        //        }
         return users;
 
     }
