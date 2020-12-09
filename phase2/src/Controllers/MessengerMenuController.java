@@ -239,6 +239,54 @@ public class MessengerMenuController {
         }
         return false;
     }
+    /**
+     * Correctly creates the conversations and sends the messages to enable a speaker to send a message to everyone in a talk
+     * @param speakerId : ID of speaker
+     * @param eventName : name of event
+     * @param content : content of message
+     */
+    public void speakerByTalk(String speakerId, String eventName, String content){
+
+        List<String> recipientIds = new ArrayList<>(eventManager.getAttendeeList(eventName));
+        String convoId = multiMessage(speakerId, recipientIds, content);
+        for(String id: recipientIds){
+            if(organizerManager.isOrganizer(id)){
+                organizerManager.addConversation(id, convoId);
+            } else if(attendeeManager.isAttendee(id)){
+                attendeeManager.addConversation(id, convoId);
+            }
+        }
+    }
+
+    /**
+     * sends the messages to enable a speaker to send a message to everyone in multiple talks
+     * @param speakerId : speaker ID
+     * @param eventNames : name of event
+     * @param content : content of message
+     */
+    public void speakerByMultiTalks(String speakerId, List<String> eventNames, String content){
+        List<String> recipientIds = new ArrayList<>();
+
+        for(String eventName: eventNames){
+            recipientIds.addAll(eventManager.getAttendeeList(eventName));
+        }
+        //do the below 3 lines to remove duplicate attendees so they dont get messaged multiple times
+        Set<String> set = new HashSet<>(recipientIds);
+        recipientIds.clear();
+        recipientIds.addAll(set);
+
+        String convoId = multiMessage(speakerId, recipientIds, content);
+
+        if(!recipientIds.isEmpty()){
+            for(String id: recipientIds){
+                if(organizerManager.isOrganizer(id)){
+                    organizerManager.addConversation(id, convoId);
+                } else if(attendeeManager.isAttendee(id)){
+                    attendeeManager.addConversation(id, convoId);
+                }
+            }
+        }
+    }
 
 
 }
