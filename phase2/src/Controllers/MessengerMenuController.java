@@ -7,6 +7,7 @@ import java.util.*;
 public class MessengerMenuController {
 
     private MessageManager messageManager;
+    private ConversationManager convoManager;
     private AttendeeManager attendeeManager;
     private OrganizerManager organizerManager;
     private SpeakerManager speakerManager;
@@ -17,9 +18,11 @@ public class MessengerMenuController {
 
     public MessengerMenuController(MessageManager messageManager, AttendeeManager attendeeManager,
                                    OrganizerManager organizerManager, SpeakerManager speakerManager,
-                                   AdminManager adminManager, EventManager eventManager, AccountHandler accountHandler){
+                                   AdminManager adminManager, EventManager eventManager, AccountHandler accountHandler, ConversationManager convoManager){
 
         this.messageManager = messageManager;
+        this.convoManager = convoManager;
+
         this.attendeeManager = attendeeManager;
         this.speakerManager = speakerManager;
         this.adminManager = adminManager;
@@ -71,6 +74,93 @@ public class MessengerMenuController {
 
     public String getAccountType(String username){
         return accountHandler.getAccountType(username);
+    }
+    /**
+     * Helper Method: Sends a message to a single recipient
+     * @param senderId : ID of sender
+     * @param recipientId : ID of recipient
+     * @param content : content of message
+     * @return ID of the conversation made between a sender and recipient (param_type: String)
+     */
+
+
+    public String singleMessage(String senderId, String recipientId, String content){
+        List<String> p = new ArrayList<>();
+        p.add(senderId);
+        p.add(recipientId);
+
+        String convoId = convoManager.createNewConversation(p);
+        String messageId = messageManager.sendMessageSingle(senderId, recipientId, content, convoId);
+
+        convoManager.setConvoRoot(convoId, messageId);
+
+        return convoId;
+    }
+
+    //helper: sends a message with multiple recipients
+
+    /**
+     * Helper Method: Sends a message to multiple recipients
+     * @param senderId : ID of sender
+     * @param recipientIds : ID of recipient
+     * @param content : content of message
+     * @return ID of the conversation made between the sender and multiple recipient (param_type: String)
+     */
+    public String multiMessage(String senderId, List<String> recipientIds, String content){
+        List<String> p = new ArrayList<>();
+        p.add(senderId);
+        p.addAll(recipientIds);
+
+        String convoId = convoManager.createNewConversation(p);
+        String messageId = messageManager.sendMessageMulti(senderId, recipientIds, content, convoId);
+
+        convoManager.setConvoRoot(convoId, messageId);
+
+        return convoId;
+    }
+    /**
+     * Allows an attendee to send a message to another attendee or speaker
+     * @param username: id of attendee sending the message
+     * @param recipientId: id of the recipient
+     * @param content: content of the message
+     * @param userType: designates whether message is being sent to attendee or speaker
+     * @return true if the message could be sent, false if the message was not sent
+     */
+    public boolean attendeeSendMessage(String username, String recipientId, String content, String userType) {
+        if(userType.equals("attendee")){
+            if(attendeeManager.isAttendee(username) && attendeeManager.isAttendee(recipientId)){
+                attendeeToSingle(username, recipientId, content, userType);
+                return true;
+            }
+            return false;
+        }
+        if(userType.equals("speaker")){
+            if(attendeeManager.isAttendee(username) && speakerManager.isSpeaker(recipientId)){
+                attendeeToSingle(username, recipientId, content, userType);
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
+    /**
+     * Allows an attendee to send a message to a single speaker, or a fellow attendee
+     * @param attendeeId : ID of attendee
+     * @param recipientId : ID of recipient
+     * @param content : content of message
+     * @param userType : type of user
+     */
+    public void attendeeToSingle(String attendeeId, String recipientId, String content, String userType){
+        String convoId = singleMessage(attendeeId, recipientId, content);
+
+        switch(userType){
+            case "attendee":
+                attendeeManager.addConversation(recipientId, convoId);
+            case "speaker":
+                speakerManager.addConversation(recipientId, convoId);
+        }
+        attendeeManager.addConversation(attendeeId, convoId);
     }
 
 
