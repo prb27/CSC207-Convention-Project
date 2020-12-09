@@ -246,7 +246,7 @@ public class MasterSystem implements Serializable {
                         ui.present("Choose a Entities.Conversation Number");
                         String conversationNumber = scanner.nextLine();
                         String conversationIdFinal = attendeeManager.getConversations(username).get(Integer.parseInt(conversationNumber) - 1);
-                        ArrayList<String> messagesInThisConversation = messageController.orderedMessagesInConvo(conversationIdFinal);
+                        List<String> messagesInThisConversation = messageController.orderedMessagesInConvo(conversationIdFinal);
                         for (String s : messagesInThisConversation) {
                             ui.present(s);
                         }
@@ -331,7 +331,7 @@ public class MasterSystem implements Serializable {
                         ui.present("Choose a Conversation Number");
                         String conversationNumber = scanner.nextLine();
                         String conversationIdFinal = speakerManager.getConversations(username).get(Integer.parseInt(conversationNumber) - 1);
-                        ArrayList<String> messagesInThisConversation = messageController.orderedMessagesInConvo(conversationIdFinal);
+                        List<String> messagesInThisConversation = messageController.orderedMessagesInConvo(conversationIdFinal);
                         for (String s : messagesInThisConversation) {
                             ui.present(s);
                         }
