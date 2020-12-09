@@ -33,4 +33,8 @@ public class AdminManager implements Serializable {
     public String getAdminName(){
         return admin.getUsername();
     }
+
+    public boolean isAdmin(String username){
+        return getAdminName().equals(username);
+    }
 }

@@ -90,4 +90,17 @@ public class AccountHandler implements Serializable {
             return null;
     }
 
+    public String getAccountType(String username) {
+        if(attendeeManager.isAttendee(username))
+            return "attendee";
+        else if(organizerManager.isOrganizer(username))
+            return "organizer";
+        else if(speakerManager.isSpeaker(username))
+            return "speaker";
+        else if(adminManager.isAdmin(username))
+            return "admin";
+        else
+            return null;
+    }
+
 }

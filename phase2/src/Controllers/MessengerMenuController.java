@@ -12,17 +12,21 @@ public class MessengerMenuController {
     private SpeakerManager speakerManager;
     private AdminManager adminManager;
     private EventManager eventManager;
+    private AccountHandler accountHandler;
     private List<String> eligibleContacts;
 
     public MessengerMenuController(MessageManager messageManager, AttendeeManager attendeeManager,
                                    OrganizerManager organizerManager, SpeakerManager speakerManager,
-                                   AdminManager adminManager, EventManager eventManager){
+                                   AdminManager adminManager, EventManager eventManager, AccountHandler accountHandler){
 
         this.messageManager = messageManager;
         this.attendeeManager = attendeeManager;
         this.speakerManager = speakerManager;
         this.adminManager = adminManager;
         this.eventManager = eventManager;
+
+        this.accountHandler = accountHandler;
+
         this.eligibleContacts = new ArrayList<>();
 
     }
@@ -63,6 +67,10 @@ public class MessengerMenuController {
             return speakerManager.seeAllEventNamesForSpeaker(username);
         }
         return null;
+    }
+
+    public String getAccountType(String username){
+        return accountHandler.getAccountType(username);
     }
 
 

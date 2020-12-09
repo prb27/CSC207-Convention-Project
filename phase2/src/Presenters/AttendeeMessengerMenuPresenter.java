@@ -9,13 +9,11 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
-public class MessengerMenuPresenter {
+import java.util.regex.Pattern;
+public class AttendeeMessengerMenuPresenter {
 
     @FXML
-    private TextField eventIDs;
-    @FXML
-    private TextField recipientIDs;
+    private ChoiceBox<CheckBox> recipientIDs;
     @FXML
     private TextArea content;
     @FXML
@@ -28,14 +26,13 @@ public class MessengerMenuPresenter {
     private Label welcome;
     @FXML
     private CheckBox allRecipients;
-    @FXML
-    private CheckBox allEvents;
+
 
 
     private MessengerMenuController messengerMenuController;
     private LoginMenuPresenter loginMenuPresenter;
 
-    public MessengerMenuPresenter(MessengerMenuController messengerMenuController, LoginMenuPresenter loginMenuPresenter){
+    public AttendeeMessengerMenuPresenter(MessengerMenuController messengerMenuController, LoginMenuPresenter loginMenuPresenter){
         this.messengerMenuController = messengerMenuController;
         this.loginMenuPresenter = loginMenuPresenter;
     }
@@ -43,30 +40,9 @@ public class MessengerMenuPresenter {
     @FXML
     private void initialize(){
         welcome.setText("Welcome: " + loginMenuPresenter.getUsername() + "!");
-        recipientIDs.setPromptText("Please enter the usernames of the recipients");
-        eventIDs.setPromptText("Please enter the names of the events");
+        recipientIDs.;
+        setPrivileges();
 
-        if(allRecipients.isSelected()){
-            StringBuilder listOfRecipients = new StringBuilder();
-           for (String recipient: messengerMenuController.getUsersToMessage(loginMenuPresenter.getUsername())){
-               listOfRecipients.append(recipient + ", ");
-           }
-           recipientIDs.setText(listOfRecipients.toString());
-        }
-        else if (!allRecipients.isSelected()){
-            recipientIDs.setPromptText("Please enter the usernames of the recipients");
-        }
-
-        if(allEvents.isSelected()){
-            StringBuilder listOfRecipients = new StringBuilder();
-            for (String event: messengerMenuController.getEventsToMessage(loginMenuPresenter.getUsername())){
-                listOfRecipients.append(event + ", ");
-            }
-            recipientIDs.setText(listOfRecipients.toString());
-        }
-        else if (!allEvents.isSelected()){
-            eventIDs.setPromptText("Please enter the names of the events");
-        }
 
         goBack.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
         goBack.setOnAction(event -> {
@@ -94,9 +70,6 @@ public class MessengerMenuPresenter {
                 e.printStackTrace();
             }
         });
-
-
-
     }
 
     private void goBack() throws IOException{
@@ -113,6 +86,17 @@ public class MessengerMenuPresenter {
         stage.setScene(scene);
     }
 
+    private void setPrivileges(){
+
+        allRecipients.setOnAction(event -> {
+            recipientIDs.setDisable(allRecipients.isSelected());
+        });
+
+        if (messengerMenuController.getAccountType(loginMenuPresenter.getUsername()).equals("attendee")){
+            allRecipients.setDisable(true);
+            recipientIDs.getText().matches()
+        }
+    }
     private void sendMessage() throws IOException {
 
         goBack();
