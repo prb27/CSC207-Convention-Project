@@ -99,8 +99,11 @@ public class AttendeeMessengerMenuPresenter {
             String recipientID = recipientIDs.getText();
             String sender = loginMenuPresenter.getUsername();
             String message = content.getText();
-            String recieverAccountType = messengerMenuController.getAccountType(recipientID);
-            messengerMenuController.attendeeSendMessage(loginMenuPresenter.getUsername(), recipientIDs.getText(), content.getText(), messengerMenuController.getAccountType(rec));
+            String receiverType = messengerMenuController.getAccountType(recipientID);
+            if(messengerMenuController.attendeeSendMessage(sender, recipientID, message, receiverType)){
+                goBack();
+            }
+
         }
         if (recipientIDs.getText().trim() != ""){
             List<String> recipients = new ArrayList<>();
@@ -108,8 +111,7 @@ public class AttendeeMessengerMenuPresenter {
             for (String recipient: arrOfStr){
                 recipients.add(recipient.trim());
             }
-
-            goBack();
         }
+        goBack();
     }
 }
