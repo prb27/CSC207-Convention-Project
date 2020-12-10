@@ -96,6 +96,56 @@ public class UserEventController implements Serializable {
         }
 
     }
+    public String createEventInRoom(String organizerName, String eventName, String startTime, int duration, int eventCapacity, List<String> speakerName, String roomNumber){
+        List<String> allowedTimes = eventManager.getAllowedTimes();
+
+
+        if(organizerManager.isOrganizer(organizerName)){
+
+            if(allowedTimes.contains(startTime)){
+                int index = allowedTimes.indexOf(startTime);
+                if(index + duration <= allowedTimes.size()) {
+                    if (speakerName != null) {
+                        for (String speaker : speakerName) {
+                            for(int i = 0; i < duration; i++) {
+                                if (!speakerManager.isSpeakerFreeAtTime(speaker, allowedTimes.get(index + i))) {
+                                    return "STC";
+                                }
+                            }
+
+                        }
+
+                    }
+
+                }
+
+                int roomCapacity = roomManager.getCapacityOfRoom(roomNumber);
+                if(eventCapacity < roomCapacity) {
+                        // changes from here
+
+                    for (String speaker : speakerName) {
+                        for (int i = 0; i < duration; i++) {
+                            speakerManager.addTalkToListOfTalks(speaker, allowedTimes.get(index + i), eventName);
+                        }
+                    }
+                    roomManager.occupyRoomAt(roomNumber,startTime, duration );
+
+                    return eventManager.addEvent(eventName, startTime, duration, roomNumber, eventCapacity, speakerName);
+                }
+                else{
+                    return "ECF";
+                }
+
+            }
+            else{
+                return "ETC";
+            }
+        }
+        else{
+            return "ODE";
+        }
+
+    }
 
 
     /**
