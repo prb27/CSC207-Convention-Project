@@ -98,6 +98,15 @@ public class AttendeeMessengerMenuPresenter {
 
     }
     private void sendMessage() throws IOException {
+        if (allRecipients.isSelected()){
+            String sender = loginMenuPresenter.getUsername();
+            String message = content.getText();
+            for (String recipient: messengerMenuController.getUsersToMessage(sender)){
+                String recipientType = messengerMenuController.getAccountType(recipient);
+                messengerMenuController.attendeeSendMessage(sender, recipient, message, recipientType);
+            }
+            goBack();
+        }
         if (!recipientIDs.getText().contains(",") && !recipientIDs.getText().trim().equals("")){
             String recipientID = recipientIDs.getText();
             String sender = loginMenuPresenter.getUsername();
@@ -115,15 +124,7 @@ public class AttendeeMessengerMenuPresenter {
                 recipientIDs.setDisable(false);
                 allRecipients.setDisable(false);
             }
-
+            goBack();
         }
-        if (recipientIDs.getText().trim() != ""){
-            List<String> recipients = new ArrayList<>();
-            String[] arrOfStr = recipientIDs.getText().split(",");
-            for (String recipient: arrOfStr){
-                recipients.add(recipient.trim());
-            }
-        }
-        goBack();
     }
 }
