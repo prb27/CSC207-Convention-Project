@@ -246,8 +246,25 @@ public class RoomManager implements Serializable {
         List<String> eligibleRooms = new ArrayList<>();
         for (String roomId : rooms) {
             Room room = getRoom(roomId);
-            if (room != null && room.hasAudioSystem() == hasAudioSystem) {
-                if (room.hasProjector() == hasProjector) {
+            if (!hasAudioSystem && room != null) {
+                if (!hasProjector) {
+                    if (room.getPowerSockets() >= powerSockets && !isRoomOccupiedAtTimeForDuration(roomId, time, duration)) {
+                        eligibleRooms.add(room.getRoomId());
+                    }
+                }
+                else if (room.hasProjector()) {
+                    if (room.getPowerSockets() >= powerSockets && !isRoomOccupiedAtTimeForDuration(roomId, time, duration)) {
+                        eligibleRooms.add(room.getRoomId());
+                    }
+                }
+            }
+            else if (room != null && room.hasAudioSystem() ) {
+                if (!hasProjector) {
+                    if (room.getPowerSockets() >= powerSockets && !isRoomOccupiedAtTimeForDuration(roomId, time, duration)) {
+                        eligibleRooms.add(room.getRoomId());
+                    }
+                }
+                else if (room.hasProjector()) {
                     if (room.getPowerSockets() >= powerSockets && !isRoomOccupiedAtTimeForDuration(roomId, time, duration)) {
                         eligibleRooms.add(room.getRoomId());
                     }
