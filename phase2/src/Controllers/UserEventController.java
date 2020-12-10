@@ -37,65 +37,7 @@ public class UserEventController implements Serializable {
 
     }
 
-    public String createEvent(String organizerName, String eventName, String startTime, int duration, int eventCapacity, List<String> speakerName){
-        List<String> allowedTimes = eventManager.getAllowedTimes();
-
-
-        if(organizerManager.isOrganizer(organizerName)){
-
-            if(allowedTimes.contains(startTime)){
-                int index = allowedTimes.indexOf(startTime);
-                if(index + duration <= allowedTimes.size()) {
-                    if (speakerName != null) {
-                        for (String speaker : speakerName) {
-                            for(int i = 0; i < duration; i++) {
-                                if (!speakerManager.isSpeakerFreeAtTime(speaker, allowedTimes.get(index + i))) {
-                                    return "STC";
-                                }
-                            }
-
-                        }
-
-                    }
-
-                }
-
-                String roomNumber = roomManager.checkRoomFreeAt(startTime, duration);
-
-                if(!roomNumber.equals("-")){
-                    int roomCapacity = roomManager.getCapacityOfRoom(roomNumber);
-                    if(eventCapacity < roomCapacity) {
-                        // changes from here
-
-                        for (String speaker : speakerName) {
-                            for (int i = 0; i < duration; i++) {
-                                speakerManager.addTalkToListOfTalks(speaker, allowedTimes.get(index + i), eventName);
-                            }
-                        }
-                        roomManager.occupyRoomAt(roomNumber,startTime, duration );
-
-                        return eventManager.addEvent(eventName, startTime, duration, roomNumber, eventCapacity, speakerName);
-                    }
-                    else{
-                        return "ECF";
-                    }
-
-                }
-
-                else{
-                    return "ARO";
-                }
-
-            }
-            else{
-                return "ETC";
-            }
-        }
-        else{
-            return "ODE";
-        }
-
-    }
+    
     public String createEventInRoom(String organizerName, String eventName, String startTime, int duration, int eventCapacity, List<String> speakerName, String roomNumber){
         List<String> allowedTimes = eventManager.getAllowedTimes();
 
@@ -217,7 +159,7 @@ public class UserEventController implements Serializable {
             }
             String roomId = eventManager.getRoomNumber(eventName);
             int capacity = roomManager.getCapacityOfRoom(roomId);
-            ArrayList<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
+            List<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
             if (attendeesOfEvent.size() < capacity) {
                 String erMessage = eventManager.reserveAttendee(eventName, username);
                 if (erMessage.equals("YES")) {
@@ -273,7 +215,7 @@ public class UserEventController implements Serializable {
             String roomId = eventManager.getRoomNumber(eventName);
 //            int capacity = roomManager.getCapacityOfRoom(roomId);
             int capacity = eventManager.getEventCapacity(eventName);
-            ArrayList<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
+            List<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
             if (attendeesOfEvent.size() < capacity) {
                 String erMessage = eventManager.reserveAttendee(eventName, username);
                 if (erMessage.equals("YES")) {
@@ -389,7 +331,7 @@ public class UserEventController implements Serializable {
      */
     public Hashtable<String, List<String>> seeAttendableEvents(String attendee) {
         List<String> eventIdsAttending = attendeeManager.getEventsAttending(attendee);
-        ArrayList<String> eventIdsAll = eventManager.getEventNamesList();
+        List<String> eventIdsAll = eventManager.getEventNamesList();
         Hashtable<String, List<String>> eventsAttendable = new Hashtable<>();
         for (String eventId : eventIdsAll) {
             if (!eventIdsAttending.contains(eventId)) {
@@ -463,7 +405,7 @@ public class UserEventController implements Serializable {
      * @author Khoa Pham
      */
     public void deleteEventWithoutAttendee() {
-        ArrayList<String> allEmptyEvents = eventManager.getEmptyEvents();
+        List<String> allEmptyEvents = eventManager.getEmptyEvents();
         for (String event : allEmptyEvents) {
             eventManager.removeEvent(event);
         }
