@@ -92,6 +92,9 @@ public class AttendeeMessengerMenuPresenter {
         allRecipients.setOnAction(event -> {
             recipientIDs.setDisable(allRecipients.isSelected());
         });
+        recipientIDs.setOnAction(event -> {
+            allRecipients.setDisable(recipientIDs.getText().equals(""));
+        });
 
     }
     private void sendMessage() throws IOException {
@@ -99,8 +102,20 @@ public class AttendeeMessengerMenuPresenter {
             String recipientID = recipientIDs.getText();
             String sender = loginMenuPresenter.getUsername();
             String message = content.getText();
-            String recieverAccountType = messengerMenuController.getAccountType(recipientID);
-            messengerMenuController.attendeeSendMessage(loginMenuPresenter.getUsername(), recipientIDs.getText(), content.getText(), messengerMenuController.getAccountType(rec));
+            String receiverType = messengerMenuController.getAccountType(recipientID);
+            if(messengerMenuController.attendeeSendMessage(sender, recipientID, message, receiverType)){
+                goBack();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Something went wrong");
+                alert.setHeaderText("Something went wrong");
+                alert.setContentText("Please look into it");
+                recipientIDs.clear();
+                recipientIDs.setDisable(false);
+                allRecipients.setDisable(false);
+            }
+
         }
         if (recipientIDs.getText().trim() != ""){
             List<String> recipients = new ArrayList<>();
@@ -108,8 +123,7 @@ public class AttendeeMessengerMenuPresenter {
             for (String recipient: arrOfStr){
                 recipients.add(recipient.trim());
             }
-
-            goBack();
         }
+        goBack();
     }
 }
