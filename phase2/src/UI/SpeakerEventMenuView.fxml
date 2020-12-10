@@ -5,12 +5,18 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presenters.SpeakerEventMenuPresenter">
     <children>
-      <TableView fx:id = "EventTable" layoutX="54.0" layoutY="45.0" prefHeight="200.0" prefWidth="200.0">
+        <Label fx:id="welcome" layoutX="274.0" layoutY="49.0" textAlignment="CENTER" />
+        <TableView fx:id="EventTable" layoutX="54.0" layoutY="45.0" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn fx:id = "EventName" prefWidth="75.0" text="Event Name" />
-          <TableColumn fx:id = "EventTime" prefWidth="75.0" text="Event Time" />
+          <TableColumn fx:id="EventName" prefWidth="75.0" text="Event Name" />
+          <TableColumn fx:id="EventTime" prefWidth="75.0" text="Event Time" />
         </columns>
       </TableView>
+      <ListView fx:id="eventlist" layoutX="263.0" layoutY="45.0" prefHeight="200.0" prefWidth="200.0" />
+      <VBox fx:id="layout" layoutX="263.0" layoutY="45.0" prefHeight="200.0" prefWidth="200.0" />
+        <Button fx:id="goBack" layoutX="502.0" layoutY="117.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text = "Back" />
+        <Button fx:id="signOut" layoutX="502.0" layoutY="85.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text = "Sign Out" />
+        
         
     </children>
 
