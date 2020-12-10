@@ -37,7 +37,7 @@ public class UserEventController implements Serializable {
 
     }
 
-    
+
     public String createEventInRoom(String organizerName, String eventName, String startTime, int duration, int eventCapacity, List<String> speakerName, String roomNumber){
         List<String> allowedTimes = eventManager.getAllowedTimes();
 
@@ -366,7 +366,7 @@ public class UserEventController implements Serializable {
      * @param speakerUsername : name of speaker
      * @return : list of talks for the speaker (param_type: ArrayList<HashMap<String, String>>)
      */
-    private HashMap<String, String> seeAllEventsForSpeaker(String speakerUsername){
+    public HashMap<String, String> seeAllEventsForSpeaker(String speakerUsername){
         return speakerManager.getListOfTalks(speakerUsername);
     }
 
