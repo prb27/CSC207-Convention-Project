@@ -31,8 +31,8 @@ public class AttendeeMessengerMenuPresenter {
 
 
 
-    private MessengerMenuController messengerMenuController;
-    private LoginMenuPresenter loginMenuPresenter;
+    private final MessengerMenuController messengerMenuController;
+    private final LoginMenuPresenter loginMenuPresenter;
 
     public AttendeeMessengerMenuPresenter(MessengerMenuController messengerMenuController, LoginMenuPresenter loginMenuPresenter){
         this.messengerMenuController = messengerMenuController;

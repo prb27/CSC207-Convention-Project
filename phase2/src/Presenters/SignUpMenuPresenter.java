@@ -14,9 +14,9 @@ import java.io.IOException;
 
 public class SignUpMenuPresenter implements ISignUpMenu {
 
-    private SignUpMenuController signUpMenuController;
-    private AccountHandler accountHandler;
-    private LoginMenuPresenter loginMenuPresenter;
+    private final SignUpMenuController signUpMenuController;
+    private final AccountHandler accountHandler;
+    private final LoginMenuPresenter loginMenuPresenter;
 
     @FXML
     private TextField createUsername;
