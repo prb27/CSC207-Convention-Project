@@ -1,14 +1,20 @@
 package Presenters;
 
+import Controllers.AttendeeMessagingDashboardMenuController;
+import Controllers.CurrUsernameInfoFileHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class AttendeeMessagingMenuPresenter {
+    @FXML
+    private ListView<HBox> conversations;
     @FXML
     private Label welcome;
     @FXML
@@ -16,19 +22,18 @@ public class AttendeeMessagingMenuPresenter {
     @FXML
     private Button signOut;
 
-    private final LoginMenuPresenter loginMenuPresenter;
-    private final AttendeeMessengerMenuPresenter attendeeMessengerMenuPresenter;
+    private final CurrUsernameInfoFileHandler currUsernameInfoFileHandler;
+    private final AttendeeMessagingDashboardMenuController attendeeMessagingDashboardMenuController;
 
-    public AttendeeMessagingMenuPresenter(LoginMenuPresenter loginMenuPresenter,
-                                          AttendeeMessengerMenuPresenter attendeeMessengerMenuPresenter){
-        this.loginMenuPresenter = loginMenuPresenter;
-        this.attendeeMessengerMenuPresenter = attendeeMessengerMenuPresenter;
-
+    public AttendeeMessagingMenuPresenter(CurrUsernameInfoFileHandler currUsernameInfoFileHandler, AttendeeMessagingDashboardMenuController attendeeMessagingDashboardMenuController){
+        this.currUsernameInfoFileHandler = currUsernameInfoFileHandler;
+        this.attendeeMessagingDashboardMenuController = attendeeMessagingDashboardMenuController;
     }
+
 
     @FXML
     private void initialize(){
-        welcome.setText("Welcome: " + loginMenuPresenter.getUsername() + "!");
+        welcome.setText("Welcome: " + currUsernameInfoFileHandler.getName() + "!");
         messenger.setText("Messenger");
         messenger.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
         messenger.setOnAction(event -> {
@@ -49,7 +54,42 @@ public class AttendeeMessagingMenuPresenter {
                 e.printStackTrace();
             }
         });
+        loadConversations();
 
+    }
+
+    private void loadConversations(){
+        List<String> conversationIDs = attendeeMessagingDashboardMenuController.getConversations(currUsernameInfoFileHandler.getName());
+        Integer i = 0;
+        for (String conversationID: conversationIDs){
+            List<String> recipientsOfConversation = attendeeMessagingDashboardMenuController.getConvoParticipants(conversationID);
+            Label count = new Label();
+            count.setText("Conversation Number " + i.toString() + ";");
+            Label participants = new Label();
+            StringBuilder recipients = new StringBuilder();
+            for (String recipient: recipientsOfConversation){
+                recipients.append(recipient);
+                recipients.append(", ");
+            }
+            participants.setText("Participants" + recipients);
+            Button viewConversation = new Button("View Conversation");
+            viewConversation.setOnAction(event -> {
+                try {
+                    viewConversation();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            HBox hBox = new HBox(count, participants, viewConversation);
+            conversations.getItems().add(hBox);
+        }
+    }
+
+    private void viewConversation() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/ConversationMenuView.fxml"));
+        Stage stage = (Stage) messenger.getScene().getWindow();
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
     }
 
     private void goToMessenger() throws IOException {

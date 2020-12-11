@@ -1,17 +1,13 @@
 package Presenters;
 
+import Controllers.CurrUsernameInfoFileHandler;
 import Controllers.MessengerMenuController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
 public class AttendeeMessengerMenuPresenter {
 
     @FXML
@@ -32,16 +28,16 @@ public class AttendeeMessengerMenuPresenter {
 
 
     private final MessengerMenuController messengerMenuController;
-    private final LoginMenuPresenter loginMenuPresenter;
+    private final CurrUsernameInfoFileHandler currUsernameInfoFileHandler;
 
-    public AttendeeMessengerMenuPresenter(MessengerMenuController messengerMenuController, LoginMenuPresenter loginMenuPresenter){
+    public AttendeeMessengerMenuPresenter(MessengerMenuController messengerMenuController, CurrUsernameInfoFileHandler currUsernameInfoFileHandler){
         this.messengerMenuController = messengerMenuController;
-        this.loginMenuPresenter = loginMenuPresenter;
+        this.currUsernameInfoFileHandler = currUsernameInfoFileHandler;
     }
 
     @FXML
     private void initialize(){
-        welcome.setText("Welcome: " + loginMenuPresenter.getUsername() + "!");
+        welcome.setText("Welcome: " + currUsernameInfoFileHandler.getName() + "!");
         setPrivilegesAttendee();
 
 
@@ -99,7 +95,7 @@ public class AttendeeMessengerMenuPresenter {
     }
     private void sendMessage() throws IOException {
         if (allRecipients.isSelected()){
-            String sender = loginMenuPresenter.getUsername();
+            String sender = currUsernameInfoFileHandler.getName();
             String message = content.getText();
             for (String recipient: messengerMenuController.getUsersToMessage(sender)){
                 String recipientType = messengerMenuController.getAccountType(recipient);
@@ -109,7 +105,7 @@ public class AttendeeMessengerMenuPresenter {
         }
         if (!recipientIDs.getText().contains(",") && !recipientIDs.getText().trim().equals("")){
             String recipientID = recipientIDs.getText();
-            String sender = loginMenuPresenter.getUsername();
+            String sender = currUsernameInfoFileHandler.getName();
             String message = content.getText();
             String receiverType = messengerMenuController.getAccountType(recipientID);
             if(messengerMenuController.attendeeSendMessage(sender, recipientID, message, receiverType)){

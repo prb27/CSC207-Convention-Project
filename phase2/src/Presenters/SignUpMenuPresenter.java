@@ -1,6 +1,7 @@
 package Presenters;
 
 import Controllers.AccountHandler;
+import Controllers.CurrUsernameInfoFileHandler;
 import Controllers.SignUpMenuController;
 import Presenters.Interfaces.ISignUpMenu;
 import javafx.fxml.FXML;
@@ -17,6 +18,7 @@ public class SignUpMenuPresenter implements ISignUpMenu {
     private final SignUpMenuController signUpMenuController;
     private final AccountHandler accountHandler;
     private final LoginMenuPresenter loginMenuPresenter;
+    private final CurrUsernameInfoFileHandler currUsernameInfoFileHandler;
 
     @FXML
     private TextField createUsername;
@@ -33,10 +35,11 @@ public class SignUpMenuPresenter implements ISignUpMenu {
 
 
 
-   public SignUpMenuPresenter(SignUpMenuController signUpMenuController, AccountHandler accountHandler, LoginMenuPresenter loginMenuPresenter){
+   public SignUpMenuPresenter(SignUpMenuController signUpMenuController, AccountHandler accountHandler, LoginMenuPresenter loginMenuPresenter, CurrUsernameInfoFileHandler currUsernameInfoFileHandler){
        this.signUpMenuController = signUpMenuController;
        this.accountHandler = accountHandler;
        this.loginMenuPresenter = loginMenuPresenter;
+       this.currUsernameInfoFileHandler = new CurrUsernameInfoFileHandler();
    }
 
     @FXML

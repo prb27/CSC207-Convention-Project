@@ -6,11 +6,13 @@ import java.io.IOException;
 
 public class LoginMenuController {
 
-    private AccountHandler accountHandler;
+    private final AccountHandler accountHandler;
     private ILoginMenu loginMenu;
+    private CurrUsernameInfoFileHandler currUsernameInfoFileHandler;
 
-    public LoginMenuController(AccountHandler accountHandler){
+    public LoginMenuController(AccountHandler accountHandler, CurrUsernameInfoFileHandler currUsernameInfoFileHandler){
         this.accountHandler = accountHandler;
+        this.currUsernameInfoFileHandler = currUsernameInfoFileHandler;
     }
 
     public void login(String username, String password) throws IOException {
@@ -18,10 +20,13 @@ public class LoginMenuController {
         if(accountType != null){
             switch (accountType){
                 case "attendee":
+                    currUsernameInfoFileHandler.setName(username);
                     loginMenu.showAttendeeMenu(username);
                 case "organizer":
+                    currUsernameInfoFileHandler.setName(username);
                     loginMenu.showOrganizerMenu(username);
                 case "speaker":
+                    currUsernameInfoFileHandler.setName(username);
                     loginMenu.showSpeakerMenu(username);
             }
         } else {
