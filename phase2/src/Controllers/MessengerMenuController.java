@@ -175,7 +175,7 @@ public class MessengerMenuController {
      */
     public String speakerMessageByTalk(String speakerId, String eventName, String content){
         HashMap<String, String> selectedTalk = new HashMap<>();
-        selectedTalk.put(eventManager.getEventTime(eventName), eventName);
+        selectedTalk.put(eventManager.getStartTime(eventName), eventName);
 
         if(speakerManager.isSpeaker(speakerId)){
             if (eventManager.isEvent(eventName)){
@@ -207,7 +207,7 @@ public class MessengerMenuController {
             for (String eventName : eventNames) {
                 if (eventManager.isEvent(eventName)) {
                     HashMap<String, String> selectedTalk = new HashMap<>();
-                    selectedTalk.put(eventManager.getEventTime(eventName), eventName);
+                    selectedTalk.put(eventManager.getStartTime(eventName), eventName);
                     if (speakerManager.getListOfTalks(speakerId).contains(selectedTalk)) {
                         speakerByTalk(speakerId, eventName, content);
                         return "YES";

@@ -1,5 +1,6 @@
 package Presenters;
 
+import Controllers.CurrUsernameInfoFileHandler;
 import Controllers.LoginMenuController;
 import Presenters.Interfaces.ILoginMenu;
 import javafx.fxml.FXML;
@@ -14,7 +15,7 @@ import java.io.IOException;
 public class LoginMenuPresenter implements ILoginMenu {
 
 
-    private LoginMenuController loginMenuController;
+    private final LoginMenuController loginMenuController;
 
     @FXML
     public TextField usernameField;

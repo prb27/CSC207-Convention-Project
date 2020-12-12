@@ -6,13 +6,13 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presenters.AttendeeMessengerMenuPresenter">
    <children>
-      <Label layoutX="194.0" layoutY="14.0" text="Attendee Messenger Menu">
+      <Label layoutX="178.0" layoutY="14.0" text="Attendee Messenger Menu">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
       <Label fx:id="welcome" layoutX="274.0" layoutY="49.0" prefHeight="17.0" prefWidth="141.0" textAlignment="CENTER" />
-      <Label layoutX="14.0" layoutY="119.0" text="SELECT RECIPIENTS:">
+      <Label layoutX="14.0" layoutY="119.0" text="ENTER RECIPIENT:">
          <font>
             <Font size="14.0" />
          </font>
@@ -28,6 +28,5 @@
       <Button fx:id="signOut" layoutX="502.0" layoutY="85.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" />
       <CheckBox fx:id="allRecipients" layoutX="377.0" layoutY="121.0" mnemonicParsing="false" text="ALL RECIPIENTS" />
       <TextField fx:id="recipientIDs" layoutX="150.0" layoutY="117.0" prefHeight="25.0" prefWidth="209.0" />
-      <Label layoutX="14.0" layoutY="89.0" prefHeight="17.0" prefWidth="346.0" text="If more than one recipient, please separate by a comma" />
    </children>
 </AnchorPane>

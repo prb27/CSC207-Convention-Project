@@ -1,6 +1,7 @@
 package Presenters;
 
 
+import Controllers.CurrUsernameInfoFileHandler;
 import Presenters.Interfaces.IAttendeeMenu;
 import Presenters.LoginMenuPresenter;
 import javafx.fxml.FXML;
@@ -28,11 +29,11 @@ public class AttendeeMenuPresenter implements IAttendeeMenu {
     @FXML
     private Label welcome;
 
-    private LoginMenuPresenter loginMenuPresenter;
+    private CurrUsernameInfoFileHandler currUsernameInfoFileHandler;
 
 
-    public AttendeeMenuPresenter(LoginMenuPresenter loginMenuPresenter){
-        this.loginMenuPresenter = loginMenuPresenter;
+    public AttendeeMenuPresenter(CurrUsernameInfoFileHandler currUsernameInfoFileHandler){
+        this.currUsernameInfoFileHandler = currUsernameInfoFileHandler;
     }
 
     @FXML
@@ -67,7 +68,7 @@ public class AttendeeMenuPresenter implements IAttendeeMenu {
             }
         });
 
-        welcome.setText("Welcome!" + loginMenuPresenter.getUsername() + "!");
+        welcome.setText("Welcome!" + currUsernameInfoFileHandler.getName() + "!");
 
     }
 

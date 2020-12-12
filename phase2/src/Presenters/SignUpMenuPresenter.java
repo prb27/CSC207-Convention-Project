@@ -1,14 +1,13 @@
 package Presenters;
 
+import Controllers.AccountHandler;
+import Controllers.CurrUsernameInfoFileHandler;
 import Controllers.SignUpMenuController;
 import Presenters.Interfaces.ISignUpMenu;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,7 +15,10 @@ import java.io.IOException;
 
 public class SignUpMenuPresenter implements ISignUpMenu {
 
-    private SignUpMenuController signUpMenuController;
+    private final SignUpMenuController signUpMenuController;
+    private final AccountHandler accountHandler;
+    private final LoginMenuPresenter loginMenuPresenter;
+    private final CurrUsernameInfoFileHandler currUsernameInfoFileHandler;
 
     @FXML
     private TextField createUsername;
@@ -27,11 +29,17 @@ public class SignUpMenuPresenter implements ISignUpMenu {
     @FXML
     private Button toLoginFromSignUp;
     @FXML
-    private Label signUpWithInvalidUsername;
+    private ComboBox<String> accountType;
+    @FXML
+    private Label accountTypeLabel;
 
 
-   public SignUpMenuPresenter(SignUpMenuController signUpMenuController){
+
+   public SignUpMenuPresenter(SignUpMenuController signUpMenuController, AccountHandler accountHandler, LoginMenuPresenter loginMenuPresenter, CurrUsernameInfoFileHandler currUsernameInfoFileHandler){
        this.signUpMenuController = signUpMenuController;
+       this.accountHandler = accountHandler;
+       this.loginMenuPresenter = loginMenuPresenter;
+       this.currUsernameInfoFileHandler = new CurrUsernameInfoFileHandler();
    }
 
     @FXML
@@ -49,10 +57,11 @@ public class SignUpMenuPresenter implements ISignUpMenu {
             }
         });
         toLoginFromSignUp.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
-        signUpWithInvalidUsername.setVisible(false);
 
         createUsername.setPromptText("Username");
         createPassword.setPromptText("Password");
+        accountType.getItems().addAll("attendee", "organizer", "speaker");
+        privileges();
     }
 
     public void returnToLogin() throws IOException {
@@ -73,12 +82,25 @@ public class SignUpMenuPresenter implements ISignUpMenu {
         }
    }
 
+    private void privileges(){
+       if (accountHandler.getAccountType(loginMenuPresenter.getUsername()).equals("organizer")){
+           accountType.setDisable(false);
+           accountTypeLabel.setDisable(false);
+       }
+       accountType.setDisable(true);
+       accountTypeLabel.setDisable(true);
+    }
+
     @Override
     public void invalidUser() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Something went wrong");
+        alert.setHeaderText("Something went wrong");
+        alert.setContentText("Please look into it");
         createUsername.clear();
         createPassword.clear();
         createUsername.setPromptText("Username");
         createPassword.setPromptText("Password");
-        signUpWithInvalidUsername.setVisible(true);
+
     }
 }
