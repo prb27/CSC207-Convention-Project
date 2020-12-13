@@ -288,26 +288,26 @@ public class MessengerMenuController {
         }
     }
 
-    /**
-     * Returns an List of all the messages in a conversation, formatted for display
-     * @param convoId: the id of the convo
-     * @return the List of formatted strings
-     */
-    public List<String> orderedMessagesInConvo(String convoId){
-        List<String> rawMessages = new ArrayList<>();
-        String current = convoManager.getConvoRoot(convoId);
-        rawMessages.add(current);
-        while(messageManager.getReply(current) != null){
-            current = messageManager.getReply(current);
-            rawMessages.add(current);
-        }
-        List<String> formattedMessages = new ArrayList<>();
-        for(String messageId: rawMessages){
-            String message = messageManager.getSender(messageId) + ": " + messageManager.getContent(messageId) + " (" + messageManager.getTime(messageId) + ")";
-            formattedMessages.add(message);
-        }
-        return formattedMessages;
-    }
+//    /**
+//     * Returns an List of all the messages in a conversation, formatted for display
+//     * @param convoId: the id of the convo
+//     * @return the List of formatted strings
+//     */
+//    public List<String> orderedMessagesInConvo(String convoId){
+//        List<String> rawMessages = new ArrayList<>();
+//        String current = convoManager.getConvoRoot(convoId);
+//        rawMessages.add(current);
+//        while(messageManager.getReply(current) != null){
+//            current = messageManager.getReply(current);
+//            rawMessages.add(current);
+//        }
+//        List<String> formattedMessages = new ArrayList<>();
+//        for(String messageId: rawMessages){
+//            String message = messageManager.getSender(messageId) + ": " + messageManager.getContent(messageId) + " (" + messageManager.getTime(messageId) + ")";
+//            formattedMessages.add(message);
+//        }
+//        return formattedMessages;
+//    }
 
 
 }
