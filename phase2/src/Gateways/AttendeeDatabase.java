@@ -11,14 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class AttendeeDatabase implements IAttendeeDatabase{
-
-    MongoClient mongoClient;
-    MongoDatabase db = mongoClient.getDatabase("conference-database");
-    DBCollection attendeeCollection = (DBCollection) db.getCollection("Attendee");
+public class AttendeeDatabase extends UserDatabase implements IAttendeeDatabase{
 
     public AttendeeDatabase(MongoClient mongoClient){
-        this.mongoClient = mongoClient;
+        super(mongoClient);
     }
 
 
@@ -28,11 +24,10 @@ public class AttendeeDatabase implements IAttendeeDatabase{
         // Now, for our collection, we store documents of data related to the attendee entity. Thus, we must
         // store every document in a data structure. Let's use a list.
 
-        List<Document> ListofAttendees = new ArrayList<>();
-        DBCursor cursor = attendeeCollection.find();
+        //userType
+        DBCursor cursor = userCollection.find();
 
         while(cursor.hasNext()){
-            ListofAttendees.add((Document) cursor.next());
         }
 
 
