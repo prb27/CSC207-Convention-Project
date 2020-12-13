@@ -4,7 +4,7 @@ import org.bson.Document;
 
 import java.util.List;
 
-public interface InterfaceAdminDatabase {
+public interface IOrganizerDatabase {
 
     public List<Document> getAttendeeList();
 
