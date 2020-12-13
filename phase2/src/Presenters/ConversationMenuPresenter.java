@@ -1,5 +1,6 @@
 package Presenters;
 
+import Controllers.ConversationMenuController;
 import Controllers.LoginMenuController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,15 +24,17 @@ public class ConversationMenuPresenter {
     private ListView<HBox> messages;
 
     private final LoginMenuController loginMenuController;
+    private final ConversationMenuController conversationMenuController;
 
-    public ConversationMenuPresenter(LoginMenuController loginMenuController){
+    public ConversationMenuPresenter(LoginMenuController loginMenuController, ConversationMenuController conversationMenuController){
         this.loginMenuController = loginMenuController;
+        this.conversationMenuController = conversationMenuController;
     }
 
     @FXML
     private void initialize(){
         welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
-        description.setText("");
+        description.setText(conversationMenuController.getConversationInformation());
         goBack.setText("Go Back");
         goBack.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
         goBack.setOnAction(event -> {
