@@ -2,6 +2,7 @@ package Presenters.Attendee;
 
 import Controllers.ConversationMenuController;
 import Controllers.LoginMenuController;
+import Presenters.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -28,10 +29,14 @@ public class AttendeeConversationMenuPresenter {
 
     private final LoginMenuController loginMenuController;
     private final ConversationMenuController conversationMenuController;
+    private final SceneHandler sceneHandler;
 
-    public AttendeeConversationMenuPresenter(LoginMenuController loginMenuController, ConversationMenuController conversationMenuController){
+    public AttendeeConversationMenuPresenter(LoginMenuController loginMenuController,
+                                             ConversationMenuController conversationMenuController,
+                                             SceneHandler sceneHandler){
         this.loginMenuController = loginMenuController;
         this.conversationMenuController = conversationMenuController;
+        this.sceneHandler = sceneHandler;
     }
 
     @FXML
@@ -81,6 +86,7 @@ public class AttendeeConversationMenuPresenter {
         }
     }
     private void reply() throws IOException {
+        sceneHandler.storeScene(reply.getScene());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Attendee/AttendeeMessengerMenuView.fxml"));
         Stage stage = (Stage) reply.getScene().getWindow();
         Scene scene = new Scene(loader.load());
