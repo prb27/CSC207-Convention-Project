@@ -25,10 +25,6 @@ public class SpeakerEventMenuPresenter {
     @FXML
     private Label welcome;
     @FXML
-    private TableView<String> table;
-    @FXML
-    private TableColumn<String, String> eventName, eventTime;
-    @FXML
     private VBox layout;
     @FXML
     private ListView<String> eventlist;
@@ -40,6 +36,8 @@ public class SpeakerEventMenuPresenter {
         this.userEventController = userEventController;
         this.loginMenuPresenter = loginMenuPresenter;
     }
+
+    @FXML
     private void initialize() {
         welcome.setText("Welcome: " + loginMenuPresenter.getUsername() + "!");
         seeListofEvents();
@@ -63,6 +61,10 @@ public class SpeakerEventMenuPresenter {
         });
     }
 
+    /**
+     * Allows user to go back to previous meny
+     * @throws IOException
+     */
     private void goBack() throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Speaker/SpeakerMenuView.fxml"));
         Stage stage = (Stage) goBack.getScene().getWindow();
@@ -70,16 +72,22 @@ public class SpeakerEventMenuPresenter {
         stage.setScene(scene);
     }
 
+    /**
+     * Allows user to sign out - redirects user back to login menu
+     * @throws IOException
+     */
     private void signOut() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
     }
+
+    /**
+     * Calls methods in userevencontroller to allow user to see the current list of events
+     */
     private void seeListofEvents(){
         String speakerID = loginMenuPresenter.getUsername();
-        //HashMap<String, String>list = userEventController.seeAllEventsForSpeaker(speakerID);
-
         List<String> events = userEventController.seeListOfEventsForSpeaker(speakerID);
 
         ObservableList<String> eventslist = FXCollections.observableArrayList(events);

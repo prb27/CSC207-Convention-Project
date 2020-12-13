@@ -62,6 +62,9 @@ public class SpeakerMessagingMenuPresenter {
 
     }
 
+    /**
+     * Loads all conversations of the user by interacting with conversationmenucontroller
+     */
     private void loadConversations(){
         List<String> conversationIDs = speakerMessagingDashboardMenuController.getConversations(loginMenuController.getCurrUsername());
         Integer i = 0;
@@ -94,18 +97,32 @@ public class SpeakerMessagingMenuPresenter {
         }
     }
 
+    /**
+     * Redirects user to speakerconversationmenuview which shows all conversations of user
+     * @throws IOException
+     */
     private void viewConversation() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Attendee/AttendeeConversationMenuView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Speaker/SpeakerConversationMenuView.fxml"));
         Stage stage = (Stage) conversations.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
     }
+
+    /**
+     * Redirects user back to messengermenuview
+     * @throws IOException
+     */
     private void goToMessenger() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Speaker/SpeakerMessengerMenuView.fxml"));
         Stage stage = (Stage) messenger.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
     }
+
+    /**
+     * Redirects user to login menu view
+     * @throws IOException
+     */
 
     private void signOut() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));

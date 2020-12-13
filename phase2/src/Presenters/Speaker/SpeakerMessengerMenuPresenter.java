@@ -86,6 +86,10 @@ public class SpeakerMessengerMenuPresenter {
         });
     }
 
+    /**
+     * Redirects user to the previous menu ie.messaging menu view
+     * @throws IOException
+     */
     private void goBack() throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/MessagingMenuView.fxml"));
         Stage stage = (Stage) goBack.getScene().getWindow();
@@ -93,6 +97,10 @@ public class SpeakerMessengerMenuPresenter {
         stage.setScene(scene);
     }
 
+    /**
+     * Redirects user to loginmenuview
+     * @throws IOException
+     */
     private void signOut() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
