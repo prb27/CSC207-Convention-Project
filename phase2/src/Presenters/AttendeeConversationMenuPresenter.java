@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ConversationMenuPresenter {
+public class AttendeeConversationMenuPresenter {
     @FXML
     private Label welcome;
     @FXML
@@ -26,7 +26,7 @@ public class ConversationMenuPresenter {
     private final LoginMenuController loginMenuController;
     private final ConversationMenuController conversationMenuController;
 
-    public ConversationMenuPresenter(LoginMenuController loginMenuController, ConversationMenuController conversationMenuController){
+    public AttendeeConversationMenuPresenter(LoginMenuController loginMenuController, ConversationMenuController conversationMenuController){
         this.loginMenuController = loginMenuController;
         this.conversationMenuController = conversationMenuController;
     }

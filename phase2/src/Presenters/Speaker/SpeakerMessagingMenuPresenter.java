@@ -1,5 +1,7 @@
-package Presenters;
+package Presenters.Speaker;
 
+import Controllers.ConversationMenuController;
+import Controllers.LoginMenuController;
 import Controllers.SpeakerMessagingDashboardMenuController;
 import Scrap.CurrUsernameInfoFileHandler;
 import javafx.fxml.FXML;
@@ -22,18 +24,21 @@ public class SpeakerMessagingMenuPresenter {
     @FXML
     private Button signOut;
 
-    private final CurrUsernameInfoFileHandler currUsernameInfoFileHandler;
+    private final ConversationMenuController conversationMenuController;
     private final SpeakerMessagingDashboardMenuController speakerMessagingDashboardMenuController;
+    private final LoginMenuController loginMenuController;
 
-    public SpeakerMessagingMenuPresenter(CurrUsernameInfoFileHandler currUsernameInfoFileHandler, SpeakerMessagingDashboardMenuController speakerMessagingDashboardMenuController){
-        this.currUsernameInfoFileHandler = currUsernameInfoFileHandler;
+
+    public SpeakerMessagingMenuPresenter(LoginMenuController loginMenuController, SpeakerMessagingDashboardMenuController speakerMessagingDashboardMenuController, ConversationMenuController conversationMenuController){
+        this.loginMenuController = loginMenuController;
+        this.conversationMenuController = conversationMenuController;
         this.speakerMessagingDashboardMenuController = speakerMessagingDashboardMenuController;
     }
 
 
     @FXML
     private void initialize(){
-        welcome.setText("Welcome: " + currUsernameInfoFileHandler.getName() + "!");
+        welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
         messenger.setText("Messenger");
         messenger.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
         messenger.setOnAction(event -> {
@@ -59,7 +64,7 @@ public class SpeakerMessagingMenuPresenter {
     }
 
     private void loadConversations(){
-        List<String> conversationIDs = speakerMessagingDashboardMenuController.getConversations(currUsernameInfoFileHandler.getName());
+        List<String> conversationIDs = speakerMessagingDashboardMenuController.getConversations(loginMenuController.getCurrUsername());
         Integer i = 0;
         for (String conversationID: conversationIDs){
             List<String> recipientsOfConversation = speakerMessagingDashboardMenuController.getConvoParticipants(conversationID);
@@ -76,6 +81,7 @@ public class SpeakerMessagingMenuPresenter {
 
 //            viewConversation.setOnAction(event -> {
 //                try {
+//                    conversationMenuController.setConversationInformation(participants.getText());
 //                    viewConversation();
 //                } catch (IOException e) {
 //                    e.printStackTrace();

@@ -1,4 +1,4 @@
-package Presenters;
+package Presenters.Organizer;
 
 public class OrganizerMessagingMenuPresenter {
 }

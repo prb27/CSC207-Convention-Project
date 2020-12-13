@@ -1,4 +1,4 @@
-package Presenters;
+package Presenters.Speaker;
 
 import Controllers.LoginMenuController;
 import Scrap.CurrUsernameInfoFileHandler;

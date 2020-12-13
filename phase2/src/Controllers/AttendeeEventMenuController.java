@@ -1,6 +1,5 @@
 package Controllers;
 
-import Presenters.AttendeeMenuPresenter;
 import UseCases.AttendeeManager;
 import UseCases.EventManager;
 

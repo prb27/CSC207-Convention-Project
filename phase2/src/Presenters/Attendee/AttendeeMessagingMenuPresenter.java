@@ -1,4 +1,4 @@
-package Presenters;
+package Presenters.Attendee;
 
 import Controllers.AttendeeMessagingDashboardMenuController;
 import Controllers.ConversationMenuController;
@@ -104,7 +104,7 @@ public class AttendeeMessagingMenuPresenter {
     }
 
     private void viewConversation() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/ConversationMenuView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/AttendeeConversationMenuView.fxml"));
         Stage stage = (Stage) conversations.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);

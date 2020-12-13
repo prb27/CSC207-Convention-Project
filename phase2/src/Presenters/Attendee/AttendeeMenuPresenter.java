@@ -1,4 +1,4 @@
-package Presenters;
+package Presenters.Attendee;
 
 
 import Controllers.LoginMenuController;
