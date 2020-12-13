@@ -1,7 +1,8 @@
-package Presenters;
+package Presenters.Speaker;
 
 import Controllers.ConversationMenuController;
 import Controllers.LoginMenuController;
+import Presenters.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -72,6 +73,10 @@ public class SpeakerConversationMenuPresenter {
             }
         });
     }
+
+    /**
+     * Loads the messages onto GUI by calling the methods in conversationMenuController
+     */
     private void loadMessages(){
         String currentConversationID = conversationMenuController.getCurrentConversationID();
         List<String> messages1 = conversationMenuController.orderedMessagesInConvo(currentConversationID);
@@ -81,6 +86,11 @@ public class SpeakerConversationMenuPresenter {
             messages.getItems().add(messageLabel);
         }
     }
+
+    /**
+     * Switches scene to the messengermenuview to allow the user to reply to the given conversation
+     * @throws IOException
+     */
     private void reply() throws IOException {
         sceneHandler.storeScene(reply.getScene());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Speaker/SpeakerMessengerMenuView.fxml"));
@@ -88,12 +98,22 @@ public class SpeakerConversationMenuPresenter {
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
     }
+
+    /**
+     * Allows user to go back to the previous menu
+     * @throws IOException
+     */
     private void goBack() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/SpeakerMessagingMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
     }
+
+    /**
+     * Allows user to sign out and redirect to the login menu
+     * @throws IOException
+     */
     private void signOut() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
