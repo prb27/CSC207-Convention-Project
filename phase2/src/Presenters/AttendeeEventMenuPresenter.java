@@ -32,7 +32,7 @@ public class AttendeeEventMenuPresenter {
 
     private AttendeeEventMenuController attendeeEventMenuController;
 
-    private LoginMenuController loginMenuController;
+    private final LoginMenuController loginMenuController;
 
     public AttendeeEventMenuPresenter(AttendeeEventMenuController attendeeEventMenuController,
                                       LoginMenuController loginMenuController) {
