@@ -6,6 +6,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class contains methods that are specific to actions that an Organizer is allowed to do. The methods in this class
+ * collaborate with UseCase classes.
+ */
 public class OrganizerMenuController implements Serializable {
 
     private AttendeeManager attendeeManager;
@@ -33,6 +37,11 @@ public class OrganizerMenuController implements Serializable {
 
     }
 
+    /**
+     * Returns a List of usernames of all Users in this conference of the user type provided in the parameter.
+     * @param type Type of user (options: "attendee", "organizer", "speaker" and "all") (param_type: String)
+     * @return List<String> of all usernames of the provided type
+     */
     public List<String> listOfUsers(String type){
 
         List<String> users = new ArrayList<>();
@@ -69,16 +78,40 @@ public class OrganizerMenuController implements Serializable {
     //        allowedTimes.add("5");
     //
 
-    public String checkIfSpeakerFreeAt(String speakerName, String time) {
+    /**
+     * Checks if the speaker with <speakerName> is free at <time>
+     * @param speakerName username of the speaker involved (param_type: String)
+     * @param time time at which we want to check availability of the speaker (param_type: String)
+     * @param duration duration for which the speaker is expected to be free (param_type: int)
+     * @return String:
+     * "SDE" - Speaker Doesn't Exist
+     * "NO" - Speaker is not free at the time
+     * "YES" - Speaker is free at that time
+     */
+    public String checkIfSpeakerFreeAtTimeFor(String speakerName, String time, int duration){
 
         if (!speakerManager.isSpeaker(speakerName)) {
             return "SDE"; //Refer to TextUserInterface
         }
-        boolean free = speakerManager.isSpeakerFreeAtTime(speakerName, time);
-        if (free) {
-            return "NO";
-        } else {
+        int k = 0;
+        int availabilityFlag = 0;
+        for(int i = 1; i < 13; i++){
+            if(Integer.toString(i).equals(time)){
+                k = i;
+                break;
+            }
+        }
+        for(int i = 0; i < duration; i++) {
+            if(speakerManager.isSpeakerFreeAtTime(speakerName, Integer.toString(k))){
+                availabilityFlag++;
+            }
+            k++;
+        }
+        if(k==duration){
             return "YES";
+        }
+        else{
+            return "NO";
         }
 
     }
@@ -174,28 +207,49 @@ public class OrganizerMenuController implements Serializable {
     //        String speakerName = scanner.nextLine();
 
 
-    // This requires can be performed by calling three functions from controller classes.
-    //
+    /**
+     * Change speaker for an Event. The Event will be removed and then a new event will be created. This means attendees
+     * should register the event again once this method has been called. (This is to make sure that the attendees
+     * are aware of the speaker change and still choose to attend the event)
+     * @param username username of the organizer through whom this change is happening
+     * @param eventName name of the event
+     * @param speakerNames updated names of the speakers who are are talking at this event
+     * @param roomId room Id of the room at which this event has to happen
+     * @return String
+     * "EDE" - Event Doesn't Exist
+     * "SDE" - Speaker Doesn't Exist
+     * "NO" - A speaker was not free at the event's time
+     *  -- createEventInRoom return Strings --
+     * "ARO" - All Rooms Occupied
+     * "STC" - Entities.Speaker Time Conflict
+     * "TNA" - Time not allowed
+     * "ODE" - Entities.Organizer Doesn't Exist
+     * "ESOT" - Event Scheduling Over Time - the event cannot be scheduled at this time because it would have to
+     *                   run past 5PM.
+     * "YES" - change was successful
+     */
     public String changeSpeakerForEventThroughOrganizer(String username, String eventName, List<String> speakerNames, String roomId){
 
-           if(!eventManager.isEvent(eventName)){
-               return "EDE"; //Refer to TextUserInterface
-           }
-           for(String speakerName: speakerNames) {
-               if (!speakerManager.isSpeaker(speakerName)) {
-                   return "SDE"; //Refer to TextUserInterface
-               }
-           }
-           String eventStartTime = eventManager.getStartTime(eventName);
-           int eventDuration = eventManager.getDuration(eventName);
-           int eventCapacity = eventManager.getEventCapacity(eventName);
-           userEventController.removeCreatedEvent(username, eventName);
-           String err = userEventController.createEventInRoom(username, eventName, eventStartTime, eventDuration, eventCapacity, speakerNames, roomId);
-           if (!err.equals("YES"))
-               return err; //Refer to TextUserInterface
-           else {
-               return "Successful"; //Refer to TextUserInterface
-           }
+        String speakerErr;
+        if(!eventManager.isEvent(eventName)){
+            return "EDE"; //Refer to TextUserInterface
+        }
+        String eventStartTime = eventManager.getStartTime(eventName);
+        int eventDuration = eventManager.getDuration(eventName);
+        int eventCapacity = eventManager.getEventCapacity(eventName);
+        for(String speakerName: speakerNames) {
+            speakerErr = checkIfSpeakerFreeAtTimeFor(speakerName, eventStartTime, eventDuration);
+            if(!speakerErr.equals("YES")){
+                return speakerErr;
+            }
+        }
+        userEventController.removeCreatedEvent(username, eventName);
+        String err = userEventController.createEventInRoom(username, eventName, eventStartTime, eventDuration, eventCapacity, speakerNames, roomId);
+        if (!err.equals("YES"))
+            return err; //Refer to TextUserInterface
+        else {
+            return "YES"; //Refer to TextUserInterface
+        }
 
     }
 
