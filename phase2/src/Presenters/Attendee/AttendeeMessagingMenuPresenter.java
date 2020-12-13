@@ -104,20 +104,20 @@ public class AttendeeMessagingMenuPresenter {
     }
 
     private void viewConversation() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/AttendeeConversationMenuView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Attendee/AttendeeConversationMenuView.fxml"));
         Stage stage = (Stage) conversations.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
     }
 
     private void goToMessenger() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/AttendeeMessengerMenuView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Attendee/AttendeeMessengerMenuView.fxml"));
         Stage stage = (Stage) messenger.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
     }
     private void goBack() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/AttendeeMenuView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Attendee/AttendeeMenuView.fxml"));
         Stage stage = (Stage) goBack.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);

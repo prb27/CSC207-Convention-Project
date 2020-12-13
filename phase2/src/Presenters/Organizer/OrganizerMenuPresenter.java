@@ -4,7 +4,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 // import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -67,20 +66,20 @@ public class OrganizerMenuPresenter {
 
 
     private void goToEvents() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/OrganizerEventMenuView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerEventMenuView.fxml"));
         Stage stage = (Stage) toEventsFromOrganizer.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
     }
     private void goToMessaging() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/OrganizerMessagingMenuView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerMessagingMenuView.fxml"));
         Stage stage = (Stage) toMessagingFromOrganizer.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
     }
 
     private void goToConference() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/OrganizerConferenceMenuView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerConferenceMenuView.fxml"));
         Stage stage = (Stage) toConferenceFromOrganizer.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);

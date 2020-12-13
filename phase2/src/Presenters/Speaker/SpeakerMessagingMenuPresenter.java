@@ -3,7 +3,6 @@ package Presenters.Speaker;
 import Controllers.ConversationMenuController;
 import Controllers.LoginMenuController;
 import Controllers.SpeakerMessagingDashboardMenuController;
-import Scrap.CurrUsernameInfoFileHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -94,7 +93,7 @@ public class SpeakerMessagingMenuPresenter {
 
 
     private void goToMessenger() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/SpeakerMessengerMenuView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Speaker/SpeakerMessengerMenuView.fxml"));
         Stage stage = (Stage) messenger.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
