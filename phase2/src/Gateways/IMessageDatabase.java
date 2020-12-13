@@ -4,7 +4,7 @@ import org.bson.Document;
 
 import java.util.List;
 
-public interface InterfaceMessageDatabase {
+public interface IMessageDatabase {
 
     public List<Document> getAttendeeList();
 

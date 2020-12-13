@@ -1,6 +1,9 @@
 package Gateways;
 
 import Controllers.MasterSystem;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoDatabase;
 
 import java.io.*;
 
@@ -14,6 +17,18 @@ import java.io.*;
  */
 
 public class ProgramGenerator implements Serializable{
+
+    //dbname = conference-database
+    //password = dbAdminPassword
+    MongoClientURI uri = new MongoClientURI(
+            "mongodb+srv://dbAdmin:dbAdminPassword@conference-cluster.ayrxj.mongodb.net/conference-database?retryWrites=true&w=majority");
+
+    MongoClient mongoClient = new MongoClient(uri);
+
+
+
+
+
     /**
      * read the serialized Controllers.MasterSystem file and return the deserialized Controllers.MasterSystem object
      * @author Juan Yi Loke
