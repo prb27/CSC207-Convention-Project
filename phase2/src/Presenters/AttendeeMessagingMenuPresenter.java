@@ -2,6 +2,7 @@ package Presenters;
 
 import Controllers.AttendeeMessagingDashboardMenuController;
 import Controllers.CurrUsernameInfoFileHandler;
+import Controllers.LoginMenuController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,18 +23,18 @@ public class AttendeeMessagingMenuPresenter {
     @FXML
     private Button signOut;
 
-    private final CurrUsernameInfoFileHandler currUsernameInfoFileHandler;
+    private final LoginMenuController loginMenuController;
     private final AttendeeMessagingDashboardMenuController attendeeMessagingDashboardMenuController;
 
-    public AttendeeMessagingMenuPresenter(CurrUsernameInfoFileHandler currUsernameInfoFileHandler, AttendeeMessagingDashboardMenuController attendeeMessagingDashboardMenuController){
-        this.currUsernameInfoFileHandler = currUsernameInfoFileHandler;
+    public AttendeeMessagingMenuPresenter(LoginMenuController loginMenuController, AttendeeMessagingDashboardMenuController attendeeMessagingDashboardMenuController){
+        this.loginMenuController = loginMenuController;
         this.attendeeMessagingDashboardMenuController = attendeeMessagingDashboardMenuController;
     }
 
 
     @FXML
     private void initialize(){
-        welcome.setText("Welcome: " + currUsernameInfoFileHandler.getName() + "!");
+        welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
         messenger.setText("Messenger");
         messenger.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
         messenger.setOnAction(event -> {
@@ -59,12 +60,12 @@ public class AttendeeMessagingMenuPresenter {
     }
 
     private void loadConversations(){
-        List<String> conversationIDs = attendeeMessagingDashboardMenuController.getConversations(currUsernameInfoFileHandler.getName());
-        Integer i = 0;
+        List<String> conversationIDs = attendeeMessagingDashboardMenuController.getConversations(loginMenuController.getCurrUsername());
+        int i = 0;
         for (String conversationID: conversationIDs){
             List<String> recipientsOfConversation = attendeeMessagingDashboardMenuController.getConvoParticipants(conversationID);
             Label count = new Label();
-            count.setText("Conversation Number " + i.toString() + ";");
+            count.setText("Conversation Number " + i + ";");
             Label participants = new Label();
             StringBuilder recipients = new StringBuilder();
             for (String recipient: recipientsOfConversation){
