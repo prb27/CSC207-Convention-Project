@@ -1,7 +1,6 @@
 package UseCases;
 
 import Entities.Attendee;
-import Gateways.IAttendeeDatabase;
 
 import java.io.Serializable;
 import java.util.*;
@@ -21,11 +20,6 @@ import java.util.*;
  */
 public class AttendeeManager implements Serializable {
     private final Hashtable<String, Attendee> attendees = new Hashtable<>();
-    private final IAttendeeDatabase db;
-
-    public AttendeeManager(IAttendeeDatabase db) {
-        this.db = db;
-    }
 
     /**
      * create an Entities.Attendee given a pair of username and password
@@ -261,19 +255,15 @@ public class AttendeeManager implements Serializable {
         return Collections.list(attendees.keys());
     }
 
-
-    public void loadFromDatabase() {
-        Map<String, String> users = db.getAllAttendeesFromDb();
-        for(String username: users.keySet()) {
-            List<String> contacts = db.getContactsFromDb(username);
-            Attendee attendee = new Attendee(username, users.get(username));
-            attendee.setContacts(contacts);
-            List<String> conversations = db.getConversationsFromDb(username);
-            attendee.setConversations(conversations);
-            List<String> eventsAttending = getEventsAttendingFromDb(username);
-            attendee.setEventsAttending(eventsAttending);
-            attendees.put(username, attendee);
-        }
+    /*
+    IAttendeeDatabase attendeeDatabase;
+    public AttendeeManager(IAttendeeDatabase attendeeDatabase) {
+        this.attendeeDatabase = attendeeDatabase;
     }
+    public loadFromDatabase() {
+        List<Document> attendeeListJSON = attendeeDatabase.getAttendeeList();
+        //for each document, create an attendee entity and add it to the attendee list
+    }
+     */
 
 }

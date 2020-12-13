@@ -38,21 +38,39 @@ public class UserEventController implements Serializable {
     }
 
 
+    /**
+     * Allows an organizer to create an event in a particular room. This has to happen once the organizer chooses a room
+     * from a displayed list of eligible rooms for the event.
+     * @param organizerName: name of organizer
+     * @param eventName: name of event
+     * @param startTime: time of event
+     * @param speakerName: name of speaker
+     * "ARO" - All Rooms Occupied
+     * "STC" - Entities.Speaker Time Conflict
+     * "TNA" - Time not allowed
+     * "ODE" - Entities.Organizer Doesn't Exist
+     * "ESOT" - Event Scheduling Over Time - the event cannot be scheduled at this time because it would have to
+     *                   run past 5PM.
+     * @return Strings of the values listed above
+     */
     public String createEventInRoom(String organizerName, String eventName, String startTime, int duration, int eventCapacity, List<String> speakerName, String roomNumber){
         List<String> allowedTimes = eventManager.getAllowedTimes();
 
+        for(String speakerUsername: speakerName){
+            if(!speakerManager.isSpeaker(speakerUsername)){
+                return "SDE";
+            }
+        }
 
         if(organizerManager.isOrganizer(organizerName)){
 
             if(allowedTimes.contains(startTime)){
                 int index = allowedTimes.indexOf(startTime);
                 if(index + duration <= allowedTimes.size()) {
-                    if (speakerName != null) {
-                        for (String speaker : speakerName) {
-                            for(int i = 0; i < duration; i++) {
-                                if (!speakerManager.isSpeakerFreeAtTime(speaker, allowedTimes.get(index + i))) {
-                                    return "STC";
-                                }
+                    for (String speaker : speakerName) {
+                        for(int i = 0; i < duration; i++) {
+                            if (!speakerManager.isSpeakerFreeAtTime(speaker, allowedTimes.get(index + i))) {
+                                return "STC";
                             }
 
                         }
@@ -60,9 +78,12 @@ public class UserEventController implements Serializable {
                     }
 
                 }
+                else{
+                    return "ESOT";
+                }
 
                 int roomCapacity = roomManager.getCapacityOfRoom(roomNumber);
-                if(eventCapacity < roomCapacity) {
+                if(eventCapacity <= roomCapacity) {
                         // changes from here
 
                     for (String speaker : speakerName) {
@@ -70,7 +91,7 @@ public class UserEventController implements Serializable {
                             speakerManager.addTalkToListOfTalks(speaker, allowedTimes.get(index + i), eventName);
                         }
                     }
-                    roomManager.occupyRoomAt(roomNumber,startTime, duration );
+                    roomManager.occupyRoomAt(roomNumber,startTime, duration);
 
                     return eventManager.addEvent(eventName, startTime, duration, roomNumber, eventCapacity, speakerName);
                 }
@@ -92,7 +113,7 @@ public class UserEventController implements Serializable {
 
     /**
      * Allows an organizer to remove a created event, also removes it from the list of talks of the speaker, and list
-     * of attending events for Organizers and Attendees
+     * of attending events for Organizers and Attendees. It also relieves the room at the event's time.
      * @param organizerName: name of organizer
      * @param eventName: name of event
      * "EDE" - Entities.Event Doesn't Exist
@@ -278,20 +299,6 @@ public class UserEventController implements Serializable {
         }
 
     }
-
-    /**
-     * Allows an organizer to create an event, by adding it to the list of events, as well as the list of speaker talks
-     * @param organizerName: name of organizer
-     * @param eventName: name of event
-     * @param startTime: time of event
-     * @param speakerName: name of speaker
-     * "ARO" - All Rooms Occupied
-     * "STC" - Entities.Speaker Time Conflict
-     * "TNA" - Time not allowed
-     * "ODE" - Entities.Organizer Doesn't Exist
-     * @return Strings of the values listed above
-     */
-
 
     /**
      * return the list of all events
