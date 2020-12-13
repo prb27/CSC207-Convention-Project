@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * This class contains methods that are specific to actions that an Organizer is allowed to do. The methods in this class
  * collaborate with UseCase classes.
+ * @author Ashwin
  */
 public class OrganizerMenuController implements Serializable {
 
@@ -259,34 +260,50 @@ public class OrganizerMenuController implements Serializable {
     //        ui.present("Please enter a new start time for the event");
     //        String eventTime = scanner.nextLine();
 
+    /**
+     *
+     * @param username
+     * @param eventName
+     * @param eventTime
+     * @param roomId
+     * @return
+     */
+    public String changeEventStartTime(String username, String eventName, String eventTime, String roomId){
 
-    public String changeEventTime(String username, String eventName, String eventTime, String roomId){
-
-           if(eventManager.isEvent(eventName)) {
-               List<String> speakerNames = eventManager.getSpeakerEvent(eventName);
-               int eventDuration = eventManager.getDuration(eventName);
-               int eventCapacity = eventManager.getEventCapacity(eventName);
-               userEventController.removeCreatedEvent(username, eventName);
-               for (String speakerName : speakerNames) {
-                   if (!speakerManager.isSpeaker(speakerName)) {
-                       return "SDE";
-                   }
-               }
-               String err = userEventController.createEventInRoom(username, eventName, eventTime, eventDuration, eventCapacity, speakerNames, roomId);
-               if (err.equals("YES")) {
-                   return "Successful";
-               }
-               else {
-                   return err;
-              }
-           }
-           else{
-               return "EDE";
-           }
+        String speakerErr;
+        if(eventManager.isEvent(eventName)) {
+            List<String> speakerNames = eventManager.getSpeakerEvent(eventName);
+            int eventDuration = eventManager.getDuration(eventName);
+            int eventCapacity = eventManager.getEventCapacity(eventName);
+            userEventController.removeCreatedEvent(username, eventName);
+            for (String speakerName : speakerNames) {
+                speakerErr = checkIfSpeakerFreeAtTimeFor(speakerName, eventTime, eventDuration);
+                if(!speakerErr.equals("YES")){
+                    return speakerErr;
+                }
+            }
+            String err = userEventController.createEventInRoom(username, eventName, eventTime, eventDuration, eventCapacity, speakerNames, roomId);
+            if (err.equals("YES")) {
+                return "YES";
+            }
+            else {
+                return err;
+            }
+        }
+        else{
+            return "EDE";
+        }
 
     }
 
+
     // case 11
+
+    /**
+     *
+     * @param username
+     * @return
+     */
     public List<String> organizerEventsNotAttending(String username){
 
         List<String> printableEventsInfo = new ArrayList<>();
@@ -323,7 +340,11 @@ public class OrganizerMenuController implements Serializable {
     //                }
     // Can be done by the GUI
 
-
+    /**
+     *
+     * @param username
+     * @return
+     */
     public List<String> organizerEventsAttending(String username){
 
         List<String> printableEventsInfo = new ArrayList<>();
@@ -385,6 +406,14 @@ public class OrganizerMenuController implements Serializable {
     //        String eventName = scanner.nextLine();
     //        ui.present("Please enter the message that you want to send");
     //        String message = scanner.nextLine();
+
+    /**
+     *
+     * @param username
+     * @param eventName
+     * @param message
+     * @return
+     */
     public String organizerSendMessageByEvent(String username, String eventName, String message){
 
         if(!eventManager.isEvent(eventName)){
