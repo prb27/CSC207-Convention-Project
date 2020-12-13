@@ -2,6 +2,7 @@ package UseCases;
 
 import Entities.Attendee;
 import Gateways.InterfaceAttendeeDatabase;
+import org.bson.Document;
 
 import java.io.Serializable;
 import java.util.*;
@@ -257,21 +258,26 @@ public class AttendeeManager implements Serializable {
     }
 
 
-//    /**
-//     * load the relevant data from the database and store the relevant data inside relevant entities which are then
-//     * stored inside a list
-//     *
-//     */
-//
-//    InterfaceAttendeeDatabase attendeeDatabase;
-//    public AttendeeManager(InterfaceAttendeeDatabase attendeeDatabase){
-//        this.attendeeDatabase = attendeeDatabase;
-//    }
-//
-//    public void loadFromDatabase() {
-//        List<Document> attendeeListJSON = attendeeDatabase.getAttendeeList();
-//        //for each document, create an attendee entity and add it to the attendee list
-//    }
+    /**
+     * load the relevant data from the database and store the relevant data inside relevant entities which are then
+     * stored inside a list
+     *
+     */
 
+    InterfaceAttendeeDatabase attendeeDatabase;
+    public AttendeeManager(InterfaceAttendeeDatabase attendeeDatabase){
+            this.attendeeDatabase = attendeeDatabase;
+    }
+
+    public void loadFromDatabase() {
+
+        List<Document> attendeeList = attendeeDatabase.getAttendeeList();
+
+        for(Document attendee: attendeeList){
+            String username = attendee.get(String "username");
+            String password = attendee.get(String "password");
+            attendees.put(username, new Attendee(username, password);
+        }
+    }
 
 }
