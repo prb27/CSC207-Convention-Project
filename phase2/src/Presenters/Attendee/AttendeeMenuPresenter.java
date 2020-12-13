@@ -72,7 +72,7 @@ public class AttendeeMenuPresenter implements IAttendeeMenu {
     }
 
     private void goToEvents() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/AttendeeEventMenuView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Attendee/AttendeeEventMenuView.fxml"));
         Stage stage = (Stage) toEventsFromAttendee.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);

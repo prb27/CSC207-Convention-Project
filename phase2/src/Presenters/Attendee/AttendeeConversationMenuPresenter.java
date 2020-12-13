@@ -1,4 +1,4 @@
-package Presenters;
+package Presenters.Attendee;
 
 import Controllers.ConversationMenuController;
 import Controllers.LoginMenuController;
@@ -63,7 +63,7 @@ public class AttendeeConversationMenuPresenter {
     }
 
     private void goBack() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/AttendeeMessagingMenuView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Attendee/AttendeeMessagingMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);

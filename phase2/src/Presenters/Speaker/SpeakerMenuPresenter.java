@@ -62,7 +62,7 @@ public class SpeakerMenuPresenter implements ISpeakerMenu {
     }
 
     private void goToEvents() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/SpeakerEventMenuView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Speaker/SpeakerEventMenuView.fxml"));
         Stage stage = (Stage) toEventsFromSpeaker.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
