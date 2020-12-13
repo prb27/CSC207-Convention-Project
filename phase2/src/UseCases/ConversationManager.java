@@ -2,6 +2,8 @@ package UseCases;
 
 import Entities.Conversation;
 import Entities.Message;
+import Gateways.InterfaceConversationDatabase;
+import org.bson.Document;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ import java.util.List;
  * @author Peter Bilski
  * @see Conversation
  */
-public class ConversationManager implements Serializable {
+public class ConversationManager<InterfaceConversationDatabaseDatabase> implements Serializable {
     private List<Conversation> allConversations = new ArrayList<>();
 
     /**
@@ -112,4 +114,29 @@ public class ConversationManager implements Serializable {
     public boolean isConversation(String convoId){
         return getConversation(convoId) != null;
     }
+
+
+    /**
+     * load the relevant data from the database and store the relevant data inside relevant entities which are then
+     * stored inside a data structure
+     *
+     */
+
+    InterfaceConversationDatabase conversationDatabase;
+    public ConversationManager(InterfaceConversationDatabase conversationDatabase){
+        this.conversationDatabase = conversationDatabase;
+    }
+
+
+    public void loadFromDatabase() {
+
+        List<Document> conversationList = conversationDatabase.getConversationList();
+
+        for(Document conversation: conversationList){
+
+
+
+        }
+    }
+
 }
