@@ -90,9 +90,10 @@ public class AttendeeMessagingMenuPresenter {
             }
             participants.setText("Participants" + recipients);
             Button viewConversation = new Button("View Conversation");
+            Integer finalI = i;
             viewConversation.setOnAction(event -> {
                 try {
-                    conversationMenuController.setCurrentConversationID(i.toString());
+                    conversationMenuController.setCurrentConversationID(finalI.toString());
                     conversationMenuController.setConversationInformation(participants.getText());
                     viewConversation();
                 } catch (IOException e) {
@@ -102,6 +103,7 @@ public class AttendeeMessagingMenuPresenter {
             HBox hBox = new HBox(count, participants, viewConversation);
             hBox.setSpacing(10);
             conversations.getItems().add(hBox);
+            i+=1;
         }
     }
 
