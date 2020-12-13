@@ -20,5 +20,7 @@
         </Label>
         <ListView fx:id="messages" layoutX="14.0" layoutY="119.0" prefHeight="265.0" prefWidth="557.0" />
         <Label fx:id="description" layoutX="14.0" layoutY="83.0" prefHeight="25.0" prefWidth="557.0" text="Conversation:" />
+        <Button fx:id="reply" layoutX="519.0" layoutY="345.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="77.0" text = "Reply" />
+
     </children>
 </AnchorPane>
