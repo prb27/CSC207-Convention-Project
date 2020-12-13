@@ -50,6 +50,7 @@ public class AttendeeMessengerMenuPresenter {
     @FXML
     private void initialize(){
         welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
+        convoRecipients.setText("");
         convoRecipients.setVisible(false);
         try {
             setPrivilegesAttendee();
@@ -124,6 +125,9 @@ public class AttendeeMessengerMenuPresenter {
 
     }
     private void sendMessage() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Attendee/AttendeeConversationMenuView.fxml"));
+        Scene scene = new Scene(loader.load());
+
         if (allRecipients.isSelected()){
             String sender = loginMenuController.getCurrUsername();
             String message = content.getText();
@@ -151,6 +155,10 @@ public class AttendeeMessengerMenuPresenter {
                 allRecipients.setDisable(false);
             }
             goBack();
+        }
+        if (convoRecipients.isVisible()){
+            conversationMenuController.reply(loginMenuController.getCurrUsername(),
+                    conversationMenuController.getCurrentConversationID(), content.getText());
         }
     }
 }

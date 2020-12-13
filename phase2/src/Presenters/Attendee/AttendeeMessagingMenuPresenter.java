@@ -81,7 +81,7 @@ public class AttendeeMessagingMenuPresenter {
         for (String conversationID: conversationIDs){
             List<String> recipientsOfConversation = attendeeMessagingDashboardMenuController.getConvoParticipants(conversationID);
             Label count = new Label();
-            count.setText("Conversation Number " + i + ";");
+            count.setText("Conversation ID " + conversationID + ";");
             Label participants = new Label();
             StringBuilder recipients = new StringBuilder();
             for (String recipient: recipientsOfConversation){
@@ -93,7 +93,7 @@ public class AttendeeMessagingMenuPresenter {
             Integer finalI = i;
             viewConversation.setOnAction(event -> {
                 try {
-                    conversationMenuController.setCurrentConversationID(finalI.toString());
+                    conversationMenuController.setCurrentConversationID(conversationID);
                     conversationMenuController.setConversationInformation(participants.getText());
                     viewConversation();
                 } catch (IOException e) {

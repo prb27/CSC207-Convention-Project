@@ -8,7 +8,6 @@ public class SceneHandler {
     public SceneHandler(){
 
     }
-
     public Scene getScene(){
         return currentScene;
     }
