@@ -240,6 +240,15 @@ public class RoomManager implements Serializable {
         }
     }
 
+    /**
+     * Returns the List of all room Ids that satisfy the requirements for an event as provided by the parameters.
+     * @param hasAudioSystem  Does the ideal room for this event have an Audio System (param_type: boolean)
+     * @param hasProjector Does the ideal room for this event have a projector (param_type: boolean)
+     * @param powerSockets How many power sockets does this event require (param_type: int)
+     * @param time The start time of this event (param_type: String)
+     * @param duration The duration of this event in hours (param_type: int)
+     * @return List<String> of room IDs that satisfy the requirements
+     */
     public List<String> roomsWithRequirements(boolean hasAudioSystem, boolean hasProjector, int powerSockets, String time, int duration) {
 
         List<String> rooms = getAllRoomIds();
@@ -275,6 +284,10 @@ public class RoomManager implements Serializable {
 
     }
 
+    /**
+     * Get all Ids of Rooms that are stored in this manager.
+     * @return List<String> of room Ids.
+     */
     private List<String> getAllRoomIds(){
 
         List<String> roomIds = new ArrayList<>();
