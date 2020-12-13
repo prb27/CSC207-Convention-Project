@@ -1,5 +1,6 @@
 package Presenters;
 
+import Controllers.LoginMenuController;
 import Scrap.CurrUsernameInfoFileHandler;
 import Controllers.MessengerMenuController;
 import javafx.fxml.FXML;
@@ -34,16 +35,16 @@ public class SpeakerMessengerMenuPresenter {
 
 
     private MessengerMenuController messengerMenuController;
-    private  CurrUsernameInfoFileHandler currUsernameInfoFileHandler;
+    private final LoginMenuController loginMenuController;
 
-    public SpeakerMessengerMenuPresenter(MessengerMenuController messengerMenuController, CurrUsernameInfoFileHandler currUsernameInfoFileHandler){
+    public SpeakerMessengerMenuPresenter(MessengerMenuController messengerMenuController, LoginMenuController loginMenuController){
         this.messengerMenuController = messengerMenuController;
-        this.currUsernameInfoFileHandler = currUsernameInfoFileHandler;
+        this.loginMenuController = loginMenuController;
     }
 
     @FXML
     private void initialize(){
-        welcome.setText("Welcome: " + currUsernameInfoFileHandler.getName() + "!");
+        welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
 
 
         goBack.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
@@ -106,7 +107,7 @@ public class SpeakerMessengerMenuPresenter {
             String recipientID = recipientIDs.getText();
             String eventName = eventIDs.getText();
             eventNames.add(eventName);
-            String speakerID = currUsernameInfoFileHandler.getName();
+            String speakerID = loginMenuController.getCurrUsername();
             String message = content.getText();
             messengerMenuController.speakerMessageAttendee(speakerID, eventNames, recipientID, message);
 
@@ -130,7 +131,7 @@ public class SpeakerMessengerMenuPresenter {
 
         if (allRecipients.isSelected() && !eventIDs.getText().trim().equals("")){
             String eventName = eventIDs.getText();
-            String speakerID = currUsernameInfoFileHandler.getName();
+            String speakerID = loginMenuController.getCurrUsername();
             String message = content.getText();
             String validator = messengerMenuController.speakerMessageByTalk(speakerID, eventName, message);
             if(ErrorChecker(validator)){
@@ -146,7 +147,7 @@ public class SpeakerMessengerMenuPresenter {
 
         if (allRecipients.isSelected() && !eventIDs.getText().trim().equals("")){
             String eventName = eventIDs.getText();
-            String speakerID = currUsernameInfoFileHandler.getName();
+            String speakerID = loginMenuController.getCurrUsername();
             String message = content.getText();
             String validator = messengerMenuController.speakerMessageByTalk(speakerID, eventName, message);
             if(ErrorChecker(validator)){
