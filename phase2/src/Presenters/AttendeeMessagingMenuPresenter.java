@@ -1,6 +1,7 @@
 package Presenters;
 
 import Controllers.AttendeeMessagingDashboardMenuController;
+import Controllers.ConversationMenuController;
 import Controllers.LoginMenuController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,10 +27,14 @@ public class AttendeeMessagingMenuPresenter {
 
     private final LoginMenuController loginMenuController;
     private final AttendeeMessagingDashboardMenuController attendeeMessagingDashboardMenuController;
+    private final ConversationMenuController conversationMenuController;
 
-    public AttendeeMessagingMenuPresenter(LoginMenuController loginMenuController, AttendeeMessagingDashboardMenuController attendeeMessagingDashboardMenuController){
+    public AttendeeMessagingMenuPresenter(LoginMenuController loginMenuController,
+                                          AttendeeMessagingDashboardMenuController attendeeMessagingDashboardMenuController,
+                                          ConversationMenuController conversationMenuController){
         this.loginMenuController = loginMenuController;
         this.attendeeMessagingDashboardMenuController = attendeeMessagingDashboardMenuController;
+        this.conversationMenuController = conversationMenuController;
     }
 
 
@@ -87,6 +92,7 @@ public class AttendeeMessagingMenuPresenter {
             Button viewConversation = new Button("View Conversation");
             viewConversation.setOnAction(event -> {
                 try {
+                    conversationMenuController.setConversationInformation(participants.getText());
                     viewConversation();
                 } catch (IOException e) {
                     e.printStackTrace();
