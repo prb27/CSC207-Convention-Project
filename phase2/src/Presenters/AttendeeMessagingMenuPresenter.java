@@ -1,7 +1,6 @@
 package Presenters;
 
 import Controllers.AttendeeMessagingDashboardMenuController;
-import Controllers.CurrUsernameInfoFileHandler;
 import Controllers.LoginMenuController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +21,8 @@ public class AttendeeMessagingMenuPresenter {
     private Button messenger;
     @FXML
     private Button signOut;
+    @FXML
+    private Button goBack;
 
     private final LoginMenuController loginMenuController;
     private final AttendeeMessagingDashboardMenuController attendeeMessagingDashboardMenuController;
@@ -55,7 +56,17 @@ public class AttendeeMessagingMenuPresenter {
                 e.printStackTrace();
             }
         });
+        goBack.setText("Go Back");
+        goBack.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
         loadConversations();
+        goBack.setOnAction(event -> {
+            try {
+                goBack();
+            }
+            catch (IOException e){
+                e.printStackTrace();
+            }
+        });
 
     }
 
@@ -88,7 +99,7 @@ public class AttendeeMessagingMenuPresenter {
 
     private void viewConversation() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/ConversationMenuView.fxml"));
-        Stage stage = (Stage) messenger.getScene().getWindow();
+        Stage stage = (Stage) conversations.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
     }
@@ -96,6 +107,12 @@ public class AttendeeMessagingMenuPresenter {
     private void goToMessenger() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/AttendeeMessengerMenuView.fxml"));
         Stage stage = (Stage) messenger.getScene().getWindow();
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
+    }
+    private void goBack() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/AttendeeMenuView.fxml"));
+        Stage stage = (Stage) goBack.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
     }

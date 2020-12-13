@@ -1,7 +1,7 @@
 package Presenters;
 
 import Controllers.SpeakerMessagingDashboardMenuController;
-import Controllers.CurrUsernameInfoFileHandler;
+import Scrap.CurrUsernameInfoFileHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

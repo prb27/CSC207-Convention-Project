@@ -1,6 +1,7 @@
 package Controllers;
 
 import Gateways.ProgramGenerator;
+import Scrap.CurrUsernameInfoFileHandler;
 import UI.TextUserInterface;
 import UseCases.*;
 
@@ -40,7 +41,7 @@ public class MasterSystem implements Serializable {
     private final UserEventController userEventController;
 
     private final ProgramGenerator programGenerator;
-    private final CurrUsernameInfoFileHandler currUsernameInfoFileHandler;
+
 
     /**
      * Constructor method to initialize a new Controllers.MasterSystem instance in case
@@ -60,7 +61,7 @@ public class MasterSystem implements Serializable {
         this.conversationManager = new ConversationManager();
         this.messageManager = new MessageManager();
         this.accountHandler = new AccountHandler(attendeeManager, organizerManager, speakerManager, adminManager);
-        this.currUsernameInfoFileHandler = new CurrUsernameInfoFileHandler();
+
 
         this.loginMenuController = new LoginMenuController(accountHandler);
         this.signUpMenuController = new SignUpMenuController(accountHandler);

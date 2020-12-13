@@ -1,6 +1,5 @@
 package Presenters;
 
-import Controllers.CurrUsernameInfoFileHandler;
 import Controllers.LoginMenuController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +9,6 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.List;
 
 public class ConversationMenuPresenter {
     @FXML

@@ -1,19 +1,17 @@
 package Presenters;
 
-import Controllers.CurrUsernameInfoFileHandler;
+import Scrap.CurrUsernameInfoFileHandler;
 import Controllers.MessengerMenuController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
+
 public class SpeakerMessengerMenuPresenter {
 
     @FXML

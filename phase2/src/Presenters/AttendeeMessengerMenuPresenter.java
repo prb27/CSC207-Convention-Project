@@ -1,6 +1,5 @@
 package Presenters;
 
-import Controllers.CurrUsernameInfoFileHandler;
 import Controllers.LoginMenuController;
 import Controllers.MessengerMenuController;
 import javafx.fxml.FXML;
