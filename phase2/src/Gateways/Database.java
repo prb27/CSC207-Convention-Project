@@ -3,12 +3,11 @@ package Gateways;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.MongoClient;
-import com.mongodb.MongoCredential;
 import org.bson.Document;
 
 import java.util.List;
 
-public class Database implements IAttendeeDatabase {
+public class Database implements InterfaceAttendeeDatabase {
 
     //dbname = conference-database
     //password = dbAdminPassword
@@ -21,6 +20,9 @@ public class Database implements IAttendeeDatabase {
 
     @Override
     public List<Document> getAttendeeList() {
+
+
         return null;
     }
+
 }
