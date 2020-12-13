@@ -419,4 +419,58 @@ public class UserEventController implements Serializable {
     }
 
 
+    public List<String> eventsWithSpeaker(String speakerName){
+
+        List<String> eventsWithThisSpeaker = new ArrayList<>();
+        for(String event: eventManager.getAllEventTitles()){
+            if(eventManager.getSpeakerEvent(event).contains(speakerName)){
+                eventsWithThisSpeaker.add("Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "(" + eventManager.getDuration(event) + " hours)" + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
+            }
+        }
+        return eventsWithThisSpeaker;
+
+    }
+
+
+    public List<String> eventsAtStartTime(String startTime){
+
+        List<String> eventsAtThisStartTime = new ArrayList<>();
+        for(String event: eventManager.getAllEventTitles()){
+            if(eventManager.getStartTime(event).equals(startTime)){
+                eventsAtThisStartTime.add("Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "(" + eventManager.getDuration(event) + " hours)" + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
+            }
+        }
+        return eventsAtThisStartTime;
+
+    }
+
+
+    public List<String> eventsForThisDuration(int duration){
+
+        List<String> eventsForThisDuration = new ArrayList<>();
+        for(String event: eventManager.getAllEventTitles()){
+            if(eventManager.getDuration(event) == duration){
+                eventsForThisDuration.add("Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "(" + eventManager.getDuration(event) + " hours)" + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
+            }
+        }
+        return eventsForThisDuration;
+
+    }
+
+
+    public List<String> eventsWithTheseSpecifications(String speakerName, String time, int duration){
+
+        List<String> requiredEvents = new ArrayList<>();
+        List<String> eventsForThisDuration = eventsForThisDuration(duration);
+        List<String> eventsAtThisStartTime = eventsAtStartTime(time);
+        List<String> eventsWithThisSpeaker = eventsWithSpeaker(speakerName);
+        for(String event: eventsAtThisStartTime){
+            if(eventsWithThisSpeaker.contains(event) && eventsForThisDuration.contains(event)){
+                requiredEvents.add(event);
+            }
+        }
+        return requiredEvents;
+
+    }
+
 }
