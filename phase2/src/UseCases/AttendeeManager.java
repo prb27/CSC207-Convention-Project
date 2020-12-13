@@ -260,7 +260,7 @@ public class AttendeeManager implements Serializable {
 
     /**
      * load the relevant data from the database and store the relevant data inside relevant entities which are then
-     * stored inside a list
+     * stored inside a data structure
      *
      */
 
@@ -274,9 +274,9 @@ public class AttendeeManager implements Serializable {
         List<Document> attendeeList = attendeeDatabase.getAttendeeList();
 
         for(Document attendee: attendeeList){
-            String username = attendee.get(String "username");
-            String password = attendee.get(String "password");
-            attendees.put(username, new Attendee(username, password);
+            String username = (String) attendee.get("username");
+            String password = (String) attendee.get("password");
+            attendees.put(username, new Attendee(username, password));
         }
     }
 
