@@ -176,58 +176,66 @@ public class OrganizerMenuController implements Serializable {
     //        ui.present("Please enter new speaker's username"); You should allow multiple speaker names to be entered
     //        String speakerName = scanner.nextLine();
 
-    public String removeEventThroughOrganizer(String username, String eventName, List<String> speakerNames){
 
-        if(!eventManager.isEvent(eventName)){
-            return "EDE"; //Refer to TextUserInterface
-        }
-        for(String speakerName: speakerNames) {
-            if (!speakerManager.isSpeaker(speakerName)) {
-                return "SDE"; //Refer to TextUserInterface
-            }
-        }
-        String eventStartTime = eventManager.getStartTime(eventName);
-        int eventDuration = eventManager.getDuration(eventName);
-        int eventCapacity = eventManager.getEventCapacity(eventName);
-        userEventController.removeCreatedEvent(username, eventName);
-        String err = userEventController.createEvent(username, eventName, eventStartTime, eventDuration, eventCapacity, speakerNames);
-        if (!err.equals("YES"))
-            return err; //Refer to TextUserInterface
-        else {
-            return "Successful"; //Refer to TextUserInterface
-        }
-
-    }
+    // This requires can be performed by calling three functions from controller classes.
+    //
+    // public String changeSpeakerForEventThroughOrganizer(String username, String eventName, List<String> speakerNames){
+    //
+    //        if(!eventManager.isEvent(eventName)){
+    //            return "EDE"; //Refer to TextUserInterface
+    //        }
+    //        for(String speakerName: speakerNames) {
+    //            if (!speakerManager.isSpeaker(speakerName)) {
+    //                return "SDE"; //Refer to TextUserInterface
+    //            }
+    //        }
+    //        String eventStartTime = eventManager.getStartTime(eventName);
+    //        int eventDuration = eventManager.getDuration(eventName);
+    //        int eventCapacity = eventManager.getEventCapacity(eventName);
+    //        userEventController.removeCreatedEvent(username, eventName);
+    //        String err = userEventController.createEventInRoom(username, eventName, eventStartTime, eventDuration, eventCapacity, speakerNames);
+    //        if (!err.equals("YES"))
+    //            return err; //Refer to TextUserInterface
+    //        else {
+    //            return "Successful"; //Refer to TextUserInterface
+    //        }
+    //
+    //    }
 
     // case 10
     //ui.present("Please enter the event name");
     //        String eventName = scanner.nextLine();
     //        ui.present("Please enter a new start time for the event");
     //        String eventTime = scanner.nextLine();
-    public String changeEventTime(String username, String eventName, String eventTime){
 
-        if(eventManager.isEvent(eventName)) {
-            List<String> speakerNames = eventManager.getSpeakerEvent(eventName);
-            int eventDuration = eventManager.getDuration(eventName);
-            int eventCapacity = eventManager.getEventCapacity(eventName);
-            userEventController.removeCreatedEvent(username, eventName);
-            for (String speakerName : speakerNames) {
-                if (!speakerManager.isSpeaker(speakerName)) {
-                    return "SDE";
-                }
-            }
-            String err = userEventController.createEvent(username, eventName, eventTime, eventDuration, eventCapacity, speakerNames);
-            if (err.equals("YES")) {
-                return "Successful";
-            } else {
-                return err;
-            }
-        }
-        else{
-            return "EDE";
-        }
 
-    }
+    // The implementation of this functionality would change
+    //
+    // public String changeEventTime(String username, String eventName, String eventTime){
+    //
+    //        if(eventManager.isEvent(eventName)) {
+    //            List<String> speakerNames = eventManager.getSpeakerEvent(eventName);
+    //            int eventDuration = eventManager.getDuration(eventName);
+    //            int eventCapacity = eventManager.getEventCapacity(eventName);
+    //            String roomId = eventManager.getRoomNumber(eventName);
+    //            userEventController.removeCreatedEvent(username, eventName);
+    //            for (String speakerName : speakerNames) {
+    //                if (!speakerManager.isSpeaker(speakerName)) {
+    //                    return "SDE";
+    //                }
+    //            }
+    //            String err = userEventController.createEventInRoom(username, eventName, eventTime, eventDuration, eventCapacity, speakerNames, roomId);
+    //            if (err.equals("YES")) {
+    //                return "Successful";
+    //            } else {
+    //                return err;
+    //            }
+    //        }
+    //        else{
+    //            return "EDE";
+    //        }
+    //
+    //    }
 
     // case 11
     public List<String> organizerEventsNotAttending(String username){
