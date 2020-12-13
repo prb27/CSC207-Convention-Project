@@ -2,11 +2,9 @@ package Controllers;
 
 import UseCases.*;
 
-import javax.sound.sampled.AudioSystem;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class OrganizerMenuController implements Serializable {
 
@@ -17,12 +15,11 @@ public class OrganizerMenuController implements Serializable {
     private AccountHandler accountHandler;
     private EventManager eventManager;
     private MessageController messageController;
-    private ConversationManager conversationManager;
     private UserEventController userEventController;
     private RoomManager roomManager;
 
 
-    public OrganizerMenuController(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager, AdminManager adminManager, AccountHandler accountHandler, EventManager eventManager, MessageController messageController, ConversationManager conversationManager, UserEventController userEventController, RoomManager roomManager){
+    public OrganizerMenuController(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager, AdminManager adminManager, AccountHandler accountHandler, EventManager eventManager, MessageController messageController, UserEventController userEventController, RoomManager roomManager){
 
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
@@ -31,7 +28,6 @@ public class OrganizerMenuController implements Serializable {
         this.accountHandler = accountHandler;
         this.eventManager = eventManager;
         this.messageController = messageController;
-        this.conversationManager = conversationManager;
         this.userEventController = userEventController;
         this.roomManager = roomManager;
 
@@ -153,6 +149,7 @@ public class OrganizerMenuController implements Serializable {
     }
 
 
+    // contact Arib or Ashwin for details on how to create an Event
     // case "8": {
     //                    ui.present("Please enter event name");
     //                    String eventName = scanner.nextLine();
@@ -179,28 +176,28 @@ public class OrganizerMenuController implements Serializable {
 
     // This requires can be performed by calling three functions from controller classes.
     //
-    // public String changeSpeakerForEventThroughOrganizer(String username, String eventName, List<String> speakerNames){
-    //
-    //        if(!eventManager.isEvent(eventName)){
-    //            return "EDE"; //Refer to TextUserInterface
-    //        }
-    //        for(String speakerName: speakerNames) {
-    //            if (!speakerManager.isSpeaker(speakerName)) {
-    //                return "SDE"; //Refer to TextUserInterface
-    //            }
-    //        }
-    //        String eventStartTime = eventManager.getStartTime(eventName);
-    //        int eventDuration = eventManager.getDuration(eventName);
-    //        int eventCapacity = eventManager.getEventCapacity(eventName);
-    //        userEventController.removeCreatedEvent(username, eventName);
-    //        String err = userEventController.createEventInRoom(username, eventName, eventStartTime, eventDuration, eventCapacity, speakerNames);
-    //        if (!err.equals("YES"))
-    //            return err; //Refer to TextUserInterface
-    //        else {
-    //            return "Successful"; //Refer to TextUserInterface
-    //        }
-    //
-    //    }
+    public String changeSpeakerForEventThroughOrganizer(String username, String eventName, List<String> speakerNames, String roomId){
+
+           if(!eventManager.isEvent(eventName)){
+               return "EDE"; //Refer to TextUserInterface
+           }
+           for(String speakerName: speakerNames) {
+               if (!speakerManager.isSpeaker(speakerName)) {
+                   return "SDE"; //Refer to TextUserInterface
+               }
+           }
+           String eventStartTime = eventManager.getStartTime(eventName);
+           int eventDuration = eventManager.getDuration(eventName);
+           int eventCapacity = eventManager.getEventCapacity(eventName);
+           userEventController.removeCreatedEvent(username, eventName);
+           String err = userEventController.createEventInRoom(username, eventName, eventStartTime, eventDuration, eventCapacity, speakerNames, roomId);
+           if (!err.equals("YES"))
+               return err; //Refer to TextUserInterface
+           else {
+               return "Successful"; //Refer to TextUserInterface
+           }
+
+    }
 
     // case 10
     //ui.present("Please enter the event name");
@@ -209,33 +206,31 @@ public class OrganizerMenuController implements Serializable {
     //        String eventTime = scanner.nextLine();
 
 
-    // The implementation of this functionality would change
-    //
-    // public String changeEventTime(String username, String eventName, String eventTime){
-    //
-    //        if(eventManager.isEvent(eventName)) {
-    //            List<String> speakerNames = eventManager.getSpeakerEvent(eventName);
-    //            int eventDuration = eventManager.getDuration(eventName);
-    //            int eventCapacity = eventManager.getEventCapacity(eventName);
-    //            String roomId = eventManager.getRoomNumber(eventName);
-    //            userEventController.removeCreatedEvent(username, eventName);
-    //            for (String speakerName : speakerNames) {
-    //                if (!speakerManager.isSpeaker(speakerName)) {
-    //                    return "SDE";
-    //                }
-    //            }
-    //            String err = userEventController.createEventInRoom(username, eventName, eventTime, eventDuration, eventCapacity, speakerNames, roomId);
-    //            if (err.equals("YES")) {
-    //                return "Successful";
-    //            } else {
-    //                return err;
-    //            }
-    //        }
-    //        else{
-    //            return "EDE";
-    //        }
-    //
-    //    }
+    public String changeEventTime(String username, String eventName, String eventTime, String roomId){
+
+           if(eventManager.isEvent(eventName)) {
+               List<String> speakerNames = eventManager.getSpeakerEvent(eventName);
+               int eventDuration = eventManager.getDuration(eventName);
+               int eventCapacity = eventManager.getEventCapacity(eventName);
+               userEventController.removeCreatedEvent(username, eventName);
+               for (String speakerName : speakerNames) {
+                   if (!speakerManager.isSpeaker(speakerName)) {
+                       return "SDE";
+                   }
+               }
+               String err = userEventController.createEventInRoom(username, eventName, eventTime, eventDuration, eventCapacity, speakerNames, roomId);
+               if (err.equals("YES")) {
+                   return "Successful";
+               }
+               else {
+                   return err;
+              }
+           }
+           else{
+               return "EDE";
+           }
+
+    }
 
     // case 11
     public List<String> organizerEventsNotAttending(String username){
