@@ -77,7 +77,7 @@ public class AttendeeMessagingMenuPresenter {
 
     private void loadConversations(){
         List<String> conversationIDs = attendeeMessagingDashboardMenuController.getConversations(loginMenuController.getCurrUsername());
-        int i = 0;
+        Integer i = 0;
         for (String conversationID: conversationIDs){
             List<String> recipientsOfConversation = attendeeMessagingDashboardMenuController.getConvoParticipants(conversationID);
             Label count = new Label();
@@ -92,6 +92,7 @@ public class AttendeeMessagingMenuPresenter {
             Button viewConversation = new Button("View Conversation");
             viewConversation.setOnAction(event -> {
                 try {
+                    conversationMenuController.setCurrentConversationID(i.toString());
                     conversationMenuController.setConversationInformation(participants.getText());
                     viewConversation();
                 } catch (IOException e) {
@@ -99,6 +100,7 @@ public class AttendeeMessagingMenuPresenter {
                 }
             });
             HBox hBox = new HBox(count, participants, viewConversation);
+            hBox.setSpacing(10);
             conversations.getItems().add(hBox);
         }
     }

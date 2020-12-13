@@ -72,7 +72,7 @@ public class AttendeeMessengerMenuPresenter {
     }
 
     private void goBack() throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/MessagingMenuView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Attendee/AttendeeConversationMenuView.fxml"));
         Stage stage = (Stage) goBack.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
