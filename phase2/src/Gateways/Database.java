@@ -7,7 +7,7 @@ import org.bson.Document;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Database implements InterfaceAttendeeDatabase, InterfaceConversationDatabase{
+public class Database implements IAttendeeDatabase, InterfaceConversationDatabase{
 
     //dbname = conference-database
     //password = dbAdminPassword

@@ -2,8 +2,9 @@ package Gateways;
 
 import org.bson.Document;
 import java.util.List;
+import java.util.Map;
 
-public interface InterfaceAttendeeDatabase {
+public interface IAttendeeDatabase {
 // Whatever below is copied from AttendeeManager functionality. I pasted it here so it is easy for me to know what
 // I need to do. For now, our database-usecase methods are focused solely on the storing and setting of any data stored
 // by the use cases which are indavertenly stored by the entities.
@@ -14,7 +15,9 @@ public interface InterfaceAttendeeDatabase {
 // *      - get an Entities.Attendee given their username
 // *      - get all Attendees (done through getAttendeeList())
 // *      - check the password of a given Entities.Attendee
-    public List<Document> getAttendeeList();
+    public List<Map<String, String>> getAttendees();
+    public List<String> getEventsAttending(String attendee);
+
 
 
 

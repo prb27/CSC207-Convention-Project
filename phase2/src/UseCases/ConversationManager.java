@@ -1,9 +1,7 @@
 package UseCases;
 
-import Entities.Attendee;
 import Entities.Conversation;
 import Entities.Message;
-import Gateways.InterfaceAttendeeDatabase;
 import Gateways.InterfaceConversationDatabase;
 import org.bson.Document;
 

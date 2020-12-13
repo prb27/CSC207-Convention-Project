@@ -1,7 +1,7 @@
 package UseCases;
 
 import Entities.Attendee;
-import Gateways.InterfaceAttendeeDatabase;
+import Gateways.IAttendeeDatabase;
 import org.bson.Document;
 
 import java.io.Serializable;
@@ -264,8 +264,8 @@ public class AttendeeManager implements Serializable {
      *
      */
 
-    InterfaceAttendeeDatabase attendeeDatabase;
-    public AttendeeManager(InterfaceAttendeeDatabase attendeeDatabase){
+    IAttendeeDatabase attendeeDatabase;
+    public AttendeeManager(IAttendeeDatabase attendeeDatabase){
             this.attendeeDatabase = attendeeDatabase;
     }
 
