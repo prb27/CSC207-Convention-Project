@@ -68,7 +68,7 @@ public class SpeakerMessagingMenuPresenter {
         for (String conversationID: conversationIDs){
             List<String> recipientsOfConversation = speakerMessagingDashboardMenuController.getConvoParticipants(conversationID);
             Label count = new Label();
-            count.setText("Conversation Number " + i.toString() + ";");
+            count.setText("Conversation ID " + conversationID + ";");
             Label participants = new Label();
             StringBuilder recipients = new StringBuilder();
             for (String recipient: recipientsOfConversation){
@@ -77,21 +77,29 @@ public class SpeakerMessagingMenuPresenter {
             }
             participants.setText("Participants" + recipients);
             Button viewConversation = new Button("View Conversation");
-
-//            viewConversation.setOnAction(event -> {
-//                try {
-//                    conversationMenuController.setConversationInformation(participants.getText());
-//                    viewConversation();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            });
+            Integer finalI = i;
+            viewConversation.setOnAction(event -> {
+                try {
+                    conversationMenuController.setCurrentConversationID(conversationID);
+                    conversationMenuController.setConversationInformation(participants.getText());
+                    viewConversation();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
             HBox hBox = new HBox(count, participants, viewConversation);
+            hBox.setSpacing(10);
             conversations.getItems().add(hBox);
+            i+=1;
         }
     }
 
-
+    private void viewConversation() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Attendee/AttendeeConversationMenuView.fxml"));
+        Stage stage = (Stage) conversations.getScene().getWindow();
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
+    }
     private void goToMessenger() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Speaker/SpeakerMessengerMenuView.fxml"));
         Stage stage = (Stage) messenger.getScene().getWindow();
