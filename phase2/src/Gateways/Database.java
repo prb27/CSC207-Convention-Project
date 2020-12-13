@@ -7,7 +7,7 @@ import org.bson.Document;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Database implements InterfaceAttendeeDatabase {
+public class Database implements InterfaceAttendeeDatabase, InterfaceConversationDatabase{
 
     //dbname = conference-database
     //password = dbAdminPassword
@@ -51,5 +51,10 @@ public class Database implements InterfaceAttendeeDatabase {
             ListofAttendees.add((Document) cursor.next());
         }
         return ListofAttendees;
+    }
+
+    @Override
+    public List<Document> getConversationList() {
+        return null;
     }
 }

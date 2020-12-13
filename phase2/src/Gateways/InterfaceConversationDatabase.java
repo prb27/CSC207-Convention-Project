@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface InterfaceConversationDatabase {
 
-    public List<Document> getAttendeeList();
+    public List<Document> getConversationList();
 
 }
