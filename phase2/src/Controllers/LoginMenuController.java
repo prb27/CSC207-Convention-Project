@@ -8,11 +8,13 @@ public class LoginMenuController {
 
     private final AccountHandler accountHandler;
     private ILoginMenu loginMenu;
-    private CurrUsernameInfoFileHandler currUsernameInfoFileHandler;
 
-    public LoginMenuController(AccountHandler accountHandler, CurrUsernameInfoFileHandler currUsernameInfoFileHandler){
+    private String currUsername;
+
+    public LoginMenuController(AccountHandler accountHandler){
         this.accountHandler = accountHandler;
-        this.currUsernameInfoFileHandler = currUsernameInfoFileHandler;
+        this.currUsername = "";
+
     }
 
     public void login(String username, String password) throws IOException {
@@ -20,13 +22,13 @@ public class LoginMenuController {
         if(accountType != null){
             switch (accountType){
                 case "attendee":
-                    currUsernameInfoFileHandler.setName(username);
+                    setCurrUsername(username);
                     loginMenu.showAttendeeMenu(username);
                 case "organizer":
-                    currUsernameInfoFileHandler.setName(username);
+                    setCurrUsername(username);
                     loginMenu.showOrganizerMenu(username);
                 case "speaker":
-                    currUsernameInfoFileHandler.setName(username);
+                    setCurrUsername(username);
                     loginMenu.showSpeakerMenu(username);
             }
         } else {
@@ -36,5 +38,12 @@ public class LoginMenuController {
 
     public void setLoginMenu(ILoginMenu loginMenu){
         this.loginMenu = loginMenu;
+    }
+
+    public void setCurrUsername(String username){
+        this.currUsername = username;
+    }
+    public String getCurrUsername(){
+        return this.currUsername;
     }
 }

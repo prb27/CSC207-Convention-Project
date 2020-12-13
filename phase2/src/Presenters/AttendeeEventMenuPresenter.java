@@ -1,6 +1,7 @@
 package Presenters;
 
 import Controllers.AttendeeEventMenuController;
+import Controllers.LoginMenuController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -31,17 +32,17 @@ public class AttendeeEventMenuPresenter {
 
     private AttendeeEventMenuController attendeeEventMenuController;
 
-    private LoginMenuPresenter loginMenuPresenter;
+    private LoginMenuController loginMenuController;
 
     public AttendeeEventMenuPresenter(AttendeeEventMenuController attendeeEventMenuController,
-                                      LoginMenuPresenter loginMenuPresenter) {
+                                      LoginMenuController loginMenuController) {
         this.attendeeEventMenuController = attendeeEventMenuController;
-        this.loginMenuPresenter = loginMenuPresenter;
+        this.loginMenuController = loginMenuController;
     }
 
     @FXML
     private void initialize(){
-        welcome.setText("Welcome:" + loginMenuPresenter.getUsername() + "!");
+        welcome.setText("Welcome:" + loginMenuController.getCurrUsername() + "!");
         events.setSpacing(10);
 
     }
