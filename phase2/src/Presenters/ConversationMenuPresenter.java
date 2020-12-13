@@ -1,6 +1,7 @@
 package Presenters;
 
 import Controllers.CurrUsernameInfoFileHandler;
+import Controllers.LoginMenuController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -23,15 +24,15 @@ public class ConversationMenuPresenter {
     @FXML
     private ListView<HBox> messages;
 
-    private final CurrUsernameInfoFileHandler currUsernameInfoFileHandler;
+    private final LoginMenuController loginMenuController;
 
-    public ConversationMenuPresenter(CurrUsernameInfoFileHandler currUsernameInfoFileHandler){
-        this.currUsernameInfoFileHandler = currUsernameInfoFileHandler;
+    public ConversationMenuPresenter(LoginMenuController loginMenuController){
+        this.loginMenuController = loginMenuController;
     }
 
     @FXML
     private void initialize(){
-        welcome.setText("Welcome: " + currUsernameInfoFileHandler.getName() + "!");
+        welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
         description.setText("");
         goBack.setText("Go Back");
         goBack.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
