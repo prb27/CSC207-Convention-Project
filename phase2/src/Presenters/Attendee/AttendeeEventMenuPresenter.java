@@ -94,7 +94,13 @@ public class AttendeeEventMenuPresenter {
         for (String event: attendingEvents) {
             Label eventLabel = new Label();
             eventLabel.setText(event);
-            HBox hBox = new HBox(eventLabel);
+            Button remove = new Button("Remove");
+            remove.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
+            remove.setOnAction(event1 -> {
+                attendeeEventMenuController.getListOfAllAttendedEvents(loginMenuController.getCurrUsername()).remove(event);
+                loadEventsContainer();
+            });
+            HBox hBox = new HBox(eventLabel, remove);
             eventsContainer.getItems().add(hBox);
         }
     }
