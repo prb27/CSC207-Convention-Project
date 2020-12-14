@@ -1,21 +1,36 @@
 package Gateways;
 
-import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import static com.mongodb.client.model.Filters.*;
+import org.bson.Document;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDatabase {
 
     protected MongoClient mongoClient;
     protected MongoDatabase database;
-    protected DBCollection userCollection;
+    protected MongoCollection<Document> userCollection;
 
     public UserDatabase(MongoClient mongoClient) {
         this.mongoClient = mongoClient;
         this.database = mongoClient.getDatabase("conference-database");
-        this.userCollection = (DBCollection) database.getCollection("Users");
+        this.userCollection = database.getCollection("users");
     }
 
     //methods to return list of contacts and list of conversations
+    public List<String> getContactsForUser(String username) {
+        List<Document> iterable = userCollection.find(eq("username", username)).into(new ArrayList<>());
+
+    }
+
+    public List<String> getConversationsForUser(String username) {
+
+    }
 
 }
