@@ -1,17 +1,24 @@
 package Presenters.Organizer;
 
+import Controllers.LoginMenuController;
 import Controllers.OrganizerMenuController;
 import Controllers.UserEventController;
 import UseCases.RoomManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class OrganizerEventCreationMenuPresenter {
     private RoomManager roomManager;
     private OrganizerMenuController organizerMenuController;
     private UserEventController userEventController;
+    private LoginMenuController loginMenuController;
 
     @FXML
     public Label username;
@@ -65,19 +72,38 @@ public class OrganizerEventCreationMenuPresenter {
     @FXML
     public ListView<String> displayListView;
 
-    public OrganizerEventCreationMenuPresenter(RoomManager roomManager, OrganizerMenuController organizerMenuController, UserEventController userEventController){
+    public OrganizerEventCreationMenuPresenter(RoomManager roomManager, OrganizerMenuController organizerMenuController,
+                                               UserEventController userEventController, LoginMenuController loginMenuController){
         this.roomManager = roomManager;
         this.organizerMenuController = organizerMenuController;
         this.userEventController = userEventController;
+        this.loginMenuController = loginMenuController;
     }
 
     public void initialize(){
+        username.setText(loginMenuController.getCurrUsername());
         selectedSpeakerDisplay.getItems().clear();
         selectedSpeakerDisplay.setItems(speakers);
         ObservableList<String> startTimeChoiceList = FXCollections.observableArrayList("9", "10", "11", "12", "1", "2", "3", "4", "5");
         ObservableList<Integer> durationChoiceList = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8);
         startTimeChoices.setItems(startTimeChoiceList);
         durationChoices.setItems(durationChoiceList);
+
+        backButton.setOnAction(event -> {
+            try {
+                goBack();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        signOutButton.setOnAction(event -> {
+            try {
+                signOut();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @FXML
@@ -129,6 +155,22 @@ public class OrganizerEventCreationMenuPresenter {
         if(!result.equals("YES")){
             errorDisplay(result);
         }
+    }
+
+    @FXML
+    private void goBack() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerMenuView.fxml"));
+        Stage stage = (Stage) backButton.getScene().getWindow();
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
+    }
+
+    @FXML
+    private void signOut() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/LoginMenuView.fxml"));
+        Stage stage = (Stage) signOutButton.getScene().getWindow();
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
     }
 
     private void errorDisplay(String error){
