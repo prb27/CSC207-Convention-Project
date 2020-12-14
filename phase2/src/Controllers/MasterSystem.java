@@ -123,7 +123,7 @@ public class MasterSystem implements Serializable {
                     speakerManager, eventManager, conversationManager, messageManager);
             this.messageMenuController = new MessageMenuController();
             this.messengerMenuController = new MessengerMenuController(messageManager, attendeeManager,
-                    organizerManager, speakerManager, adminManager, eventManager, accountHandler, conversationManager);
+                    organizerManager, speakerManager, eventManager, accountHandler, conversationManager);
             this.organizerMenuController = new OrganizerMenuController(attendeeManager, organizerManager,
                     speakerManager,adminManager, accountHandler, eventManager, messageController,
                     userEventController, roomManager);
