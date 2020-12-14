@@ -70,14 +70,15 @@ public class SignUpMenuPresenter implements ISignUpMenu {
                 e.printStackTrace();
             }
         }
+        else{
+            invalidUser();
+        }
    }
 
-
-    @Override
     public void invalidUser() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Something went wrong");
-        alert.setHeaderText("Something went wrong");
+        alert.setHeaderText("Username and/or Password is not valid");
         alert.setContentText("Please look into it");
         createUsername.clear();
         createPassword.clear();

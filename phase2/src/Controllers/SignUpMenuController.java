@@ -1,25 +1,19 @@
 package Controllers;
 
-import Presenters.Interfaces.ISignUpMenu;
 
 
 public class SignUpMenuController {
-    private AccountHandler accountHandler;
-    private ISignUpMenu signUpMenu;
+    private final AccountHandler accountHandler;
+
 
     public SignUpMenuController(AccountHandler accountHandler){
         this.accountHandler = accountHandler;
     }
     public boolean signUp(String username, String password){
-        if (!accountHandler.signup(username, password, "attendee")){
-            signUpMenu.invalidUser();
-        }
+
         return accountHandler.signup(username, password, "attendee");
     }
 
-    public void setSignUpMenu(ISignUpMenu signUpMenu){
-        this.signUpMenu = signUpMenu;
-    }
 
 
 }
