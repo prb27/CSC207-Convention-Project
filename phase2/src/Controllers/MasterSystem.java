@@ -171,7 +171,11 @@ public class MasterSystem implements Serializable {
 
             /* Create an organizer account when a new Controllers.MasterSystem object is created
              * to allow for the conference to have at least one organizer*/
-            accountHandler.signup("admin", "admin", "organizer");
+            accountHandler.signup("organizer1", "organizer1", "organizer");
+
+            /* Create an organizer account when a new Controllers.MasterSystem object is created
+             * to allow for the conference to have at least one organizer*/
+            accountHandler.signup("admin", "admin", "admin");
         }
 
 }
