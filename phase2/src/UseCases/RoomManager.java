@@ -19,8 +19,15 @@ public class RoomManager implements Serializable {
 
     private final List<Room> rooms;
 
-    public RoomManager(){
+    IRoomDatabase roomDatabase;
+
+    public RoomManager() {
         rooms = new ArrayList<>();
+    }
+
+    public RoomManager(IRoomDatabase roomDatabase) {
+        rooms = new ArrayList<>();
+        this.roomDatabase = roomDatabase;
     }
 
     /**
@@ -301,26 +308,20 @@ public class RoomManager implements Serializable {
 
     }
 
-    IRoomDatabase roomDatabase;
-    public RoomManager(IRoomDatabase roomDatabase){
-        this.roomDatabase = roomDatabase;
-    }
-
-
     public void loadFromDatabase() {
-        List<Map<String, List<String>>> listOfRooms = roomDatabase.getRoomList();
+        List<Map<String, List<String>>> listOfRooms = roomDatabase.getRooms();
 
         for(Map<String, List<String>> room: listOfRooms){
-            String roomID = room.get("roomID").get(0);
-            int capacity = Integer.parseInt(room.get("capacity").get(0));
+            List<String> roomInfo = room.get("roomInfo");
+            String roomId = roomInfo.get(0);
+            int capacity = Integer.parseInt(roomInfo.get(1));
             List<String> occupiedTimes = room.get("occupiedTimes");
-            boolean hasProjecter = Boolean.parseBoolean(room.get("hasProjecter").get(0));
-            boolean hasAudioSystem = Boolean.parseBoolean(room.get("hasAudioSystem").get(0));
-            int powerSockets = Integer.parseInt(room.get("powerSockets").get(0));
-            Room newRoom = new Room(roomID, capacity, occupiedTimes, hasProjecter, hasAudioSystem, powerSockets);
-            rooms.add(newRoom);
+            boolean hasProjector = Boolean.parseBoolean(roomInfo.get(2));
+            boolean hasAudioSystem = Boolean.parseBoolean(roomInfo.get(3));
+            int powerSockets = Integer.parseInt(roomInfo.get(4));
+            Room newRoom = new Room(roomId, capacity, occupiedTimes, hasProjector, hasAudioSystem, powerSockets);
+            this.rooms.add(newRoom);
         }
-
     }
 
 }
