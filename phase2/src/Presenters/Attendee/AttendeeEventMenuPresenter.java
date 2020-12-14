@@ -77,8 +77,7 @@ public class AttendeeEventMenuPresenter {
                 Button attend = new Button("Attend");
                 attend.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
                 attend.setOnAction(event1 -> {
-                    List<String> attendedEvents = attendeeEventMenuController.getListOfAllAttendedEvents(loginMenuController.getCurrUsername());
-                    attendedEvents.add(event);
+                    attendeeEventMenuController.addAttendedEvent(loginMenuController.getCurrUsername(), event);
                     loadAttendedEvents();
                 });
                 HBox hBox = new HBox(eventLabel, attend);

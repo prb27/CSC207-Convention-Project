@@ -32,6 +32,9 @@ public class AttendeeEventMenuController {
     public List<String> getListOfAllAttendedEvents(String attendeeUsername){
         return attendeeManager.getEventsAttending(attendeeUsername);
     }
+    public void addAttendedEvent(String attendeeUsername, String event){
+        getListOfAllAttendedEvents(attendeeUsername).add(event);
+    }
 
 
 }
