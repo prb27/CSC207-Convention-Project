@@ -107,16 +107,25 @@ public class Event implements Serializable {
     }
 
     /**
-     * Changes value for the room number
+     * Updates new value for the room number
      * @param roomNumber
      */
     public void setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
     }
 
+    /**
+     * Updates new value for event capacity
+     * @param eventCapacity
+     */
+
     public void setEventCapacity(int eventCapacity) {
         this.eventCapacity = eventCapacity;
     }
 
+    /**
+     * Updates value for attendeeList
+     * @param attendeeList
+     */
     public void setAttendeeList(List<String> attendeeList){this.attendeeList = attendeeList;}
 }
