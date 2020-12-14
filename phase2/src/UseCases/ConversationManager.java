@@ -23,7 +23,7 @@ import java.util.Map;
  * @author Peter Bilski
  * @see Conversation
  */
-public class ConversationManager<InterfaceConversationDatabaseDatabase> implements Serializable {
+public class ConversationManager implements Serializable {
     private List<Conversation> allConversations = new ArrayList<>();
 
     /**
@@ -142,7 +142,7 @@ public class ConversationManager<InterfaceConversationDatabaseDatabase> implemen
             List<String> ListOfParticipants = conversation.get("participants");
 
             Conversation newConversation = new Conversation(ListOfParticipants, convoRoot);
-            newConversation.setId(id);
+            newConversation.setId(id); // might be buggy, gotta check.
             allConversations.add(newConversation);
         }
     }

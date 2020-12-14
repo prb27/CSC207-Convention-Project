@@ -1,9 +1,7 @@
 package UseCases;
 
-import Entities.Event;
 import Entities.Message;
-import Gateways.IEventDatabase;
-import Gateways.IMessageDatabase;
+import Gateways.Interfaces.IMessageDatabase;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -30,7 +28,9 @@ public class MessageManager implements Serializable {
     /**
      * Constructor for a UseCases.MessageManager, initializes the list of messages to be empty
      */
-    public MessageManager(){
+    IMessageDatabase messageDatabase;
+    public MessageManager(IMessageDatabase messageDatabase){
+        this.messageDatabase = messageDatabase;
         allMessages = new ArrayList<>();
     }
 
@@ -159,24 +159,20 @@ public class MessageManager implements Serializable {
     }
 
 
-    IMessageDatabase messageDatabase;
-    public MessageManager(IMessageDatabase messageDatabase){
-        this.messageDatabase = messageDatabase;
-    }
 
 
     public void loadFromDatabase() {
         List<Map<String, List<String>>> messageList = messageDatabase.getMessageList();
 
         for(Map<String, List<String>> message: messageList){
-            String sender = message.get("sender").get(0);
-            List<String> ListOfRecipients = message.get("listOfRecipients");
-            String content = message.get("content").get(0);
-            String id = message.get("id").get(0);
-            DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
-            LocalDateTime localdateTime = LocalDateTime.parse(message.get("localDateTime").get(0), formatter);
-            String convoID = message.get("convoID").get(0);
-            String reply = message.get("reply").get(0);
+            List<String> messageInfo = message.get("messageInfo");
+            String sender = messageInfo.get(1);
+            List<String> ListOfRecipients = message.get("recipients");
+            String content = messageInfo.get(2);
+            String id = messageInfo.get(0);
+            LocalDateTime localdateTime = LocalDateTime.parse(messageInfo.get(4));
+            String convoID = messageInfo.get(5);
+            String reply = messageInfo.get(3);
             Message newMessage = new Message(sender, ListOfRecipients, content, convoID);
             newMessage.setDateTime(localdateTime);
             newMessage.setReply(reply);
@@ -186,9 +182,9 @@ public class MessageManager implements Serializable {
 
     }
 
-    public List<Map<String, List<String>>> saveToDatabase() {
+    public void saveToDatabase() {
 
-        List<Map<String, List<String>>> resultingList = new ArrayList();
+        List<Map<String, List<String>>> resultingList = new ArrayList<>();
 
         for (Message message : allMessages) {
 
@@ -196,40 +192,26 @@ public class MessageManager implements Serializable {
             List<String> ListOfRecipients = message.getRecipients();
             String content = message.getContent();
             String id= message.getId();
-            DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
-            LocalDateTime localdateTime = message.getTime();
-            String dateTime = localdateTime.format(formatter);
+            String localDateTime = message.getTime().toString();
             String convoID = message.getConvoID();
             String reply = message.getReply();
 
+            List<String> messageInfo = new ArrayList<>();
 
-            List<String> senderTemp = new ArrayList<>();
-            List<String> contentTemp = new ArrayList<>();
-            List<String> idTemp = new ArrayList<>();
-            List<String> dateTimeTemp = new ArrayList<>();
-            List<String> convoIDTemp = new ArrayList<>();
-            List<String> replyTemp = new ArrayList<>();
+            messageInfo.add(id);
+            messageInfo.add(sender);
+            messageInfo.add(content);
+            messageInfo.add(reply);
+            messageInfo.add(localDateTime);
+            messageInfo.add(convoID);
 
-            senderTemp.add(sender);
-            contentTemp.add(content);
-            idTemp.add(id);
-            dateTimeTemp.add(dateTime);
-            convoIDTemp.add(convoID);
-            replyTemp.add(reply);
-
-
-            Map<String, List<String>> resultingEvent = new HashMap();
-            resultingEvent.put("sender", senderTemp);
-            resultingEvent.put("listOfRecipients", ListOfRecipients);
-            resultingEvent.put("content", contentTemp);
-            resultingEvent.put("id", idTemp);
-            resultingEvent.put("convoID", convoIDTemp);
-            resultingEvent.put("reply", replyTemp);
-            resultingEvent.put("localDateTime", dateTimeTemp);
+            Map<String, List<String>> resultingEvent = new HashMap<>();
+            resultingEvent.put("messageInfo", messageInfo);
+            resultingEvent.put("recipients", ListOfRecipients);
 
             resultingList.add(resultingEvent);
         }
-        return resultingList;
+        messageDatabase.saveMessageList(resultingList);
     }
 
 }

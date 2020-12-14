@@ -1,8 +1,7 @@
 package UseCases;
 
-import Entities.Organizer;
 import Entities.Room;
-import Gateways.IRoomDatabase;
+import Gateways.Interfaces.IRoomDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +18,6 @@ public class RoomManager {
     private final List<Room> rooms;
 
     IRoomDatabase roomDatabase;
-
-    public RoomManager() {
-        rooms = new ArrayList<>();
-    }
-
     public RoomManager(IRoomDatabase roomDatabase) {
         rooms = new ArrayList<>();
         this.roomDatabase = roomDatabase;
