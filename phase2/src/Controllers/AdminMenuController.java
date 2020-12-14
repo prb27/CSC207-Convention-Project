@@ -1,5 +1,6 @@
 package Controllers;
 
+import Presenters.Interfaces.IAdminMenu;
 import UseCases.AttendeeManager;
 import UseCases.ConversationManager;
 import UseCases.OrganizerManager;
@@ -15,6 +16,7 @@ public class AdminMenuController {
     private final OrganizerManager organizerManager;
     private final ConversationManager conversationManager;
     private final ConversationMenuController conversationMenuController;
+    private IAdminMenu adminMenu;
 
     public AdminMenuController(AttendeeManager attendeeManager, SpeakerManager speakerManager,
                                OrganizerManager organizerManager, ConversationManager conversationManager,
@@ -31,6 +33,9 @@ public class AdminMenuController {
         List<String> speakers = speakerManager.getAllSpeakerIds();
         List<String> organizers = organizerManager.getAllOrganizerIds();
 
+        List<String> speakerConversationMessages = new ArrayList<>();
+        List<String> organizerConversationMessages = new ArrayList<>();
+
         for (String speaker : speakers) {
             List<String> conversationIDS = speakerManager.getConversations(speaker);
             for (String conversationID : conversationIDS) {
@@ -38,7 +43,7 @@ public class AdminMenuController {
                 for (String member : participants) {
                     if (!attendeeManager.isAttendee(member)) {
                         List<String> orderedMessages = conversationMenuController.orderedMessagesInConvo(conversationID);
-                        messageList.addAll(orderedMessages);
+                        speakerConversationMessages.addAll(orderedMessages);
                     }
                 }
 
@@ -52,14 +57,32 @@ public class AdminMenuController {
                 for (String member : participants) {
                     if (!attendeeManager.isAttendee(member)) {
                         List<String> orderedMessages = conversationMenuController.orderedMessagesInConvo(conversationID);
-                        messageList.addAll(orderedMessages);
+                        organizerConversationMessages.addAll(orderedMessages);
                     }
                 }
 
             }
         }
-        return messageList;
 
+        for (String speakerMessage: speakerConversationMessages){
+            for (String organizerMessage: organizerConversationMessages){
+                if (!speakerMessage.equals(organizerMessage) && !messageList.contains(speakerMessage) &&
+                        !messageList.contains(organizerMessage)){
+                    messageList.add(speakerMessage);
+                    messageList.add(organizerMessage);
+                }
+                else{
+                    messageList.add(speakerMessage);
+                }
+            }
+        }
+        return messageList;
+    }
+
+    public void updateMessages(String message){
+
+
+        adminMenu.loadMessages();
     }
 
 }
