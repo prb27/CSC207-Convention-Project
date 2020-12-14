@@ -17,7 +17,7 @@ public class OrganizerDatabase extends UserDatabase implements IOrganizerDatabas
     }
 
     @Override
-    public List<Map<String, List<String>>> getOrganizes() {
+    public List<Map<String, List<String>>> getOrganizers() {
         List<Map<String, List<String>>> organizerList = new ArrayList<>();
         List<Document> organizerDocuments = userCollection.find(eq("userType", "organizer")).into(new ArrayList<>());
         for(Document organizerDocument: organizerDocuments) {

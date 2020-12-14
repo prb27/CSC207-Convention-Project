@@ -5,6 +5,6 @@ import java.util.Map;
 
 public interface IOrganizerDatabase {
 
-    List<Map<String, List<String>>> getOrganizes();
+    List<Map<String, List<String>>> getOrganizers();
 
 }
