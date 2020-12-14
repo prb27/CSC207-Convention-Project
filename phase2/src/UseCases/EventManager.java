@@ -158,6 +158,12 @@ public class EventManager implements Serializable {
         Event event = getEvent(eventName);
         return event.getStartTime();
     }
+
+    /**
+     * Returns the duration of event
+     * @param eventName: name of event
+     * @return : String
+     */
     public int getDuration(String eventName){
         Event event = getEvent(eventName);
         return event.getDuration();
@@ -263,6 +269,11 @@ public class EventManager implements Serializable {
         }
         return emptyEvents;
     }
+
+    /**
+     * Returns a list of all allowedtimes
+     * @return
+     */
     public List<String> getAllowedTimes(){
         List<String> allowedTimes = new ArrayList<String>();
         allowedTimes.add("9");

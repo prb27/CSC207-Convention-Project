@@ -84,9 +84,10 @@ public class SpeakerEventMenuPresenter {
     }
 
     /**
-     * Calls methods in userevencontroller to allow user to see the current list of events
+     * Calls methods in usereventcontroller to allow user to see the current list of events
      */
     private void seeListofEvents(){
+        eventlist.getItems().clear();
         String speakerID = loginMenuPresenter.getUsername();
         List<String> events = userEventController.seeListOfEventsForSpeaker(speakerID);
 
