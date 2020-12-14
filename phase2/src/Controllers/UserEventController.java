@@ -200,9 +200,9 @@ public class UserEventController implements Serializable {
      * @param username username of Entities.Organizer
      * @return List of Events that this Entities.Organizer is not attending
      */
-    public ArrayList<String> getOrganizerEventsNotAttending(String username) {
+    public List<String> getOrganizerEventsNotAttending(String username) {
 
-        ArrayList<String> eventsNotSignedUpFor = new ArrayList<>();
+        List<String> eventsNotSignedUpFor = new ArrayList<>();
         for(String event: eventManager.getAllEventTitles()){
             eventsNotSignedUpFor.add(event);
         }
@@ -304,7 +304,7 @@ public class UserEventController implements Serializable {
      * return the list of all events
      * call eventManager to perform!
      * @author Khoa Pham
-     * @return Map<String, ArrayList<String>> eventsWithInfo
+     * @return <String, List<String>> eventsWithInfo
      */
     public Map<String, List<String>> seeAllEventsWithInfo() {
         return eventManager.getAllEventsWithInfo();
@@ -351,12 +351,12 @@ public class UserEventController implements Serializable {
     /**
      * Allows the speaker to see the list of events they are hosting with event name and time
      * @param speakerUsername : username of speaker
-     * @return : Returns the list of events they are hosting (param_type: ArrayList<String>)
+     * @return : Returns the list of events they are hosting (param_type: List<String>)
      */
-    public ArrayList<String> seeListOfEventsForSpeaker(String speakerUsername){
+    public List<String> seeListOfEventsForSpeaker(String speakerUsername){
         Map<String, String> listOfTalks = speakerManager.getListOfTalks(speakerUsername);
 
-        ArrayList<String> masterList = new ArrayList<>();
+        List<String> masterList = new ArrayList<>();
 
 
        for(Map.Entry<String, String> event: listOfTalks.entrySet()){
@@ -371,7 +371,7 @@ public class UserEventController implements Serializable {
     /**
      * Can see the event information
      * @param speakerUsername : name of speaker
-     * @return : list of talks for the speaker (param_type: ArrayList<Map<String, String>>)
+     * @return : list of talks for the speaker (param_type: List<Map<String, String>>)
      */
     public Map<String, String> seeAllEventsForSpeaker(String speakerUsername){
         return speakerManager.getListOfTalks(speakerUsername);
@@ -380,11 +380,11 @@ public class UserEventController implements Serializable {
     /**
      * Can see all the event names for the speaker
      * @param speakerUsername : name of speaker
-     * @return list of all event names of talks (param_type: ArrayList<String>)
+     * @return list of all event names of talks (param_type: List<String>)
      */
-    public ArrayList<String> seeAllEventNamesForSpeaker(String speakerUsername){
-//        ArrayList<Map<String, String>> listOfTalks = seeAllEventsForSpeaker(speakerUsername);
-//        ArrayList<String> listOfNamedTalks = new ArrayList<>();
+    public List<String> seeAllEventNamesForSpeaker(String speakerUsername){
+//        List<Map<String, String>> listOfTalks = seeAllEventsForSpeaker(speakerUsername);
+//        List<String> listOfNamedTalks = new ArrayList<>();
 //        for(Map<String, String> talk: listOfTalks){
 //            Collection<String> talkname1 =  talk.values();
 //            for (String talk3: talkname1){
@@ -394,7 +394,7 @@ public class UserEventController implements Serializable {
 //        return listOfNamedTalks;
         Map<String, String> listOfTalks = speakerManager.getListOfTalks(speakerUsername);
 
-        ArrayList<String> masterList = new ArrayList<>();
+        List<String> masterList = new ArrayList<>();
 
         for(Map.Entry<String, String> event: listOfTalks.entrySet()){
             masterList.add("(Entities.Event Name: " +  event.getValue() + ")");

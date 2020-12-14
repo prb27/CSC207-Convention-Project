@@ -42,7 +42,7 @@ public class MultiEventManager implements Serializable {
 
 
     public void loadFromDatabase() {
-        List<Map<String, List<String>>> multiSpeakerEventList = multiEventDatabase.();
+        List<Map<String, List<String>>> multiSpeakerEventList = multiEventDatabase.getMultiSpeakerEventList();
 
         for(Map<String, List<String>> multiSpeakerEvent: multiSpeakerEventList){
             String eventName = multiSpeakerEvent.get("eventName").get(0);

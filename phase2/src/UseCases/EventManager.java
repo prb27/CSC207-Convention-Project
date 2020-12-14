@@ -16,7 +16,7 @@ import java.util.*;
  * - remove a user for an event
  * - get the object of an event
  * - get the fields of an event which include (event name, speaker name, room number, time, attendee list)
- * - displays a hashtable of an event with its information
+ * - displays a table of an event with its information
  * @author aribshaikh
  */
 public class EventManager implements Serializable {
@@ -209,11 +209,11 @@ public class EventManager implements Serializable {
     }
 
     /**
-     * Returns a hashtable of all events; with eventName as the key, and the value as a list of event info
-     * @return : Hashtable<String, List<String>>
+     * Returns a map of all events; with eventName as the key, and the value as a list of event info
+     * @return : Map<String, List<String>>
      */
-    public Hashtable<String, List<String> > getAllEventsWithInfo(){
-        Hashtable<String, List<String>> AllEventsWithInfo = new Hashtable<>();
+    public Map<String, List<String> > getAllEventsWithInfo(){
+        Map<String, List<String>> AllEventsWithInfo = new Hashtable<>();
 
         for(Event event: EventList){
             String eventName = event.getEventName();

@@ -2,6 +2,7 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class stores all the information relating to a Speaker
@@ -12,7 +13,7 @@ import java.util.HashMap;
  * @see User
  */
 public class Speaker extends User implements Serializable {
-    private HashMap<String, String> listOfTalks;
+    private Map<String, String> listOfTalks;
 
     /**
      * A constructor that creates a Speaker object
@@ -27,17 +28,17 @@ public class Speaker extends User implements Serializable {
 
     /**
      * Returns the list of all talks that this Speaker is speaking at
-     * @return List<HashMap<String, String>>: Returns an List of HashMaps containing a reference to an
+     * @return List<Map<String, String>>: Returns an List of Maps containing a reference to an
      * event time as the key and event name as the value
      */
-    public HashMap<String, String> getListOfTalks() {
+    public Map<String, String> getListOfTalks() {
         return listOfTalks;
     }
     /**
      * Updates the list of all events that this Speaker is speaking at
-     * @param listOfTalks: The new list of all talks(param_type: HashMap<String, String>)
+     * @param listOfTalks: The new list of all talks(param_type: Map<String, String>)
      */
-    public void setListOfTalks(HashMap<String, String> listOfTalks){
+    public void setListOfTalks(Map<String, String> listOfTalks){
         this.listOfTalks = listOfTalks;
 
     }
