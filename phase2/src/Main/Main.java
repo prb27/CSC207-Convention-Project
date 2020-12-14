@@ -15,14 +15,13 @@ public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Stage stage = primaryStage;
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/SignUpMenuView.fxml"));
         AnchorPane signUpPage = (AnchorPane) loader.load();
         Scene scene = new Scene(signUpPage);
 
-        stage.setTitle("Tech-Conference");
-        stage.setScene(scene);
-        stage.show();
+        primaryStage.setTitle("Tech-Conference");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
 
