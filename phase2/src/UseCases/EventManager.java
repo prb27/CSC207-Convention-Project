@@ -1,15 +1,19 @@
 package UseCases;
 
+import Entities.Conversation;
 import Entities.Event;
 import Entities.Events.MultiSpeakerEvent;
 import Entities.Events.NoSpeakerEvent;
 import Entities.Events.SingleSpeakerEvent;
+import Gateways.IConversationDatabase;
+import Gateways.IEventDatabase;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This is a use-case class that interacts with the event entity, and performs various tasks related to events.
@@ -59,7 +63,8 @@ public class EventManager implements Serializable {
      * EAE - Entities.Event Already Exist
      * @return String
      */
-    public String addEvent(String eventName, String startTime, int duration, String roomNumber, int eventCapacity, List<String> speakerName){
+    public String addEvent(String eventName, String startTime, int duration, String roomNumber, int eventCapacity,
+                           List<String> speakerName){
 
         List<String> attendeeList = new ArrayList<>();
         for (Event event: EventList){
@@ -287,6 +292,30 @@ public class EventManager implements Serializable {
         allowedTimes.add("5");
         return allowedTimes;
 
+    }
+
+
+    IEventDatabase eventDatabase;
+    public EventManager(IEventDatabase eventDatabase){
+        this.eventDatabase = eventDatabase;
+    }
+
+
+    public void loadFromDatabase() {
+
+        List<Map<String, List<String>>> eventList = eventDatabase.getEventList();
+
+        for(Map<String, List<String>> event: eventList){
+            String eventName = event.get("eventName").get(0);
+            List<String> speakerName =  event.get("speakerName");
+            String startTime = event.get("startTime").get(0);
+            int duration = event.get("duration").get(0);
+
+
+
+
+
+        }
     }
 }
 
