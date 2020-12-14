@@ -20,6 +20,19 @@ public class EventsSearchEngine implements Serializable {
 
     }
 
+    public List<String> allEvents(){
+
+        List<String> allEvents = new ArrayList<>();
+        for(String event: eventManager.getAllEventTitles()){
+            allEvents.add("Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "(" + eventManager.getDuration(event) + " hours)" + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
+
+        }
+        return allEvents;
+    }
+
+    public List<String> allEventsUnformatted(){
+        return eventManager.getAllEventTitles();
+    }
     /**
      * Returns a List of Strings that provide information about the event title, start time, duration, roomId and Speaker names
      * for events with speaker </speakername>
@@ -38,6 +51,19 @@ public class EventsSearchEngine implements Serializable {
 
     }
 
+    public List<String> eventsWithSpeakerUnformatted(String speakerName){
+
+        List<String> eventsWithThisSpeaker = new ArrayList<>();
+        for(String event: eventManager.getAllEventTitles()){
+            if(eventManager.getSpeakerEvent(event).contains(speakerName)){
+                eventsWithThisSpeaker.add(event);
+            }
+        }
+        return eventsWithThisSpeaker;
+
+    }
+
+
     /**
      * Returns a List of Strings that provide information about the event title, start time, duration, roomId and Speaker names
      * for events with start time </startTime>
@@ -50,6 +76,18 @@ public class EventsSearchEngine implements Serializable {
         for(String event: eventManager.getAllEventTitles()){
             if(eventManager.getStartTime(event).equals(startTime)){
                 eventsAtThisStartTime.add("Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "(" + eventManager.getDuration(event) + " hours)" + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
+            }
+        }
+        return eventsAtThisStartTime;
+
+    }
+
+    public List<String> eventsAtStartTimeUnformatted(String startTime){
+
+        List<String> eventsAtThisStartTime = new ArrayList<>();
+        for(String event: eventManager.getAllEventTitles()){
+            if(eventManager.getStartTime(event).equals(startTime)){
+                eventsAtThisStartTime.add(event);
             }
         }
         return eventsAtThisStartTime;
@@ -74,6 +112,17 @@ public class EventsSearchEngine implements Serializable {
 
     }
 
+    public List<String> eventsForThisDurationUnformatted(int duration){
+
+        List<String> eventsForThisDuration = new ArrayList<>();
+        for(String event: eventManager.getAllEventTitles()){
+            if(eventManager.getDuration(event) == duration){
+                eventsForThisDuration.add(event);
+            }
+        }
+        return eventsForThisDuration;
+
+    }
     /**
      * Returns a List of Strings that provide information about the event title, start time, duration, roomId and Speaker names
      * for events with speaker </speakername> and duration </duration>
@@ -95,6 +144,19 @@ public class EventsSearchEngine implements Serializable {
 
     }
 
+    public List<String> eventsWithSpeakerAndDurationUnformatted(String speakerName, int duration){
+
+        List<String> requiredEvents = new ArrayList<>();
+        List<String> eventsForThisDuration = eventsForThisDuration(duration);
+        List<String> eventsWithThisSpeaker = eventsWithSpeaker(speakerName);
+        for(String event: eventsWithThisSpeaker){
+            if(eventsForThisDuration.contains(event)){
+                requiredEvents.add(event);
+            }
+        }
+        return requiredEvents;
+
+    }
     /**
      * Returns a List of Strings that provide information about the event title, start time, duration, roomId and Speaker names
      * for events with speaker </speakername> at start time </time>
@@ -103,6 +165,20 @@ public class EventsSearchEngine implements Serializable {
      * @return List</String>
      */
     public List<String> eventWithSpeakerAndStartTime(String speakerName, String time){
+
+        List<String> requiredEvents = new ArrayList<>();
+        List<String> eventsAtThisStartTime = eventsAtStartTime(time);
+        List<String> eventsWithThisSpeaker = eventsWithSpeaker(speakerName);
+        for(String event: eventsAtThisStartTime){
+            if(eventsWithThisSpeaker.contains(event)){
+                requiredEvents.add(event);
+            }
+        }
+        return requiredEvents;
+
+    }
+
+    public List<String> eventWithSpeakerAndStartTimeUnformatted(String speakerName, String time){
 
         List<String> requiredEvents = new ArrayList<>();
         List<String> eventsAtThisStartTime = eventsAtStartTime(time);
@@ -137,6 +213,20 @@ public class EventsSearchEngine implements Serializable {
 
     }
 
+    public List<String> eventsWithStartTimeAndDurationUnformatted(String time, int duration){
+
+        List<String> requiredEvents = new ArrayList<>();
+        List<String> eventsForThisDuration = eventsForThisDuration(duration);
+        List<String> eventsAtThisStartTime = eventsAtStartTime(time);
+        for(String event: eventsAtThisStartTime){
+            if(eventsForThisDuration.contains(event)){
+                requiredEvents.add(event);
+            }
+        }
+        return requiredEvents;
+
+    }
+
     /**
      * Returns a List of Strings that provide information about the event title, start time, duration, roomId and Speaker names
      * for events with speaker </speakername> at start time </time> and duration </duration> hours.
@@ -146,6 +236,21 @@ public class EventsSearchEngine implements Serializable {
      * @return List</String>
      */
     public List<String> eventWithSpeakerNameStartTimeAndDuration(String speakerName, String time, int duration){
+
+        List<String> requiredEvents = new ArrayList<>();
+        List<String> eventsForThisDuration = eventsForThisDuration(duration);
+        List<String> eventsAtThisStartTime = eventsAtStartTime(time);
+        List<String> eventsWithThisSpeaker = eventsWithSpeaker(speakerName);
+        for(String event: eventsAtThisStartTime){
+            if(eventsWithThisSpeaker.contains(event) && eventsForThisDuration.contains(event)){
+                requiredEvents.add(event);
+            }
+        }
+        return requiredEvents;
+
+    }
+
+    public List<String> eventWithSpeakerNameStartTimeAndDurationUnformatted(String speakerName, String time, int duration){
 
         List<String> requiredEvents = new ArrayList<>();
         List<String> eventsForThisDuration = eventsForThisDuration(duration);
