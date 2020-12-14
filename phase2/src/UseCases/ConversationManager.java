@@ -141,7 +141,8 @@ public class ConversationManager<InterfaceConversationDatabaseDatabase> implemen
             String id = conversation.get("id").get(0);
             List<String> ListOfParticipants = conversation.get("participants");
 
-            Conversation newConversation = new Conversation(ListOfParticipants, convoRoot, id);
+            Conversation newConversation = new Conversation(ListOfParticipants, convoRoot);
+            newConversation.setId(id);
             allConversations.add(newConversation);
         }
     }
@@ -175,4 +176,4 @@ public class ConversationManager<InterfaceConversationDatabaseDatabase> implemen
 
 }
 
-}
+
