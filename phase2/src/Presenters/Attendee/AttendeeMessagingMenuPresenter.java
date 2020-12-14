@@ -63,7 +63,6 @@ public class AttendeeMessagingMenuPresenter {
         });
         goBack.setText("Go Back");
         goBack.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
-        loadConversations();
         goBack.setOnAction(event -> {
             try {
                 goBack();
@@ -73,11 +72,14 @@ public class AttendeeMessagingMenuPresenter {
             }
         });
 
+        loadConversations();
+
+
     }
 
     private void loadConversations(){
+        conversations.getItems().clear();
         List<String> conversationIDs = attendeeMessagingDashboardMenuController.getConversations(loginMenuController.getCurrUsername());
-        Integer i = 0;
         for (String conversationID: conversationIDs){
             List<String> recipientsOfConversation = attendeeMessagingDashboardMenuController.getConvoParticipants(conversationID);
             Label count = new Label();
@@ -90,7 +92,6 @@ public class AttendeeMessagingMenuPresenter {
             }
             participants.setText("Participants" + recipients);
             Button viewConversation = new Button("View Conversation");
-            Integer finalI = i;
             viewConversation.setOnAction(event -> {
                 try {
                     conversationMenuController.setCurrentConversationID(conversationID);
@@ -103,7 +104,6 @@ public class AttendeeMessagingMenuPresenter {
             HBox hBox = new HBox(count, participants, viewConversation);
             hBox.setSpacing(10);
             conversations.getItems().add(hBox);
-            i+=1;
         }
     }
 

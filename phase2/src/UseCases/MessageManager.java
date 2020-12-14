@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -172,7 +173,7 @@ public class MessageManager implements Serializable {
             List<String> ListOfRecipients = message.get("listOfRecipients");
             String content = message.get("content").get(0);
             String id = message.get("id").get(0);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
             LocalDateTime localdateTime = LocalDateTime.parse(message.get("localDateTime").get(0), formatter);
             String convoID = message.get("convoID").get(0);
             String reply = message.get("reply").get(0);
@@ -183,6 +184,52 @@ public class MessageManager implements Serializable {
             allMessages.add(newMessage);
         }
 
+    }
+
+    public List<Map<String, List<String>>> saveToDatabase() {
+
+        List<Map<String, List<String>>> resultingList = new ArrayList();
+
+        for (Message message : allMessages) {
+
+            String sender = message.getSender();
+            List<String> ListOfRecipients = message.getRecipients();
+            String content = message.getContent();
+            String id= message.getId();
+            DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+            LocalDateTime localdateTime = message.getTime();
+            String dateTime = localdateTime.format(formatter);
+            String convoID = message.getConvoID();
+            String reply = message.getReply();
+
+
+            List<String> senderTemp = new ArrayList<>();
+            List<String> contentTemp = new ArrayList<>();
+            List<String> idTemp = new ArrayList<>();
+            List<String> dateTimeTemp = new ArrayList<>();
+            List<String> convoIDTemp = new ArrayList<>();
+            List<String> replyTemp = new ArrayList<>();
+
+            senderTemp.add(sender);
+            contentTemp.add(content);
+            idTemp.add(id);
+            dateTimeTemp.add(dateTime);
+            convoIDTemp.add(convoID);
+            replyTemp.add(reply);
+
+
+            Map<String, List<String>> resultingEvent = new HashMap();
+            resultingEvent.put("sender", senderTemp);
+            resultingEvent.put("listOfRecipients", ListOfRecipients);
+            resultingEvent.put("content", contentTemp);
+            resultingEvent.put("id", idTemp);
+            resultingEvent.put("convoID", convoIDTemp);
+            resultingEvent.put("reply", replyTemp);
+            resultingEvent.put("localDateTime", dateTimeTemp);
+
+            resultingList.add(resultingEvent);
+        }
+        return resultingList;
     }
 
 }
