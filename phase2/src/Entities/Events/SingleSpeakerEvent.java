@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class SingleSpeakerEvent extends AbstractEvent{
+
+    private ArrayList<String> speakerName;
+
     /**
      * A constructor to create the event object
      *
@@ -13,8 +16,6 @@ public class SingleSpeakerEvent extends AbstractEvent{
      * @param roomNumber   : room number
      * @param attendeeList : list of attendees
      */
-    private ArrayList<String> speakerName;
-
     public SingleSpeakerEvent(String eventName, ArrayList<String> speakerName, String eventTime, String roomNumber, ArrayList<String> attendeeList) {
         super(eventName, eventTime, roomNumber, attendeeList);
         this.speakerName = speakerName;

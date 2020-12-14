@@ -5,8 +5,8 @@ import org.bson.Document;
 import java.util.List;
 import java.util.Map;
 
-public interface IAdminDatabase {
+public interface ISpeakerDatabase {
 
-    Map<String, List<String>> getAdmin();
+    List<Map<String, List<String>>> getSpeakers();
 
 }

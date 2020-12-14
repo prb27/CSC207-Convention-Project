@@ -40,11 +40,4 @@ public class AttendeeDatabase extends UserDatabase implements IAttendeeDatabase{
         return attendeeList;
     }
 
-    public List<String> getEventsAttendingForUser(String username) {
-        List<Document> user = userCollection.find(eq("username", username)).into(new ArrayList<>());
-        @SuppressWarnings("unchecked")
-        List<String> eventsAttending = (ArrayList<String>) user.get(0).get("conversations");
-        return eventsAttending;
-    }
-
 }

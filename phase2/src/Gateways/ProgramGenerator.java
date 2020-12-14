@@ -13,17 +13,29 @@ import java.io.*;
  * The functionalities include:
  *  - reading the serialized Controllers.MasterSystem file.
  *  - writing the most updated state of the Controllers.MasterSystem class into the serialized Controllers.MasterSystem file.
- * @author Juan Yi Loke
+ * @author Akshat Ayush
  */
 
 public class ProgramGenerator implements Serializable{
 
     //dbname = conference-database
     //password = dbAdminPassword
-    MongoClientURI uri = new MongoClientURI(
-            "mongodb+srv://dbAdmin:dbAdminPassword@conference-cluster.ayrxj.mongodb.net/conference-database?retryWrites=true&w=majority");
+    MongoClientURI uri;
+    MongoClient mongoClient;
 
-    MongoClient mongoClient = new MongoClient(uri);
+    AttendeeDatabase attendeeDatabase;
+    OrganizerDatabase organizerDatabase;
+    SpeakerDatabase speakerDatabase;
+    AdminDatabase adminDatabase;
+
+    public ProgramGenerator() {
+        this.uri = new MongoClientURI("mongodb+srv://dbAdmin:dbAdminPassword@conference-cluster.ayrxj.mongodb.net/conference-database?retryWrites=true&w=majority");
+        this.mongoClient = new MongoClient(uri);
+        this.attendeeDatabase = new AttendeeDatabase(mongoClient);
+        this.organizerDatabase = new OrganizerDatabase(mongoClient);
+        this.speakerDatabase = new SpeakerDatabase(mongoClient);
+        this.adminDatabase = new AdminDatabase(mongoClient);
+    }
 
 
 
