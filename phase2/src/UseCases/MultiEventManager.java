@@ -10,6 +10,7 @@ import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -61,6 +62,39 @@ public class MultiEventManager implements Serializable {
             MultiSpeakerEventList.add(newMultiSpeakerEvent);
         }
 
+    }
+
+    public List<Map<String, List<String>>> saveToDatabase() {
+
+        List<Map<String, List<String>>> resultingList = new ArrayList();
+
+        for (MultiSpeakerEvent multiSpeakerEvent : MultiSpeakerEventList) {
+
+            String eventName = multiSpeakerEvent.getEventName();
+            List<String> speakerNames = multiSpeakerEvent.getSpeakerNames();
+            String eventTime = multiSpeakerEvent.getEventTime();
+            String roomNumber = multiSpeakerEvent.getRoomNumber();
+            List<String> attendeeList = multiSpeakerEvent.getAttendeeList();
+
+            List<String> eventNameTemp = new ArrayList<>();
+            List<String> eventTimeTemp = new ArrayList<>();
+            List<String> roomNumberTemp = new ArrayList<>();
+
+
+            eventNameTemp.add(eventName);
+            eventTimeTemp.add(eventTime);
+            roomNumberTemp.add(roomNumber);
+
+            Map<String, List<String>> resultingEvent = new HashMap();
+            resultingEvent.put("eventName", eventNameTemp);
+            resultingEvent.put("eventTime", eventTimeTemp);
+            resultingEvent.put("roomNumber", roomNumberTemp);
+            resultingEvent.put("speakerNames", speakerNames);
+            resultingEvent.put("attendeeList", attendeeList);
+
+            resultingList.add(resultingEvent);
+        }
+        return resultingList;
     }
 
 
