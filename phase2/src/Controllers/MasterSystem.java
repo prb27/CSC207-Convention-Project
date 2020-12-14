@@ -11,10 +11,6 @@ import UI.TextUserInterface;
 import UseCases.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Scanner;
 
 /**
  * Class that stores the instances of use case and controller classes and controls

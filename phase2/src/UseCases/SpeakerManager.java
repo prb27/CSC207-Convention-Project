@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
+import Gateways.Interfaces.ISpeakerDatabase;
 
 /**
  * This class is responsible for keeping track of all Entities.Speaker objects (Speakers at the tech-conference)
@@ -35,13 +36,15 @@ import java.util.Map;
 public class SpeakerManager implements Serializable {
 
     private final List<Speaker> speakers;
+    ISpeakerDatabase speakerDatabase;
 
 
     /**
      * a constructor that creates a UseCases.SpeakerManager object that stores a list of all speakers
      */
-    public SpeakerManager(){
+    public SpeakerManager(ISpeakerDatabase speakerDatabase){
         speakers = new ArrayList<>();
+        this.speakerDatabase = speakerDatabase;
     }
 
     /**
@@ -87,7 +90,7 @@ public class SpeakerManager implements Serializable {
 
 
     /**
-     * Updates a Entities.Speaker object's list of all given talks with a new talk stored as a hash map with
+     * Updates a Entities.Speaker object's list of all given talks with a new talk stored as a map with
      * event time as the key and event name as the value. Returns true if the talk was added. Else returns false.
      * @param speakerUsername: The username of a given Entities.Speaker
      * @param eventTime: The time of a given event
@@ -102,7 +105,7 @@ public class SpeakerManager implements Serializable {
             return false;
         }
         else{
-            HashMap<String, String> listOfTalks = getListOfTalks(speakerUsername);
+            Map<String, String> listOfTalks = getListOfTalks(speakerUsername);
             Boolean addable = true;
             if (listOfTalks.containsKey(eventTime)){
                 addable = false;
@@ -163,13 +166,13 @@ public class SpeakerManager implements Serializable {
     }
 
     /**
-     * Returns a a list of all events (NOTE* events are stored as a HashMap with key as event time
+     * Returns a a list of all events (NOTE* events are stored as a Map with key as event time
      * and value as event Name) for a given Entities.Speaker with specified username.
      * @param username: The username of a given Entities.Speaker
-     * @return List <HashMap <String, String>>: Returns an List containing HashMaps with key as event time
+     * @return List <Map <String, String>>: Returns an List containing Maps with key as event time
      * and value as event Name
      */
-    public HashMap<String, String> getListOfTalks(String username){
+    public Map<String, String> getListOfTalks(String username){
         Speaker speaker = getSpeaker(username);
         if (speaker == null){
             return null;
@@ -235,7 +238,7 @@ public class SpeakerManager implements Serializable {
         }
         else{
             return (speaker.getListOfTalks().containsKey(time));
-//            for (HashMap<String, String> talk: speaker.getListOfTalks()){
+//            for (Map<String, String> talk: speaker.getListOfTalks()){
 //                if (talk.containsKey(time)) {
 //                    free = false;
 //                    break;
@@ -272,7 +275,7 @@ public class SpeakerManager implements Serializable {
      */
 
     public boolean removeTalkFromListOfTalks(String speakerUsername, String eventTime, String eventName){
-//        HashMap<String, String> selectedTalk = new HashMap<>();
+//        Map<String, String> selectedTalk = new HashMap<>();
 //        selectedTalk.put(eventTime, eventName);
 
         Speaker speaker = getSpeaker(speakerUsername);
@@ -280,7 +283,7 @@ public class SpeakerManager implements Serializable {
             return false;
         }
         else {
-            HashMap<String, String> listOfTalks = getListOfTalks(speakerUsername);
+            Map<String, String> listOfTalks = getListOfTalks(speakerUsername);
             return listOfTalks.remove(eventTime, eventName);
 
 //            if(listOfTalks.contains(selectedTalk)){
@@ -295,7 +298,7 @@ public class SpeakerManager implements Serializable {
 
     public List<String> seeAllEventNamesForSpeaker(String speakerUsername){
 
-        HashMap<String, String> listOfTalks = getListOfTalks(speakerUsername);
+        Map<String, String> listOfTalks = getListOfTalks(speakerUsername);
         List<String> masterList = new ArrayList<>();
 
         for(Map.Entry<String, String> event: listOfTalks.entrySet()){
@@ -323,7 +326,7 @@ public class SpeakerManager implements Serializable {
             Map<String,String> listOfTalks = new HashMap<>();
             List<String> eventNames = speaker.get("eventNames");
             List<String> eventTimes = speaker.get("eventTimes");
-            for (int i = 0; i < eventTimes.size(); i ++){
+            for(int i = 0 ; i < eventTimes.size(); i++){
                 listOfTalks.put(eventTimes.get(i), eventNames.get(i));
             }
             Speaker newSpeaker =  new Speaker(username, password);
@@ -336,9 +339,9 @@ public class SpeakerManager implements Serializable {
     }
 
 
-    public List<Map<String, List<String>>> saveToDatabase() {
+    public void saveToDatabase() {
 
-        List<Map<String, List<String>>> resultingList = new ArrayList();
+        List<Map<String, List<String>>> resultingList = new ArrayList<>();
 
         for (Speaker Speaker: speakers) {
 
@@ -351,28 +354,25 @@ public class SpeakerManager implements Serializable {
             List<String> conversationTemp = Speaker.getConversations();
             List<String> contactsTemp = Speaker.getContacts();
 
-            List<Map<String, String>> listOfTalks = Speaker.getListOfTalks();
-            List<String> eventNames = new ArrayList();
-            List<String> eventTimes = new ArrayList();
+            Map<String, String> listOfTalks = Speaker.getListOfTalks();
+            List<String> eventNames = new ArrayList<>();
+            List<String> eventTimes = new ArrayList<>();
 
-            for (Map<String, String> talk: listOfTalks){
-                for (String eventTime: talk.keySet()){
-                    eventTimes.add(eventTime);
-                    eventNames.add(eventTimes.get(0));
-                }
+            for (String eventTime: listOfTalks.keySet()){
+                eventTimes.add(eventTime);
+                eventNames.add(listOfTalks.get(eventTime));
             }
 
-            Map<String, List<String>> resultingSpeaker = new HashMap();
+            Map<String, List<String>> resultingSpeaker = new HashMap<>();
             resultingSpeaker.put("credentials", credentialsTemp);
-            resultingSpeaker.put("listOfConversations", conversationTemp);
-            resultingSpeaker.put("listOfContacts", contactsTemp);
+            resultingSpeaker.put("conversations", conversationTemp);
+            resultingSpeaker.put("contacts", contactsTemp);
             resultingSpeaker.put("eventNames", eventNames);
             resultingSpeaker.put("eventTimes", eventTimes);
 
-
             resultingList.add(resultingSpeaker);
         }
-        return resultingList;
+        speakerDatabase.saveSpeakerList(resultingList);
     }
 
 

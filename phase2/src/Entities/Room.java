@@ -1,7 +1,6 @@
 package Entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +23,7 @@ public class Room implements Serializable {
      * Parameterized Constructor that creates an object.
      * @param roomId (param_type: String)
      * @param capacity (param_type: int)
-     * @param occupiedTimes (param_type: ArrayList<String>)
+     * @param occupiedTimes (param_type: List<String>)
      * @param hasProjector (param_type: boolean)
      * @param hasAudioSystem (param_type: boolean)
      * @param powerSockets (param_type: int)
@@ -58,7 +57,7 @@ public class Room implements Serializable {
 
     /**
      * Return the times at which this room is used for an event.
-     * @return : ArrayList<String> of all times at which an event takes place in this room
+     * @return : List<String> of all times at which an event takes place in this room
      */
     public List<String> getOccupiedTimes() {
         return occupiedTimes;
@@ -66,7 +65,7 @@ public class Room implements Serializable {
 
     /**
      * Set the values for times at which this room has a scheduled event
-     * @param occupiedTimes: list of times at which the room has an event (param_type: ArrayList<String>)
+     * @param occupiedTimes: list of times at which the room has an event (param_type: List<String>)
      */
     public void setOccupiedTimes(List<String> occupiedTimes) {
         this.occupiedTimes = occupiedTimes;

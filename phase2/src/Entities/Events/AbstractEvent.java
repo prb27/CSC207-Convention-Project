@@ -1,12 +1,12 @@
 package Entities.Events;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbstractEvent {
     private String eventName;
     private String eventTime;
     private String roomNumber;
-    private final ArrayList<String> attendeeList;
+    private final List<String> attendeeList;
 
     /**
      * A constructor to create the event object
@@ -15,7 +15,7 @@ public abstract class AbstractEvent {
      * @param roomNumber: room number
      * @param attendeeList: list of attendees
      */
-    public AbstractEvent(String eventName, String eventTime, String roomNumber, ArrayList<String>attendeeList){
+    public AbstractEvent(String eventName, String eventTime, String roomNumber, List<String>attendeeList){
         this.eventName = eventName;
         this.eventTime = eventTime;
         this.roomNumber = roomNumber;
@@ -35,7 +35,7 @@ public abstract class AbstractEvent {
      * returns the name of speaker
      * @return speakerName
      */
-    public abstract ArrayList<String> getSpeakerNames();
+    public abstract List<String> getSpeakerNames();
 
     /**
      * returns the time of event
@@ -57,7 +57,7 @@ public abstract class AbstractEvent {
      * returns the list of attendees
      * @return attendeeList
      */
-    public ArrayList<String> getAttendeeList() {
+    public List<String> getAttendeeList() {
         return attendeeList;
     }
 
@@ -73,7 +73,7 @@ public abstract class AbstractEvent {
      * Changes value for the speaker name of event
      * @param speakerNames
      */
-    public abstract void setSpeakerNames(ArrayList<String> speakerNames);
+    public abstract void setSpeakerNames(List<String> speakerNames);
 
     /**
      * Changes value for the event time

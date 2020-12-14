@@ -1,11 +1,10 @@
 package Entities.Events;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.List;
 
 public class SingleSpeakerEvent extends AbstractEvent{
 
-    private ArrayList<String> speakerName;
+    private List<String> speakerName;
 
     /**
      * A constructor to create the event object
@@ -16,18 +15,18 @@ public class SingleSpeakerEvent extends AbstractEvent{
      * @param roomNumber   : room number
      * @param attendeeList : list of attendees
      */
-    public SingleSpeakerEvent(String eventName, ArrayList<String> speakerName, String eventTime, String roomNumber, ArrayList<String> attendeeList) {
+    public SingleSpeakerEvent(String eventName, List<String> speakerName, String eventTime, String roomNumber, List<String> attendeeList) {
         super(eventName, eventTime, roomNumber, attendeeList);
         this.speakerName = speakerName;
     }
 
     @Override
-    public ArrayList<String> getSpeakerNames() {
+    public List<String> getSpeakerNames() {
         return speakerName;
     }
 
     @Override
-    public void setSpeakerNames(ArrayList<String> speakerName) {
+    public void setSpeakerNames(List<String> speakerName) {
         this.speakerName = speakerName;
     }
 }
