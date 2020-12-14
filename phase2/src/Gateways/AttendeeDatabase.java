@@ -18,7 +18,7 @@ import static com.mongodb.client.model.Filters.eq;
 public class AttendeeDatabase extends UserDatabase implements IAttendeeDatabase {
 
     /**
-     * Constructor to initialize the mongo client, database and the user collection to be used by the attendee database
+     * Constructor to initialize the mongo client to be used by the attendee database
      *
      * @param mongoClient: object of mongo client
      */
