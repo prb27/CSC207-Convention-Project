@@ -1,6 +1,9 @@
 package UseCases;
 
+import Entities.Organizer;
+import Entities.Room;
 import Entities.Speaker;
+import Gateways.IRoomDatabase;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -305,6 +308,34 @@ public class SpeakerManager implements Serializable {
 
         return masterList;
     }
+//
+//    ISpeakerDatabase speakerDatabase;
+//    public SpeakerManager(ISpeakerDatabase speakerDatabase){
+//        this.speakerDatabase = speakerDatabase;
+//    }
 
+
+    public void loadFromDatabase() {
+        List<Map<String, List<String>>> listOfSpeakers = speakerDatabase.getSpeakers();
+
+        for(Map<String, List<String>> speaker: listOfSpeakers){
+            String username = speaker.get("credentials").get(0);
+            String password = speaker.get("credentials").get(1);
+            List<String> listOfConversations = speaker.get("conversations");
+            List<String> listOfContacts = speaker.get("contacts");
+            Map<String,String> listOfTalks = new HashMap<>();
+            List<String> eventNames = speaker.get("eventsAttending");
+            List<String> eventTimes = speaker.get("eventTimes");
+            for (int i = 0; i < eventTimes.size(); i ++){
+                listOfTalks.put(eventTimes.get(i), eventNames.get(i));
+            }
+            Speaker newSpeaker =  new Speaker(username, password);
+            newSpeaker.setListOfTalks(listOfTalks);
+            newSpeaker.setContacts(listOfContacts);
+            newSpeaker.setConversations(listOfConversations);
+            speakers.add(newSpeaker);
+        }
+
+    }
 
 }

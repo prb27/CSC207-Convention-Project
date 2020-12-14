@@ -2,10 +2,10 @@ package Gateways;
 
 import org.bson.Document;
 
-import java.util.List;
+import java.util.*;
 
 public interface IEventDatabase {
 
-    public List<Document> getAttendeeList();
+    public List<Map<String, List<String>>> getEventList();
 
 }

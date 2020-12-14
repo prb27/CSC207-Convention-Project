@@ -2,10 +2,11 @@ package Gateways;
 
 import org.bson.Document;
 
-import java.util.List;
+import java.util.*;
 
 public interface IConversationDatabase {
 
-    public List<Document> getConversationList();
+    public List<Map<String, List<String>>> getConversationList();
+
 
 }

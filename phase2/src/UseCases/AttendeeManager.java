@@ -1,7 +1,9 @@
 package UseCases;
 
 import Entities.Attendee;
+import Entities.Organizer;
 import Gateways.IAttendeeDatabase;
+import Gateways.IOrganizerDatabase;
 import org.bson.Document;
 
 import java.io.Serializable;
@@ -257,5 +259,40 @@ public class AttendeeManager implements Serializable {
         return Collections.list(attendees.keys());
     }
 
+
+    /**
+     * load the relevant data from the database and store the relevant data inside relevant entities which are then
+     * stored inside a data structure
+     *
+     */
+    IAttendeeDatabase attendeeDatabase;
+    public AttendeeManager(IAttendeeDatabase attendeeDatabase){
+        this.attendeeDatabase = attendeeDatabase;
+    }
+
+
+    public void loadFromDatabase() {
+        List<Map<String, List<String>>> listOfAttendees = attendeeDatabase.getAttendees();
+
+        for(Map<String, List<String>> attendee: listOfAttendees){
+            List<String> listOfEventsAttending = attendee.get("eventsAttending");
+            List<String> listOfContacts = attendee.get("listOfContacts");
+            List<String> listOfConversations = attendee.get("listOfConversations");
+            String username = attendee.get("credentials").get(0);
+            String password = attendee.get("credentials").get(1);
+            Attendee newAttendee =  new Attendee(username, password);
+            newAttendee.setEventsAttending(listOfEventsAttending);
+            newAttendee.setContacts(listOfContacts);
+            newAttendee.setConversations(listOfConversations);
+            attendees.put(username, newAttendee);
+        }
+
+    }
+
+    public List<Map<String, List<String>>> saveToDatabase() {
+
+
+
+    }
 
 }

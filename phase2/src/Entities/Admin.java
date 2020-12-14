@@ -18,8 +18,7 @@ public class Admin extends User implements Serializable {
      * There will only be one Admin
      * this will be created automatically without interference of clients
      */
-    public Admin() {
-        super("Khoa", "Pham");
+    public Admin() { super("Khoa", "Pham");
     }
 
     /**

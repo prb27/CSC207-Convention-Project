@@ -180,6 +180,7 @@ public class MessageManager implements Serializable {
             newMessage.setDateTime(localdateTime);
             newMessage.setReply(reply);
             newMessage.setID(id);
+            allMessages.add(newMessage);
         }
 
     }

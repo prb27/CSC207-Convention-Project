@@ -293,7 +293,6 @@ public class EventManager implements Serializable {
 
     }
 
-
     IEventDatabase eventDatabase;
     public EventManager(IEventDatabase eventDatabase){
         this.eventDatabase = eventDatabase;
@@ -308,12 +307,13 @@ public class EventManager implements Serializable {
             String eventName = event.get("eventName").get(0);
             List<String> speakerName =  event.get("speakerName");
             String startTime = event.get("startTime").get(0);
-            int duration = event.get("duration").get(0);
+            int duration = Integer.parseInt(event.get("duration").get(0));
+            String roomNumber = event.get("roomNumber").get(0);
+            int eventCapacity = Integer.parseInt(event.get("eventCapacity").get(0));
+            List<String> attendeeList = event.get("attendeeList");
 
-
-
-
-
+            Event newEvent = new Event(eventName, speakerName, startTime, duration, roomNumber, eventCapacity, attendeeList);
+            EventList.add(newEvent);
         }
     }
 }

@@ -2,12 +2,13 @@ package UseCases;
 
 import Entities.Conversation;
 import Entities.Message;
-import Gateways.InterfaceConversationDatabase;
+import Gateways.IConversationDatabase;
 import org.bson.Document;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class stores and updates all the conversation in the system, as well as send information about those conversations to appropriate classes
@@ -122,20 +123,22 @@ public class ConversationManager<InterfaceConversationDatabaseDatabase> implemen
      *
      */
 
-    InterfaceConversationDatabase conversationDatabase;
-    public ConversationManager(InterfaceConversationDatabase conversationDatabase){
+    IConversationDatabase conversationDatabase;
+    public ConversationManager(IConversationDatabase conversationDatabase){
         this.conversationDatabase = conversationDatabase;
     }
 
 
     public void loadFromDatabase() {
 
-        List<Document> conversationList = conversationDatabase.getConversationList();
+        List<Map<String, List<String>>> conversationList = conversationDatabase.getConversationList();
 
-        for(Document conversation: conversationList){
-
-
-
+        for(Map<String, List<String>> conversation: conversationList){
+            String convoRoot = conversation.get("convoRoot").get(0);
+            String id = conversation.get("id").get(0);
+            List<String> ListOfParticipants = conversation.get("participants");
+            Conversation newConversation = new Conversation(ListOfParticipants, convoRoot, id);
+            allConversations.add(newConversation);
         }
     }
 

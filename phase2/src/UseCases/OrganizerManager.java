@@ -1,10 +1,16 @@
 package UseCases;
 
+import Entities.Message;
 import Entities.Organizer;
+import Gateways.IMessageDatabase;
+import Gateways.IOrganizerDatabase;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class is responsible for keeping track of and enabling proper use of all Entities.Organizer objects (all organizers in the conference).
@@ -299,5 +305,30 @@ public class OrganizerManager implements Serializable {
         return organizerUsernames;
 
     }
+
+    IOrganizerDatabase organizerDatabase;
+    public OrganizerManager(IOrganizerDatabase organizerDatabase){
+        this.organizerDatabase = organizerDatabase;
+    }
+
+
+    public void loadFromDatabase() {
+        List<Map<String, List<String>>> listOfOrganizers = organizerDatabase.getOrganizers();
+
+        for(Map<String, List<String>> organizer: listOfOrganizers){
+            List<String> listOfEventsAttending = organizer.get("eventsAttending");
+            List<String> listOfContacts = organizer.get("listOfContacts");
+            List<String> listOfConversations = organizer.get("listOfConversations");
+            String username = organizer.get("credentials").get(0);
+            String password = organizer.get("credentials").get(1);
+            Organizer newOrganizer =  new Organizer(username, password);
+            newOrganizer.setEventsAttending(listOfEventsAttending);
+            newOrganizer.setContacts(listOfContacts);
+            newOrganizer.setConversations(listOfConversations);
+            organizerList.add(newOrganizer);
+        }
+
+    }
+
 
 }

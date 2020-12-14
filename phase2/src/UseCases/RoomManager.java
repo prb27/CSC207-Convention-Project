@@ -1,10 +1,13 @@
 package UseCases;
 
+import Entities.Organizer;
 import Entities.Room;
+import Gateways.IRoomDatabase;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class is the class that keeps track of all the rooms that can be used for this conference. This is Serializable class.
@@ -295,6 +298,28 @@ public class RoomManager implements Serializable {
             roomIds.add(room.getRoomId());
         }
         return roomIds;
+
+    }
+
+    IRoomDatabase roomDatabase;
+    public RoomManager(IRoomDatabase roomDatabase){
+        this.roomDatabase = roomDatabase;
+    }
+
+
+    public void loadFromDatabase() {
+        List<Map<String, List<String>>> listOfRooms = roomDatabase.getRoomList();
+
+        for(Map<String, List<String>> room: listOfRooms){
+            String roomID = room.get("roomID").get(0);
+            int capacity = Integer.parseInt(room.get("capacity").get(0));
+            List<String> occupiedTimes = room.get("occupiedTimes");
+            boolean hasProjecter = Boolean.parseBoolean(room.get("hasProjecter").get(0));
+            boolean hasAudioSystem = Boolean.parseBoolean(room.get("hasAudioSystem").get(0));
+            int powerSockets = Integer.parseInt(room.get("powerSockets").get(0));
+            Room newRoom = new Room(roomID, capacity, occupiedTimes, hasProjecter, hasAudioSystem, powerSockets);
+            rooms.add(newRoom);
+        }
 
     }
 
