@@ -398,6 +398,50 @@ public class OrganizerMenuController implements Serializable {
 
     }
 
+    /**
+     * Method that enables an organizer to add an Attendee account.
+     * @param username: username of the attendee
+     * @param password: password of the attendee
+     * @return "YES" - Successful signup of the attendee,
+     *         "AAE" - Attendee already exists
+     */
+    public String  organizerCreateAttendee(String username, String password) {
+        if(accountHandler.signup(username, password, "attendee"))
+            return "YES";
+        else
+            return "AAE";
+    }
+
+    /**
+     * Method that enables an organizer to add an Organizer account.
+     * @param username: username of the Organizer
+     * @param password: password of the Organizer
+     * @return "YES" - Successful signup of the organizer,
+     *         "OAE" - Organizer already exists
+     */
+    public String organizerCreateOrganizer(String username, String password) {
+        if(accountHandler.signup(username, password, "organizer"))
+            return "YES";
+        else
+            return "OAE";
+    }
+
+    /**
+     * Method that enables an organizer to add an Speaker account.
+     * @param username: username of the Speaker
+     * @param password: password of the Speaker
+     * @return "YES" - Successful signup of the speaker,
+     *         "SAE" - Speaker already exists
+     */
+    public String organizerCreateSpeaker(String username, String password) {
+        if(accountHandler.signup(username, password, "speaker"))
+            return "YES";
+        else
+            return "SAE";
+    }
+
+}
+
 
     //public void organizerCommandHandler(String username, String option){
     //        Scanner scanner = new Scanner(System.in);
@@ -440,5 +484,3 @@ public class OrganizerMenuController implements Serializable {
     //            }
     //        }
     //    }
-
-}
