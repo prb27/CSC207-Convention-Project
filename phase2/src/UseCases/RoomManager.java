@@ -1,11 +1,13 @@
 package UseCases;
 
+import Entities.Events.MultiSpeakerEvent;
 import Entities.Organizer;
 import Entities.Room;
 import Gateways.IRoomDatabase;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -314,7 +316,7 @@ public class RoomManager implements Serializable {
             String roomID = room.get("roomID").get(0);
             int capacity = Integer.parseInt(room.get("capacity").get(0));
             List<String> occupiedTimes = room.get("occupiedTimes");
-            boolean hasProjecter = Boolean.parseBoolean(room.get("hasProjecter").get(0));
+            boolean hasProjecter = Boolean.parseBoolean(room.get("hasProjector").get(0));
             boolean hasAudioSystem = Boolean.parseBoolean(room.get("hasAudioSystem").get(0));
             int powerSockets = Integer.parseInt(room.get("powerSockets").get(0));
             Room newRoom = new Room(roomID, capacity, occupiedTimes, hasProjecter, hasAudioSystem, powerSockets);
@@ -322,5 +324,44 @@ public class RoomManager implements Serializable {
         }
 
     }
+
+
+    public List<Map<String, List<String>>> saveToDatabase() {
+
+        List<Map<String, List<String>>> resultingList = new ArrayList();
+
+        for (Room room: rooms) {
+            String roomID = room.getRoomId();
+            int capacity = room.getCapacity();
+            List<String> occupiedTimes = room.getOccupiedTimes();
+            boolean hasProjector = room.hasProjector();
+            boolean hasAudioSystem = room.hasAudioSystem();
+            int powerSockets = room.getPowerSockets();
+
+            List<String> roomIDTemp = new ArrayList<>();
+            List<String> capacityTemp = new ArrayList<>();
+            List<String> hasProjectorTemp = new ArrayList<>();
+            List<String> hasAudioSystemTemp = new ArrayList<>();
+            List<String> powerSocketsTemp = new ArrayList<>();
+
+
+            roomIDTemp.add(roomID);
+            capacityTemp.add(Integer.toString(capacity));
+            hasProjectorTemp.add(String.valueOf(hasProjector));
+            hasAudioSystemTemp.add(String.valueOf(hasAudioSystem));
+            powerSocketsTemp.add(Integer.toString(powerSockets));
+
+            Map<String, List<String>> resultingRoom = new HashMap();
+            resultingRoom.put("roomID", roomIDTemp);
+            resultingRoom.put("capacity", capacityTemp);
+            resultingRoom.put("hasProjector", hasProjectorTemp);
+            resultingRoom.put("hasAudioSystem", hasAudioSystemTemp);
+            resultingRoom.put("powerSockets", powerSocketsTemp);
+
+            resultingList.add(resultingRoom);
+        }
+        return resultingList;
+    }
+
 
 }
