@@ -73,6 +73,7 @@ public class OrganizerConferenceMenuPresenter {
     @FXML
     public void seeAttendees(){
         userListInput.removeAll();
+        userListInput.addAll(organizerMenuController.listOfUsers("attendee"));
         userList.getItems().clear();
         userList.getItems().addAll(userListInput);
     }

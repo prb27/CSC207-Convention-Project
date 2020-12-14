@@ -1,14 +1,21 @@
 package Presenters.Organizer;
+import Controllers.LoginMenuController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-// import javafx.scene.control.Label;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class OrganizerMenuPresenter {
+
+    private LoginMenuController loginMenuController;
+
+    @FXML
+    private Label username;
+
     @FXML
     private Button toEventsFromOrganizer;
 
@@ -21,7 +28,15 @@ public class OrganizerMenuPresenter {
     @FXML
     private Button toConferenceFromOrganizer;
 
-    private void initialize(){
+    @FXML
+    private Button createEventButton;
+
+    public OrganizerMenuPresenter(LoginMenuController loginMenuController){
+        this.loginMenuController = loginMenuController;
+    }
+
+    public void initialize(){
+        username.setText(loginMenuController.getCurrUsername());
         toEventsFromOrganizer.setText("Events");
         toEventsFromOrganizer.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
         toEventsFromOrganizer.setOnAction(event -> {
@@ -64,7 +79,6 @@ public class OrganizerMenuPresenter {
 
     }
 
-
     private void goToEvents() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerEventMenuView.fxml"));
         Stage stage = (Stage) toEventsFromOrganizer.getScene().getWindow();
@@ -81,6 +95,14 @@ public class OrganizerMenuPresenter {
     private void goToConference() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerConferenceMenuView.fxml"));
         Stage stage = (Stage) toConferenceFromOrganizer.getScene().getWindow();
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
+    }
+
+    @FXML
+    private void goToEventCreation() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerEventCreationMenuView.fxml"));
+        Stage stage = (Stage) createEventButton.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
     }
