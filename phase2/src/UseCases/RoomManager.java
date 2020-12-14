@@ -4,7 +4,6 @@ import Entities.Organizer;
 import Entities.Room;
 import Gateways.IRoomDatabase;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +14,7 @@ import java.util.Map;
  * @author Ashwin Karthikeyan
  * @see Room
  */
-public class RoomManager implements Serializable {
+public class RoomManager {
 
     private final List<Room> rooms;
 
