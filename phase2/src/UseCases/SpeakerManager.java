@@ -324,7 +324,7 @@ public class SpeakerManager implements Serializable {
             List<String> listOfConversations = speaker.get("conversations");
             List<String> listOfContacts = speaker.get("contacts");
             Map<String,String> listOfTalks = new HashMap<>();
-            List<String> eventNames = speaker.get("eventsAttending");
+            List<String> eventNames = speaker.get("eventNames");
             List<String> eventTimes = speaker.get("eventTimes");
             for (int i = 0; i < eventTimes.size(); i ++){
                 listOfTalks.put(eventTimes.get(i), eventNames.get(i));
@@ -337,5 +337,46 @@ public class SpeakerManager implements Serializable {
         }
 
     }
+
+
+    public List<Map<String, List<String>>> saveToDatabase() {
+
+        List<Map<String, List<String>>> resultingList = new ArrayList();
+
+        for (Speaker Speaker: speakers) {
+
+            String username = Speaker.getUserId();
+            String password = Speaker.getPassword();
+            List<String> credentialsTemp = new ArrayList<>();
+            credentialsTemp.add(username);
+            credentialsTemp.add(password);
+
+            List<String> conversationTemp = Speaker.getConversations();
+            List<String> contactsTemp = Speaker.getContacts();
+
+            List<Map<String, String>> listOfTalks = Speaker.getListOfTalks();
+            List<String> eventNames = new ArrayList();
+            List<String> eventTimes = new ArrayList();
+
+            for (Map<String, String> talk: listOfTalks){
+                for (String eventTime: talk.keySet()){
+                    eventTimes.add(eventTime);
+                    eventNames.add(eventTimes.get(0));
+                }
+            }
+
+            Map<String, List<String>> resultingSpeaker = new HashMap();
+            resultingSpeaker.put("credentials", credentialsTemp);
+            resultingSpeaker.put("listOfConversations", conversationTemp);
+            resultingSpeaker.put("listOfContacts", contactsTemp);
+            resultingSpeaker.put("eventNames", eventNames);
+            resultingSpeaker.put("eventTimes", eventTimes);
+
+
+            resultingList.add(resultingSpeaker);
+        }
+        return resultingList;
+    }
+
 
 }
