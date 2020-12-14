@@ -14,7 +14,7 @@ public class Event implements Serializable {
     private int duration;
     private String roomNumber;
     private int eventCapacity;
-    private final List<String> attendeeList;
+    private List<String> attendeeList;
 
     /**
      * A constructor to create the event object
@@ -117,4 +117,6 @@ public class Event implements Serializable {
     public void setEventCapacity(int eventCapacity) {
         this.eventCapacity = eventCapacity;
     }
+
+    public void setAttendeeList(List<String> attendeeList){this.attendeeList = attendeeList;}
 }

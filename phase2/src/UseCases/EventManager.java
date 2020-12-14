@@ -94,7 +94,6 @@ public class EventManager implements Serializable {
      *           "YES" - Request Successful
      */
     public String reserveAttendee(String eventName, String UserId){
-        //Need to check if attendee is not already registered for this event
         Event event = getEvent(eventName);
         if(event != null)
         event.getAttendeeList().add(UserId);
