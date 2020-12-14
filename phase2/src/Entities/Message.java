@@ -110,4 +110,16 @@ public class Message implements Serializable {
      * @param reply the id of the new reply
      */
     public void setReply(String reply) { this.reply = reply; }
+
+    /**
+     * Setter for the datetime of the message
+     * @param localDateTime the LocalDateTime of the message
+     */
+    public void setDateTime(LocalDateTime localDateTime){this.time = localDateTime; }
+
+    /**
+     * Setter for the id of the message
+     * @param id the id of the message
+     */
+    public void setID(String id){this.id = id; }
 }

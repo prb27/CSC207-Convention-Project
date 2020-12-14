@@ -1,10 +1,16 @@
 package UseCases;
 
+import Entities.Event;
 import Entities.Message;
+import Gateways.IEventDatabase;
+import Gateways.IMessageDatabase;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class stores and updates all the messages in the system, as well as send information about those messages to appropriate classes
@@ -149,6 +155,33 @@ public class MessageManager implements Serializable {
      */
     public String getTime(String messageId){
         return getMessage(messageId).getTime().toString();
+    }
+
+
+    IMessageDatabase messageDatabase;
+    public MessageManager(IMessageDatabase messageDatabase){
+        this.messageDatabase = messageDatabase;
+    }
+
+
+    public void loadFromDatabase() {
+        List<Map<String, List<String>>> messageList = messageDatabase.getMessageList();
+
+        for(Map<String, List<String>> message: messageList){
+            String sender = message.get("sender").get(0);
+            List<String> ListOfRecipients = message.get("listOfRecipients");
+            String content = message.get("content").get(0);
+            String id = message.get("id").get(0);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime localdateTime = LocalDateTime.parse(message.get("localDateTime").get(0), formatter);
+            String convoID = message.get("convoID").get(0);
+            String reply = message.get("reply").get(0);
+            Message newMessage = new Message(sender, ListOfRecipients, content, convoID);
+            newMessage.setDateTime(localdateTime);
+            newMessage.setReply(reply);
+            newMessage.setID(id);
+        }
+
     }
 
 }
