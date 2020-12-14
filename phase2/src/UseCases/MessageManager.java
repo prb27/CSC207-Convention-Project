@@ -30,7 +30,9 @@ public class MessageManager implements Serializable {
     /**
      * Constructor for a UseCases.MessageManager, initializes the list of messages to be empty
      */
-    public MessageManager(){
+    IMessageDatabase messageDatabase;
+    public MessageManager(IMessageDatabase messageDatabase){
+        this.messageDatabase = messageDatabase;
         allMessages = new ArrayList<>();
     }
 
@@ -159,10 +161,6 @@ public class MessageManager implements Serializable {
     }
 
 
-    IMessageDatabase messageDatabase;
-    public MessageManager(IMessageDatabase messageDatabase){
-        this.messageDatabase = messageDatabase;
-    }
 
 
     public void loadFromDatabase() {

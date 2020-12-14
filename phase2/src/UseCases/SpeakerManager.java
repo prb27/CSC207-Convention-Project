@@ -4,6 +4,7 @@ import Entities.Organizer;
 import Entities.Room;
 import Entities.Speaker;
 import Gateways.IRoomDatabase;
+import Gateways.ISpeakerDatabase;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -39,11 +40,13 @@ public class SpeakerManager implements Serializable {
 
     private final List<Speaker> speakers;
 
+    ISpeakerDatabase speakerDatabase;
 
     /**
      * a constructor that creates a UseCases.SpeakerManager object that stores a list of all speakers
      */
-    public SpeakerManager(){
+    public SpeakerManager(ISpeakerDatabase speakerDatabase){
+        this.speakerDatabase = speakerDatabase;
         speakers = new ArrayList<>();
     }
 
@@ -308,11 +311,6 @@ public class SpeakerManager implements Serializable {
 
         return masterList;
     }
-//
-//    ISpeakerDatabase speakerDatabase;
-//    public SpeakerManager(ISpeakerDatabase speakerDatabase){
-//        this.speakerDatabase = speakerDatabase;
-//    }
 
 
     public void loadFromDatabase() {
