@@ -18,11 +18,6 @@ public class RoomManager {
     private final List<Room> rooms;
 
     IRoomDatabase roomDatabase;
-
-    public RoomManager() {
-        rooms = new ArrayList<>();
-    }
-
     public RoomManager(IRoomDatabase roomDatabase) {
         rooms = new ArrayList<>();
         this.roomDatabase = roomDatabase;

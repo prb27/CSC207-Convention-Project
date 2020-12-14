@@ -35,11 +35,10 @@ public class OrganizerManager implements Serializable {
 
     private final List<Organizer> organizerList;
 
-
-    public OrganizerManager(){
-
+    IOrganizerDatabase organizerDatabase;
+    public OrganizerManager(IOrganizerDatabase organizerDatabase){
+        this.organizerDatabase = organizerDatabase;
         organizerList = new ArrayList<>();
-
     }
 
     /**
@@ -301,11 +300,6 @@ public class OrganizerManager implements Serializable {
         }
         return organizerUsernames;
 
-    }
-
-    IOrganizerDatabase organizerDatabase;
-    public OrganizerManager(IOrganizerDatabase organizerDatabase){
-        this.organizerDatabase = organizerDatabase;
     }
 
 
