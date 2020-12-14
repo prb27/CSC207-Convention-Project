@@ -1,10 +1,7 @@
 package UseCases;
 
 import Entities.Attendee;
-import Entities.Organizer;
-import Gateways.IAttendeeDatabase;
-import Gateways.IOrganizerDatabase;
-import org.bson.Document;
+import Gateways.Interfaces.IAttendeeDatabase;
 
 import java.io.Serializable;
 import java.util.*;
@@ -276,8 +273,8 @@ public class AttendeeManager implements Serializable {
 
         for(Map<String, List<String>> attendee: listOfAttendees){
             List<String> listOfEventsAttending = attendee.get("eventsAttending");
-            List<String> listOfContacts = attendee.get("listOfContacts");
-            List<String> listOfConversations = attendee.get("listOfConversations");
+            List<String> listOfContacts = attendee.get("contacts");
+            List<String> listOfConversations = attendee.get("conversations");
             String username = attendee.get("credentials").get(0);
             String password = attendee.get("credentials").get(1);
             Attendee newAttendee =  new Attendee(username, password);
@@ -289,7 +286,7 @@ public class AttendeeManager implements Serializable {
 
     }
 
-    public List<Map<String, List<String>>> saveToDatabase() {
+    public void saveToDatabase() {
 
         List<Map<String, List<String>>> resultingList = new ArrayList();
 
@@ -305,17 +302,17 @@ public class AttendeeManager implements Serializable {
 
             List<String> conversationTemp = attendeeTemp.getConversations();
             List<String> contactsTemp = attendeeTemp.getContacts();
-            List<String> eventlistTemp = attendeeTemp.getEventsAttending();
+            List<String> eventListTemp = attendeeTemp.getEventsAttending();
 
-            Map<String, List<String>> resultingAttendee = new HashMap();
+            Map<String, List<String>> resultingAttendee = new HashMap<>();
             resultingAttendee.put("credentials", credentialsTemp);
-            resultingAttendee.put("listOfConversations", conversationTemp);
-            resultingAttendee.put("listOfContacts", contactsTemp);
-            resultingAttendee.put("eventsAttending", eventlistTemp);
+            resultingAttendee.put("conversations", conversationTemp);
+            resultingAttendee.put("contacts", contactsTemp);
+            resultingAttendee.put("eventsAttending", eventListTemp);
 
             resultingList.add(resultingAttendee);
         }
-        return resultingList;
+        attendeeDatabase.saveAttendeeList(resultingList);
     }
 
 

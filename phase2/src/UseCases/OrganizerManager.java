@@ -1,14 +1,9 @@
 package UseCases;
 
-import Entities.Attendee;
-import Entities.Message;
 import Entities.Organizer;
-import Gateways.IMessageDatabase;
-import Gateways.IOrganizerDatabase;
+import Gateways.Interfaces.IOrganizerDatabase;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

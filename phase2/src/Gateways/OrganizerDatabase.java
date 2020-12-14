@@ -1,5 +1,6 @@
 package Gateways;
 
+import Gateways.Interfaces.IOrganizerDatabase;
 import com.mongodb.MongoClient;
 import org.bson.Document;
 
@@ -10,7 +11,7 @@ import java.util.Map;
 
 import static com.mongodb.client.model.Filters.eq;
 
-public class OrganizerDatabase extends UserDatabase implements IOrganizerDatabase{
+public class OrganizerDatabase extends UserDatabase implements IOrganizerDatabase {
 
     public OrganizerDatabase(MongoClient mongoClient) {
         super(mongoClient);

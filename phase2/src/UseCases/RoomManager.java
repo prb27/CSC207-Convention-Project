@@ -1,8 +1,7 @@
 package UseCases;
 
-import Entities.Organizer;
 import Entities.Room;
-import Gateways.IRoomDatabase;
+import Gateways.Interfaces.IRoomDatabase;
 
 import java.util.ArrayList;
 import java.util.List;

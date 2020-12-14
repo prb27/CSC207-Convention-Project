@@ -1,5 +1,6 @@
 package Gateways;
 
+import Gateways.Interfaces.IRoomDatabase;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -11,7 +12,7 @@ import java.util.*;
  * Class to get room Collection from the database and performing actions on the room database
  * @author Akshat Ayush
  */
-public class RoomDatabase implements IRoomDatabase{
+public class RoomDatabase implements IRoomDatabase {
     MongoClient mongoClient;
     MongoDatabase database;
     MongoCollection<Document> roomCollection;
