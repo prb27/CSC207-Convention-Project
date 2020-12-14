@@ -55,9 +55,9 @@ public class OrganizerMenuController implements Serializable {
         if(type.equals("speaker") || type.equals("all")){
             users.addAll(speakerManager.getAllSpeakerIds());
         }
-        //if(type.equals("admin") || type.equals("all")){
-        //            users.addAll(adminManager.getAllAdminIds());
-        //        }
+        if(type.equals("admin") || type.equals("all")){
+                users.add("Admin: " + adminManager.getAdminName());
+        }
         return users;
 
     }
@@ -117,37 +117,8 @@ public class OrganizerMenuController implements Serializable {
 
     }
 
-    // ------// These 2 functionalities can be handled GUI -------
-
-    //ui.present("Please enter the new organizer's username");
-    //String username = scanner.nextLine();
-    //ui.present("Please enter the password for this new organizer");
-    //String password = scanner.nextLine();
-    //public void createNewOrganizerAccount(String username, String password){
-
-        //boolean err = accountHandler.signup(username, password, "organizer");
-        //        if(err){
-        //            ui.present("Successful");//Need an equivalent
-        //        }
-        //        else{
-        //            ui.present("The username already exists");//Need an equivalent
-        //        }
-
-    //}
-
-    //ui.present("Please enter new speaker's username");
-    //                    String speakerUsername = scanner.nextLine();
-    //                    ui.present("Please enter password for this speaker");
-    //                    String speakerPassword = scanner.nextLine();
-    public String createNewSpeakerAccount(String username, String password){
-
-        if(accountHandler.signup(username, password, "speaker")){
-            return "UC"; //Refer to TextUserInterface
-        }
-        else {
-            return "SF"; //Refer to TextUserInterface
-        }
-
+    public boolean createNewAccount(String username, String password, String accountType){
+        return accountHandler.signup(username, password, accountType);
     }
 
     // -----
