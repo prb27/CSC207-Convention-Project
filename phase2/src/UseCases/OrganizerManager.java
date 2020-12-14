@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class is responsible for keeping track of and enabling proper use of all Entities.Organizer objects (all organizers in the conference).
+ * This class is responsible for keeping track of and enabling proper use of all Entities.Organizer objects
+ * (all organizers in the conference).
  * This is done by limiting the set of manipulations that can be done to the Entities.Organizer objects.
  * The only manipulations/uses that are allowed are:
  *      - creating new Entities.Organizer object
@@ -42,10 +43,10 @@ public class OrganizerManager implements Serializable {
     }
 
     /**
-     * if the username </username> already exists, doesn't create a new Entities.Organizer object with that </username> and
-     * returns false.
-     * Else creates an Entities.Organizer object and updates the list of all Entities.Organizer objects to reflect this creation
-     * returns true if an Entities.Organizer is created.
+     * if the username </username> already exists, doesn't create a new Entities.Organizer object with that
+     * </username> and returns false.
+     * Else creates an Entities.Organizer object and updates the list of all Entities.Organizer objects to
+     * reflect this creation and returns true if an Entities.Organizer is created.
      * @param username: the username to be assigned to this possibly new Entities.Organizer (param_type: String)
      * @param password: the password to be assigned to this possibly new Entities.Organizer (param_type: String)
      * @return true if and only if new organizer was created
@@ -68,8 +69,8 @@ public class OrganizerManager implements Serializable {
      * returns true if contactUsername is in the contactList of Entities.Organizer by
      * the end of the functions execution.
      * @param organizerUsername: the username in the Organzier object that we intend to manipulate (param_type: String)
-     * @param contactUsername: the username of the Entities.Attendee/Entities.Organizer/Entities.Speaker Object that we intend to add as a
-     *                       contact of Entities.Organizer object with username </organizerUsername>
+     * @param contactUsername: the username of the Entities.Attendee/Entities.Organizer/Entities.Speaker Object that we
+     * intend to add as a contact of Entities.Organizer object with username </organizerUsername>
      * @return : false if Entities.Organizer object with given username </organizerUsername> doesn't exists.
      *          true if contactUsername is in the contactList of Entities.Organizer by
      *          the end of the functions execution.

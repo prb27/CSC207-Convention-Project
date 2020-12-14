@@ -1,6 +1,6 @@
 package Entities.Events;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class NoSpeakerEvent extends AbstractEvent{
     /**
@@ -11,17 +11,17 @@ public class NoSpeakerEvent extends AbstractEvent{
      * @param roomNumber   : room number
      * @param attendeeList : list of attendees
      */
-    public NoSpeakerEvent(String eventName, String eventTime, String roomNumber, ArrayList<String> attendeeList) {
+    public NoSpeakerEvent(String eventName, String eventTime, String roomNumber, List<String> attendeeList) {
         super(eventName, eventTime, roomNumber, attendeeList);
     }
 
     @Override
-    public ArrayList<String> getSpeakerNames() {
+    public List<String> getSpeakerNames() {
         return null;
     }
 
     @Override
-    public void setSpeakerNames(ArrayList<String> speakerNames) {
+    public void setSpeakerNames(List<String> speakerNames) {
         return;
     }
 

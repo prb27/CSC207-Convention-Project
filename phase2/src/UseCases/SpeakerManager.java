@@ -87,7 +87,7 @@ public class SpeakerManager implements Serializable {
 
 
     /**
-     * Updates a Entities.Speaker object's list of all given talks with a new talk stored as a hash map with
+     * Updates a Entities.Speaker object's list of all given talks with a new talk stored as a map with
      * event time as the key and event name as the value. Returns true if the talk was added. Else returns false.
      * @param speakerUsername: The username of a given Entities.Speaker
      * @param eventTime: The time of a given event
@@ -102,7 +102,7 @@ public class SpeakerManager implements Serializable {
             return false;
         }
         else{
-            HashMap<String, String> listOfTalks = getListOfTalks(speakerUsername);
+            Map<String, String> listOfTalks = getListOfTalks(speakerUsername);
             Boolean addable = true;
             if (listOfTalks.containsKey(eventTime)){
                 addable = false;
@@ -163,13 +163,13 @@ public class SpeakerManager implements Serializable {
     }
 
     /**
-     * Returns a a list of all events (NOTE* events are stored as a HashMap with key as event time
+     * Returns a a list of all events (NOTE* events are stored as a Map with key as event time
      * and value as event Name) for a given Entities.Speaker with specified username.
      * @param username: The username of a given Entities.Speaker
-     * @return List <HashMap <String, String>>: Returns an List containing HashMaps with key as event time
+     * @return List <Map <String, String>>: Returns an List containing Maps with key as event time
      * and value as event Name
      */
-    public HashMap<String, String> getListOfTalks(String username){
+    public Map<String, String> getListOfTalks(String username){
         Speaker speaker = getSpeaker(username);
         if (speaker == null){
             return null;
@@ -235,7 +235,7 @@ public class SpeakerManager implements Serializable {
         }
         else{
             return (speaker.getListOfTalks().containsKey(time));
-//            for (HashMap<String, String> talk: speaker.getListOfTalks()){
+//            for (Map<String, String> talk: speaker.getListOfTalks()){
 //                if (talk.containsKey(time)) {
 //                    free = false;
 //                    break;
@@ -272,7 +272,7 @@ public class SpeakerManager implements Serializable {
      */
 
     public boolean removeTalkFromListOfTalks(String speakerUsername, String eventTime, String eventName){
-//        HashMap<String, String> selectedTalk = new HashMap<>();
+//        Map<String, String> selectedTalk = new HashMap<>();
 //        selectedTalk.put(eventTime, eventName);
 
         Speaker speaker = getSpeaker(speakerUsername);
@@ -280,7 +280,7 @@ public class SpeakerManager implements Serializable {
             return false;
         }
         else {
-            HashMap<String, String> listOfTalks = getListOfTalks(speakerUsername);
+            Map<String, String> listOfTalks = getListOfTalks(speakerUsername);
             return listOfTalks.remove(eventTime, eventName);
 
 //            if(listOfTalks.contains(selectedTalk)){
@@ -295,7 +295,7 @@ public class SpeakerManager implements Serializable {
 
     public List<String> seeAllEventNamesForSpeaker(String speakerUsername){
 
-        HashMap<String, String> listOfTalks = getListOfTalks(speakerUsername);
+        Map<String, String> listOfTalks = getListOfTalks(speakerUsername);
         List<String> masterList = new ArrayList<>();
 
         for(Map.Entry<String, String> event: listOfTalks.entrySet()){
