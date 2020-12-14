@@ -15,9 +15,7 @@ public interface IAttendeeDatabase {
 // *      - get an Entities.Attendee given their username
 // *      - get all Attendees (done through getAttendeeList())
 // *      - check the password of a given Entities.Attendee
-    public List<Map<String, String>> getAttendees();
-    public List<String> getEventsAttending(String attendee);
-
+    public List<Map<String, List<String>>> getAttendees();
 
 
 
