@@ -13,8 +13,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class AttendeeMenuPresenter implements IAttendeeMenu {
-
-
     @FXML
     private Button toEventsFromAttendee;
 

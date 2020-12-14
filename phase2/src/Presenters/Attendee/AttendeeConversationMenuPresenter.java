@@ -7,11 +7,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.List;
+
 
 public class AttendeeConversationMenuPresenter {
     @FXML

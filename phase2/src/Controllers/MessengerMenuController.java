@@ -11,21 +11,20 @@ public class MessengerMenuController {
     private AttendeeManager attendeeManager;
     private OrganizerManager organizerManager;
     private SpeakerManager speakerManager;
-    private AdminManager adminManager;
+
     private EventManager eventManager;
     private AccountHandler accountHandler;
     private List<String> eligibleContacts;
 
     public MessengerMenuController(MessageManager messageManager, AttendeeManager attendeeManager,
                                    OrganizerManager organizerManager, SpeakerManager speakerManager,
-                                   AdminManager adminManager, EventManager eventManager, AccountHandler accountHandler, ConversationManager convoManager){
+                                   EventManager eventManager, AccountHandler accountHandler, ConversationManager convoManager){
 
         this.messageManager = messageManager;
         this.convoManager = convoManager;
 
         this.attendeeManager = attendeeManager;
         this.speakerManager = speakerManager;
-        this.adminManager = adminManager;
         this.eventManager = eventManager;
 
         this.accountHandler = accountHandler;
@@ -36,7 +35,6 @@ public class MessengerMenuController {
 
     public List<String> getUsersToMessage(String username){
 
-        eligibleContacts.add(adminManager.getAdminName());
         if(attendeeManager.isAttendee(username)){
             List<String> eventsAttending = attendeeManager.getEventsAttending(username);
             for (String eventName: eventsAttending){
