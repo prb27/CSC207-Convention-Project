@@ -23,7 +23,7 @@ import java.util.*;
  * @see Attendee
  */
 public class AttendeeManager implements Serializable {
-    private final Hashtable<String, Attendee> attendees = new Hashtable<>();
+    private final Map<String, Attendee> attendees = new Hashtable<>();
 
     /**
      * create an Entities.Attendee given a pair of username and password
@@ -291,8 +291,32 @@ public class AttendeeManager implements Serializable {
 
     public List<Map<String, List<String>>> saveToDatabase() {
 
+        List<Map<String, List<String>>> resultingList = new ArrayList();
 
+        for (Map.Entry<String, Attendee> Attendee : attendees.entrySet()) {
 
+            String username = Attendee.getKey();
+            Attendee attendeeTemp = Attendee.getValue();
+
+            String password = attendeeTemp.getPassword();
+            List<String> credentialsTemp = new ArrayList<>();
+            credentialsTemp.add(username);
+            credentialsTemp.add(password);
+
+            List<String> conversationTemp = attendeeTemp.getConversations();
+            List<String> contactsTemp = attendeeTemp.getContacts();
+            List<String> eventlistTemp = attendeeTemp.getEventsAttending();
+
+            Map<String, List<String>> resultingAttendee = new HashMap();
+            resultingAttendee.put("credentials", credentialsTemp);
+            resultingAttendee.put("listOfConversations", conversationTemp);
+            resultingAttendee.put("listOfContacts", contactsTemp);
+            resultingAttendee.put("eventsAttending", eventlistTemp);
+
+            resultingList.add(resultingAttendee);
+        }
+        return resultingList;
     }
+
 
 }

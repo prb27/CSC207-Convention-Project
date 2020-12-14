@@ -1,5 +1,6 @@
 package UseCases;
 
+import Entities.Attendee;
 import Entities.Message;
 import Entities.Organizer;
 import Gateways.IMessageDatabase;
@@ -9,6 +10,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -328,6 +330,33 @@ public class OrganizerManager implements Serializable {
             organizerList.add(newOrganizer);
         }
 
+    }
+
+    public List<Map<String, List<String>>> saveToDatabase() {
+
+        List<Map<String, List<String>>> resultingList = new ArrayList();
+
+        for (Organizer Organizer : organizerList) {
+
+            String username = Organizer.getUserId();
+            String password = Organizer.getPassword();
+            List<String> credentialsTemp = new ArrayList<>();
+            credentialsTemp.add(username);
+            credentialsTemp.add(password);
+
+            List<String> conversationTemp = Organizer.getConversations();
+            List<String> contactsTemp = Organizer.getContacts();
+            List<String> eventlistTemp = Organizer.getEventsAttending();
+
+            Map<String, List<String>> resultingAttendee = new HashMap();
+            resultingAttendee.put("credentials", credentialsTemp);
+            resultingAttendee.put("listOfConversations", conversationTemp);
+            resultingAttendee.put("listOfContacts", contactsTemp);
+            resultingAttendee.put("eventsAttending", eventlistTemp);
+
+            resultingList.add(resultingAttendee);
+        }
+        return resultingList;
     }
 
 

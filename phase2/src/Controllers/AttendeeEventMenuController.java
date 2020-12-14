@@ -5,7 +5,6 @@ import UseCases.EventManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Hashtable;
 
 public class AttendeeEventMenuController {
 

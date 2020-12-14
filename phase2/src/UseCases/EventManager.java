@@ -5,15 +5,13 @@ import Entities.Event;
 import Entities.Events.MultiSpeakerEvent;
 import Entities.Events.NoSpeakerEvent;
 import Entities.Events.SingleSpeakerEvent;
+import Entities.Organizer;
 import Gateways.IConversationDatabase;
 import Gateways.IEventDatabase;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This is a use-case class that interacts with the event entity, and performs various tasks related to events.
@@ -316,6 +314,50 @@ public class EventManager implements Serializable {
             EventList.add(newEvent);
         }
     }
+
+    public List<Map<String, List<String>>> saveToDatabase() {
+
+        List<Map<String, List<String>>> resultingList = new ArrayList();
+
+        for (Event event : EventList) {
+
+            String eventName = event.getEventName();
+            List<String> speakerName = event.getSpeakerName();
+            String startTime = event.getStartTime();
+            int duration = event.getDuration();
+            String roomNumber = event.getRoomNumber();
+            int eventCapacity = event.getEventCapacity();
+            List<String> attendeeList = event.getAttendeeList();
+
+            List<String> eventNameTemp = new ArrayList<>();
+            List<String> startTimeTemp = new ArrayList<>();
+            List<String> durationTemp = new ArrayList<>();
+            List<String> roomNumberTemp = new ArrayList<>();
+            List<String> eventCapacityTemp = new ArrayList<>();
+
+            eventNameTemp.add(eventName);
+            startTimeTemp.add(startTime);
+            durationTemp.add(Integer.toString(duration));
+            roomNumberTemp.add(roomNumber);
+            eventCapacityTemp.add(Integer.toString(eventCapacity));
+
+            Map<String, List<String>> resultingEvent = new HashMap();
+            resultingEvent.put("eventName", eventNameTemp);
+            resultingEvent.put("speakerName", speakerName);
+            resultingEvent.put("startTime", startTimeTemp);
+            resultingEvent.put("duration", durationTemp);
+            resultingEvent.put("roomNumber", roomNumberTemp);
+            resultingEvent.put("eventCapacity", eventCapacityTemp);
+            resultingEvent.put("attendeeList", attendeeList);
+
+            resultingList.add(resultingEvent);
+        }
+        return resultingList;
+    }
+
+
+
+
 }
 
 
