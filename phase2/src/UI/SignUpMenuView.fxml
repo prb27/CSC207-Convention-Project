@@ -38,11 +38,5 @@
       </Label>
       <Button fx:id="signUp" layoutX="267.0" layoutY="281.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" />
       <Button fx:id="toLoginFromSignUp" layoutX="267.0" layoutY="346.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" />
-      <ComboBox fx:id="accountType" layoutX="410.0" layoutY="175.0" prefWidth="150.0" />
-      <Label fx:id="accountTypeLabel" layoutX="412.0" layoutY="141.0" text="Select Account Type:" textAlignment="CENTER">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
    </children>
 </AnchorPane>

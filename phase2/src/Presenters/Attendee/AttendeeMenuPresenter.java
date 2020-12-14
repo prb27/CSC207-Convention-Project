@@ -77,7 +77,7 @@ public class AttendeeMenuPresenter implements IAttendeeMenu {
 
     }
     private void goToMessaging() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/MessagingMenuView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Attendee/AttendeeMessagingMenuView.fxml"));
         Stage stage = (Stage) toMessagingFromAttendee.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
