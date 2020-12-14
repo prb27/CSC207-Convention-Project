@@ -5,10 +5,8 @@ import Controllers.UserEventController;
 import UseCases.RoomManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 
 public class OrganizerEventCreationMenuPresenter {
     private RoomManager roomManager;
@@ -30,11 +28,8 @@ public class OrganizerEventCreationMenuPresenter {
     @FXML
     public ChoiceBox<String> startTimeChoices;
 
-    ObservableList<String> startTimeChoiceList = FXCollections.observableArrayList("9", "10", "11", "12", "1", "2", "3", "4", "5");
-
     @FXML
     public ComboBox<Integer> durationChoices;
-    ObservableList<Integer> durationChoiceList = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8);
 
     @FXML
     public Button findRoomButton;
@@ -79,6 +74,10 @@ public class OrganizerEventCreationMenuPresenter {
     public void initialize(){
         selectedSpeakerDisplay.getItems().clear();
         selectedSpeakerDisplay.setItems(speakers);
+        ObservableList<String> startTimeChoiceList = FXCollections.observableArrayList("9", "10", "11", "12", "1", "2", "3", "4", "5");
+        ObservableList<Integer> durationChoiceList = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8);
+        startTimeChoices.setItems(startTimeChoiceList);
+        durationChoices.setItems(durationChoiceList);
     }
 
     @FXML
