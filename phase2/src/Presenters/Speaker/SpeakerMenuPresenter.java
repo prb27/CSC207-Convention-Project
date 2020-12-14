@@ -78,7 +78,7 @@ public class SpeakerMenuPresenter implements ISpeakerMenu {
      * @throws IOException
      */
     private void goToMessaging() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/MessagingMenuView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Speaker/SpeakerMessagingMenuView.fxml"));
         Stage stage = (Stage) toMessagingFromSpeaker.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);

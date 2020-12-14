@@ -4,10 +4,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presenters.LoginMenuPresenter">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presenters.LoginMenuPresenter">
     <children>
 
-        <Button fx:id="loginButton" layoutX="267.0" layoutY="236.0" prefHeight="25.0" prefWidth="63.0" />
+        <Button fx:id="loginButton" layoutX="268.0" layoutY="210.0" prefHeight="25.0" prefWidth="63.0" />
 
       <Label alignment="CENTER" layoutX="185.0" layoutY="58.0" prefHeight="43.0" prefWidth="230.0" text="Log In" textAlignment="JUSTIFY">
          <font>
@@ -15,17 +15,17 @@
          </font></Label>
           <PasswordField fx:id="passwordField" layoutX="220.0" layoutY="179.0" />
           <TextField fx:id="usernameField" layoutX="220.0" layoutY="129.0" />
-      <Label layoutX="246.0" layoutY="109.0" text="Enter Username:">
+      <Label layoutX="241.0" layoutY="104.0" text="Enter Username:">
          <font>
             <Font size="16.0" />
          </font></Label>
-      <Label layoutX="250.0" layoutY="159.0" text="Enter Password:">
+      <Label layoutX="239.0" layoutY="154.0" text="Enter Password:">
          <font>
             <Font size="16.0" />
          </font></Label>
-      <Button fx:id="signUpFromLogin" layoutX="263.0" layoutY="320.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="72.0" />
-      <Label alignment="CENTER" layoutX="195.0" layoutY="292.0" text="Click here to sign up as a new attendee:" />
-      <Label layoutX="185.0" layoutY="358.0" text="Information entered invalid. Please try again." textFill="RED" />
+      <Button fx:id="signUpFromLogin" layoutX="264.0" layoutY="275.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="72.0" />
+      <Label alignment="CENTER" layoutX="198.0" layoutY="243.0" text="Click here to sign up as a new attendee:" />
+      <Label layoutX="185.0" layoutY="325.0" text="Information entered invalid. Please try again." textFill="RED" />
       
 
     </children>

@@ -42,3 +42,9 @@ public class Attendee extends User implements Serializable {
     }
 
 }
+
+//Map<String, List<String>>
+//    credentials: <username, password>
+//    conversations: <>
+//    eventsAttending: <>
+//    contacts: <>

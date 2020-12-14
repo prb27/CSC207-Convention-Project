@@ -17,8 +17,6 @@ import java.io.IOException;
 public class SignUpMenuPresenter implements ISignUpMenu {
 
     private final SignUpMenuController signUpMenuController;
-    private final AccountHandler accountHandler;
-    private final LoginMenuController loginMenuController;
     @FXML
     private TextField createUsername;
     @FXML
@@ -27,18 +25,12 @@ public class SignUpMenuPresenter implements ISignUpMenu {
     private Button signUp;
     @FXML
     private Button toLoginFromSignUp;
-    @FXML
-    private ComboBox<String> accountType;
-    @FXML
-    private Label accountTypeLabel;
 
 
 
-   public SignUpMenuPresenter(SignUpMenuController signUpMenuController,
-                              AccountHandler accountHandler, LoginMenuController loginMenuController){
+
+   public SignUpMenuPresenter(SignUpMenuController signUpMenuController){
        this.signUpMenuController = signUpMenuController;
-       this.accountHandler = accountHandler;
-       this.loginMenuController = loginMenuController;
    }
 
     @FXML
@@ -59,8 +51,7 @@ public class SignUpMenuPresenter implements ISignUpMenu {
 
         createUsername.setPromptText("Username");
         createPassword.setPromptText("Password");
-        accountType.getItems().addAll("attendee", "organizer", "speaker");
-        privileges();
+
     }
 
     public void returnToLogin() throws IOException {
@@ -81,14 +72,6 @@ public class SignUpMenuPresenter implements ISignUpMenu {
         }
    }
 
-    private void privileges(){
-       if (accountHandler.getAccountType(loginMenuController.getCurrUsername()).equals("organizer")){
-           accountType.setDisable(false);
-           accountTypeLabel.setDisable(false);
-       }
-       accountType.setDisable(true);
-       accountTypeLabel.setDisable(true);
-    }
 
     @Override
     public void invalidUser() {

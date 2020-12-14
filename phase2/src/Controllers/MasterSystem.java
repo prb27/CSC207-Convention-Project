@@ -163,8 +163,7 @@ public class MasterSystem implements Serializable {
             this.loginMenuPresenter = new LoginMenuPresenter(loginMenuController);
             this.messageMenuController = new MessageMenuController();
             this.sceneHandler = new SceneHandler();
-            this.signUpMenuPresenter = new SignUpMenuPresenter(signUpMenuController,
-                    accountHandler, loginMenuController);
+            this.signUpMenuPresenter = new SignUpMenuPresenter(signUpMenuController);
 
 
 
