@@ -1,6 +1,7 @@
 package Presenters;
 
 import Controllers.AccountHandler;
+import Controllers.LoginMenuController;
 import Scrap.CurrUsernameInfoFileHandler;
 import Controllers.SignUpMenuController;
 import Presenters.Interfaces.ISignUpMenu;
@@ -17,9 +18,7 @@ public class SignUpMenuPresenter implements ISignUpMenu {
 
     private final SignUpMenuController signUpMenuController;
     private final AccountHandler accountHandler;
-    private final LoginMenuPresenter loginMenuPresenter;
-    private final CurrUsernameInfoFileHandler currUsernameInfoFileHandler;
-
+    private final LoginMenuController loginMenuController;
     @FXML
     private TextField createUsername;
     @FXML
@@ -35,11 +34,11 @@ public class SignUpMenuPresenter implements ISignUpMenu {
 
 
 
-   public SignUpMenuPresenter(SignUpMenuController signUpMenuController, AccountHandler accountHandler, LoginMenuPresenter loginMenuPresenter, CurrUsernameInfoFileHandler currUsernameInfoFileHandler){
+   public SignUpMenuPresenter(SignUpMenuController signUpMenuController,
+                              AccountHandler accountHandler, LoginMenuController loginMenuController){
        this.signUpMenuController = signUpMenuController;
        this.accountHandler = accountHandler;
-       this.loginMenuPresenter = loginMenuPresenter;
-       this.currUsernameInfoFileHandler = new CurrUsernameInfoFileHandler();
+       this.loginMenuController = loginMenuController;
    }
 
     @FXML
@@ -83,7 +82,7 @@ public class SignUpMenuPresenter implements ISignUpMenu {
    }
 
     private void privileges(){
-       if (accountHandler.getAccountType(loginMenuPresenter.getUsername()).equals("organizer")){
+       if (accountHandler.getAccountType(loginMenuController.getCurrUsername()).equals("organizer")){
            accountType.setDisable(false);
            accountTypeLabel.setDisable(false);
        }

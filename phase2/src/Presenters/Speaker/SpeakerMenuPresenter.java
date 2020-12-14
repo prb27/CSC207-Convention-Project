@@ -61,6 +61,10 @@ public class SpeakerMenuPresenter implements ISpeakerMenu {
 
     }
 
+    /**
+     * Redirects user to the event menu
+     * @throws IOException
+     */
     private void goToEvents() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Speaker/SpeakerEventMenuView.fxml"));
         Stage stage = (Stage) toEventsFromSpeaker.getScene().getWindow();
@@ -68,6 +72,11 @@ public class SpeakerMenuPresenter implements ISpeakerMenu {
         stage.setScene(scene);
 
     }
+
+    /**
+     * Redirects user to the messaging menu
+     * @throws IOException
+     */
     private void goToMessaging() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/MessagingMenuView.fxml"));
         Stage stage = (Stage) toMessagingFromSpeaker.getScene().getWindow();
@@ -75,6 +84,10 @@ public class SpeakerMenuPresenter implements ISpeakerMenu {
         stage.setScene(scene);
     }
 
+    /**
+     * Redirects user to the login menu
+     * @throws IOException
+     */
     private void signOut() throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();

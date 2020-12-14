@@ -174,12 +174,10 @@ public class MessengerMenuController {
      * @author Vladimir Caterov
      */
     public String speakerMessageByTalk(String speakerId, String eventName, String content){
-        HashMap<String, String> selectedTalk = new HashMap<>();
-        selectedTalk.put(eventManager.getStartTime(eventName), eventName);
 
         if(speakerManager.isSpeaker(speakerId)){
             if (eventManager.isEvent(eventName)){
-                if (speakerManager.getListOfTalks(speakerId).contains(selectedTalk)){
+                if (speakerManager.getListOfTalks(speakerId).containsValue(eventName)){
                     speakerByTalk(speakerId, eventName, content);
                     return "YES";
                 }
@@ -206,9 +204,7 @@ public class MessengerMenuController {
         if(speakerManager.isSpeaker(speakerId)) {
             for (String eventName : eventNames) {
                 if (eventManager.isEvent(eventName)) {
-                    HashMap<String, String> selectedTalk = new HashMap<>();
-                    selectedTalk.put(eventManager.getStartTime(eventName), eventName);
-                    if (speakerManager.getListOfTalks(speakerId).contains(selectedTalk)) {
+                    if (speakerManager.getListOfTalks(speakerId).containsValue(eventName)) {
                         speakerByTalk(speakerId, eventName, content);
                         return "YES";
                     }
