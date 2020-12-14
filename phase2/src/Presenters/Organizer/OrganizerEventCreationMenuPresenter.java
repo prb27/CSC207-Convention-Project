@@ -109,7 +109,7 @@ public class OrganizerEventCreationMenuPresenter {
     @FXML
     private void displayRooms(){
         if(powerSocketField.getText() == null || startTimeChoices.getValue() == null || durationChoices.getValue() == null){
-            errorDisplay("Incomplete");
+            notificationDisplay("Incomplete");
         }
         displayListView.getItems().clear();
         ObservableList<String> rooms = FXCollections.observableArrayList();
@@ -152,9 +152,7 @@ public class OrganizerEventCreationMenuPresenter {
         String result = userEventController.createEventInRoom(username.getText(), eventNameField.getText(),
                 startTimeChoices.getValue(), durationChoices.getValue(), Integer.parseInt(capacityField.getText()),
                 selectedSpeakerDisplay.getItems(), roomNumberDisplay.getText());
-        if(!result.equals("YES")){
-            errorDisplay(result);
-        }
+        notificationDisplay(result);
     }
 
     @FXML
@@ -173,7 +171,7 @@ public class OrganizerEventCreationMenuPresenter {
         stage.setScene(scene);
     }
 
-    private void errorDisplay(String error){
+    private void notificationDisplay(String error){
         Alert alert = new Alert(Alert.AlertType.WARNING);
         switch(error){
             case "Incomplete":
@@ -196,6 +194,25 @@ public class OrganizerEventCreationMenuPresenter {
                 alert.setTitle("Event time conflict");
                 alert.setHeaderText("There is a conflict with the timing of the event");
                 alert.show();
+            case "YES":
+                alert.setAlertType(Alert.AlertType.INFORMATION);
+                alert.setTitle("Event created successfully");
+                alert.setHeaderText("The event with the specified details has been created");
+                resetMenu();
+                alert.show();
         }
+    }
+
+    private void resetMenu(){
+        roomNumberDisplay.clear();
+        roomNumberDisplay.setPromptText("Room number");
+        eventNameField.clear();
+        eventNameField.setPromptText("Event name");
+        capacityField.clear();
+        capacityField.setPromptText("Capacity");
+        audioSystemCheck.setSelected(false);
+        projectorCheck.setSelected(false);
+        powerSocketField.clear();
+        selectedSpeakerDisplay.getItems().clear();
     }
 }
