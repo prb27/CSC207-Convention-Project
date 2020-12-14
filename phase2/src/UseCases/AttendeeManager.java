@@ -23,7 +23,7 @@ import java.util.*;
  * @see Attendee
  */
 public class AttendeeManager implements Serializable {
-    private final Hashtable<String, Attendee> attendees = new Hashtable<>();
+    private final Map<String, Attendee> attendees = new Hashtable<>();
 
     /**
      * create an Entities.Attendee given a pair of username and password

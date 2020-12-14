@@ -143,7 +143,7 @@ public class MessageController implements Serializable {
      * @author Vladimir Caterov
      */
     public String speakerMessageByTalk(String speakerId, String eventName, String content){
-        HashMap<String, String> selectedTalk = new HashMap<>();
+        Map<String, String> selectedTalk = new HashMap<>();
         selectedTalk.put(eventManager.getEventTime(eventName), eventName);
 
         if(speakerManager.isSpeaker(speakerId)){

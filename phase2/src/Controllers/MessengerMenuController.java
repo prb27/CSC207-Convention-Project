@@ -49,7 +49,7 @@ public class MessengerMenuController {
 
         }
         if (speakerManager.isSpeaker(username)) {
-            HashMap<String, String> events = speakerManager.getListOfTalks(username);
+            Map<String, String> events = speakerManager.getListOfTalks(username);
             for (Map.Entry<String, String> event: events.entrySet()){
                 String eventName = event.getValue();
                 eligibleContacts.addAll(eventManager.getAttendeeList(eventName));

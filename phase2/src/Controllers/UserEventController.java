@@ -304,9 +304,9 @@ public class UserEventController implements Serializable {
      * return the list of all events
      * call eventManager to perform!
      * @author Khoa Pham
-     * @return Hashtable<String, ArrayList<String>> eventsWithInfo
+     * @return Map<String, ArrayList<String>> eventsWithInfo
      */
-    public Hashtable<String, List<String>> seeAllEventsWithInfo() {
+    public Map<String, List<String>> seeAllEventsWithInfo() {
         return eventManager.getAllEventsWithInfo();
     }
 
@@ -316,11 +316,11 @@ public class UserEventController implements Serializable {
      * @author Khoa Pham
      * @param attendee: the username of an Entities.Attendee whose list of
      *                participating events is returned (param_type: String)
-     * @return Hashtable<String, List<String>> eventsWithInfo
+     * @return Map<String, List<String>> eventsWithInfo
      */
-    public Hashtable<String, List<String>> seeParticipatingEvents(String attendee) {
+    public Map<String, List<String>> seeParticipatingEvents(String attendee) {
         List<String> eventIdsAttending = attendeeManager.getEventsAttending(attendee);
-        Hashtable<String, List<String>> events = new Hashtable<>();
+        Map<String, List<String>> events = new Hashtable<>();
         for (String eventId : eventIdsAttending) {
             events.put(eventId, eventManager.getEventInfo(eventId));
         }
@@ -334,12 +334,12 @@ public class UserEventController implements Serializable {
      * @author Khoa Pham
      * @param attendee: the username of an Entities.Attendee whose list of
      *          all their available to signup events is returned (param_type: String)
-     * @return Hashtable<String, List<String>> eventsWithInfo
+     * @return Map<String, List<String>> eventsWithInfo
      */
-    public Hashtable<String, List<String>> seeAttendableEvents(String attendee) {
+    public Map<String, List<String>> seeAttendableEvents(String attendee) {
         List<String> eventIdsAttending = attendeeManager.getEventsAttending(attendee);
         List<String> eventIdsAll = eventManager.getEventNamesList();
-        Hashtable<String, List<String>> eventsAttendable = new Hashtable<>();
+        Map<String, List<String>> eventsAttendable = new Hashtable<>();
         for (String eventId : eventIdsAll) {
             if (!eventIdsAttending.contains(eventId)) {
                 eventsAttendable.put(eventId, eventManager.getEventInfo(eventId));
@@ -354,7 +354,7 @@ public class UserEventController implements Serializable {
      * @return : Returns the list of events they are hosting (param_type: ArrayList<String>)
      */
     public ArrayList<String> seeListOfEventsForSpeaker(String speakerUsername){
-        HashMap<String, String> listOfTalks = speakerManager.getListOfTalks(speakerUsername);
+        Map<String, String> listOfTalks = speakerManager.getListOfTalks(speakerUsername);
 
         ArrayList<String> masterList = new ArrayList<>();
 
@@ -371,9 +371,9 @@ public class UserEventController implements Serializable {
     /**
      * Can see the event information
      * @param speakerUsername : name of speaker
-     * @return : list of talks for the speaker (param_type: ArrayList<HashMap<String, String>>)
+     * @return : list of talks for the speaker (param_type: ArrayList<Map<String, String>>)
      */
-    public HashMap<String, String> seeAllEventsForSpeaker(String speakerUsername){
+    public Map<String, String> seeAllEventsForSpeaker(String speakerUsername){
         return speakerManager.getListOfTalks(speakerUsername);
     }
 
@@ -383,16 +383,16 @@ public class UserEventController implements Serializable {
      * @return list of all event names of talks (param_type: ArrayList<String>)
      */
     public ArrayList<String> seeAllEventNamesForSpeaker(String speakerUsername){
-//        ArrayList<HashMap<String, String>> listOfTalks = seeAllEventsForSpeaker(speakerUsername);
+//        ArrayList<Map<String, String>> listOfTalks = seeAllEventsForSpeaker(speakerUsername);
 //        ArrayList<String> listOfNamedTalks = new ArrayList<>();
-//        for(HashMap<String, String> talk: listOfTalks){
+//        for(Map<String, String> talk: listOfTalks){
 //            Collection<String> talkname1 =  talk.values();
 //            for (String talk3: talkname1){
 //                listOfNamedTalks.add(talk3);
 //            }
 //        }
 //        return listOfNamedTalks;
-        HashMap<String, String> listOfTalks = speakerManager.getListOfTalks(speakerUsername);
+        Map<String, String> listOfTalks = speakerManager.getListOfTalks(speakerUsername);
 
         ArrayList<String> masterList = new ArrayList<>();
 
