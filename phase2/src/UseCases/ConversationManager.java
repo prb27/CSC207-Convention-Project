@@ -1,12 +1,15 @@
 package UseCases;
 
+import Entities.Attendee;
 import Entities.Conversation;
 import Entities.Message;
+import Entities.Organizer;
 import Gateways.IConversationDatabase;
 import org.bson.Document;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -137,9 +140,39 @@ public class ConversationManager<InterfaceConversationDatabaseDatabase> implemen
             String convoRoot = conversation.get("convoRoot").get(0);
             String id = conversation.get("id").get(0);
             List<String> ListOfParticipants = conversation.get("participants");
+
             Conversation newConversation = new Conversation(ListOfParticipants, convoRoot, id);
             allConversations.add(newConversation);
         }
     }
+
+    public List<Map<String, List<String>>> saveToDatabase(){
+
+        List<Map<String, List<String>>> resultingList = new ArrayList();
+
+        for (Conversation Conversation : allConversations) {
+
+            String convoRoot = Conversation.getConvoRoot();
+            String id = Conversation.getId();
+            List<String> ListOfParticipants = Conversation.getParticipants();
+
+            List<String> convoRootTemp = new ArrayList<>();
+            List<String> idTemp = new ArrayList<>();
+
+            convoRootTemp.add(convoRoot);
+            idTemp.add(id);
+
+            Map<String, List<String>> resultingConversation = new HashMap();
+            resultingConversation.put("convoRoot", convoRootTemp);
+            resultingConversation.put("id", idTemp);
+            resultingConversation.put("participants", ListOfParticipants);
+
+            resultingList.add(resultingConversation);
+        }
+        return resultingList;
+    }
+
+
+}
 
 }
