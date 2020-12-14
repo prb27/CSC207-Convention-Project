@@ -1,14 +1,9 @@
 package UseCases;
 
-import Entities.Event;
 import Entities.Events.MultiSpeakerEvent;
-import Entities.Message;
-import Gateways.IMultiEventDatabase;
+import Gateways.Interfaces.IMultiEventDatabase;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

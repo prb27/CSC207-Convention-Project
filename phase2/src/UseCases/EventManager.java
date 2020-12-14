@@ -1,16 +1,9 @@
 package UseCases;
 
-import Entities.Conversation;
 import Entities.Event;
-import Entities.Events.MultiSpeakerEvent;
-import Entities.Events.NoSpeakerEvent;
-import Entities.Events.SingleSpeakerEvent;
-import Entities.Organizer;
-import Gateways.IConversationDatabase;
-import Gateways.IEventDatabase;
+import Gateways.Interfaces.IEventDatabase;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**

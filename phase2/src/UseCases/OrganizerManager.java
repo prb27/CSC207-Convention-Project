@@ -1,14 +1,9 @@
 package UseCases;
 
-import Entities.Attendee;
-import Entities.Message;
 import Entities.Organizer;
-import Gateways.IMessageDatabase;
-import Gateways.IOrganizerDatabase;
+import Gateways.Interfaces.IOrganizerDatabase;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,11 +35,10 @@ public class OrganizerManager implements Serializable {
 
     private final List<Organizer> organizerList;
 
-
-    public OrganizerManager(){
-
+    IOrganizerDatabase organizerDatabase;
+    public OrganizerManager(IOrganizerDatabase organizerDatabase){
+        this.organizerDatabase = organizerDatabase;
         organizerList = new ArrayList<>();
-
     }
 
     /**
@@ -308,19 +302,14 @@ public class OrganizerManager implements Serializable {
 
     }
 
-    IOrganizerDatabase organizerDatabase;
-    public OrganizerManager(IOrganizerDatabase organizerDatabase){
-        this.organizerDatabase = organizerDatabase;
-    }
-
 
     public void loadFromDatabase() {
         List<Map<String, List<String>>> listOfOrganizers = organizerDatabase.getOrganizers();
 
         for(Map<String, List<String>> organizer: listOfOrganizers){
             List<String> listOfEventsAttending = organizer.get("eventsAttending");
-            List<String> listOfContacts = organizer.get("listOfContacts");
-            List<String> listOfConversations = organizer.get("listOfConversations");
+            List<String> listOfContacts = organizer.get("contacts");
+            List<String> listOfConversations = organizer.get("conversations");
             String username = organizer.get("credentials").get(0);
             String password = organizer.get("credentials").get(1);
             Organizer newOrganizer =  new Organizer(username, password);
@@ -332,9 +321,9 @@ public class OrganizerManager implements Serializable {
 
     }
 
-    public List<Map<String, List<String>>> saveToDatabase() {
+    public void saveToDatabase() {
 
-        List<Map<String, List<String>>> resultingList = new ArrayList();
+        List<Map<String, List<String>>> resultingList = new ArrayList<>();
 
         for (Organizer Organizer : organizerList) {
 
@@ -346,17 +335,17 @@ public class OrganizerManager implements Serializable {
 
             List<String> conversationTemp = Organizer.getConversations();
             List<String> contactsTemp = Organizer.getContacts();
-            List<String> eventlistTemp = Organizer.getEventsAttending();
+            List<String> eventListTemp = Organizer.getEventsAttending();
 
-            Map<String, List<String>> resultingAttendee = new HashMap();
+            Map<String, List<String>> resultingAttendee = new HashMap<>();
             resultingAttendee.put("credentials", credentialsTemp);
-            resultingAttendee.put("listOfConversations", conversationTemp);
-            resultingAttendee.put("listOfContacts", contactsTemp);
-            resultingAttendee.put("eventsAttending", eventlistTemp);
+            resultingAttendee.put("conversations", conversationTemp);
+            resultingAttendee.put("contacts", contactsTemp);
+            resultingAttendee.put("eventsAttending", eventListTemp);
 
             resultingList.add(resultingAttendee);
         }
-        return resultingList;
+        organizerDatabase.saveOrganizerList(resultingList);
     }
 
 

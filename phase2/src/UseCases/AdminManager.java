@@ -1,10 +1,8 @@
 package UseCases;
 
 import Entities.Admin;
-import Entities.Attendee;
 import Entities.Organizer;
-import Gateways.IAdminDatabase;
-import Gateways.IAttendeeDatabase;
+import Gateways.Interfaces.IAdminDatabase;
 
 import java.io.Serializable;
 import java.util.List;
