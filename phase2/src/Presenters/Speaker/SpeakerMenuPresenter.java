@@ -1,6 +1,7 @@
 package Presenters.Speaker;
 
 
+import Gateways.ProgramGenerator;
 import Presenters.Interfaces.ISpeakerMenu;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,9 +23,11 @@ public class SpeakerMenuPresenter implements ISpeakerMenu {
 
     @FXML
     private Button signOut;
+    private final ProgramGenerator programGenerator;
 
 
-    public SpeakerMenuPresenter(){
+    public SpeakerMenuPresenter(ProgramGenerator programGenerator){
+        this.programGenerator = programGenerator;
     }
 
     @FXML
@@ -89,6 +92,7 @@ public class SpeakerMenuPresenter implements ISpeakerMenu {
      * @throws IOException
      */
     private void signOut() throws IOException{
+        programGenerator.readToDatabase();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());

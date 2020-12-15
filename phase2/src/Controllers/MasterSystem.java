@@ -156,19 +156,19 @@ public class MasterSystem implements Serializable {
             this.organizerMessengerMenuPresenter = new OrganizerMessengerMenuPresenter(messengerMenuController, loginMenuController);
 
             this.speakerConversationMenuPresenter = new SpeakerConversationMenuPresenter(loginMenuController,
-                    conversationMenuController, sceneHandler);
-            this.speakerEventMenuPresenter = new SpeakerEventMenuPresenter(userEventController, loginMenuPresenter);
-            this.speakerMenuPresenter = new SpeakerMenuPresenter();
+                    conversationMenuController, sceneHandler, programGenerator);
+            this.speakerEventMenuPresenter = new SpeakerEventMenuPresenter(userEventController, loginMenuPresenter, programGenerator);
+            this.speakerMenuPresenter = new SpeakerMenuPresenter(programGenerator);
             this.speakerMessagingMenuPresenter = new SpeakerMessagingMenuPresenter(loginMenuController,
-                    speakerMessagingDashboardMenuController, conversationMenuController);
+                    speakerMessagingDashboardMenuController, conversationMenuController, programGenerator);
             this.speakerMessengerMenuPresenter = new SpeakerMessengerMenuPresenter(messengerMenuController,
-                    loginMenuController);
+                    loginMenuController, programGenerator);
 
             this.eventMenuPresenter = new EventMenuPresenter();
             this.loginMenuPresenter = new LoginMenuPresenter(loginMenuController);
             this.messageMenuController = new MessageMenuController();
             this.sceneHandler = new SceneHandler();
-            this.signUpMenuPresenter = new SignUpMenuPresenter(signUpMenuController);
+            this.signUpMenuPresenter = new SignUpMenuPresenter(signUpMenuController, programGenerator);
 
 
 

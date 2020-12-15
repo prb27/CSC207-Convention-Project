@@ -2,6 +2,7 @@ package Presenters;
 
 import Controllers.AccountHandler;
 import Controllers.LoginMenuController;
+import Gateways.ProgramGenerator;
 import Scrap.CurrUsernameInfoFileHandler;
 import Controllers.SignUpMenuController;
 import Presenters.Interfaces.ISignUpMenu;
@@ -17,6 +18,7 @@ import java.io.IOException;
 public class SignUpMenuPresenter implements ISignUpMenu {
 
     private final SignUpMenuController signUpMenuController;
+    private final ProgramGenerator programGenerator;
     @FXML
     private TextField createUsername;
     @FXML
@@ -28,9 +30,9 @@ public class SignUpMenuPresenter implements ISignUpMenu {
 
 
 
-
-   public SignUpMenuPresenter(SignUpMenuController signUpMenuController){
+   public SignUpMenuPresenter(SignUpMenuController signUpMenuController, ProgramGenerator programGenerator){
        this.signUpMenuController = signUpMenuController;
+       this.programGenerator = programGenerator;
    }
 
     @FXML
@@ -65,6 +67,7 @@ public class SignUpMenuPresenter implements ISignUpMenu {
     private void signUpAttendee(){
         if (signUpMenuController.signUp(createUsername.getText(), createPassword.getText())){
             try {
+                programGenerator.readToDatabase();
                 returnToLogin();
             } catch (IOException e) {
                 e.printStackTrace();
