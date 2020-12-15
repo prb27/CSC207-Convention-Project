@@ -38,7 +38,7 @@ public class OrganizerConferenceMenuPresenter {
 
     @FXML
     private ChoiceBox<String> userTypeChoice;
-    ObservableList<String> userTypeChoiceList = FXCollections.observableArrayList("Attendee", "Organizer", "Speaker", "Admin");
+    ObservableList<String> userTypeChoiceList = FXCollections.observableArrayList("attendee", "organizer", "speaker", "admin");
 
     @FXML
     private ListView<String> userList;
@@ -108,21 +108,21 @@ public class OrganizerConferenceMenuPresenter {
         userListInput.removeAll();
         userListInput.addAll(organizerMenuController.listOfUsers("organizer"));
         userList.getItems().clear();
-        userList.getItems().addAll(userListInput);
+        userList.setItems(userListInput);
     }
     @FXML
     public void seeSpeakers(){
         userListInput.removeAll();
         userListInput.addAll(organizerMenuController.listOfUsers("speaker"));
         userList.getItems().clear();
-        userList.getItems().addAll(userListInput);
+        userList.setItems(userListInput);
     }
     @FXML
     public void seeAdmin(){
         userListInput.removeAll();
         userListInput.addAll(organizerMenuController.listOfUsers("admin"));
         userList.getItems().clear();
-        userList.getItems().addAll(userListInput);
+        userList.setItems(userListInput);
     }
 
     @FXML
@@ -130,7 +130,7 @@ public class OrganizerConferenceMenuPresenter {
         userListInput.removeAll();
         userListInput.addAll(organizerMenuController.listOfUsers("all"));
         userList.getItems().clear();
-        userList.getItems().addAll(userListInput);
+        userList.setItems(userListInput);
     }
 
     @FXML
