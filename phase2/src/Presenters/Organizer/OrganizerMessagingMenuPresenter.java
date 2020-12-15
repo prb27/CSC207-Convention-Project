@@ -24,6 +24,8 @@ public class OrganizerMessagingMenuPresenter {
     private Button messenger;
     @FXML
     private Button signOut;
+    @FXML
+    private Button goBack;
 
     private  ConversationMenuController conversationMenuController;
     private OrganizerMessagingDashboardMenuController organizerMessagingDashboardMenuController;
@@ -58,7 +60,16 @@ public class OrganizerMessagingMenuPresenter {
                 e.printStackTrace();
             }
         });
-
+        goBack.setText("Go back");
+        goBack.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
+        goBack.setOnAction(event -> {
+            try {
+                goBack();
+            }
+            catch (IOException e){
+                e.printStackTrace();
+            }
+        });
 
     }
 
@@ -146,5 +157,15 @@ public class OrganizerMessagingMenuPresenter {
         this.programGenerator = masterSystem.getProgramGenerator();
         username.setText(loginMenuController.getCurrUsername());
         loadConversations();
+    }
+
+    public void goBack() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerMenuView.fxml"));
+        Stage stage = (Stage) signOut.getScene().getWindow();
+        Scene scene = new Scene(loader.load());
+        MasterSystem masterSystem = programGenerator.readFromDatabase();
+        LoginMenuPresenter loginMenuPresenter = loader.getController();
+        loginMenuPresenter.setMasterSystem(masterSystem);
+        stage.setScene(scene);
     }
 }

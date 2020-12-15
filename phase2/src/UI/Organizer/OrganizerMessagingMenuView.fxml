@@ -21,5 +21,6 @@
          </font>
       </Label>
       <Label fx:id="username" layoutX="90.0" layoutY="51.0" text="Username" />
+      <Button fx:id="goBack" layoutX="444.0" layoutY="72.0" mnemonicParsing="false" text="Go Back" />
    </children>
 </AnchorPane>
