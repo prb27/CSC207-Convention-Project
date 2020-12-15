@@ -15,6 +15,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrganizerEventMenuPresenter {
 
@@ -180,8 +182,10 @@ public class OrganizerEventMenuPresenter {
     @FXML
     public void changeSpeaker(){
         String room = organizerMenuController.getEventDetails(eventNameDisplay.getText()).get(3);
+        List<String> names = new ArrayList<String>();
+        names.add(timeField.getText());
         organizerMenuController.changeSpeakerForEventThroughOrganizer(username.getText(), eventNameDisplay.getText(),
-                detailList.getItems(), room);
+                names, room);
     }
 
     @FXML

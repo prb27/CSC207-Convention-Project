@@ -40,7 +40,6 @@ public class MasterSystem {
     private ConversationMenuController conversationMenuController;
     private EventMenuController eventMenuController;
     private EventsSearchEngine eventsSearchEngine;
-    private MessageMenuController messageMenuController;
     private MessengerMenuController messengerMenuController;
     private OrganizerMenuController organizerMenuController;
     private SpeakerMenuController speakerMenuController;
@@ -98,7 +97,6 @@ public class MasterSystem {
             this.loginMenuController = new LoginMenuController(accountHandler);
             this.signUpMenuController = new SignUpMenuController(accountHandler);
 
-            this.messageMenuController = new MessageMenuController();
             this.messengerMenuController = new MessengerMenuController(messageManager, attendeeManager,
                     organizerManager, speakerManager, eventManager, accountHandler, conversationManager);
             this.organizerMenuController = new OrganizerMenuController(attendeeManager, organizerManager,
@@ -112,7 +110,6 @@ public class MasterSystem {
             this.userEventController = new UserEventController(attendeeManager, organizerManager,
                     speakerManager, eventManager, roomManager);
 
-            this.messageMenuController = new MessageMenuController();
             this.sceneHandler = new SceneHandler();
 
 
@@ -152,9 +149,6 @@ public class MasterSystem {
         public EventsSearchEngine getEventsSearchEngine(){
             return this.eventsSearchEngine;
         }
-        public MessageMenuController getMessageMenuController(){
-            return this.messageMenuController;
-        }
         public MessengerMenuController getMessengerMenuController(){
             return this.messengerMenuController;
         }
@@ -180,7 +174,7 @@ public class MasterSystem {
             return this.roomManager;
         }
 
-    public OrganizerMessagingDashboardMenuController getOrganizerMessagingDashboardController() {
-        return organizerMessagingDashboardMenuController;
-    }
+        public OrganizerMessagingDashboardMenuController getOrganizerMessagingDashboardController() {
+            return organizerMessagingDashboardMenuController;
+        }
 }
