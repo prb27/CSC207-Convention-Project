@@ -163,7 +163,6 @@ public class OrganizerMessagingMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
-        MasterSystem masterSystem = programGenerator.readFromDatabase();
         LoginMenuPresenter loginMenuPresenter = loader.getController();
         loginMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
