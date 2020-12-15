@@ -2,7 +2,9 @@ package Presenters;
 
 import Controllers.LoginMenuController;
 import Controllers.MasterSystem;
+import Presenters.Attendee.AttendeeMenuPresenter;
 import Presenters.Interfaces.ILoginMenu;
+import Presenters.Organizer.OrganizerMenuPresenter;
 import Presenters.Speaker.SpeakerMenuPresenter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -84,6 +86,8 @@ public class LoginMenuPresenter implements ILoginMenu {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/SignUpMenuView.fxml"));
         Stage stage = (Stage) signUpFromLogin.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        SignUpMenuPresenter signUpMenuPresenter = loader.getController();
+        signUpMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -112,6 +116,10 @@ public class LoginMenuPresenter implements ILoginMenu {
         FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/AttendeeMenuView.fxml"));
         Stage stage = (Stage) loginButton.getScene().getWindow();
         Scene attendeeMenuScene = new Scene(loader.load());
+
+        AttendeeMenuPresenter attendeeMenuPresenter = loader.getController();
+        attendeeMenuPresenter.setMasterSystem(masterSystem);
+
         stage.setScene(attendeeMenuScene);
     }
 
@@ -120,6 +128,10 @@ public class LoginMenuPresenter implements ILoginMenu {
         FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/OrganizerMenuView.fxml"));
         Stage stage = (Stage) loginButton.getScene().getWindow();
         Scene organizerMenuScene = new Scene(loader.load());
+
+        OrganizerMenuPresenter organizerMenuPresenter = loader.getController();
+        organizerMenuPresenter.setMasterSystem(masterSystem);
+
         stage.setScene(organizerMenuScene);
     }
 

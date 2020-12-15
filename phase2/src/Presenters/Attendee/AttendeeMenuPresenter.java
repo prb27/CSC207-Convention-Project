@@ -5,6 +5,7 @@ import Controllers.LoginMenuController;
 import Controllers.MasterSystem;
 import Gateways.ProgramGenerator;
 import Presenters.Interfaces.IAttendeeMenu;
+import Presenters.LoginMenuPresenter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -27,12 +28,12 @@ public class AttendeeMenuPresenter implements IAttendeeMenu {
     @FXML
     private Label welcome;
 
-    private final LoginMenuController loginMenuController;
-    private final ProgramGenerator programGenerator;
+    private LoginMenuController loginMenuController;
+    private ProgramGenerator programGenerator;
+    private MasterSystem masterSystem;
 
-    public AttendeeMenuPresenter(MasterSystem masterSystem){
-        this.loginMenuController  = masterSystem.getLoginMenuController();
-        this.programGenerator = masterSystem.getProgramGenerator();
+    public AttendeeMenuPresenter(){
+
     }
 
     @FXML
@@ -90,7 +91,15 @@ public class AttendeeMenuPresenter implements IAttendeeMenu {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        LoginMenuPresenter loginMenuPresenter = loader.getController();
+        loginMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
+    }
+
+    public void setMasterSystem(MasterSystem masterSystem){
+        this.masterSystem = masterSystem;
+        this.loginMenuController = masterSystem.getLoginMenuController();
+        this.programGenerator = masterSystem.getProgramGenerator();
     }
 
 
