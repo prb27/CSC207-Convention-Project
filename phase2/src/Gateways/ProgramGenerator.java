@@ -1,8 +1,6 @@
 package Gateways;
 
 import Controllers.MasterSystem;
-import Entities.Admin;
-import Entities.Room;
 import UseCases.*;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
@@ -92,26 +90,20 @@ public class ProgramGenerator implements Serializable{
     }
 
     /**
-     * serialize and write the latest state of the Controllers.MasterSystem class into the serialized Controllers.MasterSystem file
-     * @author Juan Yi Loke
-     * @param filePath: the file name of the serialized Controllers.MasterSystem file
-     * @param object: the Controllers.MasterSystem class that needs to be serialized into a .ser file
+     * This method saves the data from the program into the respective the database
+     * @author Juan Yi Loke, Akshat
      */
-    public void saveToFile(MasterSystem object, String filePath){
+    public void readToDatabase(){
         try {
-            File serFile = new File(filePath + ".ser");
-            if(!serFile.exists())
-                serFile.createNewFile();
-            OutputStream file = new FileOutputStream(filePath + ".ser");
-            OutputStream buffer = new BufferedOutputStream(file);
-            ObjectOutput output = new ObjectOutputStream(buffer);
-
-            output.writeObject(object);
-            output.close();
-
-        } catch (IOException ex) {
-            System.out.println("IOException while saving data");
-            ex.printStackTrace();
+            attendeeManager.saveToDatabase();
+            organizerManager.saveToDatabase();
+            speakerManager.saveToDatabase();
+            messageManager.saveToDatabase();
+            conversationManager.saveToDatabase();
+            eventManager.saveToDatabase();
+            roomManager.saveToDatabase();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
