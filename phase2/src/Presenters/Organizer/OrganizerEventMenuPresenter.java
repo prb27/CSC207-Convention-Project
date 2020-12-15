@@ -6,9 +6,17 @@ import Controllers.OrganizerMenuController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class OrganizerEventMenuPresenter {
+
+    public Button backButton;
+    public Button signOutButton;
 
     private OrganizerMenuController organizerMenuController;
     private LoginMenuController loginMenuController;
@@ -80,7 +88,35 @@ public class OrganizerEventMenuPresenter {
         ObservableList<Integer> durationChoices = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8);
         startTimeChoice.setItems(startTimeChoices);
         durationChoice.setItems(durationChoices);
+        backButton.setOnAction(event -> {
+            try {
+                goBack();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
+        signOutButton.setOnAction(event -> {
+            try {
+                signOut();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void signOut() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/LoginMenuView.fxml"));
+        Stage stage = (Stage) signOutButton.getScene().getWindow();
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
+    }
+
+    private void goBack() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerMenuView.fxml"));
+        Stage stage = (Stage) backButton.getScene().getWindow();
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
     }
 
     @FXML
