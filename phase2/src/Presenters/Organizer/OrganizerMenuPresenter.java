@@ -57,7 +57,7 @@ public class OrganizerMenuPresenter {
             }
         });
 
-        toConferenceFromOrganizer.setText("Events");
+        toConferenceFromOrganizer.setText("Conference");
         toConferenceFromOrganizer.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
         toConferenceFromOrganizer.setOnAction(event -> {
             try {
