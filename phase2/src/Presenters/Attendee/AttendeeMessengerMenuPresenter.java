@@ -125,8 +125,6 @@ public class AttendeeMessengerMenuPresenter {
 
     }
     private void sendMessage() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Attendee/AttendeeConversationMenuView.fxml"));
-        Scene scene = new Scene(loader.load());
 
         if (allRecipients.isSelected()){
             String sender = loginMenuController.getCurrUsername();

@@ -83,14 +83,14 @@ public class AttendeeMessagingMenuPresenter {
         for (String conversationID: conversationIDs){
             List<String> recipientsOfConversation = attendeeMessagingDashboardMenuController.getConvoParticipants(conversationID);
             Label count = new Label();
-            count.setText("Conversation ID " + conversationID + ";");
+            count.setText("Conversation ID: " + conversationID + ";");
             Label participants = new Label();
             StringBuilder recipients = new StringBuilder();
             for (String recipient: recipientsOfConversation){
                 recipients.append(recipient);
                 recipients.append(", ");
             }
-            participants.setText("Participants" + recipients);
+            participants.setText("Participants: " + recipients);
             Button viewConversation = new Button("View Conversation");
             viewConversation.setOnAction(event -> {
                 try {

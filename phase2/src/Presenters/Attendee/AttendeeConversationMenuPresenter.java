@@ -41,7 +41,7 @@ public class AttendeeConversationMenuPresenter {
     @FXML
     private void initialize(){
         welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
-        description.setText(conversationMenuController.getConversationInformation());
+        description.setText(conversationMenuController.getCurrentConversationID());
         goBack.setText("Go Back");
         goBack.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
         goBack.setOnAction(event -> {
