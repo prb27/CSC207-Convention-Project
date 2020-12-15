@@ -77,21 +77,6 @@ public class MasterSystem implements Serializable {
 
 
     /**
-     * Constructor method to initialize a MasterSystem instance with empty use case classes. This is used in case
-     * of an exception during the loading of the database into our program
-     */
-    public MasterSystem() {
-        this.attendeeManager = new AttendeeManager();
-        this.organizerManager = new OrganizerManager();
-        this.speakerManager = new SpeakerManager();
-        this.adminManager = new AdminManager();
-        this.messageManager = new MessageManager();
-        this.conversationManager = new ConversationManager();
-        this.eventManager = new EventManager();
-        this.roomManager = new RoomManager();
-    }
-
-    /**
      * Constructor method to initialize a new MasterSystem instance with the instances of the use case classes
      * with data loaded from the database
      * @param attendeeManager: instance of AttendeeManager
