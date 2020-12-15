@@ -1,6 +1,5 @@
 package Entities;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +11,7 @@ import java.util.Map;
  * @author Vladimir Caterov
  * @see User
  */
-public class Speaker extends User implements Serializable {
+public class Speaker extends User {
     private Map<String, String> listOfTalks;
 
     /**

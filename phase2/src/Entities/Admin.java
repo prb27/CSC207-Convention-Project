@@ -1,6 +1,5 @@
 package Entities;
 
-import java.io.Serializable;
 
 /**
  * this class stores all info relating to an Admin
@@ -11,7 +10,7 @@ import java.io.Serializable;
  * A few notes to consider:
  *    * disallows changes in username, password for now
  */
-public class Admin extends User implements Serializable {
+public class Admin extends User {
 
     /**
      * a constructor to create an Admin object

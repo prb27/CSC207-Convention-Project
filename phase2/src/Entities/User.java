@@ -1,6 +1,5 @@
 package Entities;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +16,7 @@ import java.util.List;
  *    * can attendee remove someone from their contacts list?
  *    * can attendees delete their account?
  */
-public abstract class User implements Serializable {
+public abstract class User {
     private final String username; // disallows changes in username for now
     private final String password; // disallows changes in password for now
     private List<String> contacts = new ArrayList<>();

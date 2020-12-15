@@ -1,6 +1,5 @@
 package Entities;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +12,7 @@ import java.util.List;
  * A few notes to consider:
  *    * disallows changes in username, password for now
  */
-public class Attendee extends User implements Serializable {
+public class Attendee extends User {
     private List<String> eventsAttending = new ArrayList<>();
 
     /**

@@ -3,9 +3,7 @@ package UseCases;
 import Entities.Message;
 import Gateways.Interfaces.IMessageDatabase;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +20,7 @@ import java.util.Map;
  * @author Peter Bilski, Khoa Pham
  * @see Message
  */
-public class MessageManager implements Serializable {
+public class MessageManager {
     private List<Message> allMessages;
 
     /**

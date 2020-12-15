@@ -1,10 +1,7 @@
 package UseCases;
 
 import Entities.Admin;
-import Entities.Organizer;
 
-import java.io.Serializable;
-import java.util.List;
 
 /**
  * this class manages (stores and updates) the Admin
@@ -14,7 +11,7 @@ import java.util.List;
  * @author Khoa Pham
  * @see Entities.Admin
  */
-public class AdminManager implements Serializable {
+public class AdminManager {
     private Admin admin;
 
     public void createAdmin() {
