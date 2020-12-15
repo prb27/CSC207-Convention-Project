@@ -2,6 +2,7 @@ package Presenters.Organizer;
 
 import Controllers.LoginMenuController;
 import Controllers.MessengerMenuController;
+import Gateways.ProgramGenerator;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -33,13 +34,14 @@ public class OrganizerMessengerMenuPresenter {
     private CheckBox allRecipients;
 
 
-
+    private final ProgramGenerator programGenerator;
     private MessengerMenuController messengerMenuController;
     private final LoginMenuController loginMenuController;
 
-    public OrganizerMessengerMenuPresenter(MessengerMenuController messengerMenuController, LoginMenuController loginMenuController){
+    public OrganizerMessengerMenuPresenter(MessengerMenuController messengerMenuController, LoginMenuController loginMenuController, ProgramGenerator programGenerator){
         this.messengerMenuController = messengerMenuController;
         this.loginMenuController = loginMenuController;
+        this.programGenerator = programGenerator;
     }
 
     @FXML
@@ -101,6 +103,7 @@ public class OrganizerMessengerMenuPresenter {
      * @throws IOException
      */
     private void signOut() throws IOException {
+        programGenerator.readToDatabase();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());

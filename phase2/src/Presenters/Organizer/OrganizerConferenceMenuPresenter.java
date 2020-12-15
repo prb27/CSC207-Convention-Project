@@ -2,13 +2,21 @@ package Presenters.Organizer;
 
 import Controllers.AccountHandler;
 import Controllers.OrganizerMenuController;
+import Gateways.ProgramGenerator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class OrganizerConferenceMenuPresenter {
-
+    public Button backButton;
+    public Button signOutButton;
+    private ProgramGenerator programGenerator;
     private OrganizerMenuController organizerMenuController;
     private AccountHandler accountHandler;
 
@@ -53,7 +61,9 @@ public class OrganizerConferenceMenuPresenter {
     @FXML
     private TextField displayFree;
 
-    public OrganizerConferenceMenuPresenter(OrganizerMenuController organizerMenuController, AccountHandler accountHandler){
+    public OrganizerConferenceMenuPresenter(OrganizerMenuController organizerMenuController, AccountHandler accountHandler,
+                                            ProgramGenerator programGenerator){
+        this.programGenerator = programGenerator;
         this.organizerMenuController = organizerMenuController;
         this.accountHandler = accountHandler;
     }
@@ -68,6 +78,21 @@ public class OrganizerConferenceMenuPresenter {
         durationChoice.setItems(durationChoices);
         durationChoice.setValue(1);
         createUser.setOnAction(event -> createUser());
+        backButton.setOnAction(event -> {
+            try {
+                goBack();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        signOutButton.setOnAction(event -> {
+            try {
+                signOut();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @FXML
@@ -145,6 +170,21 @@ public class OrganizerConferenceMenuPresenter {
             displayFree.setDisable(true);
         }
 
+    }
+
+    public void goBack() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerMenuView.fxml"));
+        Stage stage = (Stage) backButton.getScene().getWindow();
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
+    }
+
+    public void signOut() throws IOException {
+        programGenerator.readToDatabase();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/LoginMenuView.fxml"));
+        Stage stage = (Stage) signOutButton.getScene().getWindow();
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
     }
 
     private void mismatchedPassword(){
