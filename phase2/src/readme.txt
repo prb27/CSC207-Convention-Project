@@ -1,4 +1,30 @@
-@author Khoa Pham, Akshat Ayush, Juan Yi Loke
+@author Juan Yi Loke
+
+
+Prerequisite:
+- mongo-java-driver-3.12.17.jar
+
+Description:
+Phase 2 of our program extends Phase 1 with the following extensions:
+
+    - the mandatory extensions (Ashwin, Khoa, Arib)
+
+    - 3 optional extensions:
+        1) "Add additional constraints to the scheduling for various types of events (e.g. technology requirements for
+        presentations, tables vs rows of chairs). When organizers are creating events, they can see a suggested list
+        of rooms that fit the requirements of their event." (Ashwin, Arib)
+
+        2) "Replace your text UI with a Graphic User Interface (GUI), which should follow the Model-View-Presenter
+        architecture." (Arib, Vladimir, Peter)
+
+    - 2 big original features:
+        1) "Use a database to store the information from your program through specific gateway class(es) so that you do
+        not violate Clean Architecture and still have an Entity layer." (Johnny, Akshat)
+
+        2) A search engine for the entire conference system (Ashwin)
+
+
+
 
 Walkthrough of the Program:
 
