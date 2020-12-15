@@ -328,7 +328,7 @@ public class SpeakerManager {
             List<String> eventNames = speaker.get("eventNames");
             List<String> eventTimes = speaker.get("eventTimes");
             if (!eventTimes.isEmpty()){
-                for(int i = 0 ; i < eventTimes.size(); i++){
+                for(int i = 0 ; i <= eventTimes.size(); i++){
                     listOfTalks.put(eventTimes.get(i), eventNames.get(i));
                 }
             }
