@@ -1,7 +1,6 @@
 package UseCases;
 
 import Entities.Events.MultiSpeakerEvent;
-import Gateways.Interfaces.IMultiEventDatabase;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -21,7 +21,7 @@ import java.util.*;
  */
 public class EventManager implements Serializable {
 
-    private List <Event> EventList = new ArrayList<>();
+    private List<Event> EventList = new ArrayList<>();
 
 
     /**
@@ -310,9 +310,9 @@ public class EventManager implements Serializable {
 
     public void saveToDatabase() {
 
-        List<Map<String, List<String>>> resultingList = new ArrayList();
+        List<Map<String, List<String>>> resultingList = new ArrayList<>();
 
-        for (Event event : EventList) {
+        for (Event event : this.EventList) {
 
             String eventName = event.getEventName();
             List<String> speakerName = event.getSpeakerName();
@@ -322,25 +322,13 @@ public class EventManager implements Serializable {
             int eventCapacity = event.getEventCapacity();
             List<String> attendeeList = event.getAttendeeList();
 
-            List<String> eventNameTemp = new ArrayList<>();
-            List<String> startTimeTemp = new ArrayList<>();
-            List<String> durationTemp = new ArrayList<>();
-            List<String> roomNumberTemp = new ArrayList<>();
-            List<String> eventCapacityTemp = new ArrayList<>();
-
-            eventNameTemp.add(eventName);
-            startTimeTemp.add(startTime);
-            durationTemp.add(Integer.toString(duration));
-            roomNumberTemp.add(roomNumber);
-            eventCapacityTemp.add(Integer.toString(eventCapacity));
-
-            Map<String, List<String>> resultingEvent = new HashMap();
-            resultingEvent.put("eventName", eventNameTemp);
+            Map<String, List<String>> resultingEvent = new HashMap<>();
+            resultingEvent.put("eventName", Collections.singletonList(eventName));
             resultingEvent.put("speakerName", speakerName);
-            resultingEvent.put("startTime", startTimeTemp);
-            resultingEvent.put("duration", durationTemp);
-            resultingEvent.put("roomNumber", roomNumberTemp);
-            resultingEvent.put("eventCapacity", eventCapacityTemp);
+            resultingEvent.put("startTime", Collections.singletonList(startTime));
+            resultingEvent.put("duration", Collections.singletonList(String.valueOf(duration)));
+            resultingEvent.put("roomNumber", Collections.singletonList(roomNumber));
+            resultingEvent.put("eventCapacity", Collections.singletonList(String.valueOf(eventCapacity)));
             resultingEvent.put("attendeeList", attendeeList);
 
             resultingList.add(resultingEvent);

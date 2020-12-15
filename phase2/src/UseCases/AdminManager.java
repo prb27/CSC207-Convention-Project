@@ -2,7 +2,6 @@ package UseCases;
 
 import Entities.Admin;
 import Entities.Organizer;
-import Gateways.Interfaces.IAdminDatabase;
 
 import java.io.Serializable;
 import java.util.List;
@@ -38,25 +37,6 @@ public class AdminManager implements Serializable {
 
     public boolean isAdmin(String username){
         return getAdminName().equals(username);
-    }
-
-
-
-    IAdminDatabase adminDatabase;
-    public AdminManager(IAdminDatabase adminDatabase){
-        this.adminDatabase = adminDatabase;
-    }
-
-    public void loadFromDatabase() {
-
-        List<String> listOfContacts = admin.get("listOfContacts");
-        List<String> listOfConversations = admin.get("listOfConversations");
-        String username = admin.get("credentials").get(0);
-        String password = admin.get("credentials").get(1);
-        Organizer newOrganizer =  new Admin(username, password);
-        newOrganizer.setContacts(listOfContacts);
-        newOrganizer.setConversations(listOfConversations);
-
     }
 
 
