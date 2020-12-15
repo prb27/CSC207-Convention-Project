@@ -18,12 +18,11 @@ public class OrganizerMenuController {
     private AdminManager adminManager;
     private AccountHandler accountHandler;
     private EventManager eventManager;
-    private MessageController messageController;
     private UserEventController userEventController;
     private RoomManager roomManager;
 
 
-    public OrganizerMenuController(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager, AdminManager adminManager, AccountHandler accountHandler, EventManager eventManager, MessageController messageController, UserEventController userEventController, RoomManager roomManager){
+    public OrganizerMenuController(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager, AdminManager adminManager, AccountHandler accountHandler, EventManager eventManager, UserEventController userEventController, RoomManager roomManager){
 
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
@@ -31,7 +30,6 @@ public class OrganizerMenuController {
         this.adminManager = adminManager;
         this.accountHandler = accountHandler;
         this.eventManager = eventManager;
-        this.messageController = messageController;
         this.userEventController = userEventController;
         this.roomManager = roomManager;
 
@@ -60,24 +58,6 @@ public class OrganizerMenuController {
         return users;
 
     }
-
-    // This can be handled at the GUI level
-    //ui.present("Please enter the speaker's username");
-    //        String speakerName = scanner.nextLine();
-    //        ui.present("Please enter the time");
-    //        String time = scanner.nextLine();
-    // Drop down menu offers only the following times
-    //        allowedTimes.add("9");
-    //        allowedTimes.add("10");
-    //        allowedTimes.add("11");
-    //        allowedTimes.add("12");
-    //        allowedTimes.add("1");
-    //        allowedTimes.add("2");
-    //        allowedTimes.add("3");
-    //        allowedTimes.add("4");
-    //        allowedTimes.add("5");
-    //
-
     /**
      * Checks if the speaker with <speakerName> is free at <time>
      * @param speakerName username of the speaker involved (param_type: String)
@@ -122,15 +102,6 @@ public class OrganizerMenuController {
 
     // -----
 
-
-    // EVENT FUNCTIONS
-
-
-    //case 7
-    //ui.present("Please enter roomID:");
-    //                    String roomID = scanner.nextLine();
-    //                    ui.present("Please enter room capacity");
-    //                    int capacity = scanner.nextInt();
     /**
      * By the end of the execution of this method, the Entities.Organizer with username </organizerUsername> would have
      * created a room with Id </roomId> and capacity </capacity>
@@ -151,31 +122,6 @@ public class OrganizerMenuController {
         }
         return "ODE";
     }
-
-
-    // contact Arib or Ashwin for details on how to create an Event
-    // case "8": {
-    //                    ui.present("Please enter event name");
-    //                    String eventName = scanner.nextLine();
-    //                    ui.present("Please enter event time");
-    //                    String eventTime = scanner.nextLine();
-    //                    ui.present("Please enter event duration");
-    //                    String speakerName = scanner.nextLine();
-    //                    String err = userEventController.createEvent(username, eventName, eventTime, speakerName);
-    //                    if (!err.equals("YES"))
-    //                        ui.showError(err);
-    //                    else {
-    //                        ui.present("Successful");
-    //                    }
-    //                    break;
-    //                }
-    // This can also be handled by the GUI (Note: you will have to handle the new changes made to createEvent.)
-
-    // case 9
-    //ui.present("Please enter the event name.");
-    //        String eventName = scanner.nextLine();
-    //        ui.present("Please enter new speaker's username"); You should allow multiple speaker names to be entered
-    //        String speakerName = scanner.nextLine();
 
 
     /**
@@ -298,34 +244,9 @@ public class OrganizerMenuController {
 
     }
 
-    // case 12
-    //public String OrganizerSignUpForEvent(){
-    //
-    //        ui.present("Please enter the title of the event you want to attend (exactly as it appears on the list of titles displayed)");
-    //        String eventName = scanner.nextLine();
-    //        String err = userEventController.enrolUserInEvent(username, eventName);
-    //        if(!err.equals("YES")){
-    //            ui.showError(err);
-    //        }
-    //        else{
-    //            ui.present("Successful");
-    //        }
-    //
-    //    }
-    // Can be done by the GUI
-
     public void signUpAsOrganizer(String eventName, String organizerId){
         eventManager.reserveAttendee(eventName, organizerId);
     }
-
-    //case "13": {
-    //                    ui.present("Please enter the event's name");
-    //                    String eventName = scanner.nextLine();
-    //                    userEventController.cancelSeatForUser(username, eventName);
-    //                    ui.present("You are no longer attending " + eventName);
-    //                    break;
-    //                }
-    // Can be done by the GUI
 
     public void cancelSpotAsOrganizer(String eventName, String organizerId){
         eventManager.removeAttendee(eventName, organizerId);
@@ -343,163 +264,4 @@ public class OrganizerMenuController {
         return printableEventsInfo;
 
     }
-
-
-    //case "15": {
-    //                    ui.present("Please enter attendee ID");
-    //                    String attendeeID = scanner.nextLine();
-    //                    ui.present("Please enter the message that you want to send");
-    //                    String content = scanner.nextLine();
-    //                    boolean err = messageController.organizerSendMessageToSingle(username, attendeeID, content, "attendee");
-    //                    if(err){
-    //                        ui.present("Successful");
-    //                    }
-    //                    else{
-    //                        ui.present("Something went wrong");
-    //                    }
-    //                    break;
-    //                }
-    // Can be handled by GUI
-
-
-    //case "16": {
-    //                    ui.present("Please enter the message that you want to send");
-    //                    String content = scanner.nextLine();
-    //                    messageController.organizerSendMessageToAll(username, content, "attendee");
-    //                    break;
-    //                }
-    // Can be handled by GUI
-
-
-    //case "17": {
-    //                    ui.present("Please enter the speaker's username");
-    //                    String speakerName = scanner.nextLine();
-    //                    ui.present("Please enter the message that you want to send");
-    //                    String content = scanner.nextLine();
-    //                    messageController.organizerSendMessageToSingle(username, speakerName, content, "speaker");
-    //                    break;
-    //                }
-    // Can be handled by GUI
-
-
-    //case "18": {
-    //                    ui.present("Please enter the message that you want to send");
-    //                    String content = scanner.nextLine();
-    //                    messageController.organizerSendMessageToAll(username, content, "speaker");
-    //                    break;
-    //                }
-    // Can be handled by GUI
-
-
-    // case 20
-    //ui.present("Please enter the event name");
-    //        String eventName = scanner.nextLine();
-    //        ui.present("Please enter the message that you want to send");
-    //        String message = scanner.nextLine();
-
-    /**
-     *
-     * @param username
-     * @param eventName
-     * @param message
-     * @return
-     */
-    public String organizerSendMessageByEvent(String username, String eventName, String message){
-
-        if(!eventManager.isEvent(eventName)){
-            return "EDE";
-        }
-        boolean messageByEvent = messageController.organizerMessageByEvent(username, eventName, message);
-        if(messageByEvent){
-            return "Successful";
-        }
-        return "Something went wrong";
-
-    }
-
-    /**
-     * Method that enables an organizer to add an Attendee account.
-     * @param username: username of the attendee
-     * @param password: password of the attendee
-     * @return "YES" - Successful signup of the attendee,
-     *         "AAE" - Attendee already exists
-     */
-    public String  organizerCreateAttendee(String username, String password) {
-        if(accountHandler.signup(username, password, "attendee"))
-            return "YES";
-        else
-            return "AAE";
-    }
-
-    /**
-     * Method that enables an organizer to add an Organizer account.
-     * @param username: username of the Organizer
-     * @param password: password of the Organizer
-     * @return "YES" - Successful signup of the organizer,
-     *         "OAE" - Organizer already exists
-     */
-    public String organizerCreateOrganizer(String username, String password) {
-        if(accountHandler.signup(username, password, "organizer"))
-            return "YES";
-        else
-            return "OAE";
-    }
-
-    /**
-     * Method that enables an organizer to add an Speaker account.
-     * @param username: username of the Speaker
-     * @param password: password of the Speaker
-     * @return "YES" - Successful signup of the speaker,
-     *         "SAE" - Speaker already exists
-     */
-    public String organizerCreateSpeaker(String username, String password) {
-        if(accountHandler.signup(username, password, "speaker"))
-            return "YES";
-        else
-            return "SAE";
-    }
-
 }
-
-
-    //public void organizerCommandHandler(String username, String option){
-    //        Scanner scanner = new Scanner(System.in);
-    //        if(organizerManager.isOrganizer(username)) {
-    //            switch (option) {
-    //                case "19": {
-    //                    Integer i = 1;
-    //                    for(String conversationId: organizerManager.getConversations(username)) {
-    //                        List<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
-    //                        StringBuilder recipients = new StringBuilder();
-    //                        ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
-    //                        for (String recipient: recipientsOfConversation){
-    //                            recipients.append(recipient);
-    //                            recipients.append(", ");
-    //                        }
-    //                        ui.present("Recipients: " + recipients);
-    //                        i += 1;
-    //                    }
-    //                    if(organizerManager.getConversations(username).isEmpty()){
-    //                        ui.present("You have no conversations");
-    //                        break;
-    //                    }
-    //                    ui.present("Choose a Entities.Conversation Number");
-    //                    String conversationNumber = scanner.nextLine();
-    //                    String conversationIdFinal = organizerManager.getConversations(username).get(Integer.parseInt(conversationNumber) - 1);
-    //                    List<String> messagesInThisConversation = messageController.orderedMessagesInConvo(conversationIdFinal);
-    //                    for (String s : messagesInThisConversation) {
-    //                        ui.present(s);
-    //                    }
-    //                    ui.present("Enter \"r\" to reply in this conversation. [Any other input will exit this menu]");
-    //                    String reply = scanner.nextLine();
-    //                    if(!reply.equals("r")){
-    //                        break;
-    //                    }
-    //                    ui.present("Please enter the message you want to send");
-    //                    String content = scanner.nextLine();
-    //                    messageController.reply(username, conversationIdFinal, content);
-    //                    break;
-    //                }
-    //            }
-    //        }
-    //    }

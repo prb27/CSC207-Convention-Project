@@ -238,7 +238,7 @@ public class SpeakerManager {
             return false;
         }
         else{
-            return (speaker.getListOfTalks().containsKey(time));
+            return (!speaker.getListOfTalks().containsKey(time));
 //            for (Map<String, String> talk: speaker.getListOfTalks()){
 //                if (talk.containsKey(time)) {
 //                    free = false;
@@ -327,8 +327,10 @@ public class SpeakerManager {
             Map<String,String> listOfTalks = new HashMap<>();
             List<String> eventNames = speaker.get("eventNames");
             List<String> eventTimes = speaker.get("eventTimes");
-            for(int i = 0 ; i < eventTimes.size(); i++){
-                listOfTalks.put(eventTimes.get(i), eventNames.get(i));
+            if (!eventTimes.isEmpty()){
+                for(int i = 0 ; i <= eventTimes.size(); i++){
+                    listOfTalks.put(eventTimes.get(i), eventNames.get(i));
+                }
             }
 
             Speaker newSpeaker =  new Speaker(username, password);

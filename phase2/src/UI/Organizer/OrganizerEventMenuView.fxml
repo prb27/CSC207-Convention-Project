@@ -31,8 +31,8 @@
    <TextField fx:id="eventNameDisplay" editable="false" layoutX="229.0" layoutY="87.0" prefHeight="27.0" prefWidth="125.0" />
    <Label layoutX="251.0" layoutY="71.0" text="Selected Event Name" />
    <Label fx:id="displayTag" layoutX="17.0" layoutY="55.0" text="Events" />
-   <Button fx:id="changeSpeakerButton" disable="true" layoutX="229.0" layoutY="123.0" mnemonicParsing="false" onAction="#changeSpeaker" text="Change Speaker" />
-   <Button fx:id="changeTimeButton" disable="true" layoutX="229.0" layoutY="160.0" mnemonicParsing="false" onAction="#changeTime" text="Change Time" />
+   <Button fx:id="changeSpeakerButton" disable="true" layoutX="314.0" layoutY="124.0" mnemonicParsing="false" onAction="#changeSpeaker" text="Change Speaker" />
+   <Button fx:id="changeTimeButton" disable="true" layoutX="221.0" layoutY="124.0" mnemonicParsing="false" onAction="#changeTime" text="Change Time" />
    <Button fx:id="signUpButton" disable="true" layoutX="229.0" layoutY="197.0" mnemonicParsing="false" onAction="#signUp" text="Sign Up" />
    <Button fx:id="cancelSpotButton" disable="true" layoutX="293.0" layoutY="197.0" mnemonicParsing="false" onAction="#cancelSpot" prefHeight="27.0" prefWidth="91.0" text="Cancel Spot" />
    <Button fx:id="clearEventButton" disable="true" layoutX="353.0" layoutY="87.0" mnemonicParsing="false" onAction="#clearEvent" prefHeight="27.0" prefWidth="57.0" text="Clear" />
@@ -51,7 +51,7 @@
    <ChoiceBox fx:id="startTimeChoice" layoutX="23.0" layoutY="317.0" prefWidth="150.0" />
    <ChoiceBox fx:id="durationChoice" layoutX="23.0" layoutY="349.0" prefWidth="150.0" />
    <Button fx:id="seeSpeakers" disable="true" layoutX="229.0" layoutY="236.0" mnemonicParsing="false" onAction="#seeSpeakers" text="See Speakers" />
-   <TextField fx:id="timeField" layoutX="330.0" layoutY="160.0" prefHeight="27.0" prefWidth="57.0" />
+   <TextField fx:id="timeField" layoutX="269.0" layoutY="158.0" prefHeight="28.0" prefWidth="91.0" />
    <Button fx:id="backButton" layoutX="449.0" layoutY="18.0" mnemonicParsing="false" opacity="0.75" text="Go Back" />
    <Button fx:id="signOutButton" layoutX="520.0" layoutY="18.0" mnemonicParsing="false" opacity="0.75" text="Sign Out" />
 </AnchorPane>

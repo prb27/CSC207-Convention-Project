@@ -1,10 +1,13 @@
 package Presenters.Organizer;
 
+import Controllers.AccountHandler;
 import Controllers.LoginMenuController;
 import Controllers.MasterSystem;
 import Controllers.MessengerMenuController;
 import Gateways.ProgramGenerator;
 import Presenters.LoginMenuPresenter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -31,19 +34,19 @@ public class OrganizerMessengerMenuPresenter {
     @FXML
     private Button signOut;
     @FXML
-    private Label welcome;
+    private Label username;
     @FXML
     private CheckBox allRecipients;
 
+    @FXML
+    private ChoiceBox<String> userTypeChoice;
+    ObservableList<String> types = FXCollections.observableArrayList("attendee", "speaker", "organizer");
 
     private  ProgramGenerator programGenerator;
     private MessengerMenuController messengerMenuController;
     private  LoginMenuController loginMenuController;
     private MasterSystem masterSystem;
-
-    public OrganizerMessengerMenuPresenter(){
-
-    }
+    private AccountHandler accountHandler;
 
     @FXML
     private void initialize(){
@@ -67,24 +70,6 @@ public class OrganizerMessengerMenuPresenter {
             }
         });
         sendMessage.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
-        sendMessage.setOnAction(event -> {
-            try {
-
-                if(!recipientIDs.getText().contains(",") && !recipientIDs.getText().trim().equals("") && !eventIDs.getText().trim().equals("") && !allRecipients.isSelected()){
-                    sendSpeakerMessage();
-                }
-                if (allRecipients.isSelected() && !eventIDs.getText().trim().equals("")){
-                    sendMessageByTalk();
-
-                }
-                if(allRecipients.isSelected() && !eventIDs.getText().trim().equals("") && eventIDs.getText().contains(",")){
-                    sendMultiMessageByTalk();
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
     }
 
     /**
@@ -115,111 +100,35 @@ public class OrganizerMessengerMenuPresenter {
         stage.setScene(scene);
     }
 
-
-    private void sendSpeakerMessage() throws IOException {
-        List<String> eventNames = new ArrayList<>();
-        if (!recipientIDs.getText().contains(",") && !recipientIDs.getText().trim().equals("") && !eventIDs.getText().trim().equals("")) {
-            String recipientID = recipientIDs.getText();
-            String eventName = eventIDs.getText();
-            eventNames.add(eventName);
-            String speakerID = loginMenuController.getCurrUsername();
-            String message = content.getText();
-            messengerMenuController.speakerMessageAttendee(speakerID, eventNames, recipientID, message);
-
-            if (messengerMenuController.speakerMessageAttendee(speakerID, eventNames, recipientID, message)) {
-                goBack();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Something went wrong");
-                alert.setHeaderText("Something went wrong");
-                alert.setContentText("Please look into it");
-                recipientIDs.clear();
-                recipientIDs.setDisable(false);
-                allRecipients.setDisable(false);
-            }
+    @FXML
+    public void sendMessage(){
+        if(allRecipients.isSelected()){
+            sendMessageToAll();
+        } else if(allEvents.isSelected()){
+            sendMessageByEvent();
+        } else {
+            sendMessageToIndividual();
         }
-
-        goBack();
     }
 
-    private void sendMessageByTalk() throws IOException {
-
-        if (allRecipients.isSelected() && !eventIDs.getText().trim().equals("")){
-            String eventName = eventIDs.getText();
-            String speakerID = loginMenuController.getCurrUsername();
-            String message = content.getText();
-            String validator = messengerMenuController.speakerMessageByTalk(speakerID, eventName, message);
-            if(ErrorChecker(validator)){
-                goBack();
-
-            }
-
-        }
-
+    public void sendMessageToIndividual(){
+        String userType = accountHandler.getAccountType(recipientIDs.getText());
+        messengerMenuController.organizerSendMessageToSingle(username.getText(), recipientIDs.getText(), content.getText(), userType);
     }
 
-    private void sendMultiMessageByTalk() throws IOException {
-
-        if (allRecipients.isSelected() && !eventIDs.getText().trim().equals("")){
-            String eventName = eventIDs.getText();
-            String speakerID = loginMenuController.getCurrUsername();
-            String message = content.getText();
-            String validator = messengerMenuController.speakerMessageByTalk(speakerID, eventName, message);
-            if(ErrorChecker(validator)){
-                goBack();
-
-            }
-        }
-
-        goBack();
-
+    public void sendMessageToAll(){
+        messengerMenuController.organizerSendMessageToAll(username.getText(), content.getText(), userTypeChoice.getValue());
+    }
+    public void sendMessageByEvent(){
+        messengerMenuController.organizerMessageByEvent(username.getText(), eventIDs.getText(), content.getText());
     }
 
-    //Helper Method
-    private boolean ErrorChecker(String validator){
-        boolean checker = false;
-        if (validator.equals("SDE")){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Something went wrong");
-            alert.setHeaderText("Something went wrong");
-            alert.setContentText("Speaker Does Not Exist");
-            recipientIDs.clear();
-            recipientIDs.setDisable(false);
-            allRecipients.setDisable(false);
-
-        }
-        else if (validator.equals("EDE")){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Something went wrong");
-            alert.setHeaderText("Something went wrong");
-            alert.setContentText("Event Does Not Exist");
-            recipientIDs.clear();
-            recipientIDs.setDisable(false);
-            allRecipients.setDisable(false);
-
-        }
-        else if (validator.equals("SEC")){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Something went wrong");
-            alert.setHeaderText("Something went wrong");
-            alert.setContentText("Speaker and Event Conflict");
-            recipientIDs.clear();
-            recipientIDs.setDisable(false);
-            allRecipients.setDisable(false);
-
-        }
-        else{
-            checker = true;
-        }
-
-        return checker;
-
-    }
     public void setMasterSystem(MasterSystem masterSystem){
         this.masterSystem = masterSystem;
         this.messengerMenuController = masterSystem.getMessengerMenuController();
         this.loginMenuController = masterSystem.getLoginMenuController();
         this.programGenerator = masterSystem.getProgramGenerator();
-        welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
+        this.accountHandler = masterSystem.getAccountHandler();
+        username.setText(loginMenuController.getCurrUsername());
     }
 }
