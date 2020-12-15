@@ -2,6 +2,7 @@ package Presenters.Admin;
 
 import Controllers.AdminMenuController;
 import Controllers.LoginMenuController;
+import Presenters.Interfaces.IAdminMenu;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,7 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-public class AdminMenuPresenter {
+public class AdminMenuPresenter implements IAdminMenu {
     private final LoginMenuController loginMenuController;
     private final AdminMenuController adminMenuController;
     @FXML
@@ -42,12 +43,10 @@ public class AdminMenuPresenter {
                 e.printStackTrace();
             }
         });
-
         loadMessages();
-
     }
 
-    private void loadMessages(){
+    public void loadMessages(){
         messages.getItems().clear();
         List<String> allMessages = adminMenuController.getAllMessages();
         for (String message: allMessages){
@@ -56,13 +55,10 @@ public class AdminMenuPresenter {
             Button delete = new Button("Delete");
             delete.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
             delete.setOnAction(event -> {
-                adminMenuController.getAllMessages().remove(message);
-                loadMessages();
+                adminMenuController.updateMessages(message);
             });
             HBox hBox = new HBox(messageLabel, delete);
             messages.getItems().add(hBox);
-
-
         }
     }
 
