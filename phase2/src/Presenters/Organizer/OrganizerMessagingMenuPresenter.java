@@ -141,6 +141,7 @@ public class OrganizerMessagingMenuPresenter {
         stage.setScene(scene);
     }
     public void setMasterSystem(MasterSystem masterSystem){
+        this.masterSystem = masterSystem;
         this.loginMenuController = masterSystem.getLoginMenuController();
         this.conversationMenuController = masterSystem.getConversationMenuController();
         this.speakerMessagingDashboardMenuController = masterSystem.getSpeakerMessagingDashboardMenuController();

@@ -30,6 +30,7 @@ public class OrganizerConversationMenuPresenter {
     @FXML
     private Button reply;
 
+    private MasterSystem masterSystem;
     private  ProgramGenerator programGenerator;
     private  LoginMenuController loginMenuController;
     private  ConversationMenuController conversationMenuController;
@@ -124,6 +125,7 @@ public class OrganizerConversationMenuPresenter {
 
 
     public void setMasterSystem(MasterSystem masterSystem){
+        this.masterSystem = masterSystem;
         this.loginMenuController = masterSystem.getLoginMenuController();
         this.conversationMenuController = masterSystem.getConversationMenuController();
         this.sceneHandler = masterSystem.getSceneHandler();

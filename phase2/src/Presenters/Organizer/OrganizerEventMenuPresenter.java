@@ -345,6 +345,7 @@ public class OrganizerEventMenuPresenter {
         }
     }
     public void setMasterSystem(MasterSystem masterSystem){
+        this.masterSystem = masterSystem;
         this.loginMenuController = masterSystem.getLoginMenuController();
         this.organizerMenuController = masterSystem.getOrganizerMenuController();
         this.eventsSearchEngine = masterSystem.getEventsSearchEngine();

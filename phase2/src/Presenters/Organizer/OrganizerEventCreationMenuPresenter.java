@@ -223,6 +223,7 @@ public class OrganizerEventCreationMenuPresenter {
     }
 
     public void setMasterSystem(MasterSystem masterSystem) {
+        this.masterSystem = masterSystem;
         this.roomManager = masterSystem.getRoomManager();
         this.organizerMenuController = masterSystem.getOrganizerMenuController();
         this.userEventController = masterSystem.getUserEventController();
