@@ -2,7 +2,7 @@ package Presenters.Speaker;
 
 import Controllers.LoginMenuController;
 import Gateways.ProgramGenerator;
-import Scrap.CurrUsernameInfoFileHandler;
+
 import Controllers.MessengerMenuController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

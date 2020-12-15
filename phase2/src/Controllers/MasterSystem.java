@@ -1,13 +1,11 @@
 package Controllers;
 
-import Entities.Speaker;
 import Gateways.ProgramGenerator;
 import Presenters.*;
 import Presenters.Attendee.*;
 import Presenters.Organizer.*;
 import Presenters.Speaker.*;
-import Scrap.CurrUsernameInfoFileHandler;
-import UI.TextUserInterface;
+
 import UseCases.*;
 
 import java.io.Serializable;
