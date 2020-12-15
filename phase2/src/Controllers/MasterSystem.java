@@ -45,6 +45,7 @@ public class MasterSystem {
     private OrganizerMenuController organizerMenuController;
     private SpeakerMenuController speakerMenuController;
     private SpeakerMessagingDashboardMenuController speakerMessagingDashboardMenuController;
+    private OrganizerMessagingDashboardMenuController organizerMessagingDashboardMenuController;
     private LoginMenuController loginMenuController;
     private SignUpMenuController signUpMenuController;
 
@@ -109,6 +110,8 @@ public class MasterSystem {
             this.speakerMenuController = new SpeakerMenuController(attendeeManager, organizerManager, speakerManager,
                     eventManager, roomManager, conversationManager, messageManager, "");
             this.speakerMessagingDashboardMenuController = new SpeakerMessagingDashboardMenuController(speakerManager,
+                    conversationManager);
+            this.organizerMessagingDashboardMenuController = new OrganizerMessagingDashboardMenuController(organizerManager,
                     conversationManager);
             this.userEventController = new UserEventController(attendeeManager, organizerManager,
                     speakerManager, eventManager, roomManager);
@@ -184,4 +187,7 @@ public class MasterSystem {
             return this.roomManager;
         }
 
+    public OrganizerMessagingDashboardMenuController getOrganizerMessaginDashboardController() {
+        return organizerMessagingDashboardMenuController;
+    }
 }
