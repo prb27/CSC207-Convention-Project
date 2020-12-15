@@ -45,4 +45,7 @@
    <ChoiceBox fx:id="durationChoice" disable="true" layoutX="333.0" layoutY="349.0" prefHeight="27.0" prefWidth="50.0"/>
    <TextField fx:id="displayFree" disable="true" editable="false" layoutX="394.0" layoutY="349.0" prefHeight="27.0"
               prefWidth="43.0"/>
+   <Button fx:id="backButton" layoutX="449.0" layoutY="18.0" mnemonicParsing="false" opacity="0.75"
+           text="Go Back"/>
+   <Button fx:id="signOutButton" layoutX="520.0" layoutY="18.0" mnemonicParsing="false" opacity="0.75" text="Sign Out"/>
 </AnchorPane>

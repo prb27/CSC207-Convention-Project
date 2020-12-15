@@ -74,6 +74,7 @@ public class MasterSystem implements Serializable {
 
     private MessageController messageController;
     private UserEventController userEventController;
+    private ProgramGenerator programGenerator;
 
 
     /**
@@ -99,6 +100,7 @@ public class MasterSystem implements Serializable {
         this.conversationManager = conversationManager;
         this.eventManager = eventManager;
         this.roomManager = roomManager;
+        this.programGenerator = new ProgramGenerator();
     }
 
 
@@ -136,14 +138,14 @@ public class MasterSystem implements Serializable {
                     speakerManager, eventManager, roomManager);
 
             this.attendeeConversationMenuPresenter = new AttendeeConversationMenuPresenter(loginMenuController,
-                    conversationMenuController, sceneHandler);
+                    conversationMenuController, sceneHandler, programGenerator);
             this.attendeeEventMenuPresenter = new AttendeeEventMenuPresenter(attendeeEventMenuController,
-                    loginMenuController);
-            this.attendeeMenuPresenter = new AttendeeMenuPresenter(loginMenuController);
+                    loginMenuController, programGenerator);
+            this.attendeeMenuPresenter = new AttendeeMenuPresenter(loginMenuController, programGenerator);
             this.attendeeMessagingMenuPresenter = new AttendeeMessagingMenuPresenter(loginMenuController,
-                    attendeeMessagingDashboardMenuController, conversationMenuController);
+                    attendeeMessagingDashboardMenuController, conversationMenuController, programGenerator);
             this.attendeeMessengerMenuPresenter = new AttendeeMessengerMenuPresenter(messengerMenuController,
-                    loginMenuController, sceneHandler, conversationMenuController);
+                    loginMenuController, sceneHandler, conversationMenuController, programGenerator);
 
             this.organizerConferenceMenuPresenter = new OrganizerConferenceMenuPresenter(organizerMenuController,
                     accountHandler);

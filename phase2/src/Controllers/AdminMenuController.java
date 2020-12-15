@@ -32,7 +32,6 @@ public class AdminMenuController {
 
     }
     public List<String> getAllMessages() {
-        List<String> messageList = new ArrayList<>();
         List<String> speakers = speakerManager.getAllSpeakerIds();
         List<String> organizers = organizerManager.getAllOrganizerIds();
 

@@ -3,6 +3,7 @@ package Presenters.Organizer;
 import Controllers.LoginMenuController;
 import Controllers.OrganizerMenuController;
 import Controllers.UserEventController;
+import Gateways.ProgramGenerator;
 import UseCases.RoomManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +20,7 @@ public class OrganizerEventCreationMenuPresenter {
     private OrganizerMenuController organizerMenuController;
     private UserEventController userEventController;
     private LoginMenuController loginMenuController;
-
+    private ProgramGenerator programGenerator;
     @FXML
     public Label username;
 
@@ -73,11 +74,13 @@ public class OrganizerEventCreationMenuPresenter {
     public ListView<String> displayListView;
 
     public OrganizerEventCreationMenuPresenter(RoomManager roomManager, OrganizerMenuController organizerMenuController,
-                                               UserEventController userEventController, LoginMenuController loginMenuController){
+                                               UserEventController userEventController, LoginMenuController loginMenuController,
+                                               ProgramGenerator programGenerator){
         this.roomManager = roomManager;
         this.organizerMenuController = organizerMenuController;
         this.userEventController = userEventController;
         this.loginMenuController = loginMenuController;
+        this.programGenerator = programGenerator;
     }
 
     public void initialize(){
@@ -165,6 +168,7 @@ public class OrganizerEventCreationMenuPresenter {
 
     @FXML
     private void signOut() throws IOException {
+        programGenerator.readToDatabase();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/LoginMenuView.fxml"));
         Stage stage = (Stage) signOutButton.getScene().getWindow();
         Scene scene = new Scene(loader.load());

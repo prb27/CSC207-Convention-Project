@@ -3,6 +3,7 @@ package Presenters.Organizer;
 import Controllers.EventsSearchEngine;
 import Controllers.LoginMenuController;
 import Controllers.OrganizerMenuController;
+import Gateways.ProgramGenerator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,6 +22,7 @@ public class OrganizerEventMenuPresenter {
     private OrganizerMenuController organizerMenuController;
     private LoginMenuController loginMenuController;
     private EventsSearchEngine eventsSearchEngine;
+    private ProgramGenerator programGenerator;
 
     @FXML
     public Label username;
@@ -76,10 +78,11 @@ public class OrganizerEventMenuPresenter {
     public TextField timeField;
 
     public OrganizerEventMenuPresenter(LoginMenuController loginMenuController, OrganizerMenuController organizerMenuController,
-                                       EventsSearchEngine eventsSearchEngine){
+                                       EventsSearchEngine eventsSearchEngine, ProgramGenerator programGenerator){
         this.loginMenuController = loginMenuController;
         this.organizerMenuController = organizerMenuController;
         this.eventsSearchEngine = eventsSearchEngine;
+        this.programGenerator = programGenerator;
     }
 
     public void initialize(){
@@ -106,6 +109,7 @@ public class OrganizerEventMenuPresenter {
     }
 
     private void signOut() throws IOException {
+        programGenerator.readToDatabase();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/LoginMenuView.fxml"));
         Stage stage = (Stage) signOutButton.getScene().getWindow();
         Scene scene = new Scene(loader.load());
