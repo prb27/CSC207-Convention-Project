@@ -1,9 +1,9 @@
 package Gateways;
 
 import Controllers.MasterSystem;
+import UseCases.*;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-import com.mongodb.client.MongoDatabase;
 
 import java.io.*;
 
@@ -15,18 +15,26 @@ import java.io.*;
  *  - writing the most updated state of the Controllers.MasterSystem class into the serialized Controllers.MasterSystem file.
  * @author Akshat Ayush
  */
-
 public class ProgramGenerator implements Serializable{
 
-    //dbname = conference-database
-    //password = dbAdminPassword
     MongoClientURI uri;
     MongoClient mongoClient;
 
     AttendeeDatabase attendeeDatabase;
     OrganizerDatabase organizerDatabase;
     SpeakerDatabase speakerDatabase;
-    AdminDatabase adminDatabase;
+    MessageDatabase messageDatabase;
+    ConversationDatabase conversationDatabase;
+    EventDatabase eventDatabase;
+    RoomDatabase roomDatabase;
+
+    AttendeeManager attendeeManager;
+    OrganizerManager organizerManager;
+    SpeakerManager speakerManager;
+    MessageManager messageManager;
+    ConversationManager conversationManager;
+    EventManager eventManager;
+    RoomManager roomManager;
 
     public ProgramGenerator() {
         this.uri = new MongoClientURI("mongodb+srv://dbAdmin:dbAdminPassword@conference-cluster.ayrxj.mongodb.net/conference-database?retryWrites=true&w=majority");
@@ -34,7 +42,18 @@ public class ProgramGenerator implements Serializable{
         this.attendeeDatabase = new AttendeeDatabase(mongoClient);
         this.organizerDatabase = new OrganizerDatabase(mongoClient);
         this.speakerDatabase = new SpeakerDatabase(mongoClient);
-        this.adminDatabase = new AdminDatabase(mongoClient);
+        this.messageDatabase = new MessageDatabase(mongoClient);
+        this.conversationDatabase = new ConversationDatabase(mongoClient);
+        this.eventDatabase = new EventDatabase(mongoClient);
+        this.roomDatabase = new RoomDatabase(mongoClient);
+
+        this.attendeeManager = new AttendeeManager(attendeeDatabase);
+        this.organizerManager = new OrganizerManager(organizerDatabase);
+        this.speakerManager = new SpeakerManager(speakerDatabase);
+        this.messageManager = new MessageManager(messageDatabase);
+        this.conversationManager = new ConversationManager(conversationDatabase);
+        this.eventManager = new EventManager(eventDatabase);
+        this.roomManager = new RoomManager(roomDatabase);
     }
 
 

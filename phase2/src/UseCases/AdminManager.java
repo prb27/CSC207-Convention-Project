@@ -2,7 +2,6 @@ package UseCases;
 
 import Entities.Admin;
 import Entities.Organizer;
-import Gateways.Interfaces.IAdminDatabase;
 
 import java.io.Serializable;
 import java.util.List;
