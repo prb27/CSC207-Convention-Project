@@ -1,5 +1,6 @@
 package Presenters.Organizer;
 import Controllers.LoginMenuController;
+import Gateways.ProgramGenerator;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import java.io.IOException;
 public class OrganizerMenuPresenter {
 
     private LoginMenuController loginMenuController;
+    private ProgramGenerator programGenerator;
 
     @FXML
     private Label username;
@@ -31,8 +33,9 @@ public class OrganizerMenuPresenter {
     @FXML
     private Button createEventButton;
 
-    public OrganizerMenuPresenter(LoginMenuController loginMenuController){
+    public OrganizerMenuPresenter(LoginMenuController loginMenuController, ProgramGenerator programGenerator){
         this.loginMenuController = loginMenuController;
+        this.programGenerator = programGenerator;
     }
 
     public void initialize(){
@@ -108,6 +111,7 @@ public class OrganizerMenuPresenter {
     }
 
     private void signOut() throws IOException {
+        programGenerator.readToDatabase();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOutButton.getScene().getWindow();
         Scene scene = new Scene(loader.load());

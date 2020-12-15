@@ -3,6 +3,7 @@ package Presenters.Organizer;
 import Controllers.ConversationMenuController;
 import Controllers.LoginMenuController;
 import Controllers.SpeakerMessagingDashboardMenuController;
+import Gateways.ProgramGenerator;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -28,12 +29,15 @@ public class OrganizerMessagingMenuPresenter {
     private final ConversationMenuController conversationMenuController;
     private final SpeakerMessagingDashboardMenuController speakerMessagingDashboardMenuController;
     private final LoginMenuController loginMenuController;
+    private final ProgramGenerator programGenerator;
 
-
-    public OrganizerMessagingMenuPresenter(LoginMenuController loginMenuController, SpeakerMessagingDashboardMenuController speakerMessagingDashboardMenuController, ConversationMenuController conversationMenuController){
+    public OrganizerMessagingMenuPresenter(LoginMenuController loginMenuController,
+                                           SpeakerMessagingDashboardMenuController speakerMessagingDashboardMenuController,
+                                           ConversationMenuController conversationMenuController, ProgramGenerator programGenerator){
         this.loginMenuController = loginMenuController;
         this.conversationMenuController = conversationMenuController;
         this.speakerMessagingDashboardMenuController = speakerMessagingDashboardMenuController;
+        this.programGenerator = programGenerator;
     }
 
 
@@ -127,6 +131,7 @@ public class OrganizerMessagingMenuPresenter {
      */
 
     private void signOut() throws IOException {
+        programGenerator.readToDatabase();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
