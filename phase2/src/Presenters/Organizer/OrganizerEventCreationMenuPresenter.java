@@ -155,7 +155,10 @@ public class OrganizerEventCreationMenuPresenter {
                 selectedSpeakerDisplay.getItems(), roomNumberDisplay.getText());
         notificationDisplay(result);
     }
-
+    @FXML
+    private void changeDurationChoices(){
+        durationChoices.setValue(durationChoices.getSelectionModel().getSelectedItem());
+    }
     @FXML
     private void goBack() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerMenuView.fxml"));
