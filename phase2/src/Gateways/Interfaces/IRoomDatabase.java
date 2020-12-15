@@ -6,6 +6,6 @@ import java.util.*;
 
 public interface IRoomDatabase {
 
-    public List<Map<String, List<String>>> getRooms();
-
+    List<Map<String, List<String>>> getRooms();
+    void saveRoomList(List<Map<String, List<String>>> roomList);
 }
