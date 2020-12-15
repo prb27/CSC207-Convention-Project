@@ -95,7 +95,7 @@ public class ProgramGenerator implements Serializable{
      * This method saves the data from the program into the respective the database
      * @author Juan Yi Loke, Akshat
      */
-    public void saveToDatabase(){
+    public void readToDatabase(){
         try {
             attendeeManager.saveToDatabase();
             organizerManager.saveToDatabase();
