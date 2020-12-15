@@ -5,6 +5,7 @@ import Controllers.LoginMenuController;
 import Controllers.MasterSystem;
 import Controllers.MessengerMenuController;
 import Gateways.ProgramGenerator;
+import Presenters.LoginMenuPresenter;
 import Presenters.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,35 +35,24 @@ public class AttendeeMessengerMenuPresenter {
     private Label convoRecipients;
 
 
+    private MasterSystem masterSystem;
+    private MessengerMenuController messengerMenuController;
+    private LoginMenuController loginMenuController;
+    private SceneHandler sceneHandler;
+    private ConversationMenuController conversationMenuController;
+    private ProgramGenerator programGenerator;
 
-    private final MessengerMenuController messengerMenuController;
-    private final LoginMenuController loginMenuController;
-    private final SceneHandler sceneHandler;
-    private final ConversationMenuController conversationMenuController;
-    private final ProgramGenerator programGenerator;
+    public AttendeeMessengerMenuPresenter(){
 
-    public AttendeeMessengerMenuPresenter(MasterSystem masterSystem){
+    }
+    public void setMasterSystem(MasterSystem masterSystem){
+        this.masterSystem = masterSystem;
         this.messengerMenuController = masterSystem.getMessengerMenuController();
         this.loginMenuController = masterSystem.getLoginMenuController();
         this.sceneHandler = masterSystem.getSceneHandler();
         this.conversationMenuController = masterSystem.getConversationMenuController();
         this.programGenerator = masterSystem.getProgramGenerator();
-    }
-
-    @FXML
-    private void initialize(){
         welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
-        convoRecipients.setText("");
-        convoRecipients.setVisible(false);
-        try {
-            setPrivilegesAttendee();
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-
-
-        goBack.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
         goBack.setOnAction(event -> {
             try {
                 goBack();
@@ -71,16 +61,12 @@ public class AttendeeMessengerMenuPresenter {
                 e.printStackTrace();
             }
         });
-        signOut.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
-        signOut.setOnAction(event -> {
-            try {
-                signOut();
-            }
-            catch (IOException e){
-                e.printStackTrace();
-            }
-        });
-        sendMessage.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
+        try {
+            setPrivilegesAttendee();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
         sendMessage.setOnAction(event -> {
             try {
                 if (!content.getText().equals("") && !recipientIDs.getText().equals("")){
@@ -90,12 +76,35 @@ public class AttendeeMessengerMenuPresenter {
                 e.printStackTrace();
             }
         });
+        signOut.setOnAction(event -> {
+            try {
+                signOut();
+            }
+            catch (IOException e){
+                e.printStackTrace();
+            }
+        });
+    }
+
+    @FXML
+    private void initialize(){
+
+        convoRecipients.setText("");
+        convoRecipients.setVisible(false);
+
+        goBack.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
+
+        signOut.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
+
+        sendMessage.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
     }
 
     private void goBack() throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Attendee/AttendeeConversationMenuView.fxml"));
         Stage stage = (Stage) goBack.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        AttendeeConversationMenuPresenter attendeeConversationMenuPresenter = loader.getController();
+        attendeeConversationMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -104,6 +113,8 @@ public class AttendeeMessengerMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        LoginMenuPresenter loginMenuPresenter = loader.getController();
+        loginMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 

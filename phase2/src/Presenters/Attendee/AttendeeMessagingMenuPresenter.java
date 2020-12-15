@@ -5,6 +5,8 @@ import Controllers.ConversationMenuController;
 import Controllers.LoginMenuController;
 import Controllers.MasterSystem;
 import Gateways.ProgramGenerator;
+import Presenters.Admin.AdminMenuPresenter;
+import Presenters.LoginMenuPresenter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -27,22 +29,30 @@ public class AttendeeMessagingMenuPresenter {
     @FXML
     private Button goBack;
 
-    private final LoginMenuController loginMenuController;
-    private final AttendeeMessagingDashboardMenuController attendeeMessagingDashboardMenuController;
-    private final ConversationMenuController conversationMenuController;
-    private final ProgramGenerator programGenerator;
+    private  LoginMenuController loginMenuController;
+    private  AttendeeMessagingDashboardMenuController attendeeMessagingDashboardMenuController;
+    private  ConversationMenuController conversationMenuController;
+    private  ProgramGenerator programGenerator;
 
-    public AttendeeMessagingMenuPresenter(MasterSystem masterSystem){
+    private MasterSystem masterSystem;
+
+    public AttendeeMessagingMenuPresenter(){
+
+    }
+
+    public void setMasterSystem(MasterSystem masterSystem){
+        this.masterSystem = masterSystem;
         this.loginMenuController = masterSystem.getLoginMenuController();
-        this.attendeeMessagingDashboardMenuController = masterSystem.getAttendeeMessagingDashboardMenuController();
         this.conversationMenuController = masterSystem.getConversationMenuController();
         this.programGenerator = masterSystem.getProgramGenerator();
+        this.attendeeMessagingDashboardMenuController = masterSystem.getAttendeeMessagingDashboardMenuController();
+        welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
+        loadConversations();
     }
 
 
     @FXML
     private void initialize(){
-        welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
         messenger.setText("Messenger");
         messenger.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
         messenger.setOnAction(event -> {
@@ -73,8 +83,6 @@ public class AttendeeMessagingMenuPresenter {
                 e.printStackTrace();
             }
         });
-
-        loadConversations();
 
 
     }
@@ -113,6 +121,8 @@ public class AttendeeMessagingMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Attendee/AttendeeConversationMenuView.fxml"));
         Stage stage = (Stage) conversations.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        AttendeeConversationMenuPresenter attendeeConversationMenuPresenter = loader.getController();
+        attendeeConversationMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -120,12 +130,16 @@ public class AttendeeMessagingMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Attendee/AttendeeMessengerMenuView.fxml"));
         Stage stage = (Stage) messenger.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        AttendeeMessengerMenuPresenter attendeeMessengerMenuPresenter = loader.getController();
+        attendeeMessengerMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
     private void goBack() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Attendee/AttendeeMenuView.fxml"));
         Stage stage = (Stage) goBack.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        AttendeeMenuPresenter attendeeMenuPresenter = loader.getController();
+        attendeeMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -134,6 +148,8 @@ public class AttendeeMessagingMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        LoginMenuPresenter loginMenuPresenter = loader.getController();
+        loginMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 

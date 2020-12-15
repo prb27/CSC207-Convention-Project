@@ -37,12 +37,6 @@ public class LoginMenuPresenter{
         this.masterSystem = masterSystem;
         this.loginMenuController = masterSystem.getLoginMenuController();
         this.accountHandler = masterSystem.getAccountHandler();
-    }
-
-    @FXML
-    private void initialize(){
-        //login panel
-        loginButton.setText("Login");
         loginButton.setOnAction(event -> {
             try {
                 callUserMenu();
@@ -50,6 +44,13 @@ public class LoginMenuPresenter{
                 e.printStackTrace();
             }
         });
+    }
+
+    @FXML
+    private void initialize(){
+        //login panel
+        loginButton.setText("Login");
+
         loginButton.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
 
         signUpFromLogin.setText("Sign Up");
