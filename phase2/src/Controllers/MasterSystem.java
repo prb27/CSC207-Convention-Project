@@ -228,5 +228,11 @@ public class MasterSystem implements Serializable {
         public SceneHandler getSceneHandler(){
             return this.sceneHandler;
         }
+        public AccountHandler getAccountHandler(){
+            return this.accountHandler;
+        }
+        public RoomManager getRoomManager(){
+            return this.roomManager;
+        }
 
 }

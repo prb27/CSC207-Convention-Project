@@ -1,9 +1,11 @@
 package Presenters.Organizer;
 
 import Controllers.LoginMenuController;
+import Controllers.MasterSystem;
 import Controllers.OrganizerMenuController;
 import Controllers.UserEventController;
 import Gateways.ProgramGenerator;
+import Presenters.LoginMenuPresenter;
 import UseCases.RoomManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +23,8 @@ public class OrganizerEventCreationMenuPresenter {
     private UserEventController userEventController;
     private LoginMenuController loginMenuController;
     private ProgramGenerator programGenerator;
+    private MasterSystem masterSystem;
+
     @FXML
     public Label username;
 
@@ -73,14 +77,8 @@ public class OrganizerEventCreationMenuPresenter {
     @FXML
     public ListView<String> displayListView;
 
-    public OrganizerEventCreationMenuPresenter(RoomManager roomManager, OrganizerMenuController organizerMenuController,
-                                               UserEventController userEventController, LoginMenuController loginMenuController,
-                                               ProgramGenerator programGenerator){
-        this.roomManager = roomManager;
-        this.organizerMenuController = organizerMenuController;
-        this.userEventController = userEventController;
-        this.loginMenuController = loginMenuController;
-        this.programGenerator = programGenerator;
+    public OrganizerEventCreationMenuPresenter(){
+
     }
 
     public void initialize(){
@@ -163,6 +161,8 @@ public class OrganizerEventCreationMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerMenuView.fxml"));
         Stage stage = (Stage) backButton.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        OrganizerMenuPresenter organizerMenuPresenter = loader.getController();
+        organizerMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -172,6 +172,8 @@ public class OrganizerEventCreationMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/LoginMenuView.fxml"));
         Stage stage = (Stage) signOutButton.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        LoginMenuPresenter loginMenuPresenter = loader.getController();
+        loginMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -218,5 +220,13 @@ public class OrganizerEventCreationMenuPresenter {
         projectorCheck.setSelected(false);
         powerSocketField.clear();
         selectedSpeakerDisplay.getItems().clear();
+    }
+
+    public void setMasterSystem(MasterSystem masterSystem) {
+        this.roomManager = masterSystem.getRoomManager();
+        this.organizerMenuController = masterSystem.getOrganizerMenuController();
+        this.userEventController = masterSystem.getUserEventController();
+        this.loginMenuController = masterSystem.getLoginMenuController();
+        this.programGenerator = masterSystem.getProgramGenerator();
     }
 }

@@ -2,8 +2,10 @@ package Presenters.Organizer;
 
 import Controllers.EventsSearchEngine;
 import Controllers.LoginMenuController;
+import Controllers.MasterSystem;
 import Controllers.OrganizerMenuController;
 import Gateways.ProgramGenerator;
+import Presenters.LoginMenuPresenter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -77,12 +79,10 @@ public class OrganizerEventMenuPresenter {
     @FXML
     public TextField timeField;
 
-    public OrganizerEventMenuPresenter(LoginMenuController loginMenuController, OrganizerMenuController organizerMenuController,
-                                       EventsSearchEngine eventsSearchEngine, ProgramGenerator programGenerator){
-        this.loginMenuController = loginMenuController;
-        this.organizerMenuController = organizerMenuController;
-        this.eventsSearchEngine = eventsSearchEngine;
-        this.programGenerator = programGenerator;
+    private MasterSystem masterSystem;
+
+    public OrganizerEventMenuPresenter(){
+
     }
 
     public void initialize(){
@@ -113,6 +113,8 @@ public class OrganizerEventMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/LoginMenuView.fxml"));
         Stage stage = (Stage) signOutButton.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        LoginMenuPresenter loginMenuPresenter = loader.getController();
+        loginMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -120,6 +122,8 @@ public class OrganizerEventMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerMenuView.fxml"));
         Stage stage = (Stage) backButton.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        OrganizerMenuPresenter organizerMenuPresenter = loader.getController();
+        organizerMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -340,5 +344,11 @@ public class OrganizerEventMenuPresenter {
                 alert.setHeaderText("The event would run past 5 P.M.");
                 alert.show();
         }
+    }
+    public void setMasterSystem(MasterSystem masterSystem){
+        this.loginMenuController = masterSystem.getLoginMenuController();
+        this.organizerMenuController = masterSystem.getOrganizerMenuController();
+        this.eventsSearchEngine = masterSystem.getEventsSearchEngine();
+        this.programGenerator = masterSystem.getProgramGenerator();
     }
 }

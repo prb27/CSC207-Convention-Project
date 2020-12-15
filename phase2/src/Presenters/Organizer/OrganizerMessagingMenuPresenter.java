@@ -2,8 +2,10 @@ package Presenters.Organizer;
 
 import Controllers.ConversationMenuController;
 import Controllers.LoginMenuController;
+import Controllers.MasterSystem;
 import Controllers.SpeakerMessagingDashboardMenuController;
 import Gateways.ProgramGenerator;
+import Presenters.LoginMenuPresenter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,18 +28,13 @@ public class OrganizerMessagingMenuPresenter {
     @FXML
     private Button signOut;
 
-    private final ConversationMenuController conversationMenuController;
-    private final SpeakerMessagingDashboardMenuController speakerMessagingDashboardMenuController;
-    private final LoginMenuController loginMenuController;
-    private final ProgramGenerator programGenerator;
+    private  ConversationMenuController conversationMenuController;
+    private  SpeakerMessagingDashboardMenuController speakerMessagingDashboardMenuController;
+    private  LoginMenuController loginMenuController;
+    private  ProgramGenerator programGenerator;
+    private MasterSystem masterSystem;
 
-    public OrganizerMessagingMenuPresenter(LoginMenuController loginMenuController,
-                                           SpeakerMessagingDashboardMenuController speakerMessagingDashboardMenuController,
-                                           ConversationMenuController conversationMenuController, ProgramGenerator programGenerator){
-        this.loginMenuController = loginMenuController;
-        this.conversationMenuController = conversationMenuController;
-        this.speakerMessagingDashboardMenuController = speakerMessagingDashboardMenuController;
-        this.programGenerator = programGenerator;
+    public OrganizerMessagingMenuPresenter(){
     }
 
 
@@ -111,6 +108,8 @@ public class OrganizerMessagingMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerConversationMenuView.fxml"));
         Stage stage = (Stage) conversations.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        OrganizerConversationMenuPresenter organizerConversationMenuPresenter = loader.getController();
+        organizerConversationMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -122,6 +121,8 @@ public class OrganizerMessagingMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerMessengerMenuView.fxml"));
         Stage stage = (Stage) messenger.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        OrganizerMessengerMenuPresenter organizerMessengerMenuPresenter = loader.getController();
+        organizerMessengerMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -135,7 +136,14 @@ public class OrganizerMessagingMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        LoginMenuPresenter loginMenuPresenter = loader.getController();
+        loginMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
-
+    public void setMasterSystem(MasterSystem masterSystem){
+        this.loginMenuController = masterSystem.getLoginMenuController();
+        this.conversationMenuController = masterSystem.getConversationMenuController();
+        this.speakerMessagingDashboardMenuController = masterSystem.getSpeakerMessagingDashboardMenuController();
+        this.programGenerator = masterSystem.getProgramGenerator();
+    }
 }

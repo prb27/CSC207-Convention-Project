@@ -2,6 +2,7 @@ package Presenters.Organizer;
 import Controllers.LoginMenuController;
 import Controllers.MasterSystem;
 import Gateways.ProgramGenerator;
+import Presenters.LoginMenuPresenter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -87,12 +88,16 @@ public class OrganizerMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerEventMenuView.fxml"));
         Stage stage = (Stage) toEventsFromOrganizer.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        OrganizerEventMenuPresenter organizerEventMenuPresenter = loader.getController();
+        organizerEventMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
     private void goToMessaging() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerMessagingMenuView.fxml"));
         Stage stage = (Stage) toMessagingFromOrganizer.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        OrganizerMessagingMenuPresenter organizerMessagingMenuPresenter = loader.getController();
+        organizerMessagingMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -100,6 +105,8 @@ public class OrganizerMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerConferenceMenuView.fxml"));
         Stage stage = (Stage) toConferenceFromOrganizer.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        OrganizerConferenceMenuPresenter organizerConferenceMenuPresenter = loader.getController();
+        organizerConferenceMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -108,6 +115,8 @@ public class OrganizerMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerEventCreationMenuView.fxml"));
         Stage stage = (Stage) createEventButton.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        OrganizerEventCreationMenuPresenter organizerEventCreationMenuPresenter = loader.getController();
+        organizerEventCreationMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -116,6 +125,8 @@ public class OrganizerMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOutButton.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        LoginMenuPresenter loginMenuPresenter = loader.getController();
+        loginMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 

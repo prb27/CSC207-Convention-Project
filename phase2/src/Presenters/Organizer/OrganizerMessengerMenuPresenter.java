@@ -1,8 +1,10 @@
 package Presenters.Organizer;
 
 import Controllers.LoginMenuController;
+import Controllers.MasterSystem;
 import Controllers.MessengerMenuController;
 import Gateways.ProgramGenerator;
+import Presenters.LoginMenuPresenter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -34,14 +36,13 @@ public class OrganizerMessengerMenuPresenter {
     private CheckBox allRecipients;
 
 
-    private final ProgramGenerator programGenerator;
+    private  ProgramGenerator programGenerator;
     private MessengerMenuController messengerMenuController;
-    private final LoginMenuController loginMenuController;
+    private  LoginMenuController loginMenuController;
+    private MasterSystem masterSystem;
 
-    public OrganizerMessengerMenuPresenter(MessengerMenuController messengerMenuController, LoginMenuController loginMenuController, ProgramGenerator programGenerator){
-        this.messengerMenuController = messengerMenuController;
-        this.loginMenuController = loginMenuController;
-        this.programGenerator = programGenerator;
+    public OrganizerMessengerMenuPresenter(){
+
     }
 
     @FXML
@@ -95,6 +96,8 @@ public class OrganizerMessengerMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerMessagingMenuView.fxml"));
         Stage stage = (Stage) goBack.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        OrganizerMessagingMenuPresenter organizerMessagingMenuPresenter = loader.getController();
+        organizerMessagingMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -107,6 +110,8 @@ public class OrganizerMessengerMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        LoginMenuPresenter loginMenuPresenter = loader.getController();
+        loginMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -209,5 +214,10 @@ public class OrganizerMessengerMenuPresenter {
 
         return checker;
 
+    }
+    public void setMasterSystem(MasterSystem masterSystem){
+        this.messengerMenuController = masterSystem.getMessengerMenuController();
+        this.loginMenuController = masterSystem.getLoginMenuController();
+        this.programGenerator = masterSystem.getProgramGenerator();
     }
 }

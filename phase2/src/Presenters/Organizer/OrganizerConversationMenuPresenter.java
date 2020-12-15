@@ -2,6 +2,7 @@ package Presenters.Organizer;
 
 import Controllers.ConversationMenuController;
 import Controllers.LoginMenuController;
+import Controllers.MasterSystem;
 import Gateways.ProgramGenerator;
 import Presenters.SceneHandler;
 import javafx.fxml.FXML;
@@ -29,17 +30,13 @@ public class OrganizerConversationMenuPresenter {
     @FXML
     private Button reply;
 
-    private final ProgramGenerator programGenerator;
-    private final LoginMenuController loginMenuController;
-    private final ConversationMenuController conversationMenuController;
-    private final SceneHandler sceneHandler;
+    private  ProgramGenerator programGenerator;
+    private  LoginMenuController loginMenuController;
+    private  ConversationMenuController conversationMenuController;
+    private  SceneHandler sceneHandler;
 
-    public OrganizerConversationMenuPresenter(LoginMenuController loginMenuController, ConversationMenuController conversationMenuController,
-                                              SceneHandler sceneHandler, ProgramGenerator programGenerator){
-        this.loginMenuController = loginMenuController;
-        this.conversationMenuController = conversationMenuController;
-        this.sceneHandler = sceneHandler;
-        this.programGenerator = programGenerator;
+    public OrganizerConversationMenuPresenter(){
+
     }
 
     @FXML
@@ -125,6 +122,14 @@ public class OrganizerConversationMenuPresenter {
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
+    }
+
+
+    public void setMasterSystem(MasterSystem masterSystem){
+        this.loginMenuController = masterSystem.getLoginMenuController();
+        this.conversationMenuController = masterSystem.getConversationMenuController();
+        this.sceneHandler = masterSystem.getSceneHandler();
+        this.programGenerator = masterSystem.getProgramGenerator();
     }
 
 }

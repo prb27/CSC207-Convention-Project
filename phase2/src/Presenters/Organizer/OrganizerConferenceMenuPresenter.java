@@ -1,8 +1,10 @@
 package Presenters.Organizer;
 
 import Controllers.AccountHandler;
+import Controllers.MasterSystem;
 import Controllers.OrganizerMenuController;
 import Gateways.ProgramGenerator;
+import Presenters.LoginMenuPresenter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,6 +21,7 @@ public class OrganizerConferenceMenuPresenter {
     private ProgramGenerator programGenerator;
     private OrganizerMenuController organizerMenuController;
     private AccountHandler accountHandler;
+    private MasterSystem masterSystem;
 
     @FXML
     private TextField usernameField;
@@ -61,11 +64,8 @@ public class OrganizerConferenceMenuPresenter {
     @FXML
     private TextField displayFree;
 
-    public OrganizerConferenceMenuPresenter(OrganizerMenuController organizerMenuController, AccountHandler accountHandler,
-                                            ProgramGenerator programGenerator){
-        this.programGenerator = programGenerator;
-        this.organizerMenuController = organizerMenuController;
-        this.accountHandler = accountHandler;
+    public OrganizerConferenceMenuPresenter(){
+
     }
 
     public void initialize() {
@@ -176,6 +176,8 @@ public class OrganizerConferenceMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerMenuView.fxml"));
         Stage stage = (Stage) backButton.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        OrganizerMenuPresenter organizerMenuPresenter = loader.getController();
+        organizerMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -184,6 +186,8 @@ public class OrganizerConferenceMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/LoginMenuView.fxml"));
         Stage stage = (Stage) signOutButton.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        LoginMenuPresenter loginMenuPresenter = loader.getController();
+        loginMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -209,5 +213,11 @@ public class OrganizerConferenceMenuPresenter {
         usernameField.setPromptText("Username");
         newPassword.setPromptText("Password");
         alert.show();
+    }
+
+    public void setMasterSystem(MasterSystem masterSystem){
+        this.programGenerator = masterSystem.getProgramGenerator();
+        this.organizerMenuController = masterSystem.getOrganizerMenuController();
+        this.accountHandler = masterSystem.getAccountHandler();
     }
 }
