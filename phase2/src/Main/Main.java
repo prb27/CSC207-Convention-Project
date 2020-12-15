@@ -31,7 +31,7 @@ public class Main extends Application{
      */
     public static void main(String[] args) {
         ProgramGenerator programGenerator = new ProgramGenerator();
-        MasterSystem masterSystem = programGenerator.readFromFile("conference_system");
+        MasterSystem masterSystem = programGenerator.readFromDatabase();
         masterSystem.run();
         launch(args); // for javafx launching application
     }

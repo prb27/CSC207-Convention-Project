@@ -2,6 +2,7 @@ package Presenters.Attendee;
 
 import Controllers.AttendeeEventMenuController;
 import Controllers.LoginMenuController;
+import Gateways.ProgramGenerator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -29,13 +30,14 @@ public class AttendeeEventMenuPresenter {
     private CheckBox eventsContainerChecker;
 
     private final AttendeeEventMenuController attendeeEventMenuController;
-
     private final LoginMenuController loginMenuController;
+    private final ProgramGenerator programGenerator;
 
     public AttendeeEventMenuPresenter(AttendeeEventMenuController attendeeEventMenuController,
-                                      LoginMenuController loginMenuController) {
+                                      LoginMenuController loginMenuController, ProgramGenerator programGenerator) {
         this.attendeeEventMenuController = attendeeEventMenuController;
         this.loginMenuController = loginMenuController;
+        this.programGenerator = programGenerator;
     }
 
     @FXML
@@ -110,6 +112,7 @@ public class AttendeeEventMenuPresenter {
         stage.setScene(scene);
     }
     private void signOut() throws IOException {
+        programGenerator.readToDatabase();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());

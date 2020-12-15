@@ -3,6 +3,7 @@ package Presenters.Attendee;
 import Controllers.AttendeeMessagingDashboardMenuController;
 import Controllers.ConversationMenuController;
 import Controllers.LoginMenuController;
+import Gateways.ProgramGenerator;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -28,13 +29,15 @@ public class AttendeeMessagingMenuPresenter {
     private final LoginMenuController loginMenuController;
     private final AttendeeMessagingDashboardMenuController attendeeMessagingDashboardMenuController;
     private final ConversationMenuController conversationMenuController;
+    private final ProgramGenerator programGenerator;
 
     public AttendeeMessagingMenuPresenter(LoginMenuController loginMenuController,
                                           AttendeeMessagingDashboardMenuController attendeeMessagingDashboardMenuController,
-                                          ConversationMenuController conversationMenuController){
+                                          ConversationMenuController conversationMenuController, ProgramGenerator programGenerator){
         this.loginMenuController = loginMenuController;
         this.attendeeMessagingDashboardMenuController = attendeeMessagingDashboardMenuController;
         this.conversationMenuController = conversationMenuController;
+        this.programGenerator = programGenerator;
     }
 
 
@@ -128,6 +131,7 @@ public class AttendeeMessagingMenuPresenter {
     }
 
     private void signOut() throws IOException {
+        programGenerator.readToDatabase();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
