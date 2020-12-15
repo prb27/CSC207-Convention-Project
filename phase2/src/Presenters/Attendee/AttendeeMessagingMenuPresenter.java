@@ -3,6 +3,7 @@ package Presenters.Attendee;
 import Controllers.AttendeeMessagingDashboardMenuController;
 import Controllers.ConversationMenuController;
 import Controllers.LoginMenuController;
+import Controllers.MasterSystem;
 import Gateways.ProgramGenerator;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,13 +32,11 @@ public class AttendeeMessagingMenuPresenter {
     private final ConversationMenuController conversationMenuController;
     private final ProgramGenerator programGenerator;
 
-    public AttendeeMessagingMenuPresenter(LoginMenuController loginMenuController,
-                                          AttendeeMessagingDashboardMenuController attendeeMessagingDashboardMenuController,
-                                          ConversationMenuController conversationMenuController, ProgramGenerator programGenerator){
-        this.loginMenuController = loginMenuController;
-        this.attendeeMessagingDashboardMenuController = attendeeMessagingDashboardMenuController;
-        this.conversationMenuController = conversationMenuController;
-        this.programGenerator = programGenerator;
+    public AttendeeMessagingMenuPresenter(MasterSystem masterSystem){
+        this.loginMenuController = masterSystem.getLoginMenuController();
+        this.attendeeMessagingDashboardMenuController = masterSystem.getAttendeeMessagingDashboardMenuController;
+        this.conversationMenuController = masterSystem.getConversationMenuController;
+        this.programGenerator = masterSystem.getProgramGenerator();
     }
 
 

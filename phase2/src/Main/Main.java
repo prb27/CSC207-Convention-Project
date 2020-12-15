@@ -23,6 +23,7 @@ public class Main extends Application{
         MasterSystem masterSystem = programGenerator.readFromDatabase();
         masterSystem.run();
         SignUpMenuPresenter signUpMenuPresenter = new SignUpMenuPresenter(masterSystem);
+        signUpMenuPresenter.initialize();
         loader.setController(signUpMenuPresenter);
         Scene scene = new Scene(signUpPage);
         primaryStage.setTitle("Tech-Conference");

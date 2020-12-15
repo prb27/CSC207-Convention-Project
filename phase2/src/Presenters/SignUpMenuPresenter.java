@@ -38,7 +38,7 @@ public class SignUpMenuPresenter implements ISignUpMenu {
    }
 
     @FXML
-    private void initialize(){
+    public void initialize(){
         signUp.setText("Sign Up");
         signUp.setOnAction(event -> { signUpAttendee(); });
         signUp.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
