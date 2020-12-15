@@ -31,6 +31,7 @@ public class ProgramGenerator implements Serializable{
     AttendeeManager attendeeManager;
     OrganizerManager organizerManager;
     SpeakerManager speakerManager;
+    AdminManager adminManager;
     MessageManager messageManager;
     ConversationManager conversationManager;
     EventManager eventManager;
@@ -50,35 +51,33 @@ public class ProgramGenerator implements Serializable{
         this.attendeeManager = new AttendeeManager(attendeeDatabase);
         this.organizerManager = new OrganizerManager(organizerDatabase);
         this.speakerManager = new SpeakerManager(speakerDatabase);
+        this.adminManager = new AdminManager();
         this.messageManager = new MessageManager(messageDatabase);
         this.conversationManager = new ConversationManager(conversationDatabase);
         this.eventManager = new EventManager(eventDatabase);
         this.roomManager = new RoomManager(roomDatabase);
     }
 
-
-
-
-
     /**
-     * read the serialized Controllers.MasterSystem file and return the deserialized Controllers.MasterSystem object
-     * @author Juan Yi Loke
-     * @param filePath: the name for the serialized Controllers.MasterSystem file
-     * @return Controllers.MasterSystem: the deserialized Controllers.MasterSystem object
+     * This method loads the data from the database into the respective use case classes
+     * @author Juan Yi Loke, Akshat
+     * @return An instance of the MasterSystem with the use case classes with the loaded data from the database
+     * if the loading fromm database is successful or a new instance of a MasterSystem if an exception occurs
      */
-    public MasterSystem readFromFile(String filePath) {
+    public MasterSystem readFromDatabase() {
         try {
-            InputStream file = new FileInputStream(filePath + ".ser");
-            InputStream buffer = new BufferedInputStream(file);
-            ObjectInput input = new ObjectInputStream(buffer);
-
-            MasterSystem masterSystem = (MasterSystem) input.readObject();
-            input.close();
-
-            return masterSystem;
-
-        } catch (IOException | ClassNotFoundException ex) {
-            System.out.println("Cannot read from file, creating a new Controllers.MasterSystem");
+            attendeeManager.loadFromDatabase();
+            organizerManager.loadFromDatabase();
+            speakerManager.loadFromDatabase();
+            messageManager.loadFromDatabase();
+            conversationManager.loadFromDatabase();
+            eventManager.loadFromDatabase();
+            roomManager.loadFromDatabase();
+            adminManager.createAdmin();
+            return new MasterSystem(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
+                    conversationManager, eventManager, roomManager);
+        } catch (Exception e) {
+            e.printStackTrace();
             return new MasterSystem();
         }
     }
