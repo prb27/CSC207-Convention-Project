@@ -98,7 +98,6 @@ public class AdminMenuController {
                 for (String member : participants) {
                     if (!attendeeManager.isAttendee(member)) {
                         List<String> orderedMessages = conversationMenuController.orderedMessagesInConvo(conversationID);
-                        for ()
                     }
                 }
 
@@ -107,7 +106,6 @@ public class AdminMenuController {
 
 
         for(String message1: allMessages){
-            if ()
         }
         setAllMessages(newMessages);
         adminMenu.loadMessages();
