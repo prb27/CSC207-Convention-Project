@@ -38,7 +38,7 @@ public class OrganizerConferenceMenuPresenter {
 
     @FXML
     private ChoiceBox<String> userTypeChoice;
-    ObservableList<String> userTypeChoiceList = FXCollections.observableArrayList("Attendee", "Organizer", "Speaker", "Admin");
+    ObservableList<String> userTypeChoiceList = FXCollections.observableArrayList("attendee", "organizer", "speaker", "admin");
 
     @FXML
     private ListView<String> userList;
@@ -103,6 +103,7 @@ public class OrganizerConferenceMenuPresenter {
         userList.getItems().clear();
         userList.getItems().addAll(userListInput);
     }
+
     @FXML
     public void seeOrganizers(){
         userListInput.removeAll();
@@ -110,6 +111,7 @@ public class OrganizerConferenceMenuPresenter {
         userList.getItems().clear();
         userList.getItems().addAll(userListInput);
     }
+
     @FXML
     public void seeSpeakers(){
         userListInput.removeAll();
@@ -117,6 +119,7 @@ public class OrganizerConferenceMenuPresenter {
         userList.getItems().clear();
         userList.getItems().addAll(userListInput);
     }
+
     @FXML
     public void seeAdmin(){
         userListInput.removeAll();
@@ -187,6 +190,7 @@ public class OrganizerConferenceMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/LoginMenuView.fxml"));
         Stage stage = (Stage) signOutButton.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        MasterSystem masterSystem = programGenerator.readFromDatabase();
         LoginMenuPresenter loginMenuPresenter = loader.getController();
         loginMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
