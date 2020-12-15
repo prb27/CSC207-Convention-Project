@@ -21,7 +21,6 @@ public class OrganizerEventCreationMenuPresenter {
     private RoomManager roomManager;
     private OrganizerMenuController organizerMenuController;
     private UserEventController userEventController;
-    private LoginMenuController loginMenuController;
     private ProgramGenerator programGenerator;
     private MasterSystem masterSystem;
 
@@ -110,7 +109,7 @@ public class OrganizerEventCreationMenuPresenter {
     @FXML
     private void displayRooms(){
         if(powerSocketField.getText() == null || startTimeChoices.getValue() == null || durationChoices.getValue() == null){
-            notificationDisplay("Incomplete");
+            resetMenu();
         }
         displayListView.getItems().clear();
         ObservableList<String> rooms = FXCollections.observableArrayList();
@@ -153,7 +152,7 @@ public class OrganizerEventCreationMenuPresenter {
         String result = userEventController.createEventInRoom(username.getText(), eventNameField.getText(),
                 startTimeChoices.getValue(), Integer.parseInt(durationChoices.getValue()), Integer.parseInt(capacityField.getText()),
                 selectedSpeakerDisplay.getItems(), roomNumberDisplay.getText());
-        notificationDisplay(result);
+        resetMenu();
     }
 
     @FXML
@@ -178,38 +177,6 @@ public class OrganizerEventCreationMenuPresenter {
         stage.setScene(scene);
     }
 
-    private void notificationDisplay(String error){
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        switch(error){
-            case "Incomplete":
-                alert.setTitle("Insufficient information entered");
-                alert.setHeaderText("You have not selected enough information");
-                alert.show();
-            case "STC":
-                alert.setTitle("Speaker time conflict");
-                alert.setHeaderText("One or more of your speakers are not free at the specified time");
-                alert.show();
-            case "ESOT":
-                alert.setTitle("Event scheduled over time");
-                alert.setHeaderText("Your event would run past the end of the conference");
-                alert.show();
-            case "ECF":
-                alert.setTitle("Event over capacity");
-                alert.setHeaderText("Your event is too large for the room");
-                alert.show();
-            case "ETC":
-                alert.setTitle("Event time conflict");
-                alert.setHeaderText("There is a conflict with the timing of the event");
-                alert.show();
-            case "YES":
-                alert.setAlertType(Alert.AlertType.INFORMATION);
-                alert.setTitle("Event created successfully");
-                alert.setHeaderText("The event with the specified details has been created");
-                resetMenu();
-                alert.show();
-        }
-    }
-
     private void resetMenu(){
         roomNumberDisplay.clear();
         roomNumberDisplay.setPromptText("Room number");
@@ -228,7 +195,7 @@ public class OrganizerEventCreationMenuPresenter {
         this.roomManager = masterSystem.getRoomManager();
         this.organizerMenuController = masterSystem.getOrganizerMenuController();
         this.userEventController = masterSystem.getUserEventController();
-        this.loginMenuController = masterSystem.getLoginMenuController();
+        LoginMenuController loginMenuController = masterSystem.getLoginMenuController();
         this.programGenerator = masterSystem.getProgramGenerator();
         username.setText(loginMenuController.getCurrUsername());
     }
