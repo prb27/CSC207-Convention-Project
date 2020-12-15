@@ -38,6 +38,7 @@ public class OrganizerMessengerMenuPresenter {
     @FXML
     private CheckBox allRecipients;
 
+    @FXML
     private ChoiceBox<String> userTypeChoice;
     ObservableList<String> types = FXCollections.observableArrayList("attendee", "speaker", "organizer");
 
@@ -121,7 +122,7 @@ public class OrganizerMessengerMenuPresenter {
     public void sendMessageByEvent(){
         messengerMenuController.organizerMessageByEvent(welcome.getText(), eventIDs.getText(), content.getText());
     }
-    
+
     public void setMasterSystem(MasterSystem masterSystem){
         this.masterSystem = masterSystem;
         this.messengerMenuController = masterSystem.getMessengerMenuController();
