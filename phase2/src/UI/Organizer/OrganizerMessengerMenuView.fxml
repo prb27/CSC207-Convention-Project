@@ -4,10 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presenters.Organizer.OrganizerMessengerMenuPresenter">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presenters.Organizer.OrganizerMessengerMenuPresenter">
     <children>
-        <Label layoutX="194.0" layoutY="14.0" text="Speaker Messenger Menu">
+        <Label layoutX="161.0" layoutY="14.0" text="Organizer Messenger Menu">
             <font>
                 <Font size="24.0" />
             </font>
@@ -26,8 +25,8 @@
         </Label>
         <TextArea fx:id="content" layoutX="150.0" layoutY="155.0" prefHeight="200.0" prefWidth="427.0" />
         <Button fx:id="sendMessage" layoutX="154.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="419.0" />
-        <Button fx:id="goBack" layoutX="502.0" layoutY="117.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text = "Return" />
-        <Button fx:id="signOut" layoutX="502.0" layoutY="85.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text = "SignOut" />
+        <Button fx:id="goBack" layoutX="502.0" layoutY="117.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="Return" />
+        <Button fx:id="signOut" layoutX="502.0" layoutY="85.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="SignOut" />
         <Label layoutX="14.0" layoutY="88.0" text="ENTER EVENTS:">
             <font>
                 <Font size="14.0" />
