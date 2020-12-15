@@ -37,6 +37,7 @@ public class OrganizerMenuPresenter {
     private Button createEventButton;
 
     public void initialize(){
+        username.setText(loginMenuController.getCurrUsername());
         toEventsFromOrganizer.setText("Events");
         toEventsFromOrganizer.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
         toEventsFromOrganizer.setOnAction(event -> {
@@ -129,6 +130,5 @@ public class OrganizerMenuPresenter {
         this.masterSystem = masterSystem;
         this.programGenerator = masterSystem.getProgramGenerator();
         this.loginMenuController = masterSystem.getLoginMenuController();
-        username.setText(loginMenuController.getCurrUsername());
     }
 }

@@ -122,10 +122,10 @@ public class LoginMenuPresenter{
     public void showOrganizerMenu() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerMenuView.fxml"));
         Stage stage = (Stage) loginButton.getScene().getWindow();
-        Scene organizerMenuScene = new Scene(loader.load());
 
         OrganizerMenuPresenter organizerMenuPresenter = loader.getController();
         organizerMenuPresenter.setMasterSystem(masterSystem);
+        Scene organizerMenuScene = new Scene(loader.load());
 
         stage.setScene(organizerMenuScene);
     }
