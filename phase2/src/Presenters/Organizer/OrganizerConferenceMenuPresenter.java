@@ -108,21 +108,21 @@ public class OrganizerConferenceMenuPresenter {
         userListInput.removeAll();
         userListInput.addAll(organizerMenuController.listOfUsers("organizer"));
         userList.getItems().clear();
-        userList.setItems(userListInput);
+        userList.getItems().addAll(userListInput);
     }
     @FXML
     public void seeSpeakers(){
         userListInput.removeAll();
         userListInput.addAll(organizerMenuController.listOfUsers("speaker"));
         userList.getItems().clear();
-        userList.setItems(userListInput);
+        userList.getItems().addAll(userListInput);
     }
     @FXML
     public void seeAdmin(){
         userListInput.removeAll();
         userListInput.addAll(organizerMenuController.listOfUsers("admin"));
         userList.getItems().clear();
-        userList.setItems(userListInput);
+        userList.getItems().addAll(userListInput);
     }
 
     @FXML
@@ -130,7 +130,7 @@ public class OrganizerConferenceMenuPresenter {
         userListInput.removeAll();
         userListInput.addAll(organizerMenuController.listOfUsers("all"));
         userList.getItems().clear();
-        userList.setItems(userListInput);
+        userList.getItems().addAll(userListInput);
     }
 
     @FXML
