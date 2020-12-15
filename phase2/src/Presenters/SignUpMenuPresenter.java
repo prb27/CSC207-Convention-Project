@@ -17,8 +17,8 @@ import java.io.IOException;
 
 public class SignUpMenuPresenter implements ISignUpMenu {
 
-    private final SignUpMenuController signUpMenuController;
-    private final ProgramGenerator programGenerator;
+    private SignUpMenuController signUpMenuController;
+    private ProgramGenerator programGenerator;
     @FXML
     private TextField createUsername;
     @FXML
@@ -31,43 +31,37 @@ public class SignUpMenuPresenter implements ISignUpMenu {
 
 
 
-   public SignUpMenuPresenter(MasterSystem masterSystem){
-       this.masterSystem = masterSystem;
-       this.signUpMenuController = masterSystem.getSignUpMenuController();
-       this.programGenerator = masterSystem.getProgramGenerator();
+   public SignUpMenuPresenter(){
+
    }
+    @FXML
     public void initialize(){
-          Button button = new Button();
-          button.setText("Hello World");
-          button.setVisible(true);
-          button.setLayoutX(267.0);
-          button.setLayoutY(281.0);
-//        title.setLayoutX(139);
-//        Button signUp2 = new Button();
-//        signUp2.setLayoutX();
-//        signUp.setText("Sign Up");
-//        signUp.setOnAction(event -> { signUpAttendee(); });
-//        signUp.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
-//
-//        toLoginFromSignUp.setText("Login");
-//        toLoginFromSignUp.setOnAction(event -> {
-//            try {
-//                returnToLogin();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        });
-//        toLoginFromSignUp.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
-//
-//        createUsername.setPromptText("Username");
-//        createPassword.setPromptText("Password");
+        signUp.setText("Sign Up");
+        signUp.setOnAction(event -> { signUpAttendee(); });
+        signUp.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
+
+        toLoginFromSignUp.setText("Login");
+        toLoginFromSignUp.setOnAction(event -> {
+            try {
+                returnToLogin();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        toLoginFromSignUp.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
+
+        createUsername.setPromptText("Username");
+        createPassword.setPromptText("Password");
 
     }
 
     public void returnToLogin() throws IOException {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) toLoginFromSignUp.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        LoginMenuPresenter loginMenuPresenter = loader.getController();
+        loginMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -96,5 +90,10 @@ public class SignUpMenuPresenter implements ISignUpMenu {
         createUsername.setPromptText("Username");
         createPassword.setPromptText("Password");
 
+    }
+    public void setMasterSystem(MasterSystem masterSystem){
+       this.masterSystem = masterSystem;
+       this.signUpMenuController = masterSystem.getSignUpMenuController();
+       this.programGenerator = masterSystem.getProgramGenerator();
     }
 }

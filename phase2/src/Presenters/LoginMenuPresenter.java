@@ -1,6 +1,7 @@
 package Presenters;
 
 import Controllers.LoginMenuController;
+import Controllers.MasterSystem;
 import Presenters.Interfaces.ILoginMenu;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +15,7 @@ import java.io.IOException;
 public class LoginMenuPresenter implements ILoginMenu {
 
 
-    private final LoginMenuController loginMenuController;
+    private LoginMenuController loginMenuController;
 
     @FXML
     public TextField usernameField;
@@ -24,9 +25,9 @@ public class LoginMenuPresenter implements ILoginMenu {
     private Button loginButton;
     @FXML
     private Button signUpFromLogin;
+    private MasterSystem masterSystem;
 
-    public LoginMenuPresenter(LoginMenuController loginMenuController) {
-        this.loginMenuController = loginMenuController;
+    public LoginMenuPresenter() {
     }
 
     @FXML
@@ -83,6 +84,11 @@ public class LoginMenuPresenter implements ILoginMenu {
         Stage stage = (Stage) signUpFromLogin.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
+    }
+
+    public void setMasterSystem(MasterSystem masterSystem){
+        this.masterSystem = masterSystem;
+        this.loginMenuController = masterSystem.getLoginMenuController();
     }
 
     @Override
