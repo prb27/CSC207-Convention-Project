@@ -3,6 +3,7 @@ package UseCases;
 import Entities.Attendee;
 import Gateways.Interfaces.IAttendeeDatabase;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.io.Serializable;
 import java.util.*;
 
@@ -253,7 +254,12 @@ public class AttendeeManager implements Serializable {
      * @return List<String> ids
      */
     public List<String> getAllAttendeeIds() {
-        return Collections.list(attendees.keys());
+        List<String> result = new ArrayList<>();
+        for (String attendee: attendees.keySet()){
+            String userID = attendees.get(attendee).getUserId();
+            result.add(userID);
+        }
+        return result;
     }
 
 
