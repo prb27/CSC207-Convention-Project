@@ -34,7 +34,7 @@ public class OrganizerMessengerMenuPresenter {
     @FXML
     private Button signOut;
     @FXML
-    private Label welcome;
+    private Label username;
     @FXML
     private CheckBox allRecipients;
 
@@ -113,14 +113,14 @@ public class OrganizerMessengerMenuPresenter {
 
     public void sendMessageToIndividual(){
         String userType = accountHandler.getAccountType(recipientIDs.getText());
-        messengerMenuController.organizerSendMessageToSingle(welcome.getText(), recipientIDs.getText(), content.getText(), userType);
+        messengerMenuController.organizerSendMessageToSingle(username.getText(), recipientIDs.getText(), content.getText(), userType);
     }
 
     public void sendMessageToAll(){
-        messengerMenuController.organizerSendMessageToAll(welcome.getText(), content.getText(), userTypeChoice.getValue());
+        messengerMenuController.organizerSendMessageToAll(username.getText(), content.getText(), userTypeChoice.getValue());
     }
     public void sendMessageByEvent(){
-        messengerMenuController.organizerMessageByEvent(welcome.getText(), eventIDs.getText(), content.getText());
+        messengerMenuController.organizerMessageByEvent(username.getText(), eventIDs.getText(), content.getText());
     }
 
     public void setMasterSystem(MasterSystem masterSystem){
@@ -129,6 +129,6 @@ public class OrganizerMessengerMenuPresenter {
         this.loginMenuController = masterSystem.getLoginMenuController();
         this.programGenerator = masterSystem.getProgramGenerator();
         this.accountHandler = masterSystem.getAccountHandler();
-        welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
+        username.setText(loginMenuController.getCurrUsername());
     }
 }
