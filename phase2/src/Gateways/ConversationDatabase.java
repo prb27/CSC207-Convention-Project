@@ -17,9 +17,7 @@ import java.util.Map;
  */
 public class ConversationDatabase implements IConversationDatabase {
 
-    MongoClient mongoClient;
-    MongoDatabase database;
-    MongoCollection<Document> conversationCollection;
+    private final MongoCollection<Document> conversationCollection;
 
     /**
      * Constructor to initialize the mongo client, database and the conversation collection to be used by
@@ -27,8 +25,7 @@ public class ConversationDatabase implements IConversationDatabase {
      * @param mongoClient: object of mongo client
      */
     public ConversationDatabase(MongoClient mongoClient) {
-        this.mongoClient = mongoClient;
-        this.database = mongoClient.getDatabase("conference-database");
+        MongoDatabase database = mongoClient.getDatabase("conference-database");
         this.conversationCollection = database.getCollection("conversations");
     }
 

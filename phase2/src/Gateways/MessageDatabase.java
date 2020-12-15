@@ -16,8 +16,7 @@ import java.util.Map;
  * @author Akshat Ayush
  */
 public class MessageDatabase implements IMessageDatabase {
-    MongoClient mongoClient;
-    MongoDatabase database;
+
     MongoCollection<Document> messageCollection;
 
     /**
@@ -25,8 +24,7 @@ public class MessageDatabase implements IMessageDatabase {
      * @param mongoClient: object of mongo client
      */
     public MessageDatabase(MongoClient mongoClient) {
-        this.mongoClient = mongoClient;
-        this.database = mongoClient.getDatabase("conference-database");
+        MongoDatabase database = mongoClient.getDatabase("conference-database");
         this.messageCollection = database.getCollection("messages");
     }
 
