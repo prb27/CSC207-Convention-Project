@@ -49,7 +49,6 @@ public class MasterSystem {
     private LoginMenuController loginMenuController;
     private SignUpMenuController signUpMenuController;
 
-    private MessageController messageController;
     private UserEventController userEventController;
     private ProgramGenerator programGenerator;
 
@@ -99,14 +98,11 @@ public class MasterSystem {
             this.loginMenuController = new LoginMenuController(accountHandler);
             this.signUpMenuController = new SignUpMenuController(accountHandler);
 
-            this.messageController = new MessageController(attendeeManager, organizerManager,
-                    speakerManager, eventManager, conversationManager, messageManager);
             this.messageMenuController = new MessageMenuController();
             this.messengerMenuController = new MessengerMenuController(messageManager, attendeeManager,
                     organizerManager, speakerManager, eventManager, accountHandler, conversationManager);
             this.organizerMenuController = new OrganizerMenuController(attendeeManager, organizerManager,
-                    speakerManager,adminManager, accountHandler, eventManager, messageController,
-                    userEventController, roomManager);
+                    speakerManager,adminManager, accountHandler, eventManager, userEventController, roomManager);
             this.speakerMenuController = new SpeakerMenuController(attendeeManager, organizerManager, speakerManager,
                     eventManager, roomManager, conversationManager, messageManager, "");
             this.speakerMessagingDashboardMenuController = new SpeakerMessagingDashboardMenuController(speakerManager,
@@ -170,9 +166,6 @@ public class MasterSystem {
         }
         public SpeakerMessagingDashboardMenuController getSpeakerMessagingDashboardMenuController(){
             return this.speakerMessagingDashboardMenuController;
-        }
-        public MessageController getMessageController(){
-            return this.messageController;
         }
         public UserEventController getUserEventController(){
             return this.userEventController;
