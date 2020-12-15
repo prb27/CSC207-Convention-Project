@@ -2,6 +2,7 @@ package Presenters.Attendee;
 
 
 import Controllers.LoginMenuController;
+import Controllers.MasterSystem;
 import Gateways.ProgramGenerator;
 import Presenters.Interfaces.IAttendeeMenu;
 import javafx.fxml.FXML;
@@ -29,13 +30,13 @@ public class AttendeeMenuPresenter implements IAttendeeMenu {
     private final LoginMenuController loginMenuController;
     private final ProgramGenerator programGenerator;
 
-    public AttendeeMenuPresenter(LoginMenuController loginMenuController, ProgramGenerator programGenerator){
-        this.loginMenuController  = loginMenuController;
-        this.programGenerator = programGenerator;
+    public AttendeeMenuPresenter(MasterSystem masterSystem){
+        this.loginMenuController  = masterSystem.getLoginMenuController();
+        this.programGenerator = masterSystem.getProgramGenerator();
     }
 
     @FXML
-    private void initialize(){
+    public void initialize(){
         toEventsFromAttendee.setText("Events");
         toEventsFromAttendee.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
         toEventsFromAttendee.setOnAction(event -> {

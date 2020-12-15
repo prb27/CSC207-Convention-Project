@@ -2,6 +2,7 @@ package Presenters.Attendee;
 
 import Controllers.ConversationMenuController;
 import Controllers.LoginMenuController;
+import Controllers.MasterSystem;
 import Controllers.MessengerMenuController;
 import Gateways.ProgramGenerator;
 import Presenters.SceneHandler;
@@ -39,16 +40,12 @@ public class AttendeeMessengerMenuPresenter {
     private final ConversationMenuController conversationMenuController;
     private final ProgramGenerator programGenerator;
 
-    public AttendeeMessengerMenuPresenter(MessengerMenuController messengerMenuController,
-                                          LoginMenuController loginMenuController,
-                                          SceneHandler sceneHandler,
-                                          ConversationMenuController conversationMenuController,
-                                          ProgramGenerator programGenerator){
-        this.messengerMenuController = messengerMenuController;
-        this.loginMenuController = loginMenuController;
-        this.sceneHandler = sceneHandler;
-        this.conversationMenuController = conversationMenuController;
-        this.programGenerator = programGenerator;
+    public AttendeeMessengerMenuPresenter(MasterSystem masterSystem){
+        this.messengerMenuController = masterSystem.getMessengerMenuController;
+        this.loginMenuController = masterSystem.getLoginMenuController();
+        this.sceneHandler = masterSystem.getSceneHandler;
+        this.conversationMenuController = masterSystem.getConversationMenucontroller;
+        this.programGenerator = masterSystem.getProgramGenerator();
     }
 
     @FXML

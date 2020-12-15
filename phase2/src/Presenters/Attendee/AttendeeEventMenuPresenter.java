@@ -2,6 +2,7 @@ package Presenters.Attendee;
 
 import Controllers.AttendeeEventMenuController;
 import Controllers.LoginMenuController;
+import Controllers.MasterSystem;
 import Gateways.ProgramGenerator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,11 +34,10 @@ public class AttendeeEventMenuPresenter {
     private final LoginMenuController loginMenuController;
     private final ProgramGenerator programGenerator;
 
-    public AttendeeEventMenuPresenter(AttendeeEventMenuController attendeeEventMenuController,
-                                      LoginMenuController loginMenuController, ProgramGenerator programGenerator) {
-        this.attendeeEventMenuController = attendeeEventMenuController;
-        this.loginMenuController = loginMenuController;
-        this.programGenerator = programGenerator;
+    public AttendeeEventMenuPresenter(MasterSystem masterSystem) {
+        this.attendeeEventMenuController = masterSystem.getAttendeeEventMenuController;
+        this.loginMenuController = masterSystem.getLoginMenuController();
+        this.programGenerator = masterSystem.getProgramGenerator();
     }
 
     @FXML

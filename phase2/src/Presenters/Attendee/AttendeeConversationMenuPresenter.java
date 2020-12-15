@@ -2,6 +2,7 @@ package Presenters.Attendee;
 
 import Controllers.ConversationMenuController;
 import Controllers.LoginMenuController;
+import Controllers.MasterSystem;
 import Gateways.ProgramGenerator;
 import Presenters.SceneHandler;
 import javafx.fxml.FXML;
@@ -32,17 +33,15 @@ public class AttendeeConversationMenuPresenter {
     private final SceneHandler sceneHandler;
     private final ProgramGenerator programGenerator;
 
-    public AttendeeConversationMenuPresenter(LoginMenuController loginMenuController,
-                                             ConversationMenuController conversationMenuController,
-                                             SceneHandler sceneHandler, ProgramGenerator programGenerator){
-        this.loginMenuController = loginMenuController;
-        this.conversationMenuController = conversationMenuController;
-        this.sceneHandler = sceneHandler;
-        this.programGenerator = programGenerator;
+    public AttendeeConversationMenuPresenter(MasterSystem masterSystem){
+        this.loginMenuController = masterSystem.getLoginMenuController();
+        this.conversationMenuController = masterSystem.conversationMenuController;
+        this.sceneHandler = masterSystem.getSceneHandler;
+        this.programGenerator = masterSystem.getProgramGenerator();
     }
 
     @FXML
-    private void initialize(){
+    public void initialize(){
         welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
         description.setText(conversationMenuController.getCurrentConversationID());
         goBack.setText("Go Back");
