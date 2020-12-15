@@ -189,5 +189,41 @@ public class MasterSystem implements Serializable {
         public SignUpMenuController getSignUpMenuController(){
             return this.signUpMenuController;
         }
+        public AttendeeEventMenuController getAttendeeEventMenuController(){
+            return this.attendeeEventMenuController;
+        }
+        public AttendeeMessagingDashboardMenuController getAttendeeMessagingDashboardMenuController(){
+            return this.attendeeMessagingDashboardMenuController;
+        }
+        public ConversationMenuController getConversationMenuController(){
+            return this.conversationMenuController;
+        }
+        public EventMenuController getEventMenuController(){
+            return this.eventMenuController;
+        }
+        public EventsSearchEngine getEventsSearchEngine(){
+            return this.eventsSearchEngine;
+        }
+        public MessageMenuController getMessageMenuController(){
+            return this.messageMenuController;
+        }
+        public MessengerMenuController getMessengerMenuController(){
+            return this.messengerMenuController;
+        }
+        public OrganizerMenuController getOrganizerMenuController(){
+            return this.organizerMenuController;
+        }
+        public SpeakerMenuController getSpeakerMenuController(){
+            return this.speakerMenuController;
+        }
+        public SpeakerMessagingDashboardMenuController getSpeakerMessagingDashboardMenuController(){
+            return this.speakerMessagingDashboardMenuController;
+        }
+        public MessageController getMessageController(){
+            return this.messageController;
+        }
+        public UserEventController getUserEventController(){
+            return this.userEventController;
+        }
 
 }
