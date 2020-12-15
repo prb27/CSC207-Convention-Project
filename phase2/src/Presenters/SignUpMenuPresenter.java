@@ -1,6 +1,7 @@
 package Presenters;
 
 
+import Controllers.MasterSystem;
 import Gateways.ProgramGenerator;
 
 import Controllers.SignUpMenuController;
@@ -26,12 +27,14 @@ public class SignUpMenuPresenter implements ISignUpMenu {
     private Button signUp;
     @FXML
     private Button toLoginFromSignUp;
+    private MasterSystem masterSystem;
 
 
 
-   public SignUpMenuPresenter(SignUpMenuController signUpMenuController, ProgramGenerator programGenerator){
-       this.signUpMenuController = signUpMenuController;
-       this.programGenerator = programGenerator;
+   public SignUpMenuPresenter(MasterSystem masterSystem){
+       this.masterSystem = masterSystem;
+       this.signUpMenuController = masterSystem.getSignUpMenuController();
+       this.programGenerator = masterSystem.getProgramGenerator();
    }
 
     @FXML

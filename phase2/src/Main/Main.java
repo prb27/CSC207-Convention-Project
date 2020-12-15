@@ -2,6 +2,7 @@ package Main;
 
 import Controllers.MasterSystem;
 import Gateways.ProgramGenerator;
+import Presenters.SignUpMenuPresenter;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,8 +18,13 @@ public class Main extends Application{
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/UI/SignUpMenuView.fxml"));
         AnchorPane signUpPage = (AnchorPane) loader.load();
-        Scene scene = new Scene(signUpPage);
 
+        ProgramGenerator programGenerator = new ProgramGenerator();
+        MasterSystem masterSystem = programGenerator.readFromDatabase();
+        masterSystem.run();
+        SignUpMenuPresenter signUpMenuPresenter = new SignUpMenuPresenter(masterSystem);
+        loader.setController(signUpMenuPresenter);
+        Scene scene = new Scene(signUpPage);
         primaryStage.setTitle("Tech-Conference");
         primaryStage.setScene(scene);
         primaryStage.show();

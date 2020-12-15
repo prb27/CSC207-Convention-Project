@@ -135,38 +135,38 @@ public class MasterSystem implements Serializable {
             this.userEventController = new UserEventController(attendeeManager, organizerManager,
                     speakerManager, eventManager, roomManager);
 
-            this.attendeeConversationMenuPresenter = new AttendeeConversationMenuPresenter(loginMenuController,
-                    conversationMenuController, sceneHandler, programGenerator);
-            this.attendeeEventMenuPresenter = new AttendeeEventMenuPresenter(attendeeEventMenuController,
-                    loginMenuController, programGenerator);
-            this.attendeeMenuPresenter = new AttendeeMenuPresenter(loginMenuController, programGenerator);
-            this.attendeeMessagingMenuPresenter = new AttendeeMessagingMenuPresenter(loginMenuController,
-                    attendeeMessagingDashboardMenuController, conversationMenuController, programGenerator);
-            this.attendeeMessengerMenuPresenter = new AttendeeMessengerMenuPresenter(messengerMenuController,
-                    loginMenuController, sceneHandler, conversationMenuController, programGenerator);
-
-            this.organizerConferenceMenuPresenter = new OrganizerConferenceMenuPresenter(organizerMenuController,
-                    accountHandler, programGenerator);
-            this.organizerEventMenuPresenter = new OrganizerEventMenuPresenter(loginMenuController,
-                    organizerMenuController, eventsSearchEngine,programGenerator);
-            this.organizerMenuPresenter = new OrganizerMenuPresenter(loginMenuController, programGenerator);
-            this.organizerMessagingMenuPresenter = new OrganizerMessagingMenuPresenter(loginMenuController,speakerMessagingDashboardMenuController, conversationMenuController, programGenerator);
-            this.organizerMessengerMenuPresenter = new OrganizerMessengerMenuPresenter(messengerMenuController, loginMenuController, programGenerator);
-
-            this.speakerConversationMenuPresenter = new SpeakerConversationMenuPresenter(loginMenuController,
-                    conversationMenuController, sceneHandler, programGenerator);
-            this.speakerEventMenuPresenter = new SpeakerEventMenuPresenter(userEventController, loginMenuPresenter, programGenerator);
-            this.speakerMenuPresenter = new SpeakerMenuPresenter(programGenerator);
-            this.speakerMessagingMenuPresenter = new SpeakerMessagingMenuPresenter(loginMenuController,
-                    speakerMessagingDashboardMenuController, conversationMenuController, programGenerator);
-            this.speakerMessengerMenuPresenter = new SpeakerMessengerMenuPresenter(messengerMenuController,
-                    loginMenuController, programGenerator);
-
-            this.eventMenuPresenter = new EventMenuPresenter();
-            this.loginMenuPresenter = new LoginMenuPresenter(loginMenuController);
+//            this.attendeeConversationMenuPresenter = new AttendeeConversationMenuPresenter(loginMenuController,
+//                    conversationMenuController, sceneHandler, programGenerator);
+//            this.attendeeEventMenuPresenter = new AttendeeEventMenuPresenter(attendeeEventMenuController,
+//                    loginMenuController, programGenerator);
+//            this.attendeeMenuPresenter = new AttendeeMenuPresenter(loginMenuController, programGenerator);
+//            this.attendeeMessagingMenuPresenter = new AttendeeMessagingMenuPresenter(loginMenuController,
+//                    attendeeMessagingDashboardMenuController, conversationMenuController, programGenerator);
+//            this.attendeeMessengerMenuPresenter = new AttendeeMessengerMenuPresenter(messengerMenuController,
+//                    loginMenuController, sceneHandler, conversationMenuController, programGenerator);
+//
+//            this.organizerConferenceMenuPresenter = new OrganizerConferenceMenuPresenter(organizerMenuController,
+//                    accountHandler, programGenerator);
+//            this.organizerEventMenuPresenter = new OrganizerEventMenuPresenter(loginMenuController,
+//                    organizerMenuController, eventsSearchEngine,programGenerator);
+//            this.organizerMenuPresenter = new OrganizerMenuPresenter(loginMenuController, programGenerator);
+//            this.organizerMessagingMenuPresenter = new OrganizerMessagingMenuPresenter(loginMenuController,speakerMessagingDashboardMenuController, conversationMenuController, programGenerator);
+//            this.organizerMessengerMenuPresenter = new OrganizerMessengerMenuPresenter(messengerMenuController, loginMenuController, programGenerator);
+//
+//            this.speakerConversationMenuPresenter = new SpeakerConversationMenuPresenter(loginMenuController,
+//                    conversationMenuController, sceneHandler, programGenerator);
+//            this.speakerEventMenuPresenter = new SpeakerEventMenuPresenter(userEventController, loginMenuPresenter, programGenerator);
+//            this.speakerMenuPresenter = new SpeakerMenuPresenter(programGenerator);
+//            this.speakerMessagingMenuPresenter = new SpeakerMessagingMenuPresenter(loginMenuController,
+//                    speakerMessagingDashboardMenuController, conversationMenuController, programGenerator);
+//            this.speakerMessengerMenuPresenter = new SpeakerMessengerMenuPresenter(messengerMenuController,
+//                    loginMenuController, programGenerator);
+//
+//            this.eventMenuPresenter = new EventMenuPresenter();
+//            this.loginMenuPresenter = new LoginMenuPresenter(loginMenuController);
             this.messageMenuController = new MessageMenuController();
-            this.sceneHandler = new SceneHandler();
-            this.signUpMenuPresenter = new SignUpMenuPresenter(signUpMenuController, programGenerator);
+//            this.sceneHandler = new SceneHandler();
+//            this.signUpMenuPresenter = new SignUpMenuPresenter(signUpMenuController, programGenerator);
 
 
 
@@ -179,6 +179,15 @@ public class MasterSystem implements Serializable {
             /* Create an organizer account when a new Controllers.MasterSystem object is created
              * to allow for the conference to have at least one organizer*/
             accountHandler.signup("admin", "admin", "admin");
+        }
+        public LoginMenuController getLoginMenuController(){
+            return this.loginMenuController;
+        }
+        public ProgramGenerator getProgramGenerator(){
+            return this.programGenerator;
+        }
+        public SignUpMenuController getSignUpMenuController(){
+            return this.signUpMenuController;
         }
 
 }
