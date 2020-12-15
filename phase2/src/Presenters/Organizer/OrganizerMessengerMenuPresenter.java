@@ -47,7 +47,6 @@ public class OrganizerMessengerMenuPresenter {
 
     @FXML
     private void initialize(){
-        welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
 
         goBack.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
         goBack.setOnAction(event -> {
@@ -219,5 +218,6 @@ public class OrganizerMessengerMenuPresenter {
         this.messengerMenuController = masterSystem.getMessengerMenuController();
         this.loginMenuController = masterSystem.getLoginMenuController();
         this.programGenerator = masterSystem.getProgramGenerator();
+        welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
     }
 }
