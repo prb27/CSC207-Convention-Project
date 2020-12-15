@@ -82,7 +82,7 @@ public class OrganizerEventCreationMenuPresenter {
     }
 
     public void initialize(){
-        username.setText(loginMenuController.getCurrUsername());
+
         selectedSpeakerDisplay.getItems().clear();
         selectedSpeakerDisplay.setItems(speakers);
         ObservableList<String> startTimeChoiceList = FXCollections.observableArrayList("9", "10", "11", "12", "1", "2", "3", "4");
@@ -228,5 +228,6 @@ public class OrganizerEventCreationMenuPresenter {
         this.userEventController = masterSystem.getUserEventController();
         this.loginMenuController = masterSystem.getLoginMenuController();
         this.programGenerator = masterSystem.getProgramGenerator();
+        username.setText(loginMenuController.getCurrUsername());
     }
 }
