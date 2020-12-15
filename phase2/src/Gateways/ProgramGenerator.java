@@ -1,6 +1,8 @@
 package Gateways;
 
 import Controllers.MasterSystem;
+import Entities.Admin;
+import Entities.Room;
 import UseCases.*;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
@@ -78,7 +80,14 @@ public class ProgramGenerator implements Serializable{
                     conversationManager, eventManager, roomManager);
         } catch (Exception e) {
             e.printStackTrace();
-            return new MasterSystem();
+            return new MasterSystem(new AttendeeManager(attendeeDatabase),
+                    new OrganizerManager(organizerDatabase),
+                    new SpeakerManager(speakerDatabase),
+                    new AdminManager(),
+                    new MessageManager(messageDatabase),
+                    new ConversationManager(conversationDatabase),
+                    new EventManager(eventDatabase),
+                    new RoomManager(roomDatabase));
         }
     }
 
