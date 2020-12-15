@@ -41,23 +41,4 @@ public class AdminManager implements Serializable {
 
 
 
-    IAdminDatabase adminDatabase;
-    public AdminManager(IAdminDatabase adminDatabase){
-        this.adminDatabase = adminDatabase;
-    }
-
-    public void loadFromDatabase() {
-
-        List<String> listOfContacts = admin.get("listOfContacts");
-        List<String> listOfConversations = admin.get("listOfConversations");
-        String username = admin.get("credentials").get(0);
-        String password = admin.get("credentials").get(1);
-        Organizer newOrganizer =  new Admin(username, password);
-        newOrganizer.setContacts(listOfContacts);
-        newOrganizer.setConversations(listOfConversations);
-
-    }
-
-
-
 }
