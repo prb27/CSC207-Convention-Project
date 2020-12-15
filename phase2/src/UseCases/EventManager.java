@@ -3,7 +3,6 @@ package UseCases;
 import Entities.Event;
 import Gateways.Interfaces.IEventDatabase;
 
-import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -19,7 +18,7 @@ import java.util.*;
  * - displays a table of an event with its information
  * @author aribshaikh
  */
-public class EventManager implements Serializable {
+public class EventManager {
 
     private List<Event> EventList;
 

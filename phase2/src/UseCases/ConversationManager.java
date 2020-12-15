@@ -1,13 +1,9 @@
 package UseCases;
 
-import Entities.Attendee;
 import Entities.Conversation;
 import Entities.Message;
-import Entities.Organizer;
 import Gateways.Interfaces.IConversationDatabase;
-import org.bson.Document;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +19,7 @@ import java.util.Map;
  * @author Peter Bilski
  * @see Conversation
  */
-public class ConversationManager implements Serializable {
+public class ConversationManager {
     private List<Conversation> allConversations;
 
     /**

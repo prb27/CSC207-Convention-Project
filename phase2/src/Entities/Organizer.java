@@ -1,6 +1,5 @@
 package Entities;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +8,7 @@ import java.util.List;
  * @author Ashwin Karthikeyan
  * @see User
  */
-public class Organizer extends User implements Serializable {
+public class Organizer extends User {
 
     private List<String> eventsAttending;
 

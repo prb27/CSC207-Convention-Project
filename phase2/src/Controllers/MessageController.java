@@ -2,7 +2,6 @@ package Controllers;
 
 import UseCases.*;
 
-import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -16,7 +15,7 @@ import java.util.*;
  * - allows an attendee to send a message to another attendee
  *
  */
-public class MessageController implements Serializable {
+public class MessageController {
 
     private final AttendeeManager attendeeManager;
     private final OrganizerManager organizerManager;
