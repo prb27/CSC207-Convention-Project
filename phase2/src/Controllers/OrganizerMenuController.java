@@ -305,6 +305,9 @@ public class OrganizerMenuController implements Serializable {
     //    }
     // Can be done by the GUI
 
+    public void signUpAsOrganizer(String eventName, String organizerId){
+        eventManager.reserveAttendee(eventName, organizerId);
+    }
 
     //case "13": {
     //                    ui.present("Please enter the event's name");
@@ -315,6 +318,9 @@ public class OrganizerMenuController implements Serializable {
     //                }
     // Can be done by the GUI
 
+    public void cancelSpotAsOrganizer(String eventName, String organizerId){
+        eventManager.removeAttendee(eventName, organizerId);
+    }
     /**
      *
      * @param username

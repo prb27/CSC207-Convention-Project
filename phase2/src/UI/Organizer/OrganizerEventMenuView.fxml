@@ -32,8 +32,8 @@
       <Label fx:id="displayTag" layoutX="17.0" layoutY="55.0" text="Events" />
       <Button fx:id="changeSpeakerButton" disable="true" layoutX="229.0" layoutY="123.0" mnemonicParsing="false" onAction="#changeSpeaker" text="Change Speaker" />
       <Button fx:id="changeTimeButton" disable="true" layoutX="229.0" layoutY="160.0" mnemonicParsing="false" onAction="#changeTime" text="Change Time" />
-      <Button fx:id="signUpButton" disable="true" layoutX="229.0" layoutY="197.0" mnemonicParsing="false" text="Sign Up" />
-      <Button fx:id="cancelSpotButton" disable="true" layoutX="293.0" layoutY="197.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="91.0" text="Cancel Spot" />
+      <Button fx:id="signUpButton" disable="true" layoutX="229.0" layoutY="197.0" mnemonicParsing="false" onAction="#signUp" text="Sign Up" />
+      <Button fx:id="cancelSpotButton" disable="true" layoutX="293.0" layoutY="197.0" mnemonicParsing="false" onAction="#cancelSpot" prefHeight="27.0" prefWidth="91.0" text="Cancel Spot" />
       <Button fx:id="clearEventButton" disable="true" layoutX="353.0" layoutY="87.0" mnemonicParsing="false" onAction="#clearEvent" prefHeight="27.0" prefWidth="57.0" text="Clear" />
       <Button fx:id="seeAllEventsButton" layoutX="400.0" layoutY="298.0" mnemonicParsing="false" onAction="#seeAllEvents" text="See all events" />
       <Button fx:id="seeAttendedEventsButton" layoutX="400.0" layoutY="330.0" mnemonicParsing="false" onAction="#seeAttending" text="See events attending" />

@@ -156,12 +156,14 @@ public class OrganizerEventMenuPresenter {
 
     @FXML
     public void signUp(){
-
+        organizerMenuController.signUpAsOrganizer(eventNameDisplay.getText(), username.getText());
+        seeNotAttending();
     }
 
     @FXML
     public void cancelSpot(){
-        
+        organizerMenuController.cancelSpotAsOrganizer(eventNameDisplay.getText(), username.getText());
+        seeAttending();
     }
 
     @FXML
