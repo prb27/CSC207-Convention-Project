@@ -4,6 +4,7 @@ import Controllers.AttendeeEventMenuController;
 import Controllers.LoginMenuController;
 import Controllers.MasterSystem;
 import Gateways.ProgramGenerator;
+import Presenters.LoginMenuPresenter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -117,6 +118,8 @@ public class AttendeeEventMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/AttendeeMenuView.fxml"));
         Stage stage = (Stage) goBack.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        AttendeeMenuPresenter attendeeMenuPresenter = loader.getController();
+        attendeeMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
     private void signOut() throws IOException {
@@ -124,6 +127,8 @@ public class AttendeeEventMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        LoginMenuPresenter loginMenuPresenter = loader.getController();
+        loginMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
