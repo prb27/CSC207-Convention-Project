@@ -57,6 +57,8 @@ public class UserEventController {
 
         for(String speakerUsername: speakerName){
             if(!speakerManager.isSpeaker(speakerUsername)){
+                System.out.println("SDE");
+
                 return "SDE";
             }
         }
@@ -69,6 +71,8 @@ public class UserEventController {
                     for (String speaker : speakerName) {
                         for(int i = 0; i < duration; i++) {
                             if (!speakerManager.isSpeakerFreeAtTime(speaker, allowedTimes.get(index + i))) {
+                                System.out.println(allowedTimes.get(index + i));
+                                System.out.println("STC");
                                 return "STC";
                             }
 
@@ -78,6 +82,8 @@ public class UserEventController {
 
                 }
                 else{
+                    System.out.println("ESOT");
+
                     return "ESOT";
                 }
 
@@ -91,19 +97,25 @@ public class UserEventController {
                         }
                     }
                     roomManager.occupyRoomAt(roomNumber,startTime, duration);
-
+                    System.out.println("YES");
                     return eventManager.addEvent(eventName, startTime, duration, roomNumber, eventCapacity, speakerName);
                 }
                 else{
+                    System.out.println("ECF");
+
                     return "ECF";
                 }
 
             }
             else{
+                System.out.println("ETC");
+
                 return "ETC";
             }
         }
         else{
+            System.out.println("ODE");
+
             return "ODE";
         }
 

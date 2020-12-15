@@ -53,14 +53,7 @@ public class AttendeeMessengerMenuPresenter {
         this.conversationMenuController = masterSystem.getConversationMenuController();
         this.programGenerator = masterSystem.getProgramGenerator();
         welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
-        goBack.setOnAction(event -> {
-            try {
-                goBack();
-            }
-            catch (IOException e){
-                e.printStackTrace();
-            }
-        });
+
         try {
             setPrivilegesAttendee();
         }
@@ -97,6 +90,7 @@ public class AttendeeMessengerMenuPresenter {
         signOut.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
 
         sendMessage.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
+
     }
 
     private void goBack() throws IOException{
