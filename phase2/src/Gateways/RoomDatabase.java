@@ -36,10 +36,10 @@ public class RoomDatabase implements IRoomDatabase {
             Map<String, List<String>> room = new HashMap<>();
             List<String> roomInfo = new ArrayList<>();
             roomInfo.add(roomDocument.getString("roomId"));
-            roomInfo.add(roomDocument.getInteger("capacity").toString());
-            roomInfo.add(roomDocument.getBoolean("hasProjector").toString());
-            roomInfo.add(roomDocument.getBoolean("hasAudioSystem").toString());
-            roomInfo.add(roomDocument.getInteger("powerSockets").toString());
+            roomInfo.add(roomDocument.getString("capacity").toString());
+            roomInfo.add(roomDocument.getString("hasProjector").toString());
+            roomInfo.add(roomDocument.getString("hasAudioSystem").toString());
+            roomInfo.add(roomDocument.getString("powerSockets").toString());
             room.put("roomInfo", roomInfo);
             room.put("occupiedTimes", roomDocument.getList("occupiedTimes", String.class));
             roomList.add(room);
