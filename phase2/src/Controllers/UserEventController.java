@@ -2,7 +2,6 @@ package Controllers;
 
 import UseCases.*;
 
-import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -18,7 +17,7 @@ import java.util.*;
  * @author Ashwin Karthikeyan, Arib Shaikh, Khoa Pham, Vladimir
  *
  */
-public class UserEventController implements Serializable {
+public class UserEventController {
 
     private final AttendeeManager attendeeManager;
     private final OrganizerManager organizerManager;

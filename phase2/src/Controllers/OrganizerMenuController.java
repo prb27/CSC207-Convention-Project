@@ -2,7 +2,6 @@ package Controllers;
 
 import UseCases.*;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +10,7 @@ import java.util.List;
  * collaborate with UseCase classes.
  * @author Ashwin
  */
-public class OrganizerMenuController implements Serializable {
+public class OrganizerMenuController {
 
     private AttendeeManager attendeeManager;
     private OrganizerManager organizerManager;

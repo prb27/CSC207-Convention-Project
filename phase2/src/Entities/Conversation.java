@@ -1,6 +1,5 @@
 package Entities;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,7 +8,7 @@ import java.util.List;
  * Each conversation has an id determined by the unix timestamp when it was created
  * @author Peter Bilski
  */
-public class Conversation implements Serializable {
+public class Conversation {
     private List<String> participants;
     private String convoRoot;
     private String id;

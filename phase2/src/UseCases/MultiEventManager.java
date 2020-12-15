@@ -2,13 +2,10 @@ package UseCases;
 
 import Entities.Events.MultiSpeakerEvent;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class MultiEventManager implements Serializable {
+public class MultiEventManager {
     private List<MultiSpeakerEvent> MultiSpeakerEventList = new ArrayList<>();
 
     public List<MultiSpeakerEvent> getMultiSpeakerEventList() {

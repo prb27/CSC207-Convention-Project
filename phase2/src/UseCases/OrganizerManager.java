@@ -3,7 +3,6 @@ package UseCases;
 import Entities.Organizer;
 import Gateways.Interfaces.IOrganizerDatabase;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +31,7 @@ import java.util.Map;
  * @author Ashwin Karthikeyan
  * @see Organizer
  */
-public class OrganizerManager implements Serializable {
+public class OrganizerManager {
 
     private final List<Organizer> organizerList;
 

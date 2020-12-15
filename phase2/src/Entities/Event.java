@@ -1,13 +1,12 @@
 package Entities;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * This is the Entities.Event entity class, creates an Entities.Event object and initiates all values of event. Responsible for the getters and setters of event.
  * @author aribshaikh
  */
-public class Event implements Serializable {
+public class Event {
     private String eventName;
     private List<String> speakerName;
     private String startTime;

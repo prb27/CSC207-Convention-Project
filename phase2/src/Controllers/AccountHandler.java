@@ -5,7 +5,6 @@ import UseCases.AttendeeManager;
 import UseCases.OrganizerManager;
 import UseCases.SpeakerManager;
 
-import java.io.Serializable;
 
 /**
  * This class is responsible for creating accounts of all user types
@@ -17,7 +16,7 @@ import java.io.Serializable;
  * @see SpeakerManager
  * @see UseCases.AdminManager
  */
-public class AccountHandler implements Serializable {
+public class AccountHandler {
     private final AttendeeManager attendeeManager;
     private final OrganizerManager organizerManager;
     private final SpeakerManager speakerManager;

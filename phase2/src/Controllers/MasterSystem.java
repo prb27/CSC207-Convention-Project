@@ -8,7 +8,6 @@ import Presenters.Speaker.*;
 
 import UseCases.*;
 
-import java.io.Serializable;
 
 /**
  * Class that stores the instances of use case and controller classes and controls
@@ -16,7 +15,7 @@ import java.io.Serializable;
  * execute tasks and display results using the UI.
  * @author Akshat Ayush
  */
-public class MasterSystem implements Serializable {
+public class MasterSystem {
 
 
 
