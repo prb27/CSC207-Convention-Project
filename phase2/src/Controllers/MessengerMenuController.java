@@ -120,6 +120,96 @@ public class MessengerMenuController {
 
         return convoId;
     }
+
+    public boolean organizerSendMessageToAll(String organizerId, String content, String userType){
+
+        if(organizerManager.isOrganizer(organizerId)){
+            if(userType.equals("attendee")) {
+                List<String> attendeeIDs = attendeeManager.getAllAttendeeIds();
+                organizerToAll(organizerId, content, userType, attendeeIDs);
+                return true;
+            }
+            if(userType.equals("organizer")) {
+                List<String> organizerIDs = organizerManager.getAllOrganizerIds();
+                organizerToAll(organizerId, content, userType, organizerIDs);
+                return true;
+            }
+            if(userType.equals("speaker")) {
+                List<String> speakerIds = speakerManager.getAllSpeakerIds();
+                organizerToAll(organizerId, content, userType, speakerIds);
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    public boolean organizerSendMessageToSingle(String organizerId, String recipientId, String content, String userType){
+
+        if(userType.equals("attendee")){
+            if(organizerManager.isOrganizer(organizerId) && attendeeManager.isAttendee(recipientId)){
+                organizerToSingle(organizerId, recipientId, content, userType);
+                return true;
+            }
+            return false;
+        }
+        if(userType.equals("organizer")){
+            if(organizerManager.isOrganizer(organizerId) && organizerManager.isOrganizer(recipientId)){
+                organizerToSingle(organizerId, recipientId, content, userType);
+                return true;
+            }
+            return false;
+        }
+        if(userType.equals("speaker")){
+            if(organizerManager.isOrganizer(organizerId) && speakerManager.isSpeaker(recipientId)){
+                organizerToSingle(organizerId, recipientId, content, userType);
+                return true;
+            }
+            return false;
+        }
+        return false;
+
+    }
+
+    /**
+     *
+     * @param username
+     * @param eventName
+     * @param message
+     * @return
+     */
+    public String organizerSendMessageByEvent(String username, String eventName, String message){
+
+        if(!eventManager.isEvent(eventName)){
+            return "EDE";
+        }
+        boolean messageByEvent = organizerMessageByEvent(username, eventName, message);
+        if(messageByEvent){
+            return "Successful";
+        }
+        return "Something went wrong";
+
+    }
+
+    public boolean organizerMessageByEvent(String organizerId, String eventName, String content){
+
+        List<String> recipientIds;
+        if (eventManager.isEvent(eventName)){
+            recipientIds = new ArrayList<>(eventManager.getAttendeeList(eventName));
+        } else {
+            return false;
+        }
+        String convoId = multiMessage(organizerId, recipientIds, content);
+        for(String id: recipientIds){
+            if(organizerManager.isOrganizer(id)){
+                organizerManager.addConversation(id, convoId);
+            } else if(attendeeManager.isAttendee(id)){
+                attendeeManager.addConversation(id, convoId);
+            }
+        }
+        return true;
+    }
+
     /**
      * Allows an attendee to send a message to another attendee or speaker
      * @param username: id of attendee sending the message
@@ -284,6 +374,55 @@ public class MessengerMenuController {
                 }
             }
         }
+    }
+
+    /**
+     * Allows to send a message from an organizer to all of one user type
+     * @param organizerId : id of organizer
+     * @param content : content of message
+     * @param userType : type of user
+     * @param recipientIds : IDs of all users
+     */
+    public void organizerToAll(String organizerId, String content, String userType, List<String> recipientIds){
+
+        String convoId = multiMessage(organizerId, recipientIds, content);
+        switch(userType){
+            case "attendee":
+                for(String id: recipientIds){
+                    attendeeManager.addConversation(id, convoId);
+                }
+            case "organizer":
+                for(String id: recipientIds){
+                    organizerManager.addConversation(id, convoId);
+                }
+            case "speaker":
+                for(String id: recipientIds){
+                    speakerManager.addConversation(id, convoId);
+                }
+        }
+        organizerManager.addConversation(organizerId, convoId);
+    }
+
+    /**
+     * Allows an organizer to send a message to a single user
+     * @param organizerId : ID of organizer
+     * @param recipientId : ID of recipient/user
+     * @param content : content of message
+     * @param userType : type of user
+     */
+    public void organizerToSingle(String organizerId, String recipientId, String content, String userType){
+
+        String convoId = singleMessage(organizerId, recipientId, content);
+
+        switch(userType){
+            case "attendee":
+                attendeeManager.addConversation(recipientId, convoId);
+            case "organizer":
+                organizerManager.addConversation(recipientId, convoId);
+            case "speaker":
+                speakerManager.addConversation(recipientId, convoId);
+        }
+        organizerManager.addConversation(organizerId, convoId);
     }
 
 //    /**

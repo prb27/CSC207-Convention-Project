@@ -36,10 +36,6 @@ public class OrganizerMenuPresenter {
     @FXML
     private Button createEventButton;
 
-    public OrganizerMenuPresenter(){
-
-    }
-
     public void initialize(){
         username.setText(loginMenuController.getCurrUsername());
         toEventsFromOrganizer.setText("Events");

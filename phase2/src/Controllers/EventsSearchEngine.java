@@ -2,7 +2,6 @@ package Controllers;
 
 import UseCases.EventManager;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +9,7 @@ import java.util.List;
  * This class contains methods that perform actions like searching for events with certain parameters (eg. Speaker's username).
  * @author Ashwin
  */
-public class EventsSearchEngine implements Serializable {
+public class EventsSearchEngine {
 
     private final EventManager eventManager;
 

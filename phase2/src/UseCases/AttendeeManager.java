@@ -3,8 +3,6 @@ package UseCases;
 import Entities.Attendee;
 import Gateways.Interfaces.IAttendeeDatabase;
 
-import java.awt.image.AreaAveragingScaleFilter;
-import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -20,7 +18,7 @@ import java.util.*;
  * @author Khoa Pham
  * @see Attendee
  */
-public class AttendeeManager implements Serializable {
+public class AttendeeManager {
     private Map<String, Attendee> attendees;
 
     /**

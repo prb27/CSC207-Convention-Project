@@ -2,7 +2,6 @@ package UseCases;
 
 import Entities.Speaker;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
@@ -33,7 +32,7 @@ import Gateways.Interfaces.ISpeakerDatabase;
  * @author Vladimir Caterov
  * @see Speaker
  */
-public class SpeakerManager implements Serializable {
+public class SpeakerManager {
 
     private final List<Speaker> speakers;
     ISpeakerDatabase speakerDatabase;

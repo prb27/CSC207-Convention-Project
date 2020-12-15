@@ -1,6 +1,5 @@
 package Entities;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +9,7 @@ import java.util.List;
  * - times at which the room is used for an event
  * @author Ashwin Karthikeyan
  */
-public class Room implements Serializable {
+public class Room {
 
     private final String roomId;
     private final int capacity;

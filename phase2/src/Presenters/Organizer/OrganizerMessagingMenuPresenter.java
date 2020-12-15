@@ -40,7 +40,7 @@ public class OrganizerMessagingMenuPresenter {
 
     @FXML
     private void initialize(){
-        username.setText(loginMenuController.getCurrUsername());
+
         messenger.setText("Messenger");
         messenger.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
         messenger.setOnAction(event -> {
@@ -61,7 +61,7 @@ public class OrganizerMessagingMenuPresenter {
                 e.printStackTrace();
             }
         });
-        loadConversations();
+
 
     }
 
@@ -145,5 +145,7 @@ public class OrganizerMessagingMenuPresenter {
         this.conversationMenuController = masterSystem.getConversationMenuController();
         this.speakerMessagingDashboardMenuController = masterSystem.getSpeakerMessagingDashboardMenuController();
         this.programGenerator = masterSystem.getProgramGenerator();
+        username.setText(loginMenuController.getCurrUsername());
+        loadConversations();
     }
 }

@@ -5,8 +5,6 @@ import UseCases.*;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 
-import java.io.*;
-
 /**
  * This class stores the methods used by the Controllers.MasterSystem and Main.Main class to read the state of the program upon
  * running the program and save the state of the program upon closing the program.
@@ -15,7 +13,7 @@ import java.io.*;
  *  - writing the most updated state of the Controllers.MasterSystem class into the serialized Controllers.MasterSystem file.
  * @author Akshat Ayush
  */
-public class ProgramGenerator implements Serializable{
+public class ProgramGenerator {
 
     MongoClientURI uri;
     MongoClient mongoClient;
