@@ -86,7 +86,6 @@ public class OrganizerEventMenuPresenter {
     }
 
     public void initialize(){
-        username.setText(loginMenuController.getCurrUsername());
         ObservableList<String> startTimeChoices = FXCollections.observableArrayList("9", "10", "11", "12", "1", "2", "3", "4");
         ObservableList<Integer> durationChoices = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8);
         startTimeChoice.setItems(startTimeChoices);
@@ -346,9 +345,11 @@ public class OrganizerEventMenuPresenter {
         }
     }
     public void setMasterSystem(MasterSystem masterSystem){
+        this.masterSystem = masterSystem;
         this.loginMenuController = masterSystem.getLoginMenuController();
         this.organizerMenuController = masterSystem.getOrganizerMenuController();
         this.eventsSearchEngine = masterSystem.getEventsSearchEngine();
         this.programGenerator = masterSystem.getProgramGenerator();
+        username.setText(loginMenuController.getCurrUsername());
     }
 }

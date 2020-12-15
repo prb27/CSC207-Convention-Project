@@ -215,6 +215,7 @@ public class OrganizerMessengerMenuPresenter {
 
     }
     public void setMasterSystem(MasterSystem masterSystem){
+        this.masterSystem = masterSystem;
         this.messengerMenuController = masterSystem.getMessengerMenuController();
         this.loginMenuController = masterSystem.getLoginMenuController();
         this.programGenerator = masterSystem.getProgramGenerator();

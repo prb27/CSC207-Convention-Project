@@ -18,6 +18,7 @@ import java.io.IOException;
 public class OrganizerConferenceMenuPresenter {
     public Button backButton;
     public Button signOutButton;
+
     private ProgramGenerator programGenerator;
     private OrganizerMenuController organizerMenuController;
     private AccountHandler accountHandler;
@@ -216,6 +217,7 @@ public class OrganizerConferenceMenuPresenter {
     }
 
     public void setMasterSystem(MasterSystem masterSystem){
+        this.masterSystem = masterSystem;
         this.programGenerator = masterSystem.getProgramGenerator();
         this.organizerMenuController = masterSystem.getOrganizerMenuController();
         this.accountHandler = masterSystem.getAccountHandler();
