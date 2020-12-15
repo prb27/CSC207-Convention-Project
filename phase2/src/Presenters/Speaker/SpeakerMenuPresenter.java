@@ -4,6 +4,7 @@ package Presenters.Speaker;
 import Controllers.MasterSystem;
 import Gateways.ProgramGenerator;
 import Presenters.Interfaces.ISpeakerMenu;
+import Presenters.LoginMenuPresenter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -75,6 +76,8 @@ public class SpeakerMenuPresenter implements ISpeakerMenu {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Speaker/SpeakerEventMenuView.fxml"));
         Stage stage = (Stage) toEventsFromSpeaker.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        SpeakerEventMenuPresenter speakerEventMenuPresenter = loader.getController();
+        speakerEventMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
 
     }
@@ -87,6 +90,8 @@ public class SpeakerMenuPresenter implements ISpeakerMenu {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Speaker/SpeakerMessagingMenuView.fxml"));
         Stage stage = (Stage) toMessagingFromSpeaker.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        SpeakerMessagingMenuPresenter speakerMessagingMenuPresenter = loader.getController();
+        speakerMessagingMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -99,6 +104,8 @@ public class SpeakerMenuPresenter implements ISpeakerMenu {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        LoginMenuPresenter loginMenuPresenter = loader.getController();
+        loginMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 

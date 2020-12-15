@@ -1,9 +1,11 @@
 package Presenters.Speaker;
 
 import Controllers.LoginMenuController;
+import Controllers.MasterSystem;
 import Gateways.ProgramGenerator;
 
 import Controllers.MessengerMenuController;
+import Presenters.LoginMenuPresenter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -36,15 +38,12 @@ public class SpeakerMessengerMenuPresenter {
 
 
     private MessengerMenuController messengerMenuController;
-    private final LoginMenuController loginMenuController;
-    private final ProgramGenerator programGenerator;
+    private  LoginMenuController loginMenuController;
+    private  ProgramGenerator programGenerator;
+    private MasterSystem masterSystem;
 
-    public SpeakerMessengerMenuPresenter(MessengerMenuController messengerMenuController,
-                                         LoginMenuController loginMenuController,
-                                         ProgramGenerator programGenerator){
-        this.messengerMenuController = messengerMenuController;
-        this.loginMenuController = loginMenuController;
-        this.programGenerator = programGenerator;
+    public SpeakerMessengerMenuPresenter(){
+
     }
 
     @FXML
@@ -99,6 +98,8 @@ public class SpeakerMessengerMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Speaker/SpeakerMessagingMenuView.fxml"));
         Stage stage = (Stage) goBack.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        SpeakerMessagingMenuPresenter speakerMessagingMenuPresenter = loader.getController();
+        speakerMessagingMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -111,6 +112,8 @@ public class SpeakerMessengerMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        LoginMenuPresenter loginMenuPresenter = loader.getController();
+        loginMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -213,5 +216,10 @@ public class SpeakerMessengerMenuPresenter {
 
         return checker;
 
+    }
+    public void setMasterSystem(MasterSystem masterSystem){
+        this.messengerMenuController = masterSystem.getMessengerMenuController();
+        this.loginMenuController = masterSystem.getLoginMenuController();
+        this.programGenerator = masterSystem.getProgramGenerator();
     }
 }

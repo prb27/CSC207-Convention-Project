@@ -1,5 +1,7 @@
 package Presenters.Speaker;
 
+import Controllers.LoginMenuController;
+import Controllers.MasterSystem;
 import Controllers.UserEventController;
 import Gateways.ProgramGenerator;
 import Presenters.LoginMenuPresenter;
@@ -31,18 +33,17 @@ public class SpeakerEventMenuPresenter {
     private ListView<String> eventlist;
 
     private UserEventController userEventController;
-    private LoginMenuPresenter loginMenuPresenter;
+    private LoginMenuController loginMenuController;
     private ProgramGenerator programGenerator;
+    private MasterSystem masterSystem;
 
-    public SpeakerEventMenuPresenter(UserEventController userEventController, LoginMenuPresenter loginMenuPresenter, ProgramGenerator programGenerator){
-        this.userEventController = userEventController;
-        this.loginMenuPresenter = loginMenuPresenter;
-        this.programGenerator = programGenerator;
+    public SpeakerEventMenuPresenter(){
+
     }
 
     @FXML
     private void initialize() {
-        welcome.setText("Welcome: " + loginMenuPresenter.getUsername() + "!");
+        welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
         seeListofEvents();
 
 
@@ -84,6 +85,8 @@ public class SpeakerEventMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        LoginMenuPresenter loginMenuPresenter = loader.getController();
+        loginMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -92,13 +95,18 @@ public class SpeakerEventMenuPresenter {
      */
     private void seeListofEvents(){
         eventlist.getItems().clear();
-        String speakerID = loginMenuPresenter.getUsername();
+        String speakerID = loginMenuController.getCurrUsername();
         List<String> events = userEventController.seeListOfEventsForSpeaker(speakerID);
 
         ObservableList<String> eventslist = FXCollections.observableArrayList(events);
         ListView<String> eventlist = new ListView<String>(eventslist);
         layout.getChildren().addAll(eventlist);
 
+    }
+    public void setMasterSystem(MasterSystem masterSystem){
+        this.userEventController = masterSystem.getUserEventController();
+        this.loginMenuController = masterSystem.getLoginMenuController();
+        this.programGenerator = masterSystem.getProgramGenerator();
     }
 
 }

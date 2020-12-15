@@ -2,7 +2,9 @@ package Presenters.Speaker;
 
 import Controllers.ConversationMenuController;
 import Controllers.LoginMenuController;
+import Controllers.MasterSystem;
 import Gateways.ProgramGenerator;
+import Presenters.LoginMenuPresenter;
 import Presenters.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,16 +29,13 @@ public class SpeakerConversationMenuPresenter {
     @FXML
     private Button reply;
 
-    private final LoginMenuController loginMenuController;
-    private final ConversationMenuController conversationMenuController;
-    private final SceneHandler sceneHandler;
-    private final ProgramGenerator programGenerator;
+    private  LoginMenuController loginMenuController;
+    private  ConversationMenuController conversationMenuController;
+    private  SceneHandler sceneHandler;
+    private  ProgramGenerator programGenerator;
+    private  MasterSystem masterSystem;
 
-    public SpeakerConversationMenuPresenter(LoginMenuController loginMenuController, ConversationMenuController conversationMenuController, SceneHandler sceneHandler, ProgramGenerator programGenerator){
-        this.loginMenuController = loginMenuController;
-        this.conversationMenuController = conversationMenuController;
-        this.sceneHandler = sceneHandler;
-        this.programGenerator = programGenerator;
+    public SpeakerConversationMenuPresenter(){
 
     }
 
@@ -99,6 +98,8 @@ public class SpeakerConversationMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Speaker/SpeakerMessengerMenuView.fxml"));
         Stage stage = (Stage) reply.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        SpeakerMessagingMenuPresenter speakerMessagingMenuPresenter = loader.getController();
+        speakerMessagingMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -122,7 +123,15 @@ public class SpeakerConversationMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        LoginMenuPresenter loginMenuPresenter = loader.getController();
+        loginMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
+    }
+    public void setMasterSystem(MasterSystem masterSystem){
+        this.loginMenuController = masterSystem.getLoginMenuController();
+        this.conversationMenuController = masterSystem.getConversationMenuController();
+        this.sceneHandler = masterSystem.getSceneHandler();
+        this.programGenerator = masterSystem.getProgramGenerator();
     }
 
 }
