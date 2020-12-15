@@ -308,7 +308,7 @@ public class EventManager implements Serializable {
         }
     }
 
-    public List<Map<String, List<String>>> saveToDatabase() {
+    public void saveToDatabase() {
 
         List<Map<String, List<String>>> resultingList = new ArrayList();
 
@@ -345,7 +345,7 @@ public class EventManager implements Serializable {
 
             resultingList.add(resultingEvent);
         }
-        return resultingList;
+        eventDatabase.saveEventList(resultingList);
     }
 
 
