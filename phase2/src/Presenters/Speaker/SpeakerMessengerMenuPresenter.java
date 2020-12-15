@@ -110,7 +110,7 @@ public class SpeakerMessengerMenuPresenter {
 
 
     private void sendSpeakerMessage() throws IOException {
-        List  <String> eventNames = new ArrayList();
+        List<String> eventNames = new ArrayList<>();
         if (!recipientIDs.getText().contains(",") && !recipientIDs.getText().trim().equals("") && !eventIDs.getText().trim().equals("")) {
             String recipientID = recipientIDs.getText();
             String eventName = eventIDs.getText();
