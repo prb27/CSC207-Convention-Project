@@ -40,12 +40,14 @@ public class SpeakerManager implements Serializable {
 
 
     /**
-     * a constructor that creates a UseCases.SpeakerManager object that stores a list of all speakers
+     * a constructor that creates a UseCases.SpeakerManager object that stores a list of all speakers and creates an
+     * instance of the speakerDatabase.
      */
     public SpeakerManager(ISpeakerDatabase speakerDatabase){
         speakers = new ArrayList<>();
         this.speakerDatabase = speakerDatabase;
     }
+
 
     /**
      * Creates a Entities.Speaker object and adds it to the list of all Entities.Speaker objects.
@@ -308,13 +310,13 @@ public class SpeakerManager implements Serializable {
 
         return masterList;
     }
-//
-//    ISpeakerDatabase speakerDatabase;
-//    public SpeakerManager(ISpeakerDatabase speakerDatabase){
-//        this.speakerDatabase = speakerDatabase;
-//    }
 
-
+    /**
+     * Loads the data being stored by Speaker entities in the database into a Speaker entity and stores every Speaker
+     * entity into the speakers list which is a list of Speaker entities.
+     *
+     * @author Juan Yi Loke
+     */
     public void loadFromDatabase() {
         List<Map<String, List<String>>> listOfSpeakers = speakerDatabase.getSpeakers();
 
@@ -329,6 +331,7 @@ public class SpeakerManager implements Serializable {
             for(int i = 0 ; i < eventTimes.size(); i++){
                 listOfTalks.put(eventTimes.get(i), eventNames.get(i));
             }
+
             Speaker newSpeaker =  new Speaker(username, password);
             newSpeaker.setListOfTalks(listOfTalks);
             newSpeaker.setContacts(listOfContacts);
@@ -338,7 +341,12 @@ public class SpeakerManager implements Serializable {
 
     }
 
-
+    /**
+     * Stores the data being stored by Speaker entities in the list speakers in a List<String, List<String>> data
+     * structure to be stored in the database system.
+     *
+     * @author Juan Yi Loke
+     */
     public void saveToDatabase() {
 
         List<Map<String, List<String>>> resultingList = new ArrayList<>();

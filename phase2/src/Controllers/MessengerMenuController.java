@@ -39,7 +39,11 @@ public class MessengerMenuController {
             List<String> eventsAttending = attendeeManager.getEventsAttending(username);
             for (String eventName: eventsAttending){
                 eligibleContacts.addAll(eventManager.getSpeakerEvent(eventName));
-                eligibleContacts.addAll(eventManager.getAttendeeList(eventName));
+                for (String attendee: eventManager.getAttendeeList(eventName)){
+                    if (!username.equals(attendee)){
+                        eligibleContacts.add(attendee);
+                    }
+                }
             }
         }
 

@@ -18,6 +18,10 @@ public class RoomManager {
 
     private final List<Room> rooms;
 
+    /**
+     * a constructor that creates a UseCases.SpeakerManager object that stores a list of all speakers and creates an
+     * instance of the speakerDatabase.
+     */
     IRoomDatabase roomDatabase;
     public RoomManager(IRoomDatabase roomDatabase) {
         rooms = new ArrayList<>();
@@ -302,6 +306,12 @@ public class RoomManager {
 
     }
 
+    /**
+     * Loads the data being stored by Room entities into a Room entity and stores every Room entity into the
+     * rooms list which is a list of Room entities.
+     *
+     * @author Juan Yi Loke
+     */
     public void loadFromDatabase() {
         List<Map<String, List<String>>> listOfRooms = roomDatabase.getRooms();
 
@@ -318,6 +328,12 @@ public class RoomManager {
         }
     }
 
+    /**
+     * Stores the data being stored by Room entities in the list rooms in a List<String, List<String>> data
+     * structure to be stored in the database system.
+     *
+     * @author Juan Yi Loke
+     */
     public void saveToDatabase() {
         List<Map<String, List<String>>> resultingList = new ArrayList<>();
 

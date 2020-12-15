@@ -21,7 +21,7 @@ import java.util.*;
  * @see Attendee
  */
 public class AttendeeManager implements Serializable {
-    private final Map<String, Attendee> attendees = new Hashtable<>();
+    private Map<String, Attendee> attendees;
 
     /**
      * create an Entities.Attendee given a pair of username and password
@@ -269,11 +269,23 @@ public class AttendeeManager implements Serializable {
      *
      */
     IAttendeeDatabase attendeeDatabase;
+
+    /**
+     * a constructor that creates a UseCases.AttendeeManager object that stores a Map<String, Attendee>
+     * of all Attendees and creates an instance of the attendeeDatabase.
+     */
     public AttendeeManager(IAttendeeDatabase attendeeDatabase){
+        attendees = new Hashtable<>();
         this.attendeeDatabase = attendeeDatabase;
     }
 
 
+    /**
+     * Loads the data being stored by Attendee entities in the database into a Attendee entity and stores every
+     * Attendee entity into the attendees map which is a map of username string to attendee object.
+     *
+     * @author Juan Yi Loke
+     */
     public void loadFromDatabase() {
         List<Map<String, List<String>>> listOfAttendees = attendeeDatabase.getAttendees();
 
@@ -292,6 +304,12 @@ public class AttendeeManager implements Serializable {
 
     }
 
+    /**
+     * Stores the data being stored by the Attendee entities in the map attendees in a
+     * List<String, List<String>> data structure to be stored in the database system.
+     *
+     * @author Juan Yi Loke
+     */
     public void saveToDatabase() {
 
         List<Map<String, List<String>>> resultingList = new ArrayList();

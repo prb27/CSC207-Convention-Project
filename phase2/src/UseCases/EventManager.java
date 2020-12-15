@@ -21,19 +21,15 @@ import java.util.*;
  */
 public class EventManager implements Serializable {
 
-    private List<Event> EventList = new ArrayList<>();
-
+    private List<Event> EventList;
 
     /**
      * Returns a list of all event objects
      * @return : List<Entities.Event>
      */
-
     public List<Event> getEventList() {
-
         return EventList;
     }
-
 
     /**
      * Returns all the event names of the current list of events
@@ -284,12 +280,23 @@ public class EventManager implements Serializable {
 
     }
 
+    /**
+     * a constructor that creates a UseCases.EventManager object that stores a list of all events and creates an
+     * instance of the eventDatabase.
+     */
     IEventDatabase eventDatabase;
     public EventManager(IEventDatabase eventDatabase){
+        EventList = new ArrayList<>();
         this.eventDatabase = eventDatabase;
     }
 
 
+    /**
+     * Loads the data being stored by Event entities in the database into a Event entity and stores every
+     * Event entity into the EventList list which is a list of Event entities.
+     *
+     * @author Juan Yi Loke
+     */
     public void loadFromDatabase() {
 
         List<Map<String, List<String>>> eventList = eventDatabase.getEventList();
@@ -308,6 +315,12 @@ public class EventManager implements Serializable {
         }
     }
 
+    /**
+     * Stores the data being stored by the Event entities in the list allMessages in a List<String, List<String>>
+     * data structure to be stored in the database system.
+     *
+     * @author Juan Yi Loke
+     */
     public void saveToDatabase() {
 
         List<Map<String, List<String>>> resultingList = new ArrayList<>();

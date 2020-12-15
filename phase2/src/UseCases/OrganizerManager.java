@@ -37,6 +37,11 @@ public class OrganizerManager implements Serializable {
     private final List<Organizer> organizerList;
 
     IOrganizerDatabase organizerDatabase;
+
+    /**
+     * a constructor that creates a UseCases.OrganizerManager object that stores a list of all organizers and creates an
+     * instance of the organizerDatabase.
+     */
     public OrganizerManager(IOrganizerDatabase organizerDatabase){
         this.organizerDatabase = organizerDatabase;
         organizerList = new ArrayList<>();
@@ -303,7 +308,12 @@ public class OrganizerManager implements Serializable {
 
     }
 
-
+    /**
+     * Loads the data being stored by Organizer entities in the database into a Organizer entity and stores every
+     * Organizer entity into the organizersList list which is a list of Organizer entities.
+     *
+     * @author Juan Yi Loke
+     */
     public void loadFromDatabase() {
         List<Map<String, List<String>>> listOfOrganizers = organizerDatabase.getOrganizers();
 
@@ -322,6 +332,12 @@ public class OrganizerManager implements Serializable {
 
     }
 
+    /**
+     * Stores the data being stored by Organizer entities in the list organizersList in a List<String, List<String>>
+     * data structure to be stored in the database system.
+     *
+     * @author Juan Yi Loke
+     */
     public void saveToDatabase() {
 
         List<Map<String, List<String>>> resultingList = new ArrayList<>();

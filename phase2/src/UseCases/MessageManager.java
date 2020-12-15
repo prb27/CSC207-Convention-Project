@@ -26,13 +26,15 @@ public class MessageManager implements Serializable {
     private List<Message> allMessages;
 
     /**
-     * Constructor for a UseCases.MessageManager, initializes the list of messages to be empty
+     * a constructor that creates a UseCases.MessageManager object that stores a list of all messages and creates an
+     * instance of the messageDatabase.
      */
     IMessageDatabase messageDatabase;
     public MessageManager(IMessageDatabase messageDatabase){
         this.messageDatabase = messageDatabase;
         allMessages = new ArrayList<>();
     }
+
 
     /**
      * Creates a method with a single recipient and adds it to the list of all messages
@@ -160,7 +162,12 @@ public class MessageManager implements Serializable {
 
 
 
-
+    /**
+     * Loads the data being stored by Message entities in the database into a Message entity and stores every
+     * Message entity into the allMessages list which is a list of Message entities.
+     *
+     * @author Juan Yi Loke
+     */
     public void loadFromDatabase() {
         List<Map<String, List<String>>> messageList = messageDatabase.getMessageList();
 
@@ -182,6 +189,12 @@ public class MessageManager implements Serializable {
 
     }
 
+    /**
+     * Stores the data being stored by the Message entities in the list allMessages in a List<String, List<String>>
+     * data structure to be stored in the database system.
+     *
+     * @author Juan Yi Loke
+     */
     public void saveToDatabase() {
 
         List<Map<String, List<String>>> resultingList = new ArrayList<>();
