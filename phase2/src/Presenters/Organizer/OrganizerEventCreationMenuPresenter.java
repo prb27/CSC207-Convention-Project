@@ -41,7 +41,7 @@ public class OrganizerEventCreationMenuPresenter {
     public ChoiceBox<String> startTimeChoices;
 
     @FXML
-    public ComboBox<Integer> durationChoices;
+    public ComboBox<String> durationChoices;
 
     @FXML
     public Button findRoomButton;
@@ -86,7 +86,7 @@ public class OrganizerEventCreationMenuPresenter {
         selectedSpeakerDisplay.getItems().clear();
         selectedSpeakerDisplay.setItems(speakers);
         ObservableList<String> startTimeChoiceList = FXCollections.observableArrayList("9", "10", "11", "12", "1", "2", "3", "4");
-        ObservableList<Integer> durationChoiceList = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8);
+        ObservableList<String> durationChoiceList = FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7", "8");
         startTimeChoices.setItems(startTimeChoiceList);
         durationChoices.setItems(durationChoiceList);
 
@@ -115,7 +115,7 @@ public class OrganizerEventCreationMenuPresenter {
         displayListView.getItems().clear();
         ObservableList<String> rooms = FXCollections.observableArrayList();
         rooms.addAll(roomManager.roomsWithRequirements(audioSystemCheck.isSelected(), projectorCheck.isSelected(),
-                Integer.parseInt(powerSocketField.getText()), startTimeChoices.getValue(), durationChoices.getValue()));
+                Integer.parseInt(powerSocketField.getText()), startTimeChoices.getValue(), Integer.parseInt(durationChoices.getValue())));
         displayListView.setItems(rooms);
         displayListView.setOnMouseClicked(event -> displayToRoomNumber());
     }
@@ -151,14 +151,11 @@ public class OrganizerEventCreationMenuPresenter {
     @FXML
     private void createEvent(){
         String result = userEventController.createEventInRoom(username.getText(), eventNameField.getText(),
-                startTimeChoices.getValue(), durationChoices.getValue(), Integer.parseInt(capacityField.getText()),
+                startTimeChoices.getValue(), Integer.parseInt(durationChoices.getValue()), Integer.parseInt(capacityField.getText()),
                 selectedSpeakerDisplay.getItems(), roomNumberDisplay.getText());
         notificationDisplay(result);
     }
-    @FXML
-    private void changeDurationChoices(){
-        durationChoices.setValue(durationChoices.getSelectionModel().getSelectedItem());
-    }
+
     @FXML
     private void goBack() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerMenuView.fxml"));
