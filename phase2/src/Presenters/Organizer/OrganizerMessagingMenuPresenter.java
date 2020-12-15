@@ -1,9 +1,6 @@
 package Presenters.Organizer;
 
-import Controllers.ConversationMenuController;
-import Controllers.LoginMenuController;
-import Controllers.MasterSystem;
-import Controllers.SpeakerMessagingDashboardMenuController;
+import Controllers.*;
 import Gateways.ProgramGenerator;
 import Presenters.LoginMenuPresenter;
 import javafx.fxml.FXML;
@@ -29,7 +26,7 @@ public class OrganizerMessagingMenuPresenter {
     private Button signOut;
 
     private  ConversationMenuController conversationMenuController;
-    private  SpeakerMessagingDashboardMenuController speakerMessagingDashboardMenuController;
+    private OrganizerMessagingDashboardMenuController organizerMessagingDashboardMenuController;
     private  LoginMenuController loginMenuController;
     private  ProgramGenerator programGenerator;
     private MasterSystem masterSystem;
@@ -69,10 +66,10 @@ public class OrganizerMessagingMenuPresenter {
      * Loads all conversations of the user by interacting with conversationmenucontroller
      */
     private void loadConversations(){
-        List<String> conversationIDs = speakerMessagingDashboardMenuController.getConversations(loginMenuController.getCurrUsername());
+        List<String> conversationIDs = organizerMessagingDashboardMenuController.getConversations(loginMenuController.getCurrUsername());
         int i = 0;
         for (String conversationID: conversationIDs){
-            List<String> recipientsOfConversation = speakerMessagingDashboardMenuController.getConvoParticipants(conversationID);
+            List<String> recipientsOfConversation = organizerMessagingDashboardMenuController.getConvoParticipants(conversationID);
             Label count = new Label();
             count.setText("Conversation ID " + conversationID + ";");
             Label participants = new Label();
@@ -136,14 +133,16 @@ public class OrganizerMessagingMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        MasterSystem masterSystem = programGenerator.readFromDatabase();
         LoginMenuPresenter loginMenuPresenter = loader.getController();
         loginMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
     public void setMasterSystem(MasterSystem masterSystem){
+        this.masterSystem = masterSystem;
         this.loginMenuController = masterSystem.getLoginMenuController();
         this.conversationMenuController = masterSystem.getConversationMenuController();
-        this.speakerMessagingDashboardMenuController = masterSystem.getSpeakerMessagingDashboardMenuController();
+        this.organizerMessagingDashboardMenuController = masterSystem.getOrganizerMessagingDashboardController();
         this.programGenerator = masterSystem.getProgramGenerator();
         username.setText(loginMenuController.getCurrUsername());
         loadConversations();

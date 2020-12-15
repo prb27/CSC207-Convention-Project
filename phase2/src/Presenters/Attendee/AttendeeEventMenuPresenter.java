@@ -4,6 +4,7 @@ import Controllers.AttendeeEventMenuController;
 import Controllers.LoginMenuController;
 import Controllers.MasterSystem;
 import Gateways.ProgramGenerator;
+import Presenters.LoginMenuPresenter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -30,19 +31,29 @@ public class AttendeeEventMenuPresenter {
     @FXML
     private CheckBox eventsContainerChecker;
 
-    private final AttendeeEventMenuController attendeeEventMenuController;
-    private final LoginMenuController loginMenuController;
-    private final ProgramGenerator programGenerator;
+    private AttendeeEventMenuController attendeeEventMenuController;
+    private LoginMenuController loginMenuController;
+    private ProgramGenerator programGenerator;
+    private MasterSystem masterSystem;
 
-    public AttendeeEventMenuPresenter(MasterSystem masterSystem) {
+    public AttendeeEventMenuPresenter() {
+
+    }
+
+    public void setMasterSystem(MasterSystem masterSystem){
+        this.masterSystem = masterSystem;
         this.attendeeEventMenuController = masterSystem.getAttendeeEventMenuController();
         this.loginMenuController = masterSystem.getLoginMenuController();
         this.programGenerator = masterSystem.getProgramGenerator();
+        welcome.setText("Welcome:" + loginMenuController.getCurrUsername() + "!");
+        eventsContainerChecker.setOnAction(event -> {
+            loadEventsContainer();
+        });
     }
 
     @FXML
     private void initialize(){
-        welcome.setText("Welcome:" + loginMenuController.getCurrUsername() + "!");
+
         signOut.setText("Sign Out");
         signOut.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
         signOut.setOnAction(event -> {
@@ -62,10 +73,8 @@ public class AttendeeEventMenuPresenter {
             }
         });
         eventsContainerChecker.setText("See Events");
-        goBack.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
-        eventsContainerChecker.setOnAction(event -> {
-            loadEventsContainer();
-        });
+
+
 
     }
     private void loadEventsContainer(){
@@ -109,6 +118,8 @@ public class AttendeeEventMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/AttendeeMenuView.fxml"));
         Stage stage = (Stage) goBack.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        AttendeeMenuPresenter attendeeMenuPresenter = loader.getController();
+        attendeeMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
     private void signOut() throws IOException {
@@ -116,6 +127,8 @@ public class AttendeeEventMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        LoginMenuPresenter loginMenuPresenter = loader.getController();
+        loginMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 

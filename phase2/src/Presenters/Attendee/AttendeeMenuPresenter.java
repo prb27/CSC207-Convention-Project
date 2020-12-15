@@ -82,6 +82,8 @@ public class AttendeeMenuPresenter implements IAttendeeMenu {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Attendee/AttendeeEventMenuView.fxml"));
         Stage stage = (Stage) toEventsFromAttendee.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        AttendeeEventMenuPresenter attendeeEventMenuPresenter = loader.getController();
+        attendeeEventMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
 
     }
@@ -89,6 +91,8 @@ public class AttendeeMenuPresenter implements IAttendeeMenu {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Attendee/AttendeeMessagingMenuView.fxml"));
         Stage stage = (Stage) toMessagingFromAttendee.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        AttendeeMessagingMenuPresenter attendeeMessagingMenuPresenter = loader.getController();
+        attendeeMessagingMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -97,6 +101,7 @@ public class AttendeeMenuPresenter implements IAttendeeMenu {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        MasterSystem masterSystem = programGenerator.readFromDatabase();
         LoginMenuPresenter loginMenuPresenter = loader.getController();
         loginMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);

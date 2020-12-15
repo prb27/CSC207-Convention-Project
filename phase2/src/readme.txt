@@ -26,7 +26,7 @@ Phase 2 of our program extends Phase 1 with the following extensions:
 
 
 
-Walkthrough of the Program:
+Walk-through of the Program:
 
     When we run the program, we load the data from a .ser file. If the file does not exist, a new instance of the
     conference system is created. This new instance of the conference system contains an organizer account.
@@ -41,11 +41,11 @@ Walkthrough of the Program:
         - accounts cannot have their usernames and passwords changed after creation
         - event names and user names are unique strings
         - all IDs are stored as strings
-        - an account created in the program cannnot be deleted
+        - an account created in the program cannot be deleted
         - user can’t remove people from their contacts list
         - users must type exact integers as inputs when making choices
         - only attendees are allowed to sign up for the program
-        - the creation of a speaker's accounnt and organizer's account can only be done through organizer accounts
+        - the creation of a speaker's account and organizer's account can only be done through organizer accounts
 
     Below are some supported functions that each type of user (speaker, organizer, attendee) are able to do.
 

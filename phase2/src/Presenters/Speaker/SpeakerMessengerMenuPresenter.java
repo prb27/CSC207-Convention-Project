@@ -48,7 +48,6 @@ public class SpeakerMessengerMenuPresenter {
 
     @FXML
     private void initialize(){
-        welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
 
 
         goBack.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
@@ -72,22 +71,24 @@ public class SpeakerMessengerMenuPresenter {
         sendMessage.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
         sendMessage.setOnAction(event -> {
             try {
-
-                if(!recipientIDs.getText().contains(",") && !recipientIDs.getText().trim().equals("") && !eventIDs.getText().trim().equals("") && !allRecipients.isSelected()){
-                    sendSpeakerMessage();
-                }
-                if (allRecipients.isSelected() && !eventIDs.getText().trim().equals("")){
-                    sendMessageByTalk();
-
-                }
-                if(allRecipients.isSelected() && !eventIDs.getText().trim().equals("") && eventIDs.getText().contains(",")){
-                    sendMultiMessageByTalk();
-                }
+                callMessages();
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
+    }
+    private void callMessages() throws IOException{
+        if(!recipientIDs.getText().contains(",") && !recipientIDs.getText().trim().equals("") && !eventIDs.getText().trim().equals("") && !allRecipients.isSelected()){
+            sendSpeakerMessage();
+        }
+        if (allRecipients.isSelected() && !eventIDs.getText().trim().equals("")){
+            sendMessageByTalk();
+
+        }
+        if(allRecipients.isSelected() && !eventIDs.getText().trim().equals("") && eventIDs.getText().contains(",")){
+            sendMultiMessageByTalk();
+        }
     }
 
     /**
@@ -218,8 +219,11 @@ public class SpeakerMessengerMenuPresenter {
 
     }
     public void setMasterSystem(MasterSystem masterSystem){
+        this.masterSystem = masterSystem;
         this.messengerMenuController = masterSystem.getMessengerMenuController();
         this.loginMenuController = masterSystem.getLoginMenuController();
         this.programGenerator = masterSystem.getProgramGenerator();
+        welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
+
     }
 }

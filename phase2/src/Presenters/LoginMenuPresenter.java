@@ -37,12 +37,6 @@ public class LoginMenuPresenter{
         this.masterSystem = masterSystem;
         this.loginMenuController = masterSystem.getLoginMenuController();
         this.accountHandler = masterSystem.getAccountHandler();
-    }
-
-    @FXML
-    private void initialize(){
-        //login panel
-        loginButton.setText("Login");
         loginButton.setOnAction(event -> {
             try {
                 callUserMenu();
@@ -50,6 +44,13 @@ public class LoginMenuPresenter{
                 e.printStackTrace();
             }
         });
+    }
+
+    @FXML
+    private void initialize(){
+        //login panel
+        loginButton.setText("Login");
+
         loginButton.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
 
         signUpFromLogin.setText("Sign Up");
@@ -62,15 +63,6 @@ public class LoginMenuPresenter{
         });
         signUpFromLogin.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
 
-        signUpFromLogin.setOnKeyPressed(event -> {
-            if (event.getCode().equals(KeyCode.ENTER)) {
-                try {
-                    returnToSignUp();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 
     @FXML
@@ -127,6 +119,7 @@ public class LoginMenuPresenter{
         OrganizerMenuPresenter organizerMenuPresenter = loader.getController();
         organizerMenuPresenter.setMasterSystem(masterSystem);
 
+
         stage.setScene(organizerMenuScene);
     }
 
@@ -138,6 +131,7 @@ public class LoginMenuPresenter{
 
         SpeakerMenuPresenter speakerMenuPresenter = loader.getController();
         speakerMenuPresenter.setMasterSystem(masterSystem);
+
         stage.setScene(speakerMenuScene);
     }
 

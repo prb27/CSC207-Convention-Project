@@ -4,6 +4,7 @@ import Controllers.ConversationMenuController;
 import Controllers.LoginMenuController;
 import Controllers.MasterSystem;
 import Gateways.ProgramGenerator;
+import Presenters.LoginMenuPresenter;
 import Presenters.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,12 +44,14 @@ public class AttendeeConversationMenuPresenter {
         this.conversationMenuController = masterSystem.getConversationMenuController();
         this.sceneHandler = masterSystem.getSceneHandler();
         this.programGenerator = masterSystem.getProgramGenerator();
+        welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
+        description.setText(conversationMenuController.getCurrentConversationID());
+        loadMessages();
     }
 
     @FXML
     public void initialize(){
-        welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
-        description.setText(conversationMenuController.getCurrentConversationID());
+
         goBack.setText("Go Back");
         goBack.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
         goBack.setOnAction(event -> {
@@ -69,7 +72,6 @@ public class AttendeeConversationMenuPresenter {
                 e.printStackTrace();
             }
         });
-        loadMessages();
         reply.setText("Sign Out");
         reply.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
         reply.setOnAction(event -> {
@@ -96,6 +98,8 @@ public class AttendeeConversationMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Attendee/AttendeeMessengerMenuView.fxml"));
         Stage stage = (Stage) reply.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        AttendeeMessengerMenuPresenter attendeeMessengerMenuPresenter = loader.load();
+        attendeeMessengerMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
@@ -103,6 +107,8 @@ public class AttendeeConversationMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Attendee/AttendeeMessagingMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        AttendeeMessagingMenuPresenter attendeeMessagingMenuPresenter = loader.load();
+        attendeeMessagingMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
     private void signOut() throws IOException {
@@ -110,6 +116,9 @@ public class AttendeeConversationMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        MasterSystem masterSystem = programGenerator.readFromDatabase();
+        LoginMenuPresenter loginMenuPresenter = loader.load();
+        loginMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
     }
 
