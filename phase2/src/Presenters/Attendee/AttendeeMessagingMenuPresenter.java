@@ -34,8 +34,8 @@ public class AttendeeMessagingMenuPresenter {
 
     public AttendeeMessagingMenuPresenter(MasterSystem masterSystem){
         this.loginMenuController = masterSystem.getLoginMenuController();
-        this.attendeeMessagingDashboardMenuController = masterSystem.getAttendeeMessagingDashboardMenuController;
-        this.conversationMenuController = masterSystem.getConversationMenuController;
+        this.attendeeMessagingDashboardMenuController = masterSystem.getAttendeeMessagingDashboardMenuController();
+        this.conversationMenuController = masterSystem.getConversationMenuController();
         this.programGenerator = masterSystem.getProgramGenerator();
     }
 

@@ -41,10 +41,10 @@ public class AttendeeMessengerMenuPresenter {
     private final ProgramGenerator programGenerator;
 
     public AttendeeMessengerMenuPresenter(MasterSystem masterSystem){
-        this.messengerMenuController = masterSystem.getMessengerMenuController;
+        this.messengerMenuController = masterSystem.getMessengerMenuController();
         this.loginMenuController = masterSystem.getLoginMenuController();
-        this.sceneHandler = masterSystem.getSceneHandler;
-        this.conversationMenuController = masterSystem.getConversationMenucontroller;
+        this.sceneHandler = masterSystem.getSceneHandler();
+        this.conversationMenuController = masterSystem.getConversationMenuController();
         this.programGenerator = masterSystem.getProgramGenerator();
     }
 

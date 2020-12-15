@@ -35,8 +35,8 @@ public class AttendeeConversationMenuPresenter {
 
     public AttendeeConversationMenuPresenter(MasterSystem masterSystem){
         this.loginMenuController = masterSystem.getLoginMenuController();
-        this.conversationMenuController = masterSystem.conversationMenuController;
-        this.sceneHandler = masterSystem.getSceneHandler;
+        this.conversationMenuController = masterSystem.getConversationMenuController();
+        this.sceneHandler = masterSystem.getSceneHandler();
         this.programGenerator = masterSystem.getProgramGenerator();
     }
 

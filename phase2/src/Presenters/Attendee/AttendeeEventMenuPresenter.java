@@ -35,7 +35,7 @@ public class AttendeeEventMenuPresenter {
     private final ProgramGenerator programGenerator;
 
     public AttendeeEventMenuPresenter(MasterSystem masterSystem) {
-        this.attendeeEventMenuController = masterSystem.getAttendeeEventMenuController;
+        this.attendeeEventMenuController = masterSystem.getAttendeeEventMenuController();
         this.loginMenuController = masterSystem.getLoginMenuController();
         this.programGenerator = masterSystem.getProgramGenerator();
     }

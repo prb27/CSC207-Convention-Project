@@ -165,7 +165,7 @@ public class MasterSystem implements Serializable {
 //            this.eventMenuPresenter = new EventMenuPresenter();
 //            this.loginMenuPresenter = new LoginMenuPresenter(loginMenuController);
             this.messageMenuController = new MessageMenuController();
-//            this.sceneHandler = new SceneHandler();
+            this.sceneHandler = new SceneHandler();
 //            this.signUpMenuPresenter = new SignUpMenuPresenter(signUpMenuController, programGenerator);
 
 
@@ -224,6 +224,9 @@ public class MasterSystem implements Serializable {
         }
         public UserEventController getUserEventController(){
             return this.userEventController;
+        }
+        public SceneHandler getSceneHandler(){
+            return this.sceneHandler;
         }
 
 }
