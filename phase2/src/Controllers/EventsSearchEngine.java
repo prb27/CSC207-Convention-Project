@@ -20,6 +20,11 @@ public class EventsSearchEngine implements Serializable {
 
     }
 
+    /**
+     * Returns a List of Strings that provide information about the event title, start time, duration, roomId and Speaker names
+     * for all events
+     * @return List</String>
+     */
     public List<String> allEvents(){
 
         List<String> allEvents = new ArrayList<>();
@@ -30,12 +35,18 @@ public class EventsSearchEngine implements Serializable {
         return allEvents;
     }
 
+    /**
+     * Returns a List of Strings that provide the event titles
+     * for all events
+     * @return List</String>
+     */
     public List<String> allEventsUnformatted(){
         return eventManager.getAllEventTitles();
     }
+
     /**
      * Returns a List of Strings that provide information about the event title, start time, duration, roomId and Speaker names
-     * for events with speaker </speakername>
+     * for events with speaker </speakerName>
      * @param speakerName the speaker's username (param_type: String)
      * @return List</String>
      */
@@ -51,6 +62,12 @@ public class EventsSearchEngine implements Serializable {
 
     }
 
+    /**
+     * Returns a List of Strings that provide the event titles
+     * for events with speaker </speakerName>
+     * @param speakerName the speaker's username (param_type: String)
+     * @return List</String>
+     */
     public List<String> eventsWithSpeakerUnformatted(String speakerName){
 
         List<String> eventsWithThisSpeaker = new ArrayList<>();
@@ -82,6 +99,12 @@ public class EventsSearchEngine implements Serializable {
 
     }
 
+    /**
+     * Returns a List of Strings that provide the event titles
+     * for events with start time </startTime>
+     * @param startTime the start time for the searched event (param_type: String)
+     * @return List</String>
+     */
     public List<String> eventsAtStartTimeUnformatted(String startTime){
 
         List<String> eventsAtThisStartTime = new ArrayList<>();
@@ -112,6 +135,12 @@ public class EventsSearchEngine implements Serializable {
 
     }
 
+    /**
+     * Returns a List of Strings that provide the event titles
+     * for events that are duration </duration> hours long.
+     * @param duration the duration of the events being search for (param_type: int)
+     * @return List</String>
+     */
     public List<String> eventsForThisDurationUnformatted(int duration){
 
         List<String> eventsForThisDuration = new ArrayList<>();
@@ -123,9 +152,10 @@ public class EventsSearchEngine implements Serializable {
         return eventsForThisDuration;
 
     }
+
     /**
      * Returns a List of Strings that provide information about the event title, start time, duration, roomId and Speaker names
-     * for events with speaker </speakername> and duration </duration>
+     * for events with speaker </speakerName> and duration </duration>
      * @param speakerName username of the speaker for the searched event (param_type: String)
      * @param duration duration of the searched event (param_type: int)
      * @return List</String>
@@ -144,11 +174,18 @@ public class EventsSearchEngine implements Serializable {
 
     }
 
+    /**
+     * Returns a List of Strings that provide the event titles
+     * for events with speaker </speakerName> and duration </duration>
+     * @param speakerName username of the speaker for the searched event (param_type: String)
+     * @param duration duration of the searched event (param_type: int)
+     * @return List</String>
+     */
     public List<String> eventsWithSpeakerAndDurationUnformatted(String speakerName, int duration){
 
         List<String> requiredEvents = new ArrayList<>();
-        List<String> eventsForThisDuration = eventsForThisDuration(duration);
-        List<String> eventsWithThisSpeaker = eventsWithSpeaker(speakerName);
+        List<String> eventsForThisDuration = eventsForThisDurationUnformatted(duration);
+        List<String> eventsWithThisSpeaker = eventsWithSpeakerUnformatted(speakerName);
         for(String event: eventsWithThisSpeaker){
             if(eventsForThisDuration.contains(event)){
                 requiredEvents.add(event);
@@ -157,9 +194,10 @@ public class EventsSearchEngine implements Serializable {
         return requiredEvents;
 
     }
+
     /**
      * Returns a List of Strings that provide information about the event title, start time, duration, roomId and Speaker names
-     * for events with speaker </speakername> at start time </time>
+     * for events with speaker </speakerName> at start time </time>
      * @param speakerName username of the speaker for the searched event (param_type: String)
      * @param time start time of the searched event (param_type: String)
      * @return List</String>
@@ -178,11 +216,18 @@ public class EventsSearchEngine implements Serializable {
 
     }
 
+    /**
+     * Returns a List of Strings that provide the event titles
+     * for events with speaker </speakerName> at start time </time>
+     * @param speakerName username of the speaker for the searched event (param_type: String)
+     * @param time start time of the searched event (param_type: String)
+     * @return List</String>
+     */
     public List<String> eventWithSpeakerAndStartTimeUnformatted(String speakerName, String time){
 
         List<String> requiredEvents = new ArrayList<>();
-        List<String> eventsAtThisStartTime = eventsAtStartTime(time);
-        List<String> eventsWithThisSpeaker = eventsWithSpeaker(speakerName);
+        List<String> eventsAtThisStartTime = eventsAtStartTimeUnformatted(time);
+        List<String> eventsWithThisSpeaker = eventsWithSpeakerUnformatted(speakerName);
         for(String event: eventsAtThisStartTime){
             if(eventsWithThisSpeaker.contains(event)){
                 requiredEvents.add(event);
@@ -213,11 +258,18 @@ public class EventsSearchEngine implements Serializable {
 
     }
 
+    /**
+     * Returns a List of Strings that provide the event titles
+     * for events at start time </time> and duration </duration>
+     * @param time start time of the searched event (param_type: String)
+     * @param duration duration of the searched event (param_type: int)
+     * @return List</String>
+     */
     public List<String> eventsWithStartTimeAndDurationUnformatted(String time, int duration){
 
         List<String> requiredEvents = new ArrayList<>();
-        List<String> eventsForThisDuration = eventsForThisDuration(duration);
-        List<String> eventsAtThisStartTime = eventsAtStartTime(time);
+        List<String> eventsForThisDuration = eventsForThisDurationUnformatted(duration);
+        List<String> eventsAtThisStartTime = eventsAtStartTimeUnformatted(time);
         for(String event: eventsAtThisStartTime){
             if(eventsForThisDuration.contains(event)){
                 requiredEvents.add(event);
@@ -229,7 +281,7 @@ public class EventsSearchEngine implements Serializable {
 
     /**
      * Returns a List of Strings that provide information about the event title, start time, duration, roomId and Speaker names
-     * for events with speaker </speakername> at start time </time> and duration </duration> hours.
+     * for events with speaker </speakerName> at start time </time> and duration </duration> hours.
      * @param speakerName username of the speaker for the searched event (param_type: String)
      * @param time start time of the searched event (param_type: String)
      * @param duration duration of the searched event (param_type: int)
@@ -250,12 +302,20 @@ public class EventsSearchEngine implements Serializable {
 
     }
 
+    /**
+     * Returns a List of Strings that provide the event titles
+     * for events with speaker </speakerName> at start time </time> and duration </duration> hours.
+     * @param speakerName username of the speaker for the searched event (param_type: String)
+     * @param time start time of the searched event (param_type: String)
+     * @param duration duration of the searched event (param_type: int)
+     * @return List</String>
+     */
     public List<String> eventWithSpeakerNameStartTimeAndDurationUnformatted(String speakerName, String time, int duration){
 
         List<String> requiredEvents = new ArrayList<>();
-        List<String> eventsForThisDuration = eventsForThisDuration(duration);
-        List<String> eventsAtThisStartTime = eventsAtStartTime(time);
-        List<String> eventsWithThisSpeaker = eventsWithSpeaker(speakerName);
+        List<String> eventsForThisDuration = eventsForThisDurationUnformatted(duration);
+        List<String> eventsAtThisStartTime = eventsAtStartTimeUnformatted(time);
+        List<String> eventsWithThisSpeaker = eventsWithSpeakerUnformatted(speakerName);
         for(String event: eventsAtThisStartTime){
             if(eventsWithThisSpeaker.contains(event) && eventsForThisDuration.contains(event)){
                 requiredEvents.add(event);

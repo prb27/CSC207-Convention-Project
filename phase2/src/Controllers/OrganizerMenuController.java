@@ -236,12 +236,22 @@ public class OrganizerMenuController implements Serializable {
     }
 
     /**
-     *
-     * @param username
-     * @param eventName
-     * @param eventTime
-     * @param roomId
-     * @return
+     * Changes the start time of an event.
+     * @param username Username of the organizer through whom this change is happening
+     * @param eventName name of the event
+     * @param eventTime New start time of the event
+     * @param roomId New room at which this event is expected to be scheduled in
+     * @return String
+     * "EDE" - Event Doesn't Exist
+     * "YES" - Successful
+     * "SDE" - Speaker Doesn't Exist
+     *  -- createEventInRoom return Strings --
+     * "ARO" - All Rooms Occupied
+     * "STC" - Entities.Speaker Time Conflict
+     * "TNA" - Time not allowed
+     * "ODE" - Entities.Organizer Doesn't Exist
+     * "ESOT" - Event Scheduling Over Time - the event cannot be scheduled at this time because it would have to
+     *                   run past 5PM.
      */
     public String changeEventStartTime(String username, String eventName, String eventTime, String roomId){
 
