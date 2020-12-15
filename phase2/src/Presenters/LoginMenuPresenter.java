@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class LoginMenuPresenter implements ILoginMenu {
+public class LoginMenuPresenter{
 
 
     private LoginMenuController loginMenuController;
@@ -34,6 +34,11 @@ public class LoginMenuPresenter implements ILoginMenu {
     private MasterSystem masterSystem;
 
     public LoginMenuPresenter() {
+    }
+    public void setMasterSystem(MasterSystem masterSystem){
+        this.masterSystem = masterSystem;
+        this.loginMenuController = masterSystem.getLoginMenuController();
+        this.accountHandler = masterSystem.getAccountHandler();
     }
 
     @FXML
@@ -73,22 +78,22 @@ public class LoginMenuPresenter implements ILoginMenu {
     @FXML
     private void callUserMenu() throws IOException {
         String accountType = accountHandler.login(usernameField.getText(), passwordField.getText());
-        if(accountType != null) {
-            switch (accountType) {
-                case "attendee":
-                    loginMenuController.setCurrUsername(usernameField.getText());
-                    showAttendeeMenu(usernameField.getText());
-                case "organizer":
-                    loginMenuController.setCurrUsername(usernameField.getText());
-                    showOrganizerMenu(usernameField.getText());
-                case "speaker":
-                    loginMenuController.setCurrUsername(usernameField.getText());
-                    showSpeakerMenu(usernameField.getText());
+
+        switch (accountType) {
+            case "attendee":
+                loginMenuController.setCurrUsername(usernameField.getText());
+                showAttendeeMenu();
+            case "organizer":
+                loginMenuController.setCurrUsername(usernameField.getText());
+                showOrganizerMenu();
+            case "speaker":
+                loginMenuController.setCurrUsername(usernameField.getText());
+                showSpeakerMenu();
 //                case "admin":
 //                    loginMenuController.setCurrUsername(usernameField.getText());
 //                    showAdminMenu(usernameField.getText());
-            }
         }
+
     }
 
     private void returnToSignUp() throws IOException {
@@ -100,29 +105,10 @@ public class LoginMenuPresenter implements ILoginMenu {
         stage.setScene(scene);
     }
 
-    public void setMasterSystem(MasterSystem masterSystem){
-        this.masterSystem = masterSystem;
-        this.loginMenuController = masterSystem.getLoginMenuController();
-        this.accountHandler = masterSystem.getAccountHandler();
-    }
-
-    @Override
-    public String getUsername() {
-        return usernameField.getText();
-    }
-
-    @Override
-    public String getPassword() {
-        return passwordField.getText();
-    }
-
-    @Override
-    public void invalidUser() {
-
-    }
 
 
-    public void showAttendeeMenu(String username) throws IOException {
+
+    public void showAttendeeMenu() throws IOException {
         FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/UI/Attendee/AttendeeMenuView.fxml"));
         Stage stage = (Stage) loginButton.getScene().getWindow();
         Scene attendeeMenuScene = new Scene(loader.load());
@@ -135,7 +121,7 @@ public class LoginMenuPresenter implements ILoginMenu {
 
 
 
-    public void showOrganizerMenu(String username) throws IOException {
+    public void showOrganizerMenu() throws IOException {
         FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/UI/Organizer/OrganizerMenuView.fxml"));
         Stage stage = (Stage) loginButton.getScene().getWindow();
         Scene organizerMenuScene = new Scene(loader.load());
@@ -147,7 +133,7 @@ public class LoginMenuPresenter implements ILoginMenu {
     }
 
 
-    public void showSpeakerMenu(String username) throws IOException {
+    public void showSpeakerMenu() throws IOException {
         FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/UI/Speaker/SpeakerMenuView.fxml"));
         Stage stage = (Stage) loginButton.getScene().getWindow();
         Scene speakerMenuScene = new Scene(loader.load());

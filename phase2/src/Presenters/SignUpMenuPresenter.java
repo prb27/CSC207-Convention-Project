@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 
-public class SignUpMenuPresenter implements ISignUpMenu {
+public class SignUpMenuPresenter{
 
     private SignUpMenuController signUpMenuController;
     private ProgramGenerator programGenerator;
@@ -34,6 +34,11 @@ public class SignUpMenuPresenter implements ISignUpMenu {
    public SignUpMenuPresenter(){
 
    }
+    public void setMasterSystem(MasterSystem masterSystem){
+        this.masterSystem = masterSystem;
+        this.signUpMenuController = masterSystem.getSignUpMenuController();
+        this.programGenerator = masterSystem.getProgramGenerator();
+    }
     @FXML
     public void initialize(){
         signUp.setText("Sign Up");
@@ -90,9 +95,5 @@ public class SignUpMenuPresenter implements ISignUpMenu {
         createPassword.setPromptText("Password");
 
     }
-    public void setMasterSystem(MasterSystem masterSystem){
-       this.masterSystem = masterSystem;
-       this.signUpMenuController = masterSystem.getSignUpMenuController();
-       this.programGenerator = masterSystem.getProgramGenerator();
-    }
+
 }

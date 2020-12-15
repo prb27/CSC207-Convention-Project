@@ -28,12 +28,17 @@ public class AttendeeConversationMenuPresenter {
     @FXML
     private ListView<Label> messages;
 
-    private final LoginMenuController loginMenuController;
-    private final ConversationMenuController conversationMenuController;
-    private final SceneHandler sceneHandler;
-    private final ProgramGenerator programGenerator;
+    private LoginMenuController loginMenuController;
+    private ConversationMenuController conversationMenuController;
+    private SceneHandler sceneHandler;
+    private ProgramGenerator programGenerator;
+    private MasterSystem masterSystem;
 
-    public AttendeeConversationMenuPresenter(MasterSystem masterSystem){
+    public AttendeeConversationMenuPresenter(){
+    }
+
+    public void setMasterSystem(MasterSystem masterSystem){
+        this.masterSystem = masterSystem;
         this.loginMenuController = masterSystem.getLoginMenuController();
         this.conversationMenuController = masterSystem.getConversationMenuController();
         this.sceneHandler = masterSystem.getSceneHandler();
