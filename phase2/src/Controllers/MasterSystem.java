@@ -76,32 +76,52 @@ public class MasterSystem implements Serializable {
     private UserEventController userEventController;
 
 
-
     /**
-     * Constructor method to initialize a new Controllers.MasterSystem instance in case
-     * deserializing from the file fails. A newly created Controllers.MasterSystem adds an
-     * organizer with username: admin and password: admin to the conference as
-     * users can't create organizer accounts themselves.
+     * Constructor method to initialize a MasterSystem instance with empty use case classes. This is used in case
+     * of an exception during the loading of the database into our program
      */
     public MasterSystem() {
-
+        this.attendeeManager = new AttendeeManager();
+        this.organizerManager = new OrganizerManager();
+        this.speakerManager = new SpeakerManager();
+        this.adminManager = new AdminManager();
+        this.messageManager = new MessageManager();
+        this.conversationManager = new ConversationManager();
+        this.eventManager = new EventManager();
+        this.roomManager = new RoomManager();
     }
+
+    /**
+     * Constructor method to initialize a new MasterSystem instance with the instances of the use case classes
+     * with data loaded from the database
+     * @param attendeeManager: instance of AttendeeManager
+     * @param organizerManager: instance of OrganizerManager
+     * @param speakerManager: instance of SpeakerManager
+     * @param adminManager: instance of AdminManager
+     * @param messageManager: instance of MessageManager
+     * @param conversationManager: instance of ConversationManager
+     * @param eventManager: instance of EventManager
+     * @param roomManager: instance of RoomManager
+     */
+    public MasterSystem(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager,
+                        AdminManager adminManager, MessageManager messageManager, ConversationManager conversationManager,
+                        EventManager eventManager, RoomManager roomManager) {
+        this.attendeeManager = attendeeManager;
+        this.organizerManager = organizerManager;
+        this.speakerManager = speakerManager;
+        this.adminManager = adminManager;
+        this.messageManager = messageManager;
+        this.conversationManager = conversationManager;
+        this.eventManager = eventManager;
+        this.roomManager = roomManager;
+    }
+
+
     /**
      * A method that is responsible for the flow of the program by taking user input,
      * using controllers to execute actions and displaying the result using the UI.
      */
     public void run(){
-            this.attendeeManager = new AttendeeManager();
-            this.organizerManager = new OrganizerManager();
-            this.speakerManager = new SpeakerManager();
-            this.adminManager = new AdminManager();
-
-            this.eventManager = new EventManager();
-            this.roomManager = new RoomManager();
-            this.conversationManager = new ConversationManager();
-            this.messageManager = new MessageManager();
-
-
             this.accountHandler = new AccountHandler(attendeeManager, organizerManager, speakerManager, adminManager);
             this.attendeeEventMenuController = new AttendeeEventMenuController(attendeeManager, eventManager);
             this.attendeeMessagingDashboardMenuController = new AttendeeMessagingDashboardMenuController(attendeeManager,
