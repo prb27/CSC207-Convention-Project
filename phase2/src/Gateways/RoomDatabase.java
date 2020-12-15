@@ -49,4 +49,28 @@ public class RoomDatabase implements IRoomDatabase {
         }
         return roomList;
     }
+
+    /**
+     * Method to save the rooms' data from the program into the database
+     *
+     * @param roomList: List of map where each map represents the data associated with a room entity
+     */
+    @Override
+    public void saveRoomList(List<Map<String, List<String>>> roomList) {
+        List<Document> roomDocumentList = new ArrayList<>();
+        for(Map<String, List<String>> room: roomList) {
+            Document roomDoc = new Document();
+            List<String> roomInfo = room.get("roomInfo");
+            roomDoc.append("roomId", roomInfo.get(0));
+            roomDoc.append("capacity", roomInfo.get(1));
+            roomDoc.append("hasProjector", roomInfo.get(2));
+            roomDoc.append("hasAudioSystem", roomInfo.get(3));
+            roomDoc.append("powerSockets", roomInfo.get(4));
+            roomDoc.append("occupiedTimes", room.get("occupiedTimes"));
+
+            roomDocumentList.add(roomDoc);
+        }
+        roomCollection.deleteMany(new Document());
+        roomCollection.insertMany(roomDocumentList);
+    }
 }
