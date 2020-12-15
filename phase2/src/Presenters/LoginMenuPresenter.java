@@ -63,15 +63,6 @@ public class LoginMenuPresenter{
         });
         signUpFromLogin.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
 
-        signUpFromLogin.setOnKeyPressed(event -> {
-            if (event.getCode().equals(KeyCode.ENTER)) {
-                try {
-                    returnToSignUp();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 
     @FXML
