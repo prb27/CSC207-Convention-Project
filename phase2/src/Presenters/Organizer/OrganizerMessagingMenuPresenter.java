@@ -1,68 +1,136 @@
 package Presenters.Organizer;
 
+import Controllers.ConversationMenuController;
+import Controllers.LoginMenuController;
+import Controllers.SpeakerMessagingDashboardMenuController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 
 public class OrganizerMessagingMenuPresenter {
 
     @FXML
-    private ListView orgMessages;
-
+    private ListView<HBox> conversations;
     @FXML
-    private Button orgReply;
-
+    private Label username;
     @FXML
-    private Button orgSignOut;
-
+    private Button messenger;
     @FXML
-    private Button orgGoBack;
+    private Button signOut;
 
-    @FXML
-    private Label orgMessengerUsername;
+    private final ConversationMenuController conversationMenuController;
+    private final SpeakerMessagingDashboardMenuController speakerMessagingDashboardMenuController;
+    private final LoginMenuController loginMenuController;
 
-    public void initialize(){
-        orgReply.setOnAction(event -> {
-            replyToConvo();
-        });
-        orgGoBack.setOnAction(event -> {
-            try {
-                goToOrgMenu();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        orgSignOut.setOnAction(event -> {
-            try {
-                goBackToLogin();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+
+    public OrganizerMessagingMenuPresenter(LoginMenuController loginMenuController, SpeakerMessagingDashboardMenuController speakerMessagingDashboardMenuController, ConversationMenuController conversationMenuController){
+        this.loginMenuController = loginMenuController;
+        this.conversationMenuController = conversationMenuController;
+        this.speakerMessagingDashboardMenuController = speakerMessagingDashboardMenuController;
     }
 
+
+    @FXML
+    private void initialize(){
+        username.setText(loginMenuController.getCurrUsername());
+        messenger.setText("Messenger");
+        messenger.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
+        messenger.setOnAction(event -> {
+            try {
+                goToMessenger();
+            }
+            catch (IOException e){
+                e.printStackTrace();
+            }
+        });
+        signOut.setText("Sign Out");
+        signOut.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
+        signOut.setOnAction(event -> {
+            try {
+                signOut();
+            }
+            catch (IOException e){
+                e.printStackTrace();
+            }
+        });
+        loadConversations();
+
+    }
+
+    /**
+     * Loads all conversations of the user by interacting with conversationmenucontroller
+     */
     private void loadConversations(){
-
+        List<String> conversationIDs = speakerMessagingDashboardMenuController.getConversations(loginMenuController.getCurrUsername());
+        int i = 0;
+        for (String conversationID: conversationIDs){
+            List<String> recipientsOfConversation = speakerMessagingDashboardMenuController.getConvoParticipants(conversationID);
+            Label count = new Label();
+            count.setText("Conversation ID " + conversationID + ";");
+            Label participants = new Label();
+            StringBuilder recipients = new StringBuilder();
+            for (String recipient: recipientsOfConversation){
+                recipients.append(recipient);
+                recipients.append(", ");
+            }
+            participants.setText("Participants" + recipients);
+            Button viewConversation = new Button("View Conversation");
+            int finalI = i;
+            viewConversation.setOnAction(event -> {
+                try {
+                    conversationMenuController.setCurrentConversationID(conversationID);
+                    conversationMenuController.setConversationInformation(participants.getText());
+                    viewConversation();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            HBox hBox = new HBox(count, participants, viewConversation);
+            hBox.setSpacing(10);
+            conversations.getItems().add(hBox);
+            i+=1;
+        }
     }
-    private void goBackToLogin() throws IOException {
+
+    /**
+     * Redirects user to speakerconversationmenuview which shows all conversations of user
+     * @throws IOException
+     */
+    private void viewConversation() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerConversationMenuView.fxml"));
+        Stage stage = (Stage) conversations.getScene().getWindow();
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
+    }
+
+    /**
+     * Redirects user back to messengermenuview
+     * @throws IOException
+     */
+    private void goToMessenger() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerMessengerMenuView.fxml"));
+        Stage stage = (Stage) messenger.getScene().getWindow();
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
+    }
+
+    /**
+     * Redirects user to login menu view
+     * @throws IOException
+     */
+
+    private void signOut() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
-        Stage stage = (Stage) orgSignOut.getScene().getWindow();
+        Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
     }
 
-    private void goToOrgMenu() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerMenuView.fxml"));
-        Stage stage = (Stage) orgGoBack.getScene().getWindow();
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-    }
-
-    private void replyToConvo() {
-    }
 }
