@@ -5,8 +5,10 @@ import Gateways.ProgramGenerator;
 import Presenters.LoginMenuPresenter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -77,7 +79,8 @@ public class OrganizerEventMenuPresenter {
     public CheckBox yesAudioSystem;
     @FXML
     public TextField timeField;
-
+    @FXML
+    public Button seeSpeakers;
     private MasterSystem masterSystem;
 
     public OrganizerEventMenuPresenter(){
@@ -128,8 +131,10 @@ public class OrganizerEventMenuPresenter {
 
     @FXML
     public void loadEventInfo(){
+        changeSpeakerButton.setOnAction(event -> seeSpeakers.setDisable(false));
+        changeSpeakerButton.setDisable(false);
         String eventName = displayListView.getSelectionModel().getSelectedItem();
-
+        removeEvent.setDisable(false);
         if(eventName != null) {
             eventNameDisplay.setText(eventName);
             ObservableList<String> eventDetails = FXCollections.observableArrayList();
@@ -165,26 +170,35 @@ public class OrganizerEventMenuPresenter {
         detailList.getItems().clear();
         displayListView.setOnMouseClicked(event -> addSpeakers());
         detailList.setOnMouseClicked(event -> removeSpeakers());
+        changeSpeakerButton.setOnAction(event -> changeSpeaker());
         changeSpeakerButton.setDisable(false);
+
     }
 
     private void removeSpeakers() {
-        displayListView.getItems().add(detailList.getSelectionModel().getSelectedItem());
-        detailList.getItems().remove(detailList.getSelectionModel().getSelectedItem());
+        String selectedSpeaker = detailList.getSelectionModel().getSelectedItem();
+        displayListView.getItems().add(selectedSpeaker);
+        detailList.getItems().remove(selectedSpeaker);
     }
 
     private void addSpeakers() {
-        detailList.getItems().add(detailList.getSelectionModel().getSelectedItem());
-        displayListView.getItems().remove(detailList.getSelectionModel().getSelectedItem());
+        String selectedSpeaker = displayListView.getSelectionModel().getSelectedItem();
+        if(selectedSpeaker != null) {
+            displayListView.getItems().remove(selectedSpeaker);
+            detailList.getItems().add(selectedSpeaker);
+        }
     }
 
     @FXML
     public void changeSpeaker(){
         String room = organizerMenuController.getEventDetails(eventNameDisplay.getText()).get(3);
-        List<String> names = new ArrayList<String>();
-        names.add(timeField.getText());
+        List<String> names = new ArrayList<String>(detailList.getItems());
         organizerMenuController.changeSpeakerForEventThroughOrganizer(username.getText(), eventNameDisplay.getText(),
                 names, room);
+        detailList.setOnMouseClicked(event -> doNothing());
+    }
+
+    private void doNothing() {
     }
 
     @FXML
@@ -206,6 +220,7 @@ public class OrganizerEventMenuPresenter {
         seeAttending();
     }
 
+    //works
     @FXML
     public void seeAllEvents() {
         displayTag.setText("Events");
@@ -223,6 +238,7 @@ public class OrganizerEventMenuPresenter {
         changeTimeButton.setDisable(false);
     }
 
+    //doesnt work
     @FXML
     public void seeAttending() {
         displayTag.setText("Events");
@@ -240,6 +256,7 @@ public class OrganizerEventMenuPresenter {
         cancelSpotButton.setDisable(false);
     }
 
+    //doesnt work
     @FXML
     public void seeNotAttending() {
         displayTag.setText("Events");
@@ -257,6 +274,7 @@ public class OrganizerEventMenuPresenter {
         signUpButton.setDisable(false);
     }
 
+    //works
     @FXML
     public void searchViaParameters() {
         displayTag.setText("Events");
@@ -303,6 +321,7 @@ public class OrganizerEventMenuPresenter {
         }
     }
 
+    //works
     @FXML
     public void createRoom(){
         organizerMenuController.organizerAddNewRoom(username.getText(), roomIdField.getText(), Integer.parseInt(capacityField.getText()),
