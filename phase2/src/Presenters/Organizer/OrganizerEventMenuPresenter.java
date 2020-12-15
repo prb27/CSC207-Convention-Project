@@ -22,7 +22,6 @@ public class OrganizerEventMenuPresenter {
     public Button signOutButton;
 
     private OrganizerMenuController organizerMenuController;
-    private LoginMenuController loginMenuController;
     private EventsSearchEngine eventsSearchEngine;
     private ProgramGenerator programGenerator;
 
@@ -181,21 +180,15 @@ public class OrganizerEventMenuPresenter {
     @FXML
     public void changeSpeaker(){
         String room = organizerMenuController.getEventDetails(eventNameDisplay.getText()).get(3);
-        String result = organizerMenuController.changeSpeakerForEventThroughOrganizer(username.getText(), eventNameDisplay.getText(),
+        organizerMenuController.changeSpeakerForEventThroughOrganizer(username.getText(), eventNameDisplay.getText(),
                 detailList.getItems(), room);
-        if(!result.equals("YES")){
-            notificationDisplay(result);
-        }
     }
 
     @FXML
     public void changeTime(){
         String room = organizerMenuController.getEventDetails(eventNameDisplay.getText()).get(3);
-        String result = organizerMenuController.changeEventStartTime(username.getText(), eventNameDisplay.getText(),
+        organizerMenuController.changeEventStartTime(username.getText(), eventNameDisplay.getText(),
                 timeField.getText(), room);
-        if(!result.equals("YES")){
-            notificationDisplay(result);
-        }
     }
 
     @FXML
@@ -220,7 +213,7 @@ public class OrganizerEventMenuPresenter {
 
         displayListView.getItems().clear();
         ObservableList<String> allEvents = FXCollections.observableArrayList();
-        allEvents.addAll(eventsSearchEngine.allEvents());
+        allEvents.addAll(eventsSearchEngine.allEventsUnformatted());
         displayListView.setItems(allEvents);
 
         changeSpeakerButton.setDisable(false);
@@ -309,45 +302,14 @@ public class OrganizerEventMenuPresenter {
 
     @FXML
     public void createRoom(){
-        String result = organizerMenuController.organizerAddNewRoom(username.getText(), roomIdField.getText(), Integer.parseInt(capacityField.getText()),
+        organizerMenuController.organizerAddNewRoom(username.getText(), roomIdField.getText(), Integer.parseInt(capacityField.getText()),
                 yesProjector.isSelected(), yesAudioSystem.isSelected(), Integer.parseInt(socketField.getText()));
-        if(!result.equals("YES")){
-            notificationDisplay(result);
-        }
+
     }
 
-    public void notificationDisplay(String notification){
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        switch(notification){
-            case "RAE":
-                alert.setTitle("Room already exists");
-                alert.setHeaderText("A room with those details already exists");
-                alert.show();
-            case "NO":
-                alert.setTitle("Speaker time conflict");
-                alert.setHeaderText("One or more of your speakers are not free at the specified time");
-                alert.show();
-            case "ARO":
-                alert.setTitle("All rooms occupied");
-                alert.setHeaderText("All rooms in the conference are occupied");
-                alert.show();
-            case "STC":
-                alert.setTitle("Speaker time conflict");
-                alert.setHeaderText("One or more of your speakers are not free at the specified time");
-                alert.show();
-            case "TNA":
-                alert.setTitle("Time not allowed");
-                alert.setHeaderText("There is a conflict with the timing of the event");
-                alert.show();
-            case "ESOT":
-                alert.setTitle("Event scheduled over time");
-                alert.setHeaderText("The event would run past 5 P.M.");
-                alert.show();
-        }
-    }
     public void setMasterSystem(MasterSystem masterSystem){
         this.masterSystem = masterSystem;
-        this.loginMenuController = masterSystem.getLoginMenuController();
+        LoginMenuController loginMenuController = masterSystem.getLoginMenuController();
         this.organizerMenuController = masterSystem.getOrganizerMenuController();
         this.eventsSearchEngine = masterSystem.getEventsSearchEngine();
         this.programGenerator = masterSystem.getProgramGenerator();
