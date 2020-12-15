@@ -1,8 +1,6 @@
 package Gateways;
 
 import Controllers.MasterSystem;
-import Entities.Admin;
-import Entities.Room;
 import UseCases.*;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
