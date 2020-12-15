@@ -4,7 +4,7 @@ import Entities.Attendee;
 import Entities.Conversation;
 import Entities.Message;
 import Entities.Organizer;
-import Gateways.IConversationDatabase;
+import Gateways.Interfaces.IConversationDatabase;
 import org.bson.Document;
 
 import java.io.Serializable;
@@ -147,9 +147,9 @@ public class ConversationManager implements Serializable {
         }
     }
 
-    public List<Map<String, List<String>>> saveToDatabase(){
+    public void saveToDatabase(){
 
-        List<Map<String, List<String>>> resultingList = new ArrayList();
+        List<Map<String, List<String>>> resultingList = new ArrayList<>();
 
         for (Conversation Conversation : allConversations) {
 
@@ -163,14 +163,14 @@ public class ConversationManager implements Serializable {
             convoRootTemp.add(convoRoot);
             idTemp.add(id);
 
-            Map<String, List<String>> resultingConversation = new HashMap();
+            Map<String, List<String>> resultingConversation = new HashMap<>();
             resultingConversation.put("convoRoot", convoRootTemp);
             resultingConversation.put("id", idTemp);
             resultingConversation.put("participants", ListOfParticipants);
 
             resultingList.add(resultingConversation);
         }
-        return resultingList;
+        conversationDatabase.saveConversationList(resultingList);
     }
 
 

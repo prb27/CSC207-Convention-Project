@@ -6,7 +6,7 @@ import java.util.*;
 
 public interface IConversationDatabase {
 
-    public List<Map<String, List<String>>> getConversationList();
-
+    List<Map<String, List<String>>> getConversationList();
+    void saveConversationList(List<Map<String, List<String>>> conversationList);
 
 }
