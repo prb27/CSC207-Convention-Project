@@ -73,7 +73,8 @@ public class SpeakerDatabase extends UserDatabase implements ISpeakerDatabase {
             speakerDocumentList.add(speakerDoc);
         }
         userCollection.deleteMany(eq("userType", "speaker"));
-        userCollection.insertMany(speakerDocumentList);
+        if(speakerDocumentList.isEmpty())
+            userCollection.insertMany(speakerDocumentList);
     }
 
     private List<String> getEventTimesForSpeaker(String username) {

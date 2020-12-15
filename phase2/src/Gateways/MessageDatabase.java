@@ -73,6 +73,7 @@ public class MessageDatabase implements IMessageDatabase {
             messageDocumentList.add(messageDoc);
         }
         messageCollection.deleteMany(new Document());
-        messageCollection.insertMany(messageDocumentList);
+        if(!messageDocumentList.isEmpty())
+            messageCollection.insertMany(messageDocumentList);
     }
 }
