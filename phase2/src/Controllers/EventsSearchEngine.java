@@ -26,7 +26,12 @@ public class EventsSearchEngine {
      */
     public List<String> allEvents(){
 
-        return new ArrayList<>(eventManager.getAllEventTitles());
+        List<String> allEvents = new ArrayList<>();
+        for(String event: eventManager.getAllEventTitles()){
+            allEvents.add("Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "(" + eventManager.getDuration(event) + " hours)" + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
+
+        }
+        return allEvents;
     }
 
     /**
