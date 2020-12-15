@@ -39,6 +39,8 @@ public class AttendeeMenuPresenter implements IAttendeeMenu {
         this.masterSystem = masterSystem;
         this.loginMenuController = masterSystem.getLoginMenuController();
         this.programGenerator = masterSystem.getProgramGenerator();
+        welcome.setText("Welcome!" + loginMenuController.getCurrUsername() + "!");
+
     }
 
     @FXML
@@ -73,7 +75,6 @@ public class AttendeeMenuPresenter implements IAttendeeMenu {
             }
         });
 
-        welcome.setText("Welcome!" + loginMenuController.getCurrUsername() + "!");
 
     }
 
