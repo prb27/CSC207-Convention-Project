@@ -1,9 +1,6 @@
 package Presenters.Organizer;
 
-import Controllers.EventsSearchEngine;
-import Controllers.LoginMenuController;
-import Controllers.MasterSystem;
-import Controllers.OrganizerMenuController;
+import Controllers.*;
 import Gateways.ProgramGenerator;
 import Presenters.LoginMenuPresenter;
 import javafx.collections.FXCollections;
@@ -26,6 +23,7 @@ public class OrganizerEventMenuPresenter {
     private OrganizerMenuController organizerMenuController;
     private EventsSearchEngine eventsSearchEngine;
     private ProgramGenerator programGenerator;
+    private UserEventController userEventController;
 
     @FXML
     public Label username;
@@ -44,7 +42,7 @@ public class OrganizerEventMenuPresenter {
     @FXML
     public Button cancelSpotButton;
     @FXML
-    public Button clearEventButton;
+    public Button removeEvent;
     @FXML
     public Button seeAllEventsButton;
     @FXML
@@ -153,9 +151,10 @@ public class OrganizerEventMenuPresenter {
     }
 
     @FXML
-    public void clearEvent() {
-        eventNameDisplay.clear();
+    public void removeEvent() {
         detailList.getItems().clear();
+        userEventController.removeCreatedEvent(username.getText(), eventNameDisplay.getText());
+        eventNameDisplay.clear();
     }
 
     @FXML
@@ -317,6 +316,7 @@ public class OrganizerEventMenuPresenter {
         this.organizerMenuController = masterSystem.getOrganizerMenuController();
         this.eventsSearchEngine = masterSystem.getEventsSearchEngine();
         this.programGenerator = masterSystem.getProgramGenerator();
+        this.userEventController = masterSystem.getUserEventController();
         username.setText(loginMenuController.getCurrUsername());
     }
 }
