@@ -47,15 +47,15 @@ public class OrganizerMenuController {
         List<String> users = new ArrayList<>();
         if(type.equals("attendee") || type.equals("all")){
             users.addAll(attendeeManager.getAllAttendeeIds());
-        }
+        } else
         if(type.equals("organizer") || type.equals("all")){
             users.addAll(organizerManager.getAllOrganizerIds());
-        }
+        } else
         if(type.equals("speaker") || type.equals("all")){
             users.addAll(speakerManager.getAllSpeakerIds());
-        }
+        } else
         if(type.equals("admin") || type.equals("all")){
-                users.add("Admin: " + adminManager.getAdminName());
+                users.add(adminManager.getAdminName());
         }
         return users;
 

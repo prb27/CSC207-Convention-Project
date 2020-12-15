@@ -103,6 +103,7 @@ public class OrganizerConferenceMenuPresenter {
         userList.getItems().clear();
         userList.getItems().addAll(userListInput);
     }
+
     @FXML
     public void seeOrganizers(){
         userListInput.removeAll();
@@ -110,6 +111,7 @@ public class OrganizerConferenceMenuPresenter {
         userList.getItems().clear();
         userList.getItems().addAll(userListInput);
     }
+
     @FXML
     public void seeSpeakers(){
         userListInput.removeAll();
@@ -117,6 +119,7 @@ public class OrganizerConferenceMenuPresenter {
         userList.getItems().clear();
         userList.getItems().addAll(userListInput);
     }
+
     @FXML
     public void seeAdmin(){
         userListInput.removeAll();
