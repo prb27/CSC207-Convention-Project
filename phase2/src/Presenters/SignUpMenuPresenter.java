@@ -36,25 +36,31 @@ public class SignUpMenuPresenter implements ISignUpMenu {
        this.signUpMenuController = masterSystem.getSignUpMenuController();
        this.programGenerator = masterSystem.getProgramGenerator();
    }
-
-    @FXML
     public void initialize(){
-        signUp.setText("Sign Up");
-        signUp.setOnAction(event -> { signUpAttendee(); });
-        signUp.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
-
-        toLoginFromSignUp.setText("Login");
-        toLoginFromSignUp.setOnAction(event -> {
-            try {
-                returnToLogin();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        toLoginFromSignUp.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
-
-        createUsername.setPromptText("Username");
-        createPassword.setPromptText("Password");
+          Button button = new Button();
+          button.setText("Hello World");
+          button.setVisible(true);
+          button.setLayoutX(267.0);
+          button.setLayoutY(281.0);
+//        title.setLayoutX(139);
+//        Button signUp2 = new Button();
+//        signUp2.setLayoutX();
+//        signUp.setText("Sign Up");
+//        signUp.setOnAction(event -> { signUpAttendee(); });
+//        signUp.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
+//
+//        toLoginFromSignUp.setText("Login");
+//        toLoginFromSignUp.setOnAction(event -> {
+//            try {
+//                returnToLogin();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        });
+//        toLoginFromSignUp.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
+//
+//        createUsername.setPromptText("Username");
+//        createPassword.setPromptText("Password");
 
     }
 
