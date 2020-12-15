@@ -148,6 +148,7 @@ public class AttendeeMessagingMenuPresenter {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOut.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        MasterSystem masterSystem = programGenerator.readFromDatabase();
         LoginMenuPresenter loginMenuPresenter = loader.getController();
         loginMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);

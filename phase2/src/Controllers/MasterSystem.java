@@ -30,29 +30,8 @@ public class MasterSystem {
     private ConversationManager conversationManager;
     private MessageManager messageManager;
 
-    private AttendeeConversationMenuPresenter attendeeConversationMenuPresenter;
-    private AttendeeEventMenuPresenter attendeeEventMenuPresenter;
-    private AttendeeMenuPresenter attendeeMenuPresenter;
-    private AttendeeMessagingMenuPresenter attendeeMessagingMenuPresenter;
-    private AttendeeMessengerMenuPresenter attendeeMessengerMenuPresenter;
-
-    private OrganizerConferenceMenuPresenter organizerConferenceMenuPresenter;
-    private OrganizerEventMenuPresenter organizerEventMenuPresenter;
-    private OrganizerMenuPresenter organizerMenuPresenter;
-    private OrganizerMessagingMenuPresenter organizerMessagingMenuPresenter;
-    private OrganizerMessengerMenuPresenter organizerMessengerMenuPresenter;
-
-    private SpeakerConversationMenuPresenter speakerConversationMenuPresenter;
-    private SpeakerEventMenuPresenter speakerEventMenuPresenter;
-    private SpeakerMenuPresenter speakerMenuPresenter;
-    private SpeakerMessagingMenuPresenter speakerMessagingMenuPresenter;
-    private SpeakerMessengerMenuPresenter speakerMessengerMenuPresenter;
-
-    private EventMenuPresenter eventMenuPresenter;
-    private LoginMenuPresenter loginMenuPresenter;
-    private MessageMenuPresenter messageMenuPresenter;
     private SceneHandler sceneHandler;
-    private SignUpMenuPresenter signUpMenuPresenter;
+
 
     private AccountHandler accountHandler;
 
@@ -134,38 +113,9 @@ public class MasterSystem {
             this.userEventController = new UserEventController(attendeeManager, organizerManager,
                     speakerManager, eventManager, roomManager);
 
-//            this.attendeeConversationMenuPresenter = new AttendeeConversationMenuPresenter(loginMenuController,
-//                    conversationMenuController, sceneHandler, programGenerator);
-//            this.attendeeEventMenuPresenter = new AttendeeEventMenuPresenter(attendeeEventMenuController,
-//                    loginMenuController, programGenerator);
-//            this.attendeeMenuPresenter = new AttendeeMenuPresenter(loginMenuController, programGenerator);
-//            this.attendeeMessagingMenuPresenter = new AttendeeMessagingMenuPresenter(loginMenuController,
-//                    attendeeMessagingDashboardMenuController, conversationMenuController, programGenerator);
-//            this.attendeeMessengerMenuPresenter = new AttendeeMessengerMenuPresenter(messengerMenuController,
-//                    loginMenuController, sceneHandler, conversationMenuController, programGenerator);
-//
-//            this.organizerConferenceMenuPresenter = new OrganizerConferenceMenuPresenter(organizerMenuController,
-//                    accountHandler, programGenerator);
-//            this.organizerEventMenuPresenter = new OrganizerEventMenuPresenter(loginMenuController,
-//                    organizerMenuController, eventsSearchEngine,programGenerator);
-//            this.organizerMenuPresenter = new OrganizerMenuPresenter(loginMenuController, programGenerator);
-//            this.organizerMessagingMenuPresenter = new OrganizerMessagingMenuPresenter(loginMenuController,speakerMessagingDashboardMenuController, conversationMenuController, programGenerator);
-//            this.organizerMessengerMenuPresenter = new OrganizerMessengerMenuPresenter(messengerMenuController, loginMenuController, programGenerator);
-//
-//            this.speakerConversationMenuPresenter = new SpeakerConversationMenuPresenter(loginMenuController,
-//                    conversationMenuController, sceneHandler, programGenerator);
-//            this.speakerEventMenuPresenter = new SpeakerEventMenuPresenter(userEventController, loginMenuPresenter, programGenerator);
-//            this.speakerMenuPresenter = new SpeakerMenuPresenter(programGenerator);
-//            this.speakerMessagingMenuPresenter = new SpeakerMessagingMenuPresenter(loginMenuController,
-//                    speakerMessagingDashboardMenuController, conversationMenuController, programGenerator);
-//            this.speakerMessengerMenuPresenter = new SpeakerMessengerMenuPresenter(messengerMenuController,
-//                    loginMenuController, programGenerator);
-//
-//            this.eventMenuPresenter = new EventMenuPresenter();
-//            this.loginMenuPresenter = new LoginMenuPresenter(loginMenuController);
             this.messageMenuController = new MessageMenuController();
             this.sceneHandler = new SceneHandler();
-//            this.signUpMenuPresenter = new SignUpMenuPresenter(signUpMenuController, programGenerator);
+
 
 
 

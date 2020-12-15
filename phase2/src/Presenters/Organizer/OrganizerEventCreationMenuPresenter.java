@@ -169,9 +169,10 @@ public class OrganizerEventCreationMenuPresenter {
     @FXML
     private void signOut() throws IOException {
         programGenerator.readToDatabase();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/LoginMenuView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/LoginMenuView.fxml"));
         Stage stage = (Stage) signOutButton.getScene().getWindow();
         Scene scene = new Scene(loader.load());
+        MasterSystem masterSystem = programGenerator.readFromDatabase();
         LoginMenuPresenter loginMenuPresenter = loader.getController();
         loginMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(scene);
