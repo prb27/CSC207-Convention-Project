@@ -142,7 +142,7 @@ public class OrganizerMessagingMenuPresenter {
         this.masterSystem = masterSystem;
         this.loginMenuController = masterSystem.getLoginMenuController();
         this.conversationMenuController = masterSystem.getConversationMenuController();
-        this.organizerMessagingDashboardMenuController = masterSystem.getOrganizerMessaginDashboardController();
+        this.organizerMessagingDashboardMenuController = masterSystem.getOrganizerMessagingDashboardController();
         this.programGenerator = masterSystem.getProgramGenerator();
         username.setText(loginMenuController.getCurrUsername());
         loadConversations();

@@ -187,7 +187,7 @@ public class MasterSystem {
             return this.roomManager;
         }
 
-    public OrganizerMessagingDashboardMenuController getOrganizerMessaginDashboardController() {
+    public OrganizerMessagingDashboardMenuController getOrganizerMessagingDashboardController() {
         return organizerMessagingDashboardMenuController;
     }
 }
