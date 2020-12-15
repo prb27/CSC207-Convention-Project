@@ -43,9 +43,6 @@ public class SpeakerEventMenuPresenter {
 
     @FXML
     private void initialize() {
-        welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
-        seeListofEvents();
-
 
         goBack.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
         goBack.setOnAction(event -> {
@@ -104,9 +101,12 @@ public class SpeakerEventMenuPresenter {
 
     }
     public void setMasterSystem(MasterSystem masterSystem){
+        this.masterSystem = masterSystem;
         this.userEventController = masterSystem.getUserEventController();
         this.loginMenuController = masterSystem.getLoginMenuController();
         this.programGenerator = masterSystem.getProgramGenerator();
+        welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
+        seeListofEvents();
     }
 
 }

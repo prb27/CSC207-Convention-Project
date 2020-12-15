@@ -39,7 +39,6 @@ public class SpeakerMessagingMenuPresenter {
 
     @FXML
     private void initialize(){
-        welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
         messenger.setText("Messenger");
         messenger.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
         messenger.setOnAction(event -> {
@@ -60,7 +59,6 @@ public class SpeakerMessagingMenuPresenter {
                 e.printStackTrace();
             }
         });
-        loadConversations();
 
     }
 
@@ -140,10 +138,14 @@ public class SpeakerMessagingMenuPresenter {
         stage.setScene(scene);
     }
     public void setMasterSystem(MasterSystem masterSystem){
+        this.masterSystem = masterSystem;
         this.loginMenuController = masterSystem.getLoginMenuController();
         this.conversationMenuController = masterSystem.getConversationMenuController();
         this.speakerMessagingDashboardMenuController = masterSystem.getSpeakerMessagingDashboardMenuController();
         this.programGenerator = masterSystem.getProgramGenerator();
+        welcome.setText("Welcome: " + loginMenuController.getCurrUsername() + "!");
+        loadConversations();
+
     }
 
 }
