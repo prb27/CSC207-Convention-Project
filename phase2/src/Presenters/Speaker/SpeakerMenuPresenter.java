@@ -1,6 +1,7 @@
 package Presenters.Speaker;
 
 
+import Controllers.MasterSystem;
 import Gateways.ProgramGenerator;
 import Presenters.Interfaces.ISpeakerMenu;
 import javafx.fxml.FXML;
@@ -23,11 +24,13 @@ public class SpeakerMenuPresenter implements ISpeakerMenu {
 
     @FXML
     private Button signOut;
-    private final ProgramGenerator programGenerator;
+
+    private  ProgramGenerator programGenerator;
+    private MasterSystem masterSystem;
 
 
-    public SpeakerMenuPresenter(ProgramGenerator programGenerator){
-        this.programGenerator = programGenerator;
+    public SpeakerMenuPresenter(){
+
     }
 
     @FXML
@@ -99,6 +102,10 @@ public class SpeakerMenuPresenter implements ISpeakerMenu {
         stage.setScene(scene);
     }
 
+    public void setMasterSystem(MasterSystem masterSystem){
+        this.masterSystem = masterSystem;
+        this.programGenerator = masterSystem.getProgramGenerator();
+    }
 
 
 }

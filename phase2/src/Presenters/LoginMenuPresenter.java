@@ -3,6 +3,7 @@ package Presenters;
 import Controllers.LoginMenuController;
 import Controllers.MasterSystem;
 import Presenters.Interfaces.ILoginMenu;
+import Presenters.Speaker.SpeakerMenuPresenter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -127,6 +128,9 @@ public class LoginMenuPresenter implements ILoginMenu {
         FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/SpeakerMenuView.fxml"));
         Stage stage = (Stage) loginButton.getScene().getWindow();
         Scene speakerMenuScene = new Scene(loader.load());
+
+        SpeakerMenuPresenter speakerMenuPresenter = loader.getController();
+        speakerMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(speakerMenuScene);
     }
 }
