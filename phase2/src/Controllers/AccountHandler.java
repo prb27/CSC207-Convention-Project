@@ -90,6 +90,14 @@ public class AccountHandler implements Serializable {
             return null;
     }
 
+    /**
+     * Return the account type of the provided username
+     * @author Vladimir
+     * @param username: username inputted by the user
+     * @return String representing the account type of the user logging in.
+     * "attendee", "organizer", "speaker", "admin" for the type of user,
+     * null if the user with the given username does not exist
+     */
     public String getAccountType(String username) {
         if(attendeeManager.isAttendee(username))
             return "attendee";
