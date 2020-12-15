@@ -25,7 +25,6 @@
          </font></Label>
       <Button fx:id="signUpFromLogin" layoutX="264.0" layoutY="275.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="72.0" />
       <Label alignment="CENTER" layoutX="198.0" layoutY="243.0" text="Click here to sign up as a new attendee:" />
-      <Label layoutX="185.0" layoutY="325.0" text="Information entered invalid. Please try again." textFill="RED" />
       
 
     </children>
