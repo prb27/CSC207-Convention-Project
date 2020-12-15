@@ -90,7 +90,7 @@ public class MasterSystem implements Serializable {
      */
     public MasterSystem(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager,
                         AdminManager adminManager, MessageManager messageManager, ConversationManager conversationManager,
-                        EventManager eventManager, RoomManager roomManager) {
+                        EventManager eventManager, RoomManager roomManager, ProgramGenerator programGenerator) {
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
         this.speakerManager = speakerManager;

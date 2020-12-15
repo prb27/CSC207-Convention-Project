@@ -75,7 +75,7 @@ public class ProgramGenerator implements Serializable{
             roomManager.loadFromDatabase();
             adminManager.createAdmin();
             return new MasterSystem(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
-                    conversationManager, eventManager, roomManager);
+                    conversationManager, eventManager, roomManager, this);
         } catch (Exception e) {
             e.printStackTrace();
             return new MasterSystem(new AttendeeManager(attendeeDatabase),
@@ -85,7 +85,8 @@ public class ProgramGenerator implements Serializable{
                     new MessageManager(messageDatabase),
                     new ConversationManager(conversationDatabase),
                     new EventManager(eventDatabase),
-                    new RoomManager(roomDatabase));
+                    new RoomManager(roomDatabase),
+                    this);
         }
     }
 
