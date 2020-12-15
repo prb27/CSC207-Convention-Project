@@ -43,9 +43,7 @@ public class AdminMenuPresenter implements IAdminMenu {
                 e.printStackTrace();
             }
         });
-
         loadMessages();
-
     }
 
     public void loadMessages(){
@@ -57,13 +55,10 @@ public class AdminMenuPresenter implements IAdminMenu {
             Button delete = new Button("Delete");
             delete.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
             delete.setOnAction(event -> {
-                adminMenuController.getAllMessages().remove(message);
                 adminMenuController.updateMessages(message);
             });
             HBox hBox = new HBox(messageLabel, delete);
             messages.getItems().add(hBox);
-
-
         }
     }
 
