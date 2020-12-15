@@ -100,7 +100,7 @@ public class MasterSystem implements Serializable {
         this.conversationManager = conversationManager;
         this.eventManager = eventManager;
         this.roomManager = roomManager;
-        this.programGenerator = new ProgramGenerator();
+        this.programGenerator = programGenerator;
     }
 
 
