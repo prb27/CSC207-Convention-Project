@@ -4,6 +4,7 @@ import Entities.Room;
 import Gateways.Interfaces.IRoomDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -315,6 +316,25 @@ public class RoomManager {
             Room newRoom = new Room(roomId, capacity, occupiedTimes, hasProjector, hasAudioSystem, powerSockets);
             this.rooms.add(newRoom);
         }
+    }
+
+    public void saveToDatabase() {
+        List<Map<String, List<String>>> resultingList = new ArrayList<>();
+
+        for(Room room: this.rooms) {
+            Map<String, List<String>> tempRoom = new HashMap<>();
+            List<String> roomInfo = new ArrayList<>();
+            roomInfo.add(room.getRoomId());
+            roomInfo.add(String.valueOf(room.getCapacity()));
+            roomInfo.add(Boolean.toString(room.hasProjector()));
+            roomInfo.add(Boolean.toString(room.hasAudioSystem()));
+            roomInfo.add(String.valueOf(room.getPowerSockets()));
+            tempRoom.put("roomInfo", roomInfo);
+            tempRoom.put("occupiedTimes", room.getOccupiedTimes());
+
+            resultingList.add(tempRoom);
+        }
+        roomDatabase.saveRoomList(resultingList);
     }
 
 }
