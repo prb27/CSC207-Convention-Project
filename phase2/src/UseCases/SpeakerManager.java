@@ -238,7 +238,7 @@ public class SpeakerManager {
             return false;
         }
         else{
-            return (speaker.getListOfTalks().containsKey(time));
+            return (!speaker.getListOfTalks().containsKey(time));
 //            for (Map<String, String> talk: speaker.getListOfTalks()){
 //                if (talk.containsKey(time)) {
 //                    free = false;
