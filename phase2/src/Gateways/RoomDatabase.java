@@ -13,8 +13,6 @@ import java.util.*;
  * @author Akshat Ayush
  */
 public class RoomDatabase implements IRoomDatabase {
-    MongoClient mongoClient;
-    MongoDatabase database;
     MongoCollection<Document> roomCollection;
 
     /**
@@ -22,8 +20,7 @@ public class RoomDatabase implements IRoomDatabase {
      * @param mongoClient: object of mongo client
      */
     public RoomDatabase(MongoClient mongoClient) {
-        this.mongoClient = mongoClient;
-        this.database = mongoClient.getDatabase("conference-database");
+        MongoDatabase database = mongoClient.getDatabase("conference-database");
         this.roomCollection = database.getCollection("rooms");
     }
 

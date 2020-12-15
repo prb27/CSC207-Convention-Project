@@ -16,19 +16,18 @@ import java.util.List;
  */
 public abstract class UserDatabase {
 
-    protected MongoClient mongoClient;
-    protected MongoDatabase database;
-    protected MongoCollection<Document> userCollection;
+    protected final MongoCollection<Document> userCollection;
+
 
     /**
      * Constructor to initialize the mongo client, database and the collection to be used by the user database
      * @param mongoClient: object of a mongo client
      */
     public UserDatabase(MongoClient mongoClient) {
-        this.mongoClient = mongoClient;
-        this.database = mongoClient.getDatabase("conference-database");
+        MongoDatabase database = mongoClient.getDatabase("conference-database");
         this.userCollection = database.getCollection("users");
     }
+
 
     /**
      * Method to get a list of contacts of a given user from the database assuming the username exists in the database
@@ -40,6 +39,7 @@ public abstract class UserDatabase {
         return user.get(0).getList("contacts", String.class);
     }
 
+
     /**
      * Method to get a list of conversations of a given user from the database assuming the username
      * exists in the database
@@ -50,6 +50,7 @@ public abstract class UserDatabase {
         List<Document> user = userCollection.find(eq("username", username)).into(new ArrayList<>());
         return user.get(0).getList("conversations", String.class);
     }
+
 
     /**
      * Method to get a list of events attending for a given user from the database assuming the username exists

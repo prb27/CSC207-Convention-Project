@@ -17,9 +17,7 @@ import java.util.Map;
  */
 public class EventDatabase implements IEventDatabase {
 
-    MongoClient mongoClient;
-    MongoDatabase database;
-    MongoCollection<Document> eventCollection;
+    private final MongoCollection<Document> eventCollection;
 
     /**
      * Constructor to initialize the mongo client, database and the event collection to be used by
@@ -27,8 +25,7 @@ public class EventDatabase implements IEventDatabase {
      * @param mongoClient: object of mongo client
      */
     public EventDatabase(MongoClient mongoClient) {
-        this.mongoClient = mongoClient;
-        this.database = mongoClient.getDatabase("conference-database");
+        MongoDatabase database = mongoClient.getDatabase("conference-database");
         this.eventCollection = database.getCollection("events");
     }
 

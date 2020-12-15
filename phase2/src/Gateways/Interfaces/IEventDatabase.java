@@ -1,6 +1,7 @@
 package Gateways.Interfaces;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 public interface IEventDatabase {
 
