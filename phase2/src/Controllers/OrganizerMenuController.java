@@ -45,13 +45,13 @@ public class OrganizerMenuController {
         List<String> users = new ArrayList<>();
         if(type.equals("attendee") || type.equals("all")){
             users.addAll(attendeeManager.getAllAttendeeIds());
-        } else
+        }
         if(type.equals("organizer") || type.equals("all")){
             users.addAll(organizerManager.getAllOrganizerIds());
-        } else
+        }
         if(type.equals("speaker") || type.equals("all")){
             users.addAll(speakerManager.getAllSpeakerIds());
-        } else
+        }
         if(type.equals("admin") || type.equals("all")){
                 users.add(adminManager.getAdminName());
         }
@@ -96,6 +96,13 @@ public class OrganizerMenuController {
 
     }
 
+    /**
+     * Create a new account through organizer
+     * @param username username of the new account
+     * @param password password of the new account
+     * @param accountType type of account
+     * @return boolean reflecting the result
+     */
     public boolean createNewAccount(String username, String password, String accountType){
         return accountHandler.signup(username, password, accountType);
     }
@@ -170,6 +177,11 @@ public class OrganizerMenuController {
 
     }
 
+    /**
+     * Returns a list of event Details
+     * @param eventName name of the event
+     * @return List</String>
+     */
     public List<String> getEventDetails(String eventName){
         List<String> details = new ArrayList<>();
         details.add(eventManager.getStartTime(eventName));
@@ -230,9 +242,9 @@ public class OrganizerMenuController {
     // case 11
 
     /**
-     *
-     * @param username
-     * @return
+     * Returns a List of titles of events this organizer isn't attending
+     * @param username username of the organizer
+     * @return List</String>
      */
     public List<String> organizerEventsNotAttending(String username){
 
@@ -244,17 +256,28 @@ public class OrganizerMenuController {
 
     }
 
+    /**
+     * Sign up for event
+     * @param eventName name of event
+     * @param organizerId username of the Organizer
+     */
     public void signUpAsOrganizer(String eventName, String organizerId){
-        eventManager.reserveAttendee(eventName, organizerId);
+        userEventController.enrolUserInEvent(organizerId,eventName);
     }
 
-    public void cancelSpotAsOrganizer(String eventName, String organizerId){
-        eventManager.removeAttendee(eventName, organizerId);
-    }
     /**
-     *
-     * @param username
-     * @return
+     * Cancels the spot for this organizer in event
+     * @param eventName name of the event
+     * @param organizerId username of the organizer
+     */
+    public void cancelSpotAsOrganizer(String eventName, String organizerId){
+        userEventController.cancelSeatForUser(organizerId,eventName);
+    }
+
+    /**
+     * Returns List of event titles of events that this organizer is attending
+     * @param username username of the organizer
+     * @return List</String>
      */
     public List<String> organizerEventsAttending(String username){
 
