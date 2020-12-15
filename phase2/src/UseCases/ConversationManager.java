@@ -24,7 +24,7 @@ import java.util.Map;
  * @see Conversation
  */
 public class ConversationManager implements Serializable {
-    private List<Conversation> allConversations = new ArrayList<>();
+    private List<Conversation> allConversations;
 
     /**
      * Helper that generates the participants of a conversation based off of the message at its root
@@ -120,18 +120,24 @@ public class ConversationManager implements Serializable {
     }
 
 
-    /**
-     * load the relevant data from the database and store the relevant data inside relevant entities which are then
-     * stored inside a data structure
-     *
-     */
-
     IConversationDatabase conversationDatabase;
+    /**
+     * a constructor that creates a UseCases.ConversationManager object that stores a list of all conversations and
+     * creates an instance of the constructorDatabase.
+     */
     public ConversationManager(IConversationDatabase conversationDatabase){
+        allConversations =  new ArrayList<>();
         this.conversationDatabase = conversationDatabase;
     }
 
 
+
+    /**
+     * Loads the data being stored by Conversation entities in the database into a Conversation entity and stores every
+     * Conversation entity into the allConversations list which is a list of Conversation entities.
+     *
+     * @author Juan Yi Loke
+     */
     public void loadFromDatabase() {
 
         List<Map<String, List<String>>> conversationList = conversationDatabase.getConversationList();
@@ -147,6 +153,12 @@ public class ConversationManager implements Serializable {
         }
     }
 
+    /**
+     * Stores the data being stored by the Conversation entities in the list allConversations in a
+     * List<String, List<String>> data structure to be stored in the database system.
+     *
+     * @author Juan Yi Loke
+     */
     public void saveToDatabase(){
 
         List<Map<String, List<String>>> resultingList = new ArrayList<>();
