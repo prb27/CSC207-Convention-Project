@@ -225,11 +225,15 @@ public class OrganizerMenuController implements Serializable {
 
     }
 
-    // case 10
-    //ui.present("Please enter the event name");
-    //        String eventName = scanner.nextLine();
-    //        ui.present("Please enter a new start time for the event");
-    //        String eventTime = scanner.nextLine();
+    public List<String> getEventDetails(String eventName){
+        List<String> details = new ArrayList<>();
+        details.add(eventManager.getStartTime(eventName));
+        details.add(Integer.toString(eventManager.getDuration(eventName)));
+        details.add(Integer.toString(eventManager.getEventCapacity(eventName)));
+        details.add(eventManager.getRoomNumber(eventName));
+        details.addAll(eventManager.getSpeakerEvent(eventName));
+        return details;
+    }
 
     /**
      *

@@ -84,7 +84,7 @@ public class OrganizerEventCreationMenuPresenter {
         username.setText(loginMenuController.getCurrUsername());
         selectedSpeakerDisplay.getItems().clear();
         selectedSpeakerDisplay.setItems(speakers);
-        ObservableList<String> startTimeChoiceList = FXCollections.observableArrayList("9", "10", "11", "12", "1", "2", "3", "4", "5");
+        ObservableList<String> startTimeChoiceList = FXCollections.observableArrayList("9", "10", "11", "12", "1", "2", "3", "4");
         ObservableList<Integer> durationChoiceList = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8);
         startTimeChoices.setItems(startTimeChoiceList);
         durationChoices.setItems(durationChoiceList);
