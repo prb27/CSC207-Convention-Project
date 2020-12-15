@@ -33,8 +33,6 @@ public class LoginMenuPresenter{
     private Button signUpFromLogin;
     private MasterSystem masterSystem;
 
-    public LoginMenuPresenter() {
-    }
     public void setMasterSystem(MasterSystem masterSystem){
         this.masterSystem = masterSystem;
         this.loginMenuController = masterSystem.getLoginMenuController();
@@ -109,7 +107,7 @@ public class LoginMenuPresenter{
 
 
     public void showAttendeeMenu() throws IOException {
-        FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/UI/Attendee/AttendeeMenuView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Attendee/AttendeeMenuView.fxml"));
         Stage stage = (Stage) loginButton.getScene().getWindow();
         Scene attendeeMenuScene = new Scene(loader.load());
 
@@ -122,7 +120,7 @@ public class LoginMenuPresenter{
 
 
     public void showOrganizerMenu() throws IOException {
-        FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/UI/Organizer/OrganizerMenuView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerMenuView.fxml"));
         Stage stage = (Stage) loginButton.getScene().getWindow();
         Scene organizerMenuScene = new Scene(loader.load());
 
@@ -134,7 +132,7 @@ public class LoginMenuPresenter{
 
 
     public void showSpeakerMenu() throws IOException {
-        FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/UI/Speaker/SpeakerMenuView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Speaker/SpeakerMenuView.fxml"));
         Stage stage = (Stage) loginButton.getScene().getWindow();
         Scene speakerMenuScene = new Scene(loader.load());
 
