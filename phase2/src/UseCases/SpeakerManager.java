@@ -327,8 +327,10 @@ public class SpeakerManager {
             Map<String,String> listOfTalks = new HashMap<>();
             List<String> eventNames = speaker.get("eventNames");
             List<String> eventTimes = speaker.get("eventTimes");
-            for(int i = 0 ; i < eventTimes.size(); i++){
-                listOfTalks.put(eventTimes.get(i), eventNames.get(i));
+            if (!eventTimes.isEmpty()){
+                for(int i = 0 ; i < eventTimes.size(); i++){
+                    listOfTalks.put(eventTimes.get(i), eventNames.get(i));
+                }
             }
 
             Speaker newSpeaker =  new Speaker(username, password);
