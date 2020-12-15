@@ -69,7 +69,6 @@ public class SignUpMenuPresenter implements ISignUpMenu {
     private void signUpAttendee(){
         if (signUpMenuController.signUp(createUsername.getText(), createPassword.getText())){
             try {
-                programGenerator.readToDatabase();
                 returnToLogin();
             } catch (IOException e) {
                 e.printStackTrace();
