@@ -73,7 +73,7 @@ public class SpeakerDatabase extends UserDatabase implements ISpeakerDatabase {
             speakerDocumentList.add(speakerDoc);
         }
         userCollection.deleteMany(eq("userType", "speaker"));
-        if(speakerDocumentList.isEmpty())
+        if(!speakerDocumentList.isEmpty())
             userCollection.insertMany(speakerDocumentList);
     }
 
