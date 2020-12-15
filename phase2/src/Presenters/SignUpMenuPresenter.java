@@ -1,9 +1,8 @@
 package Presenters;
 
-import Controllers.AccountHandler;
-import Controllers.LoginMenuController;
+
 import Gateways.ProgramGenerator;
-import Scrap.CurrUsernameInfoFileHandler;
+
 import Controllers.SignUpMenuController;
 import Presenters.Interfaces.ISignUpMenu;
 import javafx.fxml.FXML;
