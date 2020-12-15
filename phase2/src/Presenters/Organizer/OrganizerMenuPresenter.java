@@ -1,5 +1,6 @@
 package Presenters.Organizer;
 import Controllers.LoginMenuController;
+import Controllers.MasterSystem;
 import Gateways.ProgramGenerator;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,7 @@ public class OrganizerMenuPresenter {
 
     private LoginMenuController loginMenuController;
     private ProgramGenerator programGenerator;
+    private MasterSystem masterSystem;
 
     @FXML
     private Label username;
@@ -33,9 +35,8 @@ public class OrganizerMenuPresenter {
     @FXML
     private Button createEventButton;
 
-    public OrganizerMenuPresenter(LoginMenuController loginMenuController, ProgramGenerator programGenerator){
-        this.loginMenuController = loginMenuController;
-        this.programGenerator = programGenerator;
+    public OrganizerMenuPresenter(){
+
     }
 
     public void initialize(){
@@ -116,5 +117,11 @@ public class OrganizerMenuPresenter {
         Stage stage = (Stage) signOutButton.getScene().getWindow();
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
+    }
+
+    public void setMasterSystem(MasterSystem masterSystem) {
+        this.masterSystem = masterSystem;
+        this.programGenerator = masterSystem.getProgramGenerator();
+        this.loginMenuController = masterSystem.getLoginMenuController();
     }
 }

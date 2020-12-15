@@ -10,7 +10,6 @@ public class SignUpMenuController {
         this.accountHandler = accountHandler;
     }
     public boolean signUp(String username, String password){
-
         return accountHandler.signup(username, password, "attendee");
     }
 
