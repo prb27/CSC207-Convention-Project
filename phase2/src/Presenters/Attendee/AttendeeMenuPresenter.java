@@ -35,6 +35,11 @@ public class AttendeeMenuPresenter implements IAttendeeMenu {
     public AttendeeMenuPresenter(){
 
     }
+    public void setMasterSystem(MasterSystem masterSystem){
+        this.masterSystem = masterSystem;
+        this.loginMenuController = masterSystem.getLoginMenuController();
+        this.programGenerator = masterSystem.getProgramGenerator();
+    }
 
     @FXML
     public void initialize(){
@@ -96,11 +101,6 @@ public class AttendeeMenuPresenter implements IAttendeeMenu {
         stage.setScene(scene);
     }
 
-    public void setMasterSystem(MasterSystem masterSystem){
-        this.masterSystem = masterSystem;
-        this.loginMenuController = masterSystem.getLoginMenuController();
-        this.programGenerator = masterSystem.getProgramGenerator();
-    }
 
 
 

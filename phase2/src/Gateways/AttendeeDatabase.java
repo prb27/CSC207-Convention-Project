@@ -71,7 +71,8 @@ public class AttendeeDatabase extends UserDatabase implements IAttendeeDatabase 
             attendeeDocumentList.add(attendeeDoc);
         }
         userCollection.deleteMany(eq("userType", "attendee"));
-        userCollection.insertMany(attendeeDocumentList);
+        if(!attendeeDocumentList.isEmpty())
+            userCollection.insertMany(attendeeDocumentList);
     }
 
 }

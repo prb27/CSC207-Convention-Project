@@ -68,6 +68,7 @@ public class RoomDatabase implements IRoomDatabase {
             roomDocumentList.add(roomDoc);
         }
         roomCollection.deleteMany(new Document());
-        roomCollection.insertMany(roomDocumentList);
+        if(!roomDocumentList.isEmpty())
+            roomCollection.insertMany(roomDocumentList);
     }
 }

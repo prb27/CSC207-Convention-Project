@@ -1,7 +1,9 @@
 package Presenters;
 
+import Controllers.AccountHandler;
 import Controllers.LoginMenuController;
 import Controllers.MasterSystem;
+import Presenters.Admin.AdminMenuPresenter;
 import Presenters.Attendee.AttendeeMenuPresenter;
 import Presenters.Interfaces.ILoginMenu;
 import Presenters.Organizer.OrganizerMenuPresenter;
@@ -19,6 +21,7 @@ public class LoginMenuPresenter implements ILoginMenu {
 
 
     private LoginMenuController loginMenuController;
+    private AccountHandler accountHandler;
 
     @FXML
     public TextField usernameField;
@@ -56,16 +59,6 @@ public class LoginMenuPresenter implements ILoginMenu {
         });
         signUpFromLogin.setStyle("-fx-background-color: #457ecd; -fx-text-fill: #ffffff;");
 
-        loginButton.setOnKeyPressed(event -> {
-            if (event.getCode().equals(KeyCode.ENTER)) {
-                try {
-                    callUserMenu();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
         signUpFromLogin.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER)) {
                 try {
@@ -79,7 +72,23 @@ public class LoginMenuPresenter implements ILoginMenu {
 
     @FXML
     private void callUserMenu() throws IOException {
-        loginMenuController.login(usernameField.getText(), passwordField.getText());
+        String accountType = accountHandler.login(usernameField.getText(), passwordField.getText());
+        if(accountType != null) {
+            switch (accountType) {
+                case "attendee":
+                    loginMenuController.setCurrUsername(usernameField.getText());
+                    showAttendeeMenu(usernameField.getText());
+                case "organizer":
+                    loginMenuController.setCurrUsername(usernameField.getText());
+                    showOrganizerMenu(usernameField.getText());
+                case "speaker":
+                    loginMenuController.setCurrUsername(usernameField.getText());
+                    showSpeakerMenu(usernameField.getText());
+//                case "admin":
+//                    loginMenuController.setCurrUsername(usernameField.getText());
+//                    showAdminMenu(usernameField.getText());
+            }
+        }
     }
 
     private void returnToSignUp() throws IOException {
@@ -94,6 +103,7 @@ public class LoginMenuPresenter implements ILoginMenu {
     public void setMasterSystem(MasterSystem masterSystem){
         this.masterSystem = masterSystem;
         this.loginMenuController = masterSystem.getLoginMenuController();
+        this.accountHandler = masterSystem.getAccountHandler();
     }
 
     @Override
@@ -111,9 +121,9 @@ public class LoginMenuPresenter implements ILoginMenu {
 
     }
 
-    @Override
+
     public void showAttendeeMenu(String username) throws IOException {
-        FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/AttendeeMenuView.fxml"));
+        FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/UI/Attendee/AttendeeMenuView.fxml"));
         Stage stage = (Stage) loginButton.getScene().getWindow();
         Scene attendeeMenuScene = new Scene(loader.load());
 
@@ -123,9 +133,10 @@ public class LoginMenuPresenter implements ILoginMenu {
         stage.setScene(attendeeMenuScene);
     }
 
-    @Override
+
+
     public void showOrganizerMenu(String username) throws IOException {
-        FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/OrganizerMenuView.fxml"));
+        FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/UI/Organizer/OrganizerMenuView.fxml"));
         Stage stage = (Stage) loginButton.getScene().getWindow();
         Scene organizerMenuScene = new Scene(loader.load());
 
@@ -135,9 +146,9 @@ public class LoginMenuPresenter implements ILoginMenu {
         stage.setScene(organizerMenuScene);
     }
 
-    @Override
+
     public void showSpeakerMenu(String username) throws IOException {
-        FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/SpeakerMenuView.fxml"));
+        FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/UI/Speaker/SpeakerMenuView.fxml"));
         Stage stage = (Stage) loginButton.getScene().getWindow();
         Scene speakerMenuScene = new Scene(loader.load());
 
@@ -145,4 +156,14 @@ public class LoginMenuPresenter implements ILoginMenu {
         speakerMenuPresenter.setMasterSystem(masterSystem);
         stage.setScene(speakerMenuScene);
     }
+
+//    public void showAdminMenu(String username) throws IOException{
+//        FXMLLoader loader = new FXMLLoader(LoginMenuPresenter.class.getResource("/UI/Admin/AdminMenuView.fxml"));
+//            Stage stage = (Stage) loginButton.getScene().getWindow();
+//        Scene speakerMenuScene = new Scene(loader.load());
+//
+//        AdminMenuPresenter adminMenuPresenter = loader.getController();
+//        adminMenuPresenter.setMasterSystem(masterSystem);
+//        stage.setScene(speakerMenuScene);
+//    }
 }

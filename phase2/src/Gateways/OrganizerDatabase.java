@@ -71,7 +71,8 @@ public class OrganizerDatabase extends UserDatabase implements IOrganizerDatabas
             organizerDocumentList.add(organizerDoc);
         }
         userCollection.deleteMany(eq("userType", "organizer"));
-        userCollection.insertMany(organizerDocumentList);
+        if(!organizerDocumentList.isEmpty())
+            userCollection.insertMany(organizerDocumentList);
     }
 
 }

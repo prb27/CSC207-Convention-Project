@@ -72,7 +72,8 @@ public class EventDatabase implements IEventDatabase {
             eventDocs.add(eventDoc);
         }
         eventCollection.deleteMany(new Document());
-        eventCollection.insertMany(eventDocs);
+        if(!eventDocs.isEmpty())
+            eventCollection.insertMany(eventDocs);
     }
 
 }

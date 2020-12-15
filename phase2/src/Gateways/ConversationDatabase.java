@@ -64,6 +64,7 @@ public class ConversationDatabase implements IConversationDatabase {
             conversationDocs.add(conversationDoc);
         }
         conversationCollection.deleteMany(new Document());
-        conversationCollection.insertMany(conversationDocs);
+        if(!conversationDocs.isEmpty())
+            conversationCollection.insertMany(conversationDocs);
     }
 }

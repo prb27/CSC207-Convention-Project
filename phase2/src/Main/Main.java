@@ -28,6 +28,9 @@ public class Main extends Application{
         primaryStage.setTitle("Tech-Conference");
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.setOnCloseRequest(event -> {
+            programGenerator.readToDatabase();
+        });
     }
 
 
