@@ -41,9 +41,9 @@ public class Main extends Application{
     public static void main(String[] args) {
         // Don't need this code here. Program generator and master system are already being created
         // in the start method above.
-//        ProgramGenerator programGenerator = new ProgramGenerator();
-//        MasterSystem masterSystem = programGenerator.readFromDatabase();
-//        masterSystem.run();
+        ProgramGenerator programGenerator = new ProgramGenerator();
+        MasterSystem masterSystem = programGenerator.readFromDatabase();
+        masterSystem.run();
         launch(args); // for javafx launching application
     }
 

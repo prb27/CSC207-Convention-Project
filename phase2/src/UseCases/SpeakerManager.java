@@ -383,6 +383,4 @@ public class SpeakerManager {
         }
         speakerDatabase.saveSpeakerList(resultingList);
     }
-
-
 }

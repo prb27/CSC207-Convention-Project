@@ -40,10 +40,11 @@ public class LoginMenuPresenter{
         loginButton.setOnAction(event -> {
             try {
                 callUserMenu();
-            } catch (IOException e) {
+            } catch (IOException | NullPointerException e) {
                 e.printStackTrace();
             }
         });
+
     }
 
     @FXML
@@ -66,7 +67,7 @@ public class LoginMenuPresenter{
     }
 
     @FXML
-    private void callUserMenu() throws IOException {
+    private void callUserMenu() throws IOException, NullPointerException {
         String accountType = accountHandler.login(usernameField.getText(), passwordField.getText());
 
         switch (accountType) {
@@ -98,7 +99,7 @@ public class LoginMenuPresenter{
 
 
 
-    public void showAttendeeMenu() throws IOException {
+    public void showAttendeeMenu() throws IOException, NullPointerException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Attendee/AttendeeMenuView.fxml"));
         Stage stage = (Stage) loginButton.getScene().getWindow();
         Scene attendeeMenuScene = new Scene(loader.load());
@@ -111,28 +112,39 @@ public class LoginMenuPresenter{
 
 
 
-    public void showOrganizerMenu() throws IOException {
+    public void showOrganizerMenu() throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Organizer/OrganizerMenuView.fxml"));
-        Stage stage = (Stage) loginButton.getScene().getWindow();
-        Scene organizerMenuScene = new Scene(loader.load());
+        try {
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            Scene organizerMenuScene = new Scene(loader.load());
+            stage.setScene(organizerMenuScene);
+            OrganizerMenuPresenter organizerMenuPresenter = loader.getController();
+            organizerMenuPresenter.setMasterSystem(masterSystem);
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }
 
         OrganizerMenuPresenter organizerMenuPresenter = loader.getController();
         organizerMenuPresenter.setMasterSystem(masterSystem);
 
 
-        stage.setScene(organizerMenuScene);
+
     }
 
 
-    public void showSpeakerMenu() throws IOException {
+    public void showSpeakerMenu() throws IOException, NullPointerException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/Speaker/SpeakerMenuView.fxml"));
-        Stage stage = (Stage) loginButton.getScene().getWindow();
-        Scene speakerMenuScene = new Scene(loader.load());
-
-        SpeakerMenuPresenter speakerMenuPresenter = loader.getController();
-        speakerMenuPresenter.setMasterSystem(masterSystem);
-
-        stage.setScene(speakerMenuScene);
+        try {
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            Scene speakerMenuScene = new Scene(loader.load());
+            stage.setScene(speakerMenuScene);
+            SpeakerMenuPresenter speakerMenuPresenter = loader.getController();
+            speakerMenuPresenter.setMasterSystem(masterSystem);
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
 //    public void showAdminMenu(String username) throws IOException{
