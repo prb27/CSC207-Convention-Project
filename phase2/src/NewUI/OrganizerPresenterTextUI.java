@@ -83,7 +83,7 @@ public class OrganizerPresenterTextUI extends TextUI {
             users.addAll(speakerManager.getAllSpeakerIds());
         }
         if(type.equals("admin") || type.equals("all")){
-            users.add(adminManager.getAdminName());
+            users.addAll(adminManager.getAllAdminNames());
         }
         for(String user: users){
             System.out.println(user + "\n");

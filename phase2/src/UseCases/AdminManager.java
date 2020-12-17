@@ -49,4 +49,13 @@ public class AdminManager {
         return getAdmin(username)!=null;
     }
 
+    public List<String> getAllAdminNames(){
+
+        List<String> names = new ArrayList<>();
+        for(Admin admin: admins){
+            names.add(admin.getUsername());
+        }
+        return names;
+    }
+
 }
