@@ -206,13 +206,6 @@ public class MasterSystem {
 
     // Everything below is from Phase 1. We will be scraping the GUI and only implementing the TextUI now.
 
-    /**
-     *
-     * @return the eventManager
-     */
-    public EventManager getEventManager() {
-        return eventManager;
-    }
 
     /**
      * A method that is responsible for the flow of the program by taking user input,
@@ -235,7 +228,7 @@ public class MasterSystem {
 
             switch (landingOption) {
                 case "0":
-                    programGenerator.saveToFile(this, "conference_system");
+                    programGenerator.readToDatabase();
                     return;
                 case "1":
                     ui.usernameprompt();
@@ -288,7 +281,7 @@ public class MasterSystem {
                 if (option.equals("0")) {
                     loggedIn = false;
                     currentUsername = null;
-                    programGenerator.saveToFile(this, "conference_system");
+                    programGenerator.readToDatabase();
                 } else {
                     userCommandHandler(option, currentUsername, currentAccountType);
                 }
@@ -838,7 +831,8 @@ public class MasterSystem {
                 for(String conversationId: speakerManager.getConversations(username)) {
                     List<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
                     StringBuilder recipients = new StringBuilder();
-                    sui.convoNumUniqueId(i, conversationId);
+                    String k = Integer.toString(i);
+                    sui.convoNumUniqueId(k, conversationId);
                     for (String recipient: recipientsOfConversation){
                         recipients.append(recipient);
                         recipients.append(", ");

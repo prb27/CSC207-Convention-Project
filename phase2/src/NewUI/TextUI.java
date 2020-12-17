@@ -233,7 +233,7 @@ public class TextUI{
         System.out.println("Please enter the message that you want to send");
     }
 
-    public void failure(){
+    public void fail(){
         System.out.println("Something went wrong");
     }
 
@@ -364,7 +364,7 @@ public class TextUI{
 
     // Conversion of .string methods used in oUCH2
 
-    public void presentEventsNotSignedUpFor(List<String> eventsNotSignedUpFor{
+    public void presentEventsNotSignedUpFor(List<String> eventsNotSignedUpFor){
         for (String event: eventsNotSignedUpFor){
             System.out.println("Event Title:" + event + "\nTime:" +
                     eventManager.getStartTime(event) + "\nRoom: " +
