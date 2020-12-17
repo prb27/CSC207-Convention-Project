@@ -1,7 +1,6 @@
 package NewUI;
 
 import UseCases.*;
-import com.sun.org.apache.xpath.internal.operations.String;
 
 public class AdminTextUI extends TextUI {
     private AttendeeManager attendeeManager;
