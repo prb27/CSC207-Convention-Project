@@ -1,4 +1,4 @@
-package UI;
+package NewUI;
 
 public class LandingMenu {
 
