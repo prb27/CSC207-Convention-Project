@@ -34,7 +34,7 @@ public class ConversationMenuController {
     public void setCurrentConversationID(String conversationID){
         this.currentConversationID = conversationID;
     }
-    public String getCurrentConversationID(){
+    public String CurrentConversationID(){
         return currentConversationID;
     }
 
