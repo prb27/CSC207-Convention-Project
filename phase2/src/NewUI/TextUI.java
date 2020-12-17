@@ -1,336 +1,463 @@
 package NewUI;
-import Controllers.MasterSystem;
-import com.sun.org.apache.xpath.internal.operations.String;
+import Controllers.*;
+import Gateways.ProgramGenerator;
+import Presenters.SceneHandler;
+import UseCases.*;
 import Main.Main;
 import java.util.*;
+import UseCases.*;
+
+/**
+ * Class that stores methods used by the Controllers.MasterSystem class to send out prompts for users to reply to
+ * The Class has the following methods:
+ *  - a method to print out what is shown in the landing menu (i.e. what someone sees when first opening the program)
+ *  - a method to print out what is shown in the sign up menu
+ *  - a method to print out any input string
+ *  - a method to print out a prompt for a username
+ *  - a method to print out a prompt for a password
+ *  - a method to print out a prompt for an event name
+ *  - a method to print out a prompt for a message that a user wishes to send
+ *  - a method to print out a specific error based on errors captured by the program
+ *  - a method to print out a specific prompt based on an input called by the Controllers.MasterSystem
+ *  - a method to print out the functions that an organizer is able to do
+ *  - a method to print out the functions that a speaker is able to do
+ *  - a method to print out the functions that an attendee is able to do
+ * @author Juan Yi Loke
+ */
+public class TextUI{
+
+    private AttendeeManager attendeeManager;
+    private OrganizerManager organizerManager;
+    private SpeakerManager speakerManager;
+    private AdminManager adminManager;
+    private EventManager eventManager;
+    private RoomManager roomManager;
+    private ConversationManager conversationManager;
+    private MessageManager messageManager;
+
+
+    public TextUI(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager,
+                  AdminManager adminManager, MessageManager messageManager, ConversationManager conversationManager,
+                  EventManager eventManager, RoomManager roomManager) {
+        this.attendeeManager = attendeeManager;
+        this.organizerManager = organizerManager;
+        this.speakerManager = speakerManager;
+        this.adminManager = adminManager;
+        this.messageManager = messageManager;
+        this.conversationManager = conversationManager;
+        this.eventManager = eventManager;
+        this.roomManager = roomManager;
+    }
+
+
 
     /**
-     * Class that stores methods used by the Controllers.MasterSystem class to send out prompts for users to reply to
-     * The Class has the following methods:
-     *  - a method to print out what is shown in the landing menu (i.e. what someone sees when first opening the program)
-     *  - a method to print out what is shown in the sign up menu
-     *  - a method to print out any input string
-     *  - a method to print out a prompt for a username
-     *  - a method to print out a prompt for a password
-     *  - a method to print out a prompt for an event name
-     *  - a method to print out a prompt for a message that a user wishes to send
-     *  - a method to print out a specific error based on errors captured by the program
-     *  - a method to print out a specific prompt based on an input called by the Controllers.MasterSystem
-     *  - a method to print out the functions that an organizer is able to do
-     *  - a method to print out the functions that a speaker is able to do
-     *  - a method to print out the functions that an attendee is able to do
+     * print out the landing menu which prompts the user to either log in or sign up
      * @author Juan Yi Loke
      */
-    public class TextUI{
+    public void landingmenu() {
+        System.out.println("Conference System\n");
+        System.out.println("1: Log in");
+        System.out.println("2: Sign up");
 
-        /**
-         * print out the landing menu which prompts the user to either log in or sign up
-         * @author Juan Yi Loke
-         */
-        public void landingmenu() {
-            System.out.println("Conference System\n");
-            System.out.println("1: Log in");
-            System.out.println("2: Sign up");
+        System.out.println("\n0: Quit");
+    }
 
-            System.out.println("\n0: Quit");
+    /**
+     * print out the sign up menu which prompts the user to create a username and password
+     * @author Juan Yi Loke
+     */
+    public void signupmenu() {
+        System.out.println("Please create a username and password.");
+    }
+
+    /**
+     * print out the sign up menu which prompts to create a username and password
+     * @author Juan Yi Loke
+     * @param input: a string that will be printed out in the command line
+     */
+    public void present(String input) {
+        System.out.println(input);
+    }
+
+    /**
+     * print out a prompt for a username
+     * @author Juan Yi Loke
+     */
+    public void usernameprompt() {
+        System.out.println("Please enter your username:");
+    }
+
+    /**
+     * print out a prompt for a password
+     * @author Juan Yi Loke
+     */
+    public void passwordprompt() {
+        System.out.println("Please enter your password:");
+    }
+
+    /**
+     * print out a prompt for an event name
+     * @author Juan Yi Loke
+     */
+    public void eventnameprompt() {
+        System.out.println("Please enter the event name:");
+    }
+
+    /**
+     * print out a prompt for a message to be sent
+     * @author Juan Yi Loke
+     */
+    public void messageprompt(){
+        System.out.println("Please enter the message you wish to send:");
+    }
+
+
+    /**
+     * print out an error message based on errors caught
+     * @author Juan Yi Loke
+     * @param error: the identifier for the error which is being captured
+     */
+    public void showError(String error) {
+        switch (error) {
+            case "TNA":
+                System.out.println("You can not schedule an event at this time. Please choose one of the following times \n");
+                System.out.println("9, 10, 11, 12, 1, 2, 3, 4, 5");
+                break;
+            case "ARO":
+                System.out.println("All Rooms Occupied");
+                break;
+            case "INO":
+                System.out.println("Invalid Input: please choose from one of the available integer options");
+                break;
+            case "ODE":
+                System.out.println("Organizer doesn't exist");
+                break;
+            case "EDE":
+                System.out.println("Event doesn't exist");
+                break;
+            case "SDE":
+                System.out.println("Speaker doesn't exist");
+                break;
+            case "EFC":
+                System.out.println("Event at full capacity");
+                break;
+            case "RAE":
+                System.out.println("Room already exists");
+                break;
+            case "UDE":
+                System.out.println("The user doesn't exist!");
+                break;
+            case "AE":
+                System.out.println("Already attending the event.");
+                break;
+            case "ETC":
+                System.out.println("Event time conflict");
+                break;
+            case "STC":
+                System.out.println("Speaker time conflict");
+                break;
+            case "RO":
+                System.out.println("Room occupied");
+                break;
         }
+    }
 
-        /**
-         * print out the sign up menu which prompts the user to create a username and password
-         * @author Juan Yi Loke
-         */
-        public void signupmenu() {
-            System.out.println("Please create a username and password.");
+    /**
+     * print out a prompt message based on prompts that needs to be prompted
+     * @author Juan Yi Loke
+     * @param prompt: the identifier for the prompt that needs to be prompted
+     */
+    public void showPrompt(String prompt) {
+        switch (prompt) {
+            case "LF":
+                System.out.println("Login failed. Please try again :p");
+                break;
+            case "UC":
+                System.out.println("Account successfully created!");
+                System.out.println("Please log in to the account.");
+                break;
+            case "SF":
+                System.out.println("Signup failed. Please try again :p");
+                break;
+            case "EDE":
+                System.out.println("Event doesn't exist");
+                break;
+            case "SDE":
+                System.out.println("Speaker doesn't exist");
+                break;
+            case "EFC":
+                System.out.println("Event at full capacity");
+                break;
+            case "RAE":
+                System.out.println("Room already exists");
+                break;
+            case "MS":
+                System.out.println("Message sent successfully!");
+                break;
+            case "AMS":
+                System.out.println("Multiple messages sent successfully!");
         }
+    }
 
-        /**
-         * print out the sign up menu which prompts to create a username and password
-         * @author Juan Yi Loke
-         * @param input: a string that will be printed out in the command line
-         */
-        public void present(String input) {
-            System.out.println(input);
+    /**
+     * print out a set of functions that an attendee is able to do
+     * @author Juan Yi Loke
+     * @param username: the username of the user that is being prompted
+     */
+    public void attendeemenu(String username) {
+        System.out.println("\n\nHello " + username + "!");
+        System.out.println("What would you like to do?");
+
+        System.out.println("\nEVENT FUNCTIONS:");
+        System.out.println("1: Available events to sign up for");
+        System.out.println("2: Sign up for an event");
+        System.out.println("3: Cancel spot in an event");
+        System.out.println("4: See schedule of event signed up for");
+
+        System.out.println("\nMESSAGING FUNCTIONS:");
+        System.out.println("5: Send message to an attendee");
+        System.out.println("6: Send message to a speaker of a talk");
+        System.out.println("7: View all conversations");
+        System.out.println("8: Add another attendee to friend list");
+        System.out.println("\n0: Sign-out");
+    }
+
+    /**
+     * print out a set of functions that an organizer is able to do
+     * @author Juan Yi Loke
+     * @param username: the username of the user that is being prompted
+     */
+    public void organizermenu(String username) {
+        System.out.println("\n\nHello " + username + "!");
+        System.out.println("What would you like to do?");
+
+        System.out.println("\nCONFERENCE FUNCTIONS:");
+        System.out.println("1: List of all attendees in the conference");
+        System.out.println("2: List of all organizers in the conference");
+        System.out.println("3: List of all speakers in the conference");
+        System.out.println("4: Check if a speaker has an event at a certain time");
+        System.out.println("5: Create a new organizer account");
+        System.out.println("6: Create speaker account");
+
+        System.out.println("\nEVENT FUNCTIONS:");
+        System.out.println("7: Add a room into the system");
+        System.out.println("8: Create new event or Schedule speaker for new event");
+        System.out.println("9: Change speaker for an event (Warning: once this option is chosen, the given event name will be removed. \n All attendees of the event should" +
+                " register again for this event.)");
+        System.out.println("10: Change time of an event (Warning: once this option is chosen, the given event name will be removed, \n and a new event will be created at your chosen time. All attendees of the event should" +
+                " register again for this event.)");
+        System.out.println("11: Show events that I haven't signed up for");
+        System.out.println("12: Sign up for an event");
+        System.out.println("13: Cancel spot in an event");
+        System.out.println("14: See schedule of events signed up for");
+
+        System.out.println("\nMESSAGING FUNCTIONS: [Note: Since you are an organizer, you can send a message to any attendee/speaker/organizer]");
+        System.out.println("15: Send message to an attendee");
+        System.out.println("16: Send message to all attendees");
+        System.out.println("17: Send message to a speaker");
+        System.out.println("18: Send message to all speakers");
+        System.out.println("19: View Conversations");
+        System.out.println("20: Send message to everyone attending an event");
+        System.out.println("\n0: Sign-out");
+
+    }
+
+    /**
+     * print out a set of functions that a speaker is able to do
+     * @author Juan Yi Loke
+     * @param username: the username of the user that is being prompted
+     */
+    public void speakermenu(String username) {
+        System.out.println("\n\nHello " + username + "!");
+        System.out.println("What would you like to do?");
+
+        System.out.println("\nEVENT FUNCTIONS:");
+        System.out.println("1: View list of talks to be given");
+
+        System.out.println("\nMESSAGING FUNCTIONS:");
+        System.out.println("2: Message all attendees signed up for a talk");
+        System.out.println("3: Message all attendees attending multiple talks");
+        System.out.println("4: Message an attendee attending a talk");
+        System.out.println("5: View Conversations");
+        System.out.println("\n0: Sign-out");
+    }
+
+
+
+    // Conversion of .present methods in attendee
+
+    public void presentEventsNotSignedUpFor(Map<String, List<String>> eventsNotSignedUpFor){
+        for (String event: eventsNotSignedUpFor.keySet()) {
+            System.out.println(event);
+            for (String eventInfo: eventsNotSignedUpFor.get(event))
+                System.out.println(eventInfo);
         }
+    }
 
-        /**
-         * print out a prompt for a username
-         * @author Juan Yi Loke
-         */
-        public void usernameprompt() {
-            System.out.println("Please enter your username:");
+    public void promptEventNameToAdd() {
+        System.out.println("Please enter the title of the event you want to attend " +
+                "(exactly as it appears on the list of titles displayed)");
+    }
+
+    public void success() {
+        System.out.println("Successful!");
+    }
+
+    public void promptEventName() {
+        System.out.println("Please enter the event's name.");
+    }
+
+    public void promptNoLongerAttending(String event){
+        System.out.println("You are no longer attending " + event);
+    }
+
+    public void presentAttendeeEventsAttending(List<String> eventsAttending){
+        for (String event: eventsAttending){
+            System.out.println("Event Title:" + event + "\nTime:" +
+                    eventManager.getStartTime(event) + "\nRoom: " +
+                    eventManager.getRoomNumber(event) + "\nSpeaker: " +
+                    eventManager.getSpeakerEvent(event) + "\n");
         }
+    }
 
-        /**
-         * print out a prompt for a password
-         * @author Juan Yi Loke
-         */
-        public void passwordprompt() {
-            System.out.println("Please enter your password:");
+    public void promptAttendeeID(){
+        System.out.println("Please enter attendee ID");
+    }
+
+    public void promptMessageToSend(){
+        System.out.println("Please enter the message that you want to send");
+    }
+
+    public void failure(){
+        System.out.println("Something went wrong");
+    }
+
+    public void convoNumUniqueId(String i, String conversationId){
+        System.out.println("Conversation Number " + i + "\n" + "Uniqueness Identifier: " + conversationId);
+    }
+
+    public void presentRecipients(StringBuilder recipients){
+        System.out.println("Recipients: " + recipients);
+    }
+
+    public void noConvo(){
+        System.out.println("You have no conversations");
+    }
+
+    public void promptConvoNumber(){
+        System.out.println("Choose a conversation number");
+    }
+
+    public void presentMessageInConvo(List<String> messagesInConvo) {
+        for (String s : messagesInConvo) {
+            System.out.println(s);
         }
+    }
 
-        /**
-         * print out a prompt for an event name
-         * @author Juan Yi Loke
-         */
-        public void eventnameprompt() {
-            System.out.println("Please enter the event name:");
+    public void promptToReply(){
+        System.out.println("Enter \"r\" to reply in this conversation." +
+                " [Any other input will exit this menu]");
+    }
+
+    public void promptMessageToSent(){
+        System.out.println("Please enter the name of the attendee to be added");
+    }
+
+    public void friendContactAlreadyExist(String attendee, String friendName){
+        System.out.println("Attendee " + friendName +" already exist in the contact list");
+    }
+
+
+
+    // Conversion of .string methods used in oUCH1
+    public void presentAllUserIds(List<String> allUserIds) {
+        for (String user : allUserIds) {
+            System.out.println(user);
         }
+    }
 
-        /**
-         * print out a prompt for a message to be sent
-         * @author Juan Yi Loke
-         */
-        public void messageprompt(){
-            System.out.println("Please enter the message you wish to send:");
-        }
+    public void promptForSpeakerUsername(){
+        System.out.println("Please enter the speaker's username");
+    }
 
+    public void promptForTime(){
+        System.out.println("Please enter the time");
+    }
 
-        /**
-         * print out an error message based on errors caught
-         * @author Juan Yi Loke
-         * @param error: the identifier for the error which is being captured
-         */
-        public void showError(String error) {
-            switch (error) {
-                case "TNA":
-                    System.out.println("You can not schedule an event at this time. Please choose one of the following times \n");
-                    System.out.println("9, 10, 11, 12, 1, 2, 3, 4, 5");
-                    break;
-                case "ARO":
-                    System.out.println("All Rooms Occupied");
-                    break;
-                case "INO":
-                    System.out.println("Invalid Input: please choose from one of the available integer options");
-                    break;
-                case "ODE":
-                    System.out.println("Organizer doesn't exist");
-                    break;
-                case "EDE":
-                    System.out.println("Event doesn't exist");
-                    break;
-                case "SDE":
-                    System.out.println("Speaker doesn't exist");
-                    break;
-                case "EFC":
-                    System.out.println("Event at full capacity");
-                    break;
-                case "RAE":
-                    System.out.println("Room already exists");
-                    break;
-                case "UDE":
-                    System.out.println("The user doesn't exist!");
-                    break;
-                case "AE":
-                    System.out.println("Already attending the event.");
-                    break;
-                case "ETC":
-                    System.out.println("Event time conflict");
-                    break;
-                case "STC":
-                    System.out.println("Speaker time conflict");
-                    break;
-                case "RO":
-                    System.out.println("Room occupied");
-                    break;
-            }
-        }
+    public void notASpeaker(){
+        System.out.println("Note a speaker");
+    }
 
-        /**
-         * print out a prompt message based on prompts that needs to be prompted
-         * @author Juan Yi Loke
-         * @param prompt: the identifier for the prompt that needs to be prompted
-         */
-        public void showPrompt(String prompt) {
-            switch (prompt) {
-                case "LF":
-                    System.out.println("Login failed. Please try again :p");
-                    break;
-                case "UC":
-                    System.out.println("Account successfully created!");
-                    System.out.println("Please log in to the account.");
-                    break;
-                case "SF":
-                    System.out.println("Signup failed. Please try again :p");
-                    break;
-                case "EDE":
-                    System.out.println("Event doesn't exist");
-                    break;
-                case "SDE":
-                    System.out.println("Speaker doesn't exist");
-                    break;
-                case "EFC":
-                    System.out.println("Event at full capacity");
-                    break;
-                case "RAE":
-                    System.out.println("Room already exists");
-                    break;
-                case "MS":
-                    System.out.println("Message sent successfully!");
-                    break;
-                case "AMS":
-                    System.out.println("Multiple messages sent successfully!");
-            }
-        }
+    public void onlyAllowedTime(){
+        System.out.println("Please enter an allowed time");
+    }
 
-        /**
-         * print out a set of functions that an attendee is able to do
-         * @author Juan Yi Loke
-         * @param username: the username of the user that is being prompted
-         */
-        public void attendeemenu(String username) {
-            System.out.println("\n\nHello " + username + "!");
-            System.out.println("What would you like to do?");
+    public void messageForSpeakerFreeIfFree(String time){
+        System.out.println("No, the speaker doesn't have an event at " + time);
+    }
 
-            System.out.println("\nEVENT FUNCTIONS:");
-            System.out.println("1: Available events to sign up for");
-            System.out.println("2: Sign up for an event");
-            System.out.println("3: Cancel spot in an event");
-            System.out.println("4: See schedule of event signed up for");
+    public void messageForSpeakerFreeIfNotFree(String time){
+        System.out.println("Yes, the speaker is talking at an event at " + time);
+    }
 
-            System.out.println("\nMESSAGING FUNCTIONS:");
-            System.out.println("5: Send message to an attendee");
-            System.out.println("6: Send message to a speaker of a talk");
-            System.out.println("7: View all conversations");
-            System.out.println("8: Add another attendee to friend list");
-            System.out.println("\n0: Sign-out");
-        }
+    public void promptForOrganizerUsername(){
+        System.out.println("Please enter the organizer's username");
+    }
 
-        /**
-         * print out a set of functions that an organizer is able to do
-         * @author Juan Yi Loke
-         * @param username: the username of the user that is being prompted
-         */
-        public void organizermenu(String username) {
-            System.out.println("\n\nHello " + username + "!");
-            System.out.println("What would you like to do?");
+    public void promptForNewOrganizerPw(){
+        System.out.println("Please enter this new organizer's password");
+    }
 
-            System.out.println("\nCONFERENCE FUNCTIONS:");
-            System.out.println("1: List of all attendees in the conference");
-            System.out.println("2: List of all organizers in the conference");
-            System.out.println("3: List of all speakers in the conference");
-            System.out.println("4: Check if a speaker has an event at a certain time");
-            System.out.println("5: Create a new organizer account");
-            System.out.println("6: Create speaker account");
+    public void usernameAlreadyExists(){
+        System.out.println("The username already exists");
+    }
 
-            System.out.println("\nEVENT FUNCTIONS:");
-            System.out.println("7: Add a room into the system");
-            System.out.println("8: Create new event or Schedule speaker for new event");
-            System.out.println("9: Change speaker for an event (Warning: once this option is chosen, the given event name will be removed. \n All attendees of the event should" +
-                    " register again for this event.)");
-            System.out.println("10: Change time of an event (Warning: once this option is chosen, the given event name will be removed, \n and a new event will be created at your chosen time. All attendees of the event should" +
-                    " register again for this event.)");
-            System.out.println("11: Show events that I haven't signed up for");
-            System.out.println("12: Sign up for an event");
-            System.out.println("13: Cancel spot in an event");
-            System.out.println("14: See schedule of events signed up for");
+    public void promptForSpeakerPw(){
+        System.out.println("Please enter password for this speaker");
+    }
 
-            System.out.println("\nMESSAGING FUNCTIONS: [Note: Since you are an organizer, you can send a message to any attendee/speaker/organizer]");
-            System.out.println("15: Send message to an attendee");
-            System.out.println("16: Send message to all attendees");
-            System.out.println("17: Send message to a speaker");
-            System.out.println("18: Send message to all speakers");
-            System.out.println("19: View Conversations");
-            System.out.println("20: Send message to everyone attending an event");
-            System.out.println("\n0: Sign-out");
+    public void promptForRoomID(){
+        System.out.println("Please enter roomID:");
+    }
 
-        }
+    public void promptForRoomCapacity(){
+        System.out.println("Please enter room capacity");
+    }
 
-        /**
-         * print out a set of functions that a speaker is able to do
-         * @author Juan Yi Loke
-         * @param username: the username of the user that is being prompted
-         */
-        public void speakermenu(String username) {
-            System.out.println("\n\nHello " + username + "!");
-            System.out.println("What would you like to do?");
+    public void promptForProjectorExist(){
+        System.out.println("Please enter whether the room has a projector (Y/N)");
+    }
 
-            System.out.println("\nEVENT FUNCTIONS:");
-            System.out.println("1: View list of talks to be given");
+    public void promptForEventTime(){
+        System.out.println("Please enter event time");
+    }
 
-            System.out.println("\nMESSAGING FUNCTIONS:");
-            System.out.println("2: Message all attendees signed up for a talk");
-            System.out.println("3: Message all attendees attending multiple talks");
-            System.out.println("4: Message an attendee attending a talk");
-            System.out.println("5: View Conversations");
-            System.out.println("\n0: Sign-out");
-        }
+    public void promptForEventDuration(){
+        System.out.println("Please enter event duration");
+    }
 
-        // Everything below is for attendee case
+    public void promptForEventCapacity(){
+        System.out.println("Please enter event capacity");
+    }
 
-        public void presentEventsNotSignedUpFor(Map<String, List<String>> eventsNotSignedUpFor){
-            for (String event: eventsNotSignedUpFor.keySet()) {
-                System.out.println(event);
-                for (String eventInfo: eventsNotSignedUpFor.get(event))
-                    System.out.println(eventInfo);
-            }
-        }
+    public void promptForEventRoom(){
+        System.out.println("Please enter room number");
+    }
 
-        public void promptEventTitleToAdd() {
-            System.out.println("Please enter the title of the event you want to attend " +
-                    "(exactly as it appears on the list of titles displayed)");
-        }
+    public void promptForSubjectLine(){
+        System.out.println("Please enter subject line");
+    }
 
-        public void success() {
-            System.out.println("Successful!");
-        }
-
-        public void promptEventTitle() {
-            System.out.println("Please enter the event's name.");
-        }
-
-        public void promptNoLongerAttending(String event){
-            System.out.println("You are no longer attending " + event);
-        }
-
-        public void presentAttendeeEventsAttending(List<String> eventsAttending){
-            for (String event: eventsAttending){
-                System.out.println("Event Title:" + event + "\nTime:" +
-                MasterSystem.getEventManager.getStartTime(event) + "\nRoom: " +
-                MasterSystem.getEventManager.getRoomNumber(event) + "\nSpeaker: " +
-                MasterSystem.getEventManager.getSpeakerEvent(event) + "\n");
-            }
-        }
-
-        public void promptAttendeeID(){
-            System.out.println("Please enter attendee ID");
-        }
-
-        public void promptMessageToSend(){
-            System.out.println("Please enter the message that you want to send");
-        }
-
-        public void failure(){
-            System.out.println("Something went wrong");
-        }
-
-        public void convoNumUniqueId(String i, String conversationId){
-            System.out.println("Conversation Number " + i + "\n" + "Uniqueness Identifier: " + conversationId);
-        }
-
-        public void presentRecipients(StringBuilder recipients){
-            System.out.println("Recipients: " + recipients);
-        }
-
-        public void noConvo(){
-            System.out.println("You have no conversations");
-        }
-
-        public void promptConvoNumber(){
-            System.out.println("Choose a conversation number");
-        }
+    public void promptForEventSpeakers(){
+        System.out.println("Please enter the speakers' username (enter after each name and type Over when done)");
+    }
 
 
-        public void newLine() {
-            System.out.println("\n\n");
-        }
 
-        public void success() {
-            System.out.println("Successful");
-        }
 
-        public void fail() {
-            System.out.println("Something went wrong");
-        }
+
+
 
 
 }
