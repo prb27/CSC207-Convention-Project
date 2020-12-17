@@ -334,6 +334,7 @@ public class EventManager {
             String roomNumber = event.getRoomNumber();
             int eventCapacity = event.getEventCapacity();
             List<String> attendeeList = event.getAttendeeList();
+            String eventSubjectLine = event.getEventSubjectLine();
 
             Map<String, List<String>> resultingEvent = new HashMap<>();
             resultingEvent.put("eventName", Collections.singletonList(eventName));
@@ -343,6 +344,7 @@ public class EventManager {
             resultingEvent.put("roomNumber", Collections.singletonList(roomNumber));
             resultingEvent.put("eventCapacity", Collections.singletonList(String.valueOf(eventCapacity)));
             resultingEvent.put("attendeeList", attendeeList);
+            resultingEvent.put("eventSubjectLine", Collections.singletonList(eventSubjectLine));
 
             resultingList.add(resultingEvent);
         }
