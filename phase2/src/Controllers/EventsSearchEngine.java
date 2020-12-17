@@ -19,6 +19,12 @@ public class EventsSearchEngine {
 
     }
 
+    private String getAllDetailsAsStringForEvent(String event){
+
+        return "Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "(" + eventManager.getDuration(event) + " hours)" + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\nSubject Line: " + eventManager.getEventSubjectLine(event) + "\n";
+
+    }
+
     /**
      * Returns a List of Strings that provide information about the event title, start time, duration, roomId and Speaker names
      * for all events
@@ -28,8 +34,7 @@ public class EventsSearchEngine {
 
         List<String> allEvents = new ArrayList<>();
         for(String event: eventManager.getAllEventTitles()){
-            allEvents.add("Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "(" + eventManager.getDuration(event) + " hours)" + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
-
+            allEvents.add(getAllDetailsAsStringForEvent(event));
         }
         return allEvents;
     }
@@ -54,7 +59,7 @@ public class EventsSearchEngine {
         List<String> eventsWithThisSpeaker = new ArrayList<>();
         for(String event: eventManager.getAllEventTitles()){
             if(eventManager.getSpeakerEvent(event).contains(speakerName)){
-                eventsWithThisSpeaker.add("Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "(" + eventManager.getDuration(event) + " hours)" + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
+                eventsWithThisSpeaker.add(getAllDetailsAsStringForEvent(event));
             }
         }
         return eventsWithThisSpeaker;
@@ -91,7 +96,7 @@ public class EventsSearchEngine {
         List<String> eventsAtThisStartTime = new ArrayList<>();
         for(String event: eventManager.getAllEventTitles()){
             if(eventManager.getStartTime(event).equals(startTime)){
-                eventsAtThisStartTime.add("Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "(" + eventManager.getDuration(event) + " hours)" + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
+                eventsAtThisStartTime.add(getAllDetailsAsStringForEvent(event));
             }
         }
         return eventsAtThisStartTime;
@@ -127,7 +132,7 @@ public class EventsSearchEngine {
         List<String> eventsForThisDuration = new ArrayList<>();
         for(String event: eventManager.getAllEventTitles()){
             if(eventManager.getDuration(event) == duration){
-                eventsForThisDuration.add("Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "(" + eventManager.getDuration(event) + " hours)" + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
+                eventsForThisDuration.add(getAllDetailsAsStringForEvent(event));
             }
         }
         return eventsForThisDuration;
@@ -317,6 +322,68 @@ public class EventsSearchEngine {
         List<String> eventsWithThisSpeaker = eventsWithSpeakerUnformatted(speakerName);
         for(String event: eventsAtThisStartTime){
             if(eventsWithThisSpeaker.contains(event) && eventsForThisDuration.contains(event)){
+                requiredEvents.add(event);
+            }
+        }
+        return requiredEvents;
+
+    }
+
+
+    public List<String> eventsWithSubjectLineContaining(String keyword){
+
+        List<String> requiredEvents = new ArrayList<>();
+        List<String> allEventTitles = eventManager.getAllEventTitles();
+        String subjectLine;
+        for (String event: allEventTitles){
+            subjectLine = eventManager.getEventSubjectLine(event);
+            if(subjectLine.contains(keyword)){
+                requiredEvents.add(getAllDetailsAsStringForEvent(event));
+            }
+        }
+        return requiredEvents;
+
+    }
+
+
+    public List<String> eventsWithSubjectLineContainingUnformatted(String keyword){
+
+        List<String> requiredEvents = new ArrayList<>();
+        List<String> allEventTitles = eventManager.getAllEventTitles();
+        String subjectLine;
+        for (String event: allEventTitles){
+            subjectLine = eventManager.getEventSubjectLine(event);
+            if(subjectLine.contains(keyword)){
+                requiredEvents.add(event);
+            }
+        }
+        return requiredEvents;
+
+    }
+
+    public List<String> eventsAtTimeWithSubjectLineContaining(String startTime, String keyword){
+
+        List<String> requiredEvents = new ArrayList<>();
+        List<String> eventsAtThisStartTime = eventsAtStartTime(startTime);
+        String subjectLine;
+        for (String event: eventsAtThisStartTime){
+            subjectLine = eventManager.getEventSubjectLine(event);
+            if(subjectLine.contains(keyword)){
+                requiredEvents.add(getAllDetailsAsStringForEvent(event));
+            }
+        }
+        return requiredEvents;
+
+    }
+
+    public List<String> eventsAtTimeWithSubjectLineContainingUnformatted(String startTime, String keyword){
+
+        List<String> requiredEvents = new ArrayList<>();
+        List<String> eventsAtThisStartTime = eventsAtStartTime(startTime);
+        String subjectLine;
+        for (String event: eventsAtThisStartTime){
+            subjectLine = eventManager.getEventSubjectLine(event);
+            if(subjectLine.contains(keyword)){
                 requiredEvents.add(event);
             }
         }

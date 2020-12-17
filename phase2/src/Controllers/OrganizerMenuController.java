@@ -161,6 +161,7 @@ public class OrganizerMenuController {
         String eventStartTime = eventManager.getStartTime(eventName);
         int eventDuration = eventManager.getDuration(eventName);
         int eventCapacity = eventManager.getEventCapacity(eventName);
+        String subjectLine = eventManager.getEventSubjectLine(eventName);
         for(String speakerName: speakerNames) {
             speakerErr = checkIfSpeakerFreeAtTimeFor(speakerName, eventStartTime, eventDuration);
             if(!speakerErr.equals("YES")){
@@ -168,7 +169,7 @@ public class OrganizerMenuController {
             }
         }
         userEventController.removeCreatedEvent(username, eventName);
-        String err = userEventController.createEventInRoom(username, eventName, eventStartTime, eventDuration, eventCapacity, speakerNames, roomId);
+        String err = userEventController.createEventInRoom(username, eventName, eventStartTime, eventDuration, eventCapacity, speakerNames, roomId, subjectLine);
         if (!err.equals("YES"))
             return err; //Refer to TextUserInterface
         else {
@@ -217,6 +218,7 @@ public class OrganizerMenuController {
             List<String> speakerNames = eventManager.getSpeakerEvent(eventName);
             int eventDuration = eventManager.getDuration(eventName);
             int eventCapacity = eventManager.getEventCapacity(eventName);
+            String subjectLine = eventManager.getEventSubjectLine(eventName);
             userEventController.removeCreatedEvent(username, eventName);
             for (String speakerName : speakerNames) {
                 speakerErr = checkIfSpeakerFreeAtTimeFor(speakerName, eventTime, eventDuration);
@@ -224,7 +226,7 @@ public class OrganizerMenuController {
                     return speakerErr;
                 }
             }
-            String err = userEventController.createEventInRoom(username, eventName, eventTime, eventDuration, eventCapacity, speakerNames, roomId);
+            String err = userEventController.createEventInRoom(username, eventName, eventTime, eventDuration, eventCapacity, speakerNames, roomId, subjectLine);
             if (err.equals("YES")) {
                 return "YES";
             }

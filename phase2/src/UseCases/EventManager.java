@@ -262,7 +262,7 @@ public class EventManager {
 
     /**
      * Returns a list of all allowedtimes
-     * @return
+     * @return List</String> of allowed times for all event
      */
     public List<String> getAllowedTimes(){
         List<String> allowedTimes = new ArrayList<String>();
@@ -276,6 +276,14 @@ public class EventManager {
         allowedTimes.add("4");
         allowedTimes.add("5");
         return allowedTimes;
+
+    }
+
+
+    public String getEventSubjectLine(String eventName){
+
+        Event event = getEvent(eventName);
+        return event.getEventSubjectLine();
 
     }
 
@@ -351,10 +359,4 @@ public class EventManager {
         eventDatabase.saveEventList(resultingList);
     }
 
-
-
-
 }
-
-
-
