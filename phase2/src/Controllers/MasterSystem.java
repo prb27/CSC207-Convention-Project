@@ -79,9 +79,7 @@ public class MasterSystem {
      */
     public MasterSystem(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager,
                         AdminManager adminManager, MessageManager messageManager, ConversationManager conversationManager,
-                        EventManager eventManager, RoomManager roomManager, ProgramGenerator programGenerator,
-                        AdminTextUI adui, AttendeePresenterTextUI aui, OrganizerPresenterTextUI oui, SpeakerTextUI sui,
-                        TextUI ui) {
+                        EventManager eventManager, RoomManager roomManager, ProgramGenerator programGenerator) {
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
         this.speakerManager = speakerManager;
@@ -92,11 +90,16 @@ public class MasterSystem {
         this.roomManager = roomManager;
         this.programGenerator = programGenerator;
 
-        this.adui = adui;
-        this.aui = aui;
-        this.oui = oui;
-        this.sui = sui;
-        this.ui = ui;
+        this.adui = new AdminTextUI(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
+                conversationManager, eventManager, roomManager);
+        this.aui = new AttendeePresenterTextUI(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
+                conversationManager, eventManager, roomManager);
+        this.oui = new OrganizerPresenterTextUI(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
+                conversationManager, eventManager, roomManager);
+        this.sui = new SpeakerTextUI(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
+                conversationManager, eventManager, roomManager);
+        this.ui = new TextUI(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
+                conversationManager, eventManager, roomManager);
     }
 
 
