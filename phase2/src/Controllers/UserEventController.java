@@ -415,18 +415,4 @@ public class UserEventController {
         return masterList;
     }
 
-    /**
-     * allow an Admin to delete events with no Attendees
-     * call eventManager to perform!
-     * This option should only be accessible from inside the Admin login!!!
-     * Only one Admin can perform this task
-     * @author Khoa Pham
-     */
-    public void deleteEventWithoutAttendee() {
-        List<String> allEmptyEvents = eventManager.getEmptyEvents();
-        for (String event : allEmptyEvents) {
-            eventManager.removeEvent(event);
-        }
-    }
-
 }

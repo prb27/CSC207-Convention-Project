@@ -171,6 +171,16 @@ public class EventManager {
     }
 
     /**
+     * Returns the room number of event given the event name
+     * @param eventName: name of event
+     * @return : String
+     */
+    public String getSubjectLine(String eventName){
+        Event event = getEvent(eventName);
+        return event.getEventSubjectLine();
+    }
+
+    /**
      * Returns the list of attendees/organizers who are attending given the event name
      * @param eventName : name of event
      * @return : List<String>

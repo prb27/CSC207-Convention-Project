@@ -1,35 +1,37 @@
 package Controllers;
 
 import Presenters.Interfaces.IAdminMenu;
-import UseCases.AttendeeManager;
-import UseCases.ConversationManager;
-import UseCases.OrganizerManager;
-import UseCases.SpeakerManager;
+import UseCases.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdminMenuController {
-    // TODO: haven't done main functionalities of admin
+
 
     private final AttendeeManager attendeeManager;
     private final SpeakerManager speakerManager;
     private final OrganizerManager organizerManager;
     private final ConversationManager conversationManager;
     private final ConversationMenuController conversationMenuController;
+    private final EventManager eventManager;
+    private final MessageManager messageManager;
     private IAdminMenu adminMenu;
 
     private List<String> allMessages;
 
     public AdminMenuController(AttendeeManager attendeeManager, SpeakerManager speakerManager,
                                OrganizerManager organizerManager, ConversationManager conversationManager,
-                               ConversationMenuController conversationMenuController){
+                               ConversationMenuController conversationMenuController, EventManager eventManager,
+                               MessageManager messageManager){
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
         this.speakerManager = speakerManager;
         this.conversationManager = conversationManager;
         this.conversationMenuController = conversationMenuController;
         this.allMessages = new ArrayList<>();
+        this.eventManager = eventManager;
+        this.messageManager = messageManager;
 
     }
     public List<String> getAllMessages() {
@@ -85,30 +87,55 @@ public class AdminMenuController {
         this.allMessages = newMessageList;
     }
 
-    public void updateMessages(String message){
+//    public void updateMessages(String message){
+//      TODO: Vlad please keep working on this method (u can also delete this as it's not a mandatory thing for admin)
+//      List<String> newMessages = new ArrayList<>();
+//      List<String> speakers = speakerManager.getAllSpeakerIds();
+//      List<String> organizers = organizerManager.getAllOrganizerIds();
+//
+//        for (String speaker : speakers) {
+//            List<String> conversationIDS = speakerManager.getConversations(speaker);
+//            for (String conversationID : conversationIDS) {
+//                List<String> participants = conversationManager.getConvoParticipants(conversationID);
+//                for (String member : participants) {
+//                    if (!attendeeManager.isAttendee(member)) {
+//                        List<String> orderedMessages = conversationMenuController.orderedMessagesInConvo(conversationID);
+//                    }
+//                }
+//
+//            }
+//        }
+//
+//
+//        for(String message1: allMessages){
+//        }
+//        setAllMessages(newMessages);
+//        adminMenu.loadMessages();
+//    }
 
-        List<String> newMessages = new ArrayList<>();
-        List<String> speakers = speakerManager.getAllSpeakerIds();
-        List<String> organizers = organizerManager.getAllOrganizerIds();
-
-        for (String speaker : speakers) {
-            List<String> conversationIDS = speakerManager.getConversations(speaker);
-            for (String conversationID : conversationIDS) {
-                List<String> participants = conversationManager.getConvoParticipants(conversationID);
-                for (String member : participants) {
-                    if (!attendeeManager.isAttendee(member)) {
-                        List<String> orderedMessages = conversationMenuController.orderedMessagesInConvo(conversationID);
-                    }
-                }
-
-            }
+    /**
+     * allow an Admin to delete events with no Attendees
+     * call eventManager to perform!
+     * This option should only be accessible from inside the Admin login!!!
+     * Only one Admin can perform this task
+     * @author Khoa Pham
+     */
+    public void deleteEventWithoutAttendee() {
+        List<String> allEmptyEvents = eventManager.getEmptyEvents();
+        for (String event : allEmptyEvents) {
+            eventManager.removeEvent(event);
         }
+    }
 
-
-        for(String message1: allMessages){
-        }
-        setAllMessages(newMessages);
-        adminMenu.loadMessages();
+    /**
+     * allow an Admin to delete any messages with the given id
+     * This option should only be accessible from inside the Admin login!!!
+     * (Only one Admin can perform this task)
+     * @param message: the message to be deleted
+     */
+    public void deleteMessage(String message) {
+        if (messageManager.messageExists(message))
+            messageManager.deleteMessage(message);
     }
 
 }
