@@ -60,4 +60,10 @@ public class SpeakerTextUI extends TextUI{
         System.out.println("Enter \"r\" to reply in this conversation. [Any other input will exit this menu]");
     }
 
+    public void list(List<String> l) {
+        for (String s : l) {
+            System.out.println(s);
+        }
+    }
+
 }

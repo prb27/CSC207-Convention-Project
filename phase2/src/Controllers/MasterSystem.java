@@ -854,9 +854,7 @@ public class MasterSystem {
                 String conversationNumber = scanner.nextLine();
                 String conversationIdFinal = speakerManager.getConversations(username).get(Integer.parseInt(conversationNumber) - 1);
                 List<String> messagesInThisConversation = conversationMenuController.orderedMessagesInConvo(conversationIdFinal);
-                for (String s : messagesInThisConversation) {
-                    sui.present(s);
-                }
+                sui.list(messagesInThisConversation);
                 sui.rep();
                 String reply = scanner.nextLine();
                 if(!reply.equals("r")){
