@@ -17,7 +17,7 @@ public class Admin extends User {
      * There will only be one Admin
      * this will be created automatically without interference of clients
      */
-    public Admin() { super("admin", "admin");
+    public Admin(String username, String password) { super(username, password);
     }
 
     /**

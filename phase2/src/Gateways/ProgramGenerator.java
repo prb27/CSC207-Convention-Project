@@ -71,7 +71,7 @@ public class ProgramGenerator {
             conversationManager.loadFromDatabase();
             eventManager.loadFromDatabase();
             roomManager.loadFromDatabase();
-            adminManager.createAdmin();
+
             return new MasterSystem(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
                     conversationManager, eventManager, roomManager, this);
         } catch (Exception e) {

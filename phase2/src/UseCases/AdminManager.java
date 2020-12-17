@@ -16,11 +16,9 @@ import java.util.List;
  */
 public class AdminManager {
     private List<Admin> admins = new ArrayList<>();
-    private Admin admin;
 
-    public void createAdmin() {
-        if (admins.size() < 1)
-            admin = new Admin();
+    public void createAdmin(String username, String password) {
+        admins.add(new Admin(username, password));
     }
 
     /**
@@ -30,17 +28,25 @@ public class AdminManager {
      * @return boolean whether username and password are correct
      */
     public boolean checkPassword(String username, String password){
-        return username.equals(admin.getUsername()) && password.equals(admin.getPassword());
+        Admin admin = getAdmin(username);
+        if(admin!=null) {
+            return username.equals(admin.getUsername()) && password.equals(admin.getPassword());
+        }
+        return false;
     }
 
-    public String getAdminName(){
-        return admin.getUsername();
+
+    private Admin getAdmin(String username){
+        for(Admin admin: admins){
+            if(admin.getUsername().equals(username)){
+                return admin;
+            }
+        }
+        return null;
     }
 
     public boolean isAdmin(String username){
-        return getAdminName().equals(username);
+        return getAdmin(username)!=null;
     }
-
-
 
 }
