@@ -303,7 +303,9 @@ public class MasterSystem {
                             break;
                         }
                         case "organizer":{
-                            organizerMenuController.organizerFunctionalities(currentUsername);
+                            oui.organizermenu(currentUsername);
+                            String option1 = scanner.nextLine();
+                            organizerMenuController.organizerFunctionalities(option1, currentUsername);
                             break;
                         }
                         case "speaker":{
