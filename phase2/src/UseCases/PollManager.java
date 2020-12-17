@@ -60,7 +60,7 @@ public class PollManager {
     }
 
 
-    public boolean addNewPoll(String pollId, String eventPasscode, String pollMessage, List<String> pollOptions){
+    public boolean addNewPoll(String pollId, String eventPasscode, String pollMessage, List<String> pollOptions, List<String> alreadyVoted){
 
         List<String> pollIds = getPollsForEvent(eventPasscode);
         for(String pollId1: pollIds){
@@ -68,7 +68,7 @@ public class PollManager {
                 return false;
             }
         }
-        Poll newPoll = new Poll(pollId, eventPasscode, pollMessage, pollOptions, new ArrayList<Integer>(), new ArrayList<String>());
+        Poll newPoll = new Poll(pollId, eventPasscode, pollMessage, pollOptions, new ArrayList<Integer>(), alreadyVoted);
         polls.add(newPoll);
         return true;
 
@@ -79,7 +79,7 @@ public class PollManager {
 
         List<String> requiredPolls = new ArrayList<>();
         List<String> polls = getPollsForEvent(event);
-        Poll poll = null;
+        Poll poll;
         int i = 1;
         int j;
         for (String pollId : polls) {
