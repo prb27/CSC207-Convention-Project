@@ -18,8 +18,8 @@ public class AttendeePresenterTextUI extends TextUI{
 
 
     public AttendeePresenterTextUI(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager,
-                                    AdminManager adminManager, MessageManager messageManager, ConversationManager conversationManager,
-                                    EventManager eventManager, RoomManager roomManager) {
+                                   AdminManager adminManager, MessageManager messageManager, ConversationManager conversationManager,
+                                   EventManager eventManager, RoomManager roomManager) {
         super(attendeeManager, organizerManager, speakerManager, adminManager, messageManager, conversationManager,
                 eventManager, roomManager);
     }
@@ -49,12 +49,20 @@ public class AttendeePresenterTextUI extends TextUI{
         System.out.println("\n0: Sign-out");
     }
 
-    public void presentEventsNotSignedUpFor(Map<java.lang.String, List<java.lang.String>> eventsNotSignedUpFor){
-        for (java.lang.String event: eventsNotSignedUpFor.keySet()) {
-            System.out.println(event);
-            for (java.lang.String eventInfo: eventsNotSignedUpFor.get(event))
-                System.out.println(eventInfo);
-        }
+//    public void presentEventsNotSignedUpFor(Map<String, List<String>> eventsNotSignedUpFor){
+//        for (String event: eventsNotSignedUpFor.keySet()) {
+//            System.out.println(event);
+//            for (String eventInfo: eventsNotSignedUpFor.get(event))
+//                System.out.println(eventInfo);
+//        }
+//    }
+
+    public void promptForSpeakerUsername(){
+        System.out.println("Please enter the speaker's username");
+    }
+
+    public void promptForMessageToSend(){
+        System.out.println("Please enter the message that you want to send");
     }
 
     public void promptEventNameToAdd() {
@@ -62,24 +70,21 @@ public class AttendeePresenterTextUI extends TextUI{
                 "(exactly as it appears on the list of titles displayed)");
     }
 
-    public void success() {
-        System.out.println("Successful!");
-    }
-
-    public void promptEventName() {
-        System.out.println("Please enter the event's name.");
+    public void promptEventTitleCancel(){
+        System.out.println("Please enter the event title you wish to cancel reservation");
     }
 
     public void promptNoLongerAttending(java.lang.String event){
         System.out.println("You are no longer attending " + event);
     }
 
-    public void presentEventsAttending(List<java.lang.String> eventsAttending){
-        for (java.lang.String event: eventsAttending){
+    public void presentEventsAttending(List<String> eventsAttending){
+        for (String event: eventsAttending){
             System.out.println("Event Title:" + event + "\nTime:" +
                     eventManager.getStartTime(event) + "\nRoom: " +
                     eventManager.getRoomNumber(event) + "\nSpeaker: " +
-                    eventManager.getSpeakerEvent(event) + "\n");
+                    eventManager.getSpeakerEvent(event) + "\nDuration: " +
+                    eventManager.getDuration(event));
         }
     }
 
@@ -91,7 +96,7 @@ public class AttendeePresenterTextUI extends TextUI{
         System.out.println("Please enter the message that you want to send");
     }
 
-    public void convoNumUniqueId(java.lang.String i, java.lang.String conversationId){
+    public void convoNumUniqueId(String i, String conversationId){
         System.out.println("Conversation Number " + i + "\n" + "Uniqueness Identifier: " + conversationId);
     }
 
@@ -107,10 +112,14 @@ public class AttendeePresenterTextUI extends TextUI{
         System.out.println("Choose a conversation number");
     }
 
-    public void presentMessageInConvo(List<java.lang.String> messagesInConvo) {
-        for (java.lang.String s : messagesInConvo) {
+    public void presentMessageInConvo(List<String> messagesInConvo) {
+        for (String s : messagesInConvo) {
             System.out.println(s);
         }
+    }
+
+    public void promptAttendeeUsernameAdded(){
+        System.out.println("Please enter the name of the attendee to be added");
     }
 
     public void promptToReply(){
@@ -122,7 +131,7 @@ public class AttendeePresenterTextUI extends TextUI{
         System.out.println("Please enter the name of the attendee to be added");
     }
 
-    public void friendContactAlreadyExist(java.lang.String attendee, java.lang.String friendName){
+    public void friendContactAlreadyExist(String friendName){
         System.out.println("Attendee " + friendName +" already exist in the contact list");
     }
 
