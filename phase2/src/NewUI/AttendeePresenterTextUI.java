@@ -8,7 +8,7 @@ public class AttendeePresenterTextUI {
      * @author Juan Yi Loke
      * @param username: the username of the user that is being prompted
      */
-    public void attendeemenu(String username) {
+    public void attendeeMainMenu(String username) {
         System.out.println("\n\nHello " + username + "!");
         System.out.println("What would you like to do?");
 
@@ -24,5 +24,17 @@ public class AttendeePresenterTextUI {
         System.out.println("7: View all conversations");
         System.out.println("8: Add another attendee to friend list");
         System.out.println("\n0: Sign-out");
+    }
+    public void selectEvent(){
+        System.out.println("Please enter the event title you want to attend (exactly as it appears on the event list)");
+    }
+    public void nameToMessage(){
+        System.out.println("Please enter the ID of the person you wish to message: ");
+    }
+    public void content(){
+        System.out.println("Please enter the ID of the person you wish to message: ");
+    }
+    public void reply() {
+        System.out.println("Enter \"r\" to reply in this conversation. [Any other input will exit this menu]");
     }
 }
