@@ -79,9 +79,7 @@ public class MasterSystem {
      */
     public MasterSystem(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager,
                         AdminManager adminManager, MessageManager messageManager, ConversationManager conversationManager,
-                        EventManager eventManager, RoomManager roomManager, ProgramGenerator programGenerator,
-                        OrganizerMenuController organizerMenuController, AttendeeMenuController attendeeMenuContoller,
-                        SpeakerMenuController speakerMenuController, AdminMenuController adminMenuController) {
+                        EventManager eventManager, RoomManager roomManager, ProgramGenerator programGenerator) {
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
         this.speakerManager = speakerManager;
@@ -91,6 +89,12 @@ public class MasterSystem {
         this.eventManager = eventManager;
         this.roomManager = roomManager;
         this.programGenerator = programGenerator;
+        this.accountHandler = new AccountHandler(attendeeManager, organizerManager, speakerManager, adminManager);
+        this.userEventController = new UserEventController(attendeeManager, organizerManager, speakerManager, eventManager, roomManager);
+        this.messengerMenuController = new MessengerMenuController(messageManager, attendeeManager, organizerManager, speakerManager, eventManager, accountHandler, conversationManager);
+        this.attendeeMessagingDashboardMenuController = new AttendeeMessagingDashboardMenuController(attendeeManager, conversationManager);
+        this.speakerMessagingDashboardMenuController = new SpeakerMessagingDashboardMenuController(speakerManager, conversationManager);
+        this.conversationMenuController = new ConversationMenuController(attendeeMessagingDashboardMenuController, speakerMessagingDashboardMenuController, conversationManager, messageManager);
 
         this.adui = new AdminTextUI(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
                 conversationManager, eventManager, roomManager);
@@ -103,10 +107,11 @@ public class MasterSystem {
         this.ui = new TextUI(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
                 conversationManager, eventManager, roomManager);
 
-        this.organizerMenuController = organizerMenuController;
-        this.attendeeMenuController = attendeeMenuContoller;
-        this.speakerMenuController = speakerMenuController;
-        this.adminMenuController = adminMenuController;
+        this.organizerMenuController = new OrganizerMenuController(attendeeManager, organizerManager, speakerManager, adminManager,
+                accountHandler, eventManager, userEventController, roomManager, oui, messengerMenuController, conversationManager, conversationMenuController);
+        this.attendeeMenuController = new AttendeeMenuController(attendeeManager, organizerManager, speakerManager, adminManager, accountHandler, eventManager, userEventController, roomManager, aui, messengerMenuController, conversationManager, conversationMenuController);
+        this.speakerMenuController = new SpeakerMenuController(attendeeManager, organizerManager, speakerManager, adminManager, accountHandler, eventManager, userEventController, roomManager, sui, messengerMenuController, conversationManager, conversationMenuController);
+        this.adminMenuController = new AdminMenuController(attendeeManager, speakerManager, organizerManager, conversationManager, conversationMenuController, eventManager, messageManager);
 
     }
 
