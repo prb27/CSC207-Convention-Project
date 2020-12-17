@@ -271,13 +271,13 @@ public class MasterSystem {
 
                 switch(currentAccountType) {
                     case "attendee":
-                        ui.attendeemenu(currentUsername);
+                        aui.attendeemenu(currentUsername);
                         break;
                     case "organizer":
-                        ui.organizermenu(currentUsername);
+                        oui.organizermenu(currentUsername);
                         break;
                     case "speaker":
-                        ui.speakermenu(currentUsername);
+                        sui.speakermenu(currentUsername);
                         break;
                 }
 
