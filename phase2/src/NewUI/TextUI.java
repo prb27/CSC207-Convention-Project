@@ -212,6 +212,178 @@ public class TextUI{
         System.out.println("Please enter the event's name.");
     }
 
+    public void promptNoLongerAttending(String event){
+        System.out.println("You are no longer attending " + event);
+    }
+
+    public void presentEventsAttending(List<String> eventsAttending){
+        for (String event: eventsAttending){
+            System.out.println("Event Title:" + event + "\nTime:" +
+                    eventManager.getStartTime(event) + "\nRoom: " +
+                    eventManager.getRoomNumber(event) + "\nSpeaker: " +
+                    eventManager.getSpeakerEvent(event) + "\n");
+        }
+    }
+
+    public void promptAttendeeID(){
+        System.out.println("Please enter attendee ID");
+    }
+
+    public void promptMessageToSend(){
+        System.out.println("Please enter the message that you want to send");
+    }
+
+    public void failure(){
+        System.out.println("Something went wrong");
+    }
+
+    public void convoNumUniqueId(String i, String conversationId){
+        System.out.println("Conversation Number " + i + "\n" + "Uniqueness Identifier: " + conversationId);
+    }
+
+    public void presentRecipients(StringBuilder recipients){
+        System.out.println("Recipients: " + recipients);
+    }
+
+    public void noConvo(){
+        System.out.println("You have no conversations");
+    }
+
+    public void promptConvoNumber(){
+        System.out.println("Choose a conversation number");
+    }
+
+    public void presentMessageInConvo(List<String> messagesInConvo) {
+        for (String s : messagesInConvo) {
+            System.out.println(s);
+        }
+    }
+
+    public void promptToReply(){
+        System.out.println("Enter \"r\" to reply in this conversation." +
+                " [Any other input will exit this menu]");
+    }
+
+    public void promptMessageToSent(){
+        System.out.println("Please enter the name of the attendee to be added");
+    }
+
+    public void friendContactAlreadyExist(String attendee, String friendName){
+        System.out.println("Attendee " + friendName +" already exist in the contact list");
+    }
+
+
+
+    // Conversion of .string methods used in oUCH1
+    public void presentAllUserIds(List<String> allUserIds) {
+        for (String user : allUserIds) {
+            System.out.println(user);
+        }
+    }
+
+    public void promptForSpeakerUsername(){
+        System.out.println("Please enter the speaker's username");
+    }
+
+    public void promptForTime(){
+        System.out.println("Please enter the time");
+    }
+
+    public void notASpeaker(){
+        System.out.println("Note a speaker");
+    }
+
+    public void onlyAllowedTime(){
+        System.out.println("Please enter an allowed time");
+    }
+
+    public void messageForSpeakerFreeIfFree(String time){
+        System.out.println("No, the speaker doesn't have an event at " + time);
+    }
+
+    public void messageForSpeakerFreeIfNotFree(String time){
+        System.out.println("Yes, the speaker is talking at an event at " + time);
+    }
+
+    public void promptForOrganizerUsername(){
+        System.out.println("Please enter the organizer's username");
+    }
+
+    public void promptForNewOrganizerPw(){
+        System.out.println("Please enter this new organizer's password");
+    }
+
+    public void usernameAlreadyExists(){
+        System.out.println("The username already exists");
+    }
+
+    public void promptForSpeakerPw(){
+        System.out.println("Please enter password for this speaker");
+    }
+
+    public void promptForRoomID(){
+        System.out.println("Please enter roomID:");
+    }
+
+    public void promptForRoomCapacity(){
+        System.out.println("Please enter room capacity");
+    }
+
+    public void promptForProjectorExist(){
+        System.out.println("Please enter whether the room has a projector (Y/N)");
+    }
+
+    public void promptForEventTime(){
+        System.out.println("Please enter event time");
+    }
+
+    public void promptForEventDuration(){
+        System.out.println("Please enter event duration");
+    }
+
+    public void promptForEventCapacity(){
+        System.out.println("Please enter event capacity");
+    }
+
+    public void promptForEventRoom(){
+        System.out.println("Please enter room number");
+    }
+
+    public void promptForSubjectLine(){
+        System.out.println("Please enter subject line");
+    }
+
+    public void promptForEventSpeakers(){
+        System.out.println("Please enter the speakers' username (enter after each name and type Over when done)");
+    }
+
+    public void promptForNewEventTime(){
+        System.out.println("Please enter the new event time");
+    }
+
+
+    // Conversion of .string methods used in oUCH2
+
+    public void presentEventsNotSignedUpFor(List<String> eventsNotSignedUpFor{
+        for (String event: eventsNotSignedUpFor){
+            System.out.println("Event Title:" + event + "\nTime:" +
+                    eventManager.getStartTime(event) + "\nRoom: " +
+                    eventManager.getRoomNumber(event) + "\nSpeaker: " +
+                    eventManager.getSpeakerEvent(event) + "\n");
+        }
+    }
+
+    public void promptEventNameAdd(){
+        System.out.println("Please enter the title of the event you want to attend (exactly as it appears on the list of titles displayed)");
+    }
+
+    public void promptForEventName(){
+        System.out.println("Please enter the event's name");
+    }
+
+    public void presentNoLongerAttendingEvent(String event){
+        System.out.println("You are no longer attending " + event);
+    }
 
     
 }
