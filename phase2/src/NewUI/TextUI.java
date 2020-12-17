@@ -320,5 +320,17 @@ import java.util.*;
         }
 
 
+        public void newLine() {
+            System.out.println("\n\n");
+        }
+
+        public void success() {
+            System.out.println("Successful");
+        }
+
+        public void fail() {
+            System.out.println("Something went wrong");
+        }
+
 
 }
