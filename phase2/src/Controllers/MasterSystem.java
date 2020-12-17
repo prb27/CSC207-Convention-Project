@@ -1,6 +1,7 @@
 package Controllers;
 
 import Gateways.ProgramGenerator;
+import NewUI.*;
 import Presenters.*;
 import Presenters.Attendee.*;
 import Presenters.Organizer.*;
@@ -57,6 +58,12 @@ public class MasterSystem {
     private UserEventController userEventController;
     private ProgramGenerator programGenerator;
 
+    private AdminTextUI adui;
+    private OrganizerPresenterTextUI oui;
+    private AttendeePresenterTextUI aui;
+    private SpeakerTextUI sui;
+    private TextUI ui;
+
 
     /**
      * Constructor method to initialize a new MasterSystem instance with the instances of the use case classes
@@ -72,7 +79,9 @@ public class MasterSystem {
      */
     public MasterSystem(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager,
                         AdminManager adminManager, MessageManager messageManager, ConversationManager conversationManager,
-                        EventManager eventManager, RoomManager roomManager, ProgramGenerator programGenerator) {
+                        EventManager eventManager, RoomManager roomManager, ProgramGenerator programGenerator,
+                        AdminTextUI adui, AttendeePresenterTextUI aui, OrganizerPresenterTextUI oui, SpeakerTextUI sui,
+                        TextUI ui) {
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
         this.speakerManager = speakerManager;
@@ -82,6 +91,12 @@ public class MasterSystem {
         this.eventManager = eventManager;
         this.roomManager = roomManager;
         this.programGenerator = programGenerator;
+
+        this.adui = adui;
+        this.aui = aui;
+        this.oui = oui;
+        this.sui = sui;
+        this.ui = ui;
     }
 
 

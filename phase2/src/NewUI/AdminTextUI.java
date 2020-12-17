@@ -19,6 +19,15 @@ public class AdminTextUI extends TextUI {
                   EventManager eventManager, RoomManager roomManager) {
         super(attendeeManager, organizerManager, speakerManager, adminManager, messageManager, conversationManager, eventManager, roomManager);
     }
+
+    public void adminmenu(String username) {
+        System.out.println("\n\nHello " + username + "!");
+        System.out.println("What would you like to do?");
+
+        System.out.println("1: Delete no-attendee events");
+        System.out.println("2: Delete messages");
+    }
+
     public void emptyEventsDeleted() {
         System.out.println("all events without attendees were deleted");
     }
