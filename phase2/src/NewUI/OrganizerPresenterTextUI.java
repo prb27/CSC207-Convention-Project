@@ -1,6 +1,6 @@
 package NewUI;
 
-public class OrganizerPresenterTextUI extends TextUI{
+public class OrganizerPresenterTextUI{
 
 
     /**
