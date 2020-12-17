@@ -51,16 +51,16 @@ public class OrganizerPresenterTextUI extends TextUI {
                 " register again for this event.)");
         System.out.println("9: Show events that I haven't signed up for");
         System.out.println("10: Sign up for an event");
-        System.out.println("13: Cancel spot in an event");
-        System.out.println("14: See schedule of events signed up for");
+        System.out.println("11: Cancel spot in an event");
+        System.out.println("12: See schedule of events signed up for");
 
         System.out.println("\nMESSAGING FUNCTIONS: [Note: Since you are an organizer, you can send a message to any attendee/speaker/organizer]");
-        System.out.println("15: Send message to an attendee");
-        System.out.println("16: Send message to all attendees");
-        System.out.println("17: Send message to a speaker");
-        System.out.println("18: Send message to all speakers");
-        System.out.println("19: View Conversations");
-        System.out.println("20: Send message to everyone attending an event");
+        System.out.println("13: Send message to an attendee");
+        System.out.println("14: Send message to all attendees");
+        System.out.println("15: Send message to a speaker");
+        System.out.println("16: Send message to all speakers");
+        System.out.println("17: View Conversations");
+        System.out.println("18: Send message to everyone attending an event");
         System.out.println("\n0: Sign-out");
 
     }
