@@ -6,17 +6,17 @@ import java.util.List;
 public class Poll {
 
     private final String pollId;
-    private final String eventName;
+    private final String eventPasscode;
     private final String pollMessage;
     private List<String> pollOptions;
     private List<Integer> pollOptionVotes;
     private List<String> alreadyVoted;
 
 
-    public Poll(String pollId, String eventName, String pollMessage, List<String> pollOptions, List<Integer> pollOptionVotes, List<String> alreadyVoted){
+    public Poll(String pollId, String eventPasscode, String pollMessage, List<String> pollOptions, List<Integer> pollOptionVotes, List<String> alreadyVoted){
 
         this.pollId = pollId;
-        this.eventName = eventName;
+        this.eventPasscode = eventPasscode;
         this.pollMessage = pollMessage;
         this.pollOptions = pollOptions;
         this.pollOptionVotes = pollOptionVotes;
@@ -45,8 +45,8 @@ public class Poll {
     }
 
 
-    public String getEventName(){
-        return eventName;
+    public String getEventPasscode(){
+        return eventPasscode;
     }
 
 

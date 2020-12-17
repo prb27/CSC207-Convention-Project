@@ -16,11 +16,11 @@ public class PollManager {
     }
 
 
-    public List<String> getPollsForEvent(String eventName){
+    public List<String> getPollsForEvent(String eventPasscode){
 
         List<String> requiredPolls = new ArrayList<>();
         for(Poll poll: polls){
-            if(poll.getEventName().equals(eventName)){
+            if(poll.getEventPasscode().equals(eventPasscode)){
                 requiredPolls.add(poll.getPollId());
             }
         }
@@ -32,7 +32,7 @@ public class PollManager {
     private Poll getPoll(String pollId, String event){
 
         for(Poll poll: polls){
-            if(poll.getPollId().equals(pollId) && poll.getEventName().equals(event)){
+            if(poll.getPollId().equals(pollId) && poll.getEventPasscode().equals(event)){
                 return poll;
             }
         }
@@ -60,15 +60,15 @@ public class PollManager {
     }
 
 
-    public boolean addNewPoll(String pollId, String eventName, String pollMessage, List<String> pollOptions){
+    public boolean addNewPoll(String pollId, String eventPasscode, String pollMessage, List<String> pollOptions){
 
-        List<String> pollIds = getPollsForEvent(eventName);
+        List<String> pollIds = getPollsForEvent(eventPasscode);
         for(String pollId1: pollIds){
             if(pollId.equals(pollId1)){
                 return false;
             }
         }
-        Poll newPoll = new Poll(pollId, eventName, pollMessage, pollOptions, new ArrayList<Integer>(), new ArrayList<String>());
+        Poll newPoll = new Poll(pollId, eventPasscode, pollMessage, pollOptions, new ArrayList<Integer>(), new ArrayList<String>());
         polls.add(newPoll);
         return true;
 
