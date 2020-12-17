@@ -8,7 +8,7 @@ public class Poll {
     private final String pollId;
     private final String eventPasscode;
     private final String pollMessage;
-    private List<String> pollOptions;
+    private final List<String> pollOptions;
     private List<Integer> pollOptionVotes;
     private List<String> alreadyVoted;
 

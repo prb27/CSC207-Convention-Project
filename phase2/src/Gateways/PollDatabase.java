@@ -40,7 +40,7 @@ public class PollDatabase implements IPollDatabase {
         for(Document pollDoc: pollDocs) {
             Map<String, List<String>> poll = new HashMap<>();
             poll.put("pollId", pollDoc.getList("pollId", String.class));
-            poll.put("eventName", pollDoc.getList("eventName", String.class));
+            poll.put("eventPasscode", pollDoc.getList("eventPasscode", String.class));
             poll.put("pollMessage", pollDoc.getList("pollMessage", String.class));
             poll.put("pollOptions", pollDoc.getList("pollOptions", String.class));
             poll.put("pollOptionVotes", pollDoc.getList("pollOptionVotes", String.class));
@@ -61,7 +61,7 @@ public class PollDatabase implements IPollDatabase {
         for(Map<String, List<String>> poll: pollList) {
             Document pollDoc = new Document();
             pollDoc.append("pollId", poll.get("pollId"));
-            pollDoc.append("eventName", poll.get("eventName"));
+            pollDoc.append("eventPasscode", poll.get("eventPasscode"));
             pollDoc.append("pollMessage", poll.get("pollMessage"));
             pollDoc.append("pollOptions", poll.get("pollOptions"));
             pollDoc.append("pollOptionVotes", poll.get("pollOptionVotes"));

@@ -9,8 +9,8 @@ import java.util.Scanner;
 
 public class PollController {
 
-    private SpeakerManager speakerManager;
-    private PollManager pollManager;
+    private final SpeakerManager speakerManager;
+    private final PollManager pollManager;
 
     public PollController(PollManager pollManager, SpeakerManager speakerManager){
         this.pollManager = pollManager;
@@ -78,7 +78,7 @@ public class PollController {
                 int option = scanner.nextInt();
                 pollManager.voteInPoll(username, pollId, eventPasscode, option);
                 // Print "Successful"
-                // Print "To view the result, please exit the menu and re-enter"
+                // Print "To view the result, please re-enter this menu"
             }
         }
     }

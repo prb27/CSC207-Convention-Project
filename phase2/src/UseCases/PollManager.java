@@ -1,9 +1,9 @@
 package UseCases;
 
 import Entities.Poll;
+import Gateways.Interfaces.IPollDatabase;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class PollManager {
 
@@ -94,10 +94,10 @@ public class PollManager {
                 j++;
             }
             if (poll.getAlreadyVoted().contains(username)) {
-                requiredPolls.add(i + " :\n" + "\nPoll ID: " + pollId + "\nEvent: " + event + "\nPoll Options: " + pollOptions + pollPercentPerOption(poll));
+                requiredPolls.add(i + " :\n" + "\nPoll ID: " + pollId + "\nEvent-Polling-Passcode: " + event + "\nPoll Options: " + pollOptions + pollPercentPerOption(poll));
             }
             else{
-                requiredPolls.add(i + " :\n" + "\nPoll ID: " + pollId + "\nEvent: " + event + "\nPoll Options: " + pollOptions);
+                requiredPolls.add(i + " :\n" + "\nPoll ID: " + pollId + "\nEvent-Polling-Passcode: " + event + "\nPoll Options: " + pollOptions);
             }
         }
         return requiredPolls;
@@ -124,6 +124,80 @@ public class PollManager {
         }
         return pollPercentages;
 
+    }
+
+    /**
+     * a constructor that creates a UseCases.PollManager object that stores a list of all polls and creates an
+     * instance of the IPollDatabase.
+     */
+    IPollDatabase pollDatabase;
+    public PollManager(IPollDatabase pollDatabase){
+        polls = new ArrayList<>();
+        this.pollDatabase = pollDatabase;
+    }
+
+
+    /**
+     * Loads the data being stored by Poll entities in the database into a Poll entity and stores every
+     * Poll entity into the polls list which is a list of Poll entities.
+     *
+     * @author Ashwin (based on the work of Juan Yi Loke)
+     */
+    public void loadFromDatabase() {
+
+        List<Map<String, List<String>>> pollList = pollDatabase.getPollList();
+
+        for(Map<String, List<String>> poll: pollList){
+            String pollId = poll.get("pollId").get(0);
+            String eventPasscode = poll.get("eventPasscode").get(0);
+            String pollMessage =  poll.get("pollMessage").get(0);
+            List<String> pollOptions = poll.get("pollOptions");
+            List<String> pollOptionVotesString = poll.get("pollOptionVotes");
+            List<Integer> pollOptionVotes = new ArrayList<>();
+            for(String option: pollOptionVotesString){
+                pollOptionVotes.add(Integer.parseInt(option));
+            }
+            List<String> alreadyVoted = poll.get("alreadyVoted");
+
+            Poll newPoll = new Poll(pollId, eventPasscode, pollMessage, pollOptions, pollOptionVotes, alreadyVoted);
+            polls.add(newPoll);
+        }
+    }
+
+    /**
+     * Stores the data being stored by the Poll entities in the list allMessages in a List<String, List</String>>
+     * data structure to be stored in the database system.
+     *
+     * @author Ashwin (Based on methods of Juan Yi Loke)
+     */
+    public void saveToDatabase() {
+
+        List<Map<String, List<String>>> resultingList = new ArrayList<>();
+
+        for (Poll poll : this.polls) {
+
+            String pollId = poll.getPollId();
+            String eventPasscode = poll.getEventPasscode();
+            String pollMessage = poll.getPollMessage();
+            List<String> pollOptions = poll.getPollOptions();
+            List<Integer> pollOptionVotesInteger = poll.getPollOptionVotes();
+            List<String> alreadyVoted = poll.getAlreadyVoted();
+            List<String> pollOptionVotes = new ArrayList<>();
+            for(Integer i: pollOptionVotesInteger){
+                pollOptionVotes.add(i.toString());
+            }
+
+            Map<String, List<String>> resultingPoll = new HashMap<>();
+            resultingPoll.put("eventPasscode", Collections.singletonList(eventPasscode));
+            resultingPoll.put("pollMessage", Collections.singletonList(pollMessage));
+            resultingPoll.put("pollOptions", pollOptions);
+            resultingPoll.put("pollOptionVotes", pollOptionVotes);
+            resultingPoll.put("pollId", Collections.singletonList(pollId));
+            resultingPoll.put("alreadyVoted", alreadyVoted);
+
+            resultingList.add(resultingPoll);
+        }
+        pollDatabase.savePollList(resultingList);
     }
 
 }
