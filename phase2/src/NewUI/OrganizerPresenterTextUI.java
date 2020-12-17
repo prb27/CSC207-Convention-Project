@@ -199,7 +199,7 @@ public class OrganizerPresenterTextUI extends TextUI {
 
     public void presentEvents(List<String> eventsNotSignedUpFor){
         for (String event: eventsNotSignedUpFor){
-            System.out.println("Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "\nRoom: "
+            System.out.println("Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "(" + eventManager.getDuration(event) + ")" + "\nRoom: "
                     + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
         }
     }
