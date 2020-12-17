@@ -453,6 +453,12 @@ public class TextUI{
         System.out.println("Please enter the speakers' username (enter after each name and type Over when done)");
     }
 
+    public void promptForNewEventTime(){
+        System.out.println("Please enter the new event time");
+    }
+
+
+
 
 
 
