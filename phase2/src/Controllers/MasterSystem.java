@@ -310,14 +310,14 @@ public class MasterSystem {
             case "1":
                 adminMenuController.deleteEventWithoutAttendee();
                 adui.emptyEventsDeleted();
-                adui.newLine;
+                adui.newLine();
                 break;
             case "2":
                 adui.messageID();
                 String message = scanner.nextLine();
                 adminMenuController.deleteMessage(message);
                 adui.messageDeleted(message);
-                adui.newLine;
+                adui.newLine();
                 break;
         }
     }
