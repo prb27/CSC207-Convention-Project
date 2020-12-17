@@ -385,5 +385,9 @@ public class TextUI{
         System.out.println("You are no longer attending " + event);
     }
 
+    public void newLine() {
+        System.out.println("\n\n");
+    }
+
     
 }
