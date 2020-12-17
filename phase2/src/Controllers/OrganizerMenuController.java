@@ -22,10 +22,19 @@ public class OrganizerMenuController {
     private EventManager eventManager;
     private UserEventController userEventController;
     private RoomManager roomManager;
+    private ConversationManager conversationManager;
+    private MessengerMenuController messengerMenuController;
+    private ConversationMenuController conversationMenuController;
     private OrganizerPresenterTextUI organizerPresenterTextUI;
 
 
-    public OrganizerMenuController(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager, AdminManager adminManager, AccountHandler accountHandler, EventManager eventManager, UserEventController userEventController, RoomManager roomManager, OrganizerPresenterTextUI organizerPresenterTextUI){
+    public OrganizerMenuController(AttendeeManager attendeeManager, OrganizerManager organizerManager,
+                                   SpeakerManager speakerManager, AdminManager adminManager,
+                                   AccountHandler accountHandler, EventManager eventManager,
+                                   UserEventController userEventController, RoomManager roomManager,
+                                   OrganizerPresenterTextUI organizerPresenterTextUI,
+                                   MessengerMenuController messengerMenuController, ConversationManager conversationManager,
+                                   ConversationMenuController conversationMenuController){
 
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
@@ -36,6 +45,9 @@ public class OrganizerMenuController {
         this.userEventController = userEventController;
         this.roomManager = roomManager;
         this.organizerPresenterTextUI = organizerPresenterTextUI;
+        this.messengerMenuController = messengerMenuController;
+        this.conversationManager = conversationManager;
+        this.conversationMenuController = conversationMenuController;
 
     }
 
@@ -45,7 +57,7 @@ public class OrganizerMenuController {
      * given by the user by calling the appropriate method using the appropriate controller
      * @param username: username of the currently logged in user
      */
-    private void oUCH1(String username) {
+    private void organizerFunctionalities(String username) {
 
         Scanner scanner = new Scanner(System.in);
         organizerPresenterTextUI.organizermenu(username);
@@ -78,14 +90,14 @@ public class OrganizerMenuController {
                 organizerPresenterTextUI.askForUserType();
                 String userType = scanner.nextLine();
                 organizerPresenterTextUI.askForUsername();
-                String organizerUsername = scanner.nextLine();
+                String newUsername = scanner.nextLine();
                 organizerPresenterTextUI.askForPassword();
-                String organizerPassword = scanner.nextLine();
-                boolean err = createNewAccount(organizerUsername, organizerPassword, userType);
+                String password = scanner.nextLine();
+                boolean err = accountHandler.signup(newUsername, password, userType);
                 if (err) {
                     organizerPresenterTextUI.success();
                 } else {
-                    // username already exists
+                    organizerPresenterTextUI.usernameAlreadyExists();
                 }
                 break;
             }
@@ -141,102 +153,108 @@ public class OrganizerMenuController {
                 }
                 break;
             }
-            case "13": {
+            case "11": {
                 organizerPresenterTextUI.promptForEventName();
                 String eventName = scanner.nextLine();
                 userEventController.cancelSeatForUser(username, eventName);
                 organizerPresenterTextUI.presentNoLongerAttendingEvent(eventName);
                 break;
             }
-            case "14": {
+            case "12": {
                 organizerPresenterTextUI.presentEvents(organizerManager.getEventsAttending(username));
                 break;
             }
-            case "15": {
-                ui.present("Please enter attendee ID");
+            case "13": {
+                organizerPresenterTextUI.promptAttendeeID();
                 String attendeeID = scanner.nextLine();
-                ui.present("Please enter the message that you want to send");
+                organizerPresenterTextUI.messageprompt();
                 String content = scanner.nextLine();
                 boolean err = messengerMenuController.organizerSendMessageToSingle(username, attendeeID, content, "attendee");
                 if (err) {
-                    ui.present("Successful");
+                    organizerPresenterTextUI.success();
                 } else {
-                    ui.present("Something went wrong");
+                    organizerPresenterTextUI.failure();
                 }
                 break;
             }
-            case "16": {
-                ui.present("Please enter the message that you want to send");
+            case "14": {
+                organizerPresenterTextUI.messageprompt();
                 String content = scanner.nextLine();
                 messengerMenuController.organizerSendMessageToAll(username, content, "attendee");
                 break;
             }
-            case "17": {
-                ui.present("Please enter the speaker's username");
+            case "15": {
+                organizerPresenterTextUI.promptForSpeakerUsername();
                 String speakerName = scanner.nextLine();
-                ui.present("Please enter the message that you want to send");
+                organizerPresenterTextUI.messageprompt();
                 String content = scanner.nextLine();
                 messengerMenuController.organizerSendMessageToSingle(username, speakerName, content, "speaker");
                 break;
             }
-            case "18": {
-                ui.present("Please enter the message that you want to send");
+            case "16": {
+                organizerPresenterTextUI.messageprompt();
                 String content = scanner.nextLine();
                 messengerMenuController.organizerSendMessageToAll(username, content, "speaker");
                 break;
             }
-            case "19": {
-                Integer i = 1;
-                for (String conversationId : organizerManager.getConversations(username)) {
-                    List<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
-                    StringBuilder recipients = new StringBuilder();
-                    ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
-                    for (String recipient : recipientsOfConversation) {
-                        recipients.append(recipient);
-                        recipients.append(", ");
-                    }
-                    ui.present("Recipients: " + recipients);
-                    i += 1;
-                }
-                if (organizerManager.getConversations(username).isEmpty()) {
-                    ui.present("You have no conversations");
-                    break;
-                }
-                ui.present("Choose a Entities.Conversation Number");
-                String conversationNumber = scanner.nextLine();
-                String conversationIdFinal = organizerManager.getConversations(username).get(Integer.parseInt(conversationNumber) - 1);
-                List<String> messagesInThisConversation = conversationMenuController.orderedMessagesInConvo(conversationIdFinal);
-                for (String s : messagesInThisConversation) {
-                    ui.present(s);
-                }
-                ui.present("Enter \"r\" to reply in this conversation. [Any other input will exit this menu]");
-                String reply = scanner.nextLine();
-                if (!reply.equals("r")) {
-                    break;
-                }
-                ui.present("Please enter the message you want to send");
-                String content = scanner.nextLine();
-                conversationMenuController.reply(username, conversationIdFinal, content);
+            case "17": {
+                viewAndReplyInConversations(username);
                 break;
             }
-            case "20": {
-                ui.present("Please enter the event name");
+            case "18": {
+                organizerPresenterTextUI.promptForEventName();
                 String eventName = scanner.nextLine();
-                ui.present("Please enter the message that you want to send");
+                organizerPresenterTextUI.messageprompt();
                 String message = scanner.nextLine();
                 if (!eventManager.isEvent(eventName)) {
-                    ui.showError("EDE");
+                    organizerPresenterTextUI.showError("EDE");
                     break;
                 }
                 boolean messageByEvent = messengerMenuController.organizerMessageByEvent(username, eventName, message);
                 if (messageByEvent) {
-                    ui.present("Sent");
+                    organizerPresenterTextUI.success();
                     break;
                 }
-                ui.present("Something went wrong");
+                organizerPresenterTextUI.failure();
                 break;
             }
         }
+    }
+
+
+    public void viewAndReplyInConversations(String username){
+
+        Scanner scanner = new Scanner(System.in);
+        Integer i = 1;
+        for (String conversationId : organizerManager.getConversations(username)) {
+            List<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
+            StringBuilder recipients = new StringBuilder();
+            organizerPresenterTextUI.convoNumUniqueId(i.toString(), conversationId);
+            for (String recipient : recipientsOfConversation) {
+                recipients.append(recipient);
+                recipients.append(", ");
+            }
+            organizerPresenterTextUI.presentRecipients(recipients);
+            i += 1;
+        }
+        if (organizerManager.getConversations(username).isEmpty()) {
+            organizerPresenterTextUI.noConvo();
+            return;
+        }
+        organizerPresenterTextUI.promptConvoNumber();
+        String conversationNumber = scanner.nextLine();
+        String conversationIdFinal = organizerManager.getConversations(username).get(Integer.parseInt(conversationNumber) - 1);
+        List<String> messagesInThisConversation = conversationMenuController.orderedMessagesInConvo(conversationIdFinal);
+        organizerPresenterTextUI.presentMessageInConvo(messagesInThisConversation);
+        organizerPresenterTextUI.promptToReply();
+        String reply = scanner.nextLine();
+        if (!reply.equals("r")) {
+            return;
+        }
+        organizerPresenterTextUI.messageprompt();
+        String content = scanner.nextLine();
+        conversationMenuController.reply(username, conversationIdFinal, content);
+
     }
 
 
@@ -279,19 +297,6 @@ public class OrganizerMenuController {
     }
 
     /**
-     * Create a new account through organizer
-     * @param username username of the new account
-     * @param password password of the new account
-     * @param accountType type of account
-     * @return boolean reflecting the result
-     */
-    public boolean createNewAccount(String username, String password, String accountType){
-        return accountHandler.signup(username, password, accountType);
-    }
-
-    // -----
-
-    /**
      * By the end of the execution of this method, the Entities.Organizer with username <username> would have
      * created a room if there was no roomId conflict.
      * @author Ashwin Karthikeyan
@@ -302,20 +307,20 @@ public class OrganizerMenuController {
     public String organizerAddNewRoom(String username){
 
         Scanner scanner = new Scanner(System.in);
-        //ui.present("Please enter roomID:");
+        organizerPresenterTextUI.promptForRoomID();
         String roomId = scanner.nextLine();
-        //ui.present("Please enter room capacity");
+        organizerPresenterTextUI.promptForRoomCapacity();
         int capacity = scanner.nextInt();
 
-        //ui.present("Please enter whether the room has a projector (Y/N)");
+        organizerPresenterTextUI.promptForProjectorExist();
         String proj = scanner.nextLine();
         boolean hasProjector = proj.equals("Y");
 
-        //ui.present("Please enter whether the room has an audioSystem (Y/N)");
+        organizerPresenterTextUI.askForAudioSystem();
         String answer = scanner.nextLine();
         boolean hasAudioSystem = answer.equals("Y");
 
-        //ui.present("Please enter the number of powerSockets");
+        organizerPresenterTextUI.askForPowerSockets();
         int powerSockets = scanner.nextInt();
         // RAE - room already exists
         if(organizerManager.isOrganizer(username)){
@@ -349,14 +354,14 @@ public class OrganizerMenuController {
     public String changeSpeakerForEventThroughOrganizer(String username){
 
         Scanner scanner = new Scanner(System.in);
-        //ui.present("Please enter the event name.");
+        organizerPresenterTextUI.eventnameprompt();
         String eventName = scanner.nextLine();
         List<String> speakerNames = new ArrayList<>();
 
-        // Enter number of users
+        organizerPresenterTextUI.numOfSpeakers();
         int num = scanner.nextInt();
 
-        //ui.present("Please enter the new speakers' username (enter after each name and type Over when done)");
+        organizerPresenterTextUI.promptForEventSpeakers();
         for (int i = 0; i<num; i++) {
             String speaker = scanner.nextLine();
             speakerNames.add(speaker);
@@ -367,7 +372,7 @@ public class OrganizerMenuController {
 
         eventSpec(eventTime, duration);
 
-        //ui.present("Please enter room number");
+        organizerPresenterTextUI.promptForRoomID();
         String roomId = scanner.nextLine();
 
         String speakerErr;
@@ -424,22 +429,21 @@ public class OrganizerMenuController {
      * "ESOT" - Event Scheduling Over Time - the event cannot be scheduled at this time because it would have to
      *                   run past 5PM.
      */
-    public String changeEventStartTime(String username){
+    public String changeEventStartTime(String username) {
 
         Scanner scanner = new Scanner(System.in);
-        //ui.present("Please enter the event name");
+        organizerPresenterTextUI.eventnameprompt();
         String eventName = scanner.nextLine();
-        //ui.present("Please enter a new time for the event");
+        organizerPresenterTextUI.newTimeForEvent();
         String eventTime = scanner.nextLine();
-        List<String> speakers = eventManager.getSpeakerEvent(eventName);
         int duration = eventManager.getDuration(eventName);
 
         eventSpec(eventTime, duration);
 
-        //ui.present("Please enter room number");
+        organizerPresenterTextUI.promptForRoomID();
         String roomId = scanner.nextLine();
         String speakerErr;
-        if(eventManager.isEvent(eventName)) {
+        if (eventManager.isEvent(eventName)) {
             List<String> speakerNames = eventManager.getSpeakerEvent(eventName);
             int eventDuration = eventManager.getDuration(eventName);
             int eventCapacity = eventManager.getEventCapacity(eventName);
@@ -447,107 +451,55 @@ public class OrganizerMenuController {
             userEventController.removeCreatedEvent(username, eventName);
             for (String speakerName : speakerNames) {
                 speakerErr = checkIfSpeakerFreeAtTimeFor(speakerName, eventTime, eventDuration);
-                if(!speakerErr.equals("YES")){
+                if (!speakerErr.equals("YES")) {
                     return speakerErr;
                 }
             }
             String err = userEventController.createEventInRoom(username, eventName, eventTime, eventDuration, eventCapacity, speakerNames, roomId, subjectLine);
             if (err.equals("YES")) {
                 return "YES";
-            }
-            else {
+            } else {
                 return err;
             }
-        }
-        else{
+        } else {
             return "EDE";
         }
-
-    }
-
-
-    // case 11
-
-    /**
-     * Returns a List of titles of events this organizer isn't attending
-     * @param username username of the organizer
-     * @return List</String>
-     */
-    public List<String> organizerEventsNotAttending(String username){
-
-        List<String> printableEventsInfo = new ArrayList<>();
-        List<String> eventsNotSignedUpFor = userEventController.getOrganizerEventsNotAttending(username);
-        for (String event : eventsNotSignedUpFor)
-            printableEventsInfo.add("Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "(" + eventManager.getDuration(event) + " hours)" + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
-        return printableEventsInfo;
-
-    }
-
-    /**
-     * Sign up for event
-     * @param eventName name of event
-     * @param organizerId username of the Organizer
-     */
-    public void signUpAsOrganizer(String eventName, String organizerId){
-        userEventController.enrolUserInEvent(organizerId,eventName);
-    }
-
-    /**
-     * Cancels the spot for this organizer in event
-     * @param eventName name of the event
-     * @param organizerId username of the organizer
-     */
-    public void cancelSpotAsOrganizer(String eventName, String organizerId){
-        userEventController.cancelSeatForUser(organizerId,eventName);
-    }
-
-    /**
-     * Returns List of event titles of events that this organizer is attending
-     * @param username username of the organizer
-     * @return List</String>
-     */
-    public List<String> organizerEventsAttending(String username){
-
-        List<String> printableEventsInfo = new ArrayList<>();
-        for (String event: organizerManager.getEventsAttending(username))
-            printableEventsInfo.add("Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "(" + eventManager.getDuration(event) + " hours)" + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
-        return printableEventsInfo;
 
     }
 
     public void createEventThroughOrganizer(String username){
 
         Scanner scanner = new Scanner(System.in);
-        //ui.present("Please enter event name");
+        organizerPresenterTextUI.eventnameprompt();
         String eventName = scanner.nextLine();
-        //ui.present("Please enter event time");
+        organizerPresenterTextUI.promptForEventTime();
         String eventTime = scanner.nextLine();
-        //ui.present("Please enter duration");
+        organizerPresenterTextUI.promptForEventDuration();
         int duration = scanner.nextInt();
-        //ui.present("Please enter event capacity");
+        organizerPresenterTextUI.promptForEventCapacity();
         int capacity = scanner.nextInt();
 
         eventSpec(eventTime, duration);
 
-        //ui.present("Please enter room number");
+        organizerPresenterTextUI.promptForRoomID();
         String roomNum = scanner.nextLine();
-        //ui.present("Please enter subject line");
+        organizerPresenterTextUI.promptForSubjectLine();
         String subject = scanner.nextLine();
         List<String> speakers = new ArrayList<>();
 
-        //Please enter number of speaker
+        organizerPresenterTextUI.numOfSpeakers();
         int num = scanner.nextInt();
 
-        //ui.present("Please enter the speakers' username (enter after each name and type Over when done)");
+        organizerPresenterTextUI.promptForEventSpeakers();
         for(int i = 0; i<num; i++) {
             speakers.add(scanner.nextLine());
         }
         String err = userEventController.createEventInRoom(username, eventName, eventTime, duration, capacity, speakers, roomNum, subject);
         if (!err.equals("YES")) {
-            //ui.showError(err);
+            organizerPresenterTextUI.showError(err);
         }
         else {
-            //ui.present("Successful");
+            organizerPresenterTextUI.success();
         }
 
     }
@@ -555,16 +507,20 @@ public class OrganizerMenuController {
     private void eventSpec(String eventTime, int duration){
 
         Scanner scanner = new Scanner(System.in);
-        //Please enter specifications for the event (does it need projector, does it need audio system, how many power sockets would it require)
+        organizerPresenterTextUI.askForSpecifications();
         String audioSys = scanner.nextLine();
         boolean hasAudioSystem = audioSys.equals("YES");
         String projector = scanner.nextLine();
         boolean hasProjector = projector.equals("YES");
         int powerSockets = scanner.nextInt();
 
-        roomManager.roomsWithRequirements(hasAudioSystem, hasProjector, powerSockets, eventTime, duration);
-        // display the list produced in line 137
-
+        List<String> rooms = roomManager.roomsWithRequirements(hasAudioSystem, hasProjector, powerSockets, eventTime, duration);
+        if(rooms != null) {
+            organizerPresenterTextUI.roomMatchingSpecificationsAre(rooms);
+        }
+        else {
+            organizerPresenterTextUI.noRoomMatch();
+        }
     }
 
 }

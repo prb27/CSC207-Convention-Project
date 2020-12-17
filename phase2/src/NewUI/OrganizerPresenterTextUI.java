@@ -91,6 +91,10 @@ public class OrganizerPresenterTextUI extends TextUI {
 
     }
 
+    public void newTimeForEvent(){
+        System.out.println("Please enter a new time for the event");
+    }
+
     public void askForUserType(){
         System.out.println("Enter the type of user (attendee, organizer, speaker, admin): ");
     }
@@ -183,7 +187,7 @@ public class OrganizerPresenterTextUI extends TextUI {
     }
 
     public void promptForEventSpeakers(){
-        System.out.println("Please enter the speakers' username (enter after each name and type Over when done)");
+        System.out.println("Please enter the speakers' usernames");
     }
 
     public void promptForNewEventTime(){
@@ -212,4 +216,32 @@ public class OrganizerPresenterTextUI extends TextUI {
         System.out.println("You are no longer attending " + event);
     }
 
+    public void askForAudioSystem(){
+        System.out.println("Please enter whether the room has an audio system (Y/N)");
+    }
+
+    public void askForPowerSockets(){
+        System.out.println("Please enter the number of Power Sockets in the room");
+    }
+
+    public void askForSpecifications(){
+        System.out.println("Please enter specifications for the event (does it need projector - YES/NO, does it need audio system - YES/NO, how many power sockets would it require)");
+    }
+
+    public void roomMatchingSpecificationsAre(List<String> rooms){
+        System.out.println("The rooms that match your specifications are: \n");
+        for(String room: rooms){
+            System.out.println("\n" + room);
+        }
+        System.out.println("Pick one of the room Ids when you create an event (You will be allowed to choose any free room" +
+                ", but these are the rooms we recommend for you)");
+    }
+
+    public void noRoomMatch(){
+        System.out.println("We couldn't find any room that suited your need");
+    }
+
+    public void numOfSpeakers(){
+        System.out.println("Please enter the number of speakers");
+    }
 }
