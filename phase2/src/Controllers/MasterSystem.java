@@ -7,7 +7,6 @@ import Presenters.Organizer.*;
 import Presenters.Speaker.*;
 
 import UseCases.*;
-import com.sun.org.apache.xpath.internal.operations.String;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,106 +85,106 @@ public class MasterSystem {
     }
 
 
-    /**
-     * A method that is responsible for the flow of the program by taking user input,
-     * using controllers to execute actions and displaying the result using the UI.
-     */
-    public void run(){
-            this.accountHandler = new AccountHandler(attendeeManager, organizerManager, speakerManager, adminManager);
-            this.attendeeEventMenuController = new AttendeeEventMenuController(attendeeManager, eventManager);
-            this.attendeeMessagingDashboardMenuController = new AttendeeMessagingDashboardMenuController(attendeeManager,
-                    conversationManager);
-            this.conversationMenuController = new ConversationMenuController(attendeeMessagingDashboardMenuController,
-                    speakerMessagingDashboardMenuController, conversationManager, messageManager);
-            this.eventMenuController = new EventMenuController();
-            this.eventsSearchEngine = new EventsSearchEngine(eventManager);
-
-
-            this.loginMenuController = new LoginMenuController(accountHandler);
-            this.signUpMenuController = new SignUpMenuController(accountHandler);
-
-            this.messengerMenuController = new MessengerMenuController(messageManager, attendeeManager,
-                    organizerManager, speakerManager, eventManager, accountHandler, conversationManager);
-            this.organizerMenuController = new OrganizerMenuController(attendeeManager, organizerManager,
-                    speakerManager,adminManager, accountHandler, eventManager, userEventController, roomManager);
-            this.speakerMenuController = new SpeakerMenuController(attendeeManager, organizerManager, speakerManager,
-                    eventManager, roomManager, conversationManager, messageManager, "");
-            this.speakerMessagingDashboardMenuController = new SpeakerMessagingDashboardMenuController(speakerManager,
-                    conversationManager);
-            this.organizerMessagingDashboardMenuController = new OrganizerMessagingDashboardMenuController(organizerManager,
-                    conversationManager);
-            this.userEventController = new UserEventController(attendeeManager, organizerManager,
-                    speakerManager, eventManager, roomManager);
-
-            this.adminMenuController = new AdminMenuController(attendeeManager, speakerManager, organizerManager, conversationManager,
-                conversationMenuController, eventManager, messageManager);
-
-            this.sceneHandler = new SceneHandler();
-
-
-            /* Create an organizer account when a new Controllers.MasterSystem object is created
-             * to allow for the conference to have at least one organizer*/
-            accountHandler.signup("organizer1", "organizer1", "organizer");
-
-            /* Create an admin, since there is no way to sign up an admin account*/
-            accountHandler.signup("admin", "admin", "admin");
-        }
-        public LoginMenuController getLoginMenuController(){
-            return this.loginMenuController;
-        }
-        public ProgramGenerator getProgramGenerator(){
-            return this.programGenerator;
-        }
-        public SignUpMenuController getSignUpMenuController(){
-            return this.signUpMenuController;
-        }
-        public AttendeeEventMenuController getAttendeeEventMenuController(){
-            return this.attendeeEventMenuController;
-        }
-        public AttendeeMessagingDashboardMenuController getAttendeeMessagingDashboardMenuController(){
-            return this.attendeeMessagingDashboardMenuController;
-        }
-        public ConversationMenuController getConversationMenuController(){
-            return this.conversationMenuController;
-        }
-        public EventMenuController getEventMenuController(){
-            return this.eventMenuController;
-        }
-        public EventsSearchEngine getEventsSearchEngine(){
-            return this.eventsSearchEngine;
-        }
-        public MessengerMenuController getMessengerMenuController(){
-            return this.messengerMenuController;
-        }
-        public OrganizerMenuController getOrganizerMenuController(){
-            return this.organizerMenuController;
-        }
-        public SpeakerMenuController getSpeakerMenuController(){
-            return this.speakerMenuController;
-        }
-        public SpeakerMessagingDashboardMenuController getSpeakerMessagingDashboardMenuController(){
-            return this.speakerMessagingDashboardMenuController;
-        }
-        public UserEventController getUserEventController(){
-            return this.userEventController;
-        }
-        public SceneHandler getSceneHandler(){
-            return this.sceneHandler;
-        }
-        public AccountHandler getAccountHandler(){
-            return this.accountHandler;
-        }
-        public RoomManager getRoomManager(){
-            return this.roomManager;
-        }
-
-        public OrganizerMessagingDashboardMenuController getOrganizerMessagingDashboardController() {
-            return organizerMessagingDashboardMenuController;
-        }
-
-        public AdminMenuController getAdminMenuController() {
-            return adminMenuController;
-        }
+//    /**
+//     * A method that is responsible for the flow of the program by taking user input,
+//     * using controllers to execute actions and displaying the result using the UI.
+//     */
+//    public void run(){
+//            this.accountHandler = new AccountHandler(attendeeManager, organizerManager, speakerManager, adminManager);
+//            this.attendeeEventMenuController = new AttendeeEventMenuController(attendeeManager, eventManager);
+//            this.attendeeMessagingDashboardMenuController = new AttendeeMessagingDashboardMenuController(attendeeManager,
+//                    conversationManager);
+//            this.conversationMenuController = new ConversationMenuController(attendeeMessagingDashboardMenuController,
+//                    speakerMessagingDashboardMenuController, conversationManager, messageManager);
+//            this.eventMenuController = new EventMenuController();
+//            this.eventsSearchEngine = new EventsSearchEngine(eventManager);
+//
+//
+//            this.loginMenuController = new LoginMenuController(accountHandler);
+//            this.signUpMenuController = new SignUpMenuController(accountHandler);
+//
+//            this.messengerMenuController = new MessengerMenuController(messageManager, attendeeManager,
+//                    organizerManager, speakerManager, eventManager, accountHandler, conversationManager);
+//            this.organizerMenuController = new OrganizerMenuController(attendeeManager, organizerManager,
+//                    speakerManager,adminManager, accountHandler, eventManager, userEventController, roomManager);
+//            this.speakerMenuController = new SpeakerMenuController(attendeeManager, organizerManager, speakerManager,
+//                    eventManager, roomManager, conversationManager, messageManager, "");
+//            this.speakerMessagingDashboardMenuController = new SpeakerMessagingDashboardMenuController(speakerManager,
+//                    conversationManager);
+//            this.organizerMessagingDashboardMenuController = new OrganizerMessagingDashboardMenuController(organizerManager,
+//                    conversationManager);
+//            this.userEventController = new UserEventController(attendeeManager, organizerManager,
+//                    speakerManager, eventManager, roomManager);
+//
+//            this.adminMenuController = new AdminMenuController(attendeeManager, speakerManager, organizerManager, conversationManager,
+//                conversationMenuController, eventManager, messageManager);
+//
+//            this.sceneHandler = new SceneHandler();
+//
+//
+//            /* Create an organizer account when a new Controllers.MasterSystem object is created
+//             * to allow for the conference to have at least one organizer*/
+//            accountHandler.signup("organizer1", "organizer1", "organizer");
+//
+//            /* Create an admin, since there is no way to sign up an admin account*/
+//            accountHandler.signup("admin", "admin", "admin");
+//        }
+//        public LoginMenuController getLoginMenuController(){
+//            return this.loginMenuController;
+//        }
+//        public ProgramGenerator getProgramGenerator(){
+//            return this.programGenerator;
+//        }
+//        public SignUpMenuController getSignUpMenuController(){
+//            return this.signUpMenuController;
+//        }
+//        public AttendeeEventMenuController getAttendeeEventMenuController(){
+//            return this.attendeeEventMenuController;
+//        }
+//        public AttendeeMessagingDashboardMenuController getAttendeeMessagingDashboardMenuController(){
+//            return this.attendeeMessagingDashboardMenuController;
+//        }
+//        public ConversationMenuController getConversationMenuController(){
+//            return this.conversationMenuController;
+//        }
+//        public EventMenuController getEventMenuController(){
+//            return this.eventMenuController;
+//        }
+//        public EventsSearchEngine getEventsSearchEngine(){
+//            return this.eventsSearchEngine;
+//        }
+//        public MessengerMenuController getMessengerMenuController(){
+//            return this.messengerMenuController;
+//        }
+//        public OrganizerMenuController getOrganizerMenuController(){
+//            return this.organizerMenuController;
+//        }
+//        public SpeakerMenuController getSpeakerMenuController(){
+//            return this.speakerMenuController;
+//        }
+//        public SpeakerMessagingDashboardMenuController getSpeakerMessagingDashboardMenuController(){
+//            return this.speakerMessagingDashboardMenuController;
+//        }
+//        public UserEventController getUserEventController(){
+//            return this.userEventController;
+//        }
+//        public SceneHandler getSceneHandler(){
+//            return this.sceneHandler;
+//        }
+//        public AccountHandler getAccountHandler(){
+//            return this.accountHandler;
+//        }
+//        public RoomManager getRoomManager(){
+//            return this.roomManager;
+//        }
+//
+//        public OrganizerMessagingDashboardMenuController getOrganizerMessagingDashboardController() {
+//            return organizerMessagingDashboardMenuController;
+//        }
+//
+//        public AdminMenuController getAdminMenuController() {
+//            return adminMenuController;
+//        }
 
     // Everything below is from Phase 1. We will be scraping the GUI and only implementing the TextUI now.
 
@@ -317,56 +316,56 @@ public class MasterSystem {
             case "1":
                 Map<String, List<String>> eventsToSignUpWithInfo = userEventController.seeAttendableEvents(username);
                 for (String event : eventsToSignUpWithInfo.keySet()) {
-                    ui.present(event);
+                    aui.present(event);
                     for (String info : eventsToSignUpWithInfo.get(event))
-                        ui.present(info);
+                        aui.present(info);
                 }
-                ui.present("\n\n");
+                aui.present("\n\n");
                 break;
             case "2":
-                ui.present("Please enter the event title you want to attend (exactly as it appears on the event list)");
+                aui.present("Please enter the event title you want to attend (exactly as it appears on the event list)");
                 String eventName = scanner.nextLine();
                 String err = userEventController.enrolUserInEvent(username, eventName);
                 if (!err.equals("YES")) {
-                    ui.showError(err);
+                    aui.showError(err);
                 } else {
-                    ui.present("Successful");
+                    aui.present("Successful");
                 }
                 break;
             case "3":
-                ui.present("Please enter the event title you wish to cancel reservation");
+                aui.present("Please enter the event title you wish to cancel reservation");
                 String eventname = scanner.nextLine();
                 userEventController.cancelSeatForUser(username, eventname);
-                ui.present("You are no longer attending " + eventname);
+                aui.present("You are no longer attending " + eventname);
                 break;
             case "4":
                 for (String event : attendeeManager.getEventsAttending(username))
-                    ui.present("Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "\nRoom: "
+                    aui.present("Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "\nRoom: "
                             + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event)
                             + "\nDuration: " + eventManager.getDuration(event));
                 break;
             case "5":
-                ui.present("Please enter attendee ID");
+                aui.present("Please enter attendee ID");
                 String attendeeID = scanner.nextLine();
-                ui.present("Please enter the message that you want to send");
+                aui.present("Please enter the message that you want to send");
                 String content = scanner.nextLine();
                 boolean error = messengerMenuController.attendeeSendMessage(username, attendeeID, content, "attendee");
                 if (error) {
-                    ui.present("Successful");
+                    aui.present("Successful");
                 } else {
-                    ui.present("Something went wrong");
+                    aui.present("Something went wrong");
                 }
                 break;
             case "6":
-                ui.present("Please enter the speaker's username");
+                aui.present("Please enter the speaker's username");
                 String speakerName = scanner.nextLine();
-                ui.present("Please enter the message that you want to send");
+                aui.present("Please enter the message that you want to send");
                 String message = scanner.nextLine();
                 boolean error1 = messengerMenuController.attendeeSendMessage(username, speakerName, message, "speaker");
                 if (error1) {
-                    ui.present("Successful");
+                    aui.present("Successful");
                 } else {
-                    ui.present("Something went wrong");
+                    aui.present("Something went wrong");
                 }
                 break;
             case "7":
@@ -374,49 +373,49 @@ public class MasterSystem {
                 for (String conversationId : attendeeManager.getConversations(username)) {
                     List<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
                     StringBuilder recipients = new StringBuilder();
-                    ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
+                    aui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
                     for (String recipient : recipientsOfConversation) {
                         recipients.append(recipient);
                         recipients.append(", ");
                     }
-                    ui.present("Recipients: " + recipients);
+                    aui.present("Recipients: " + recipients);
                     i += 1;
                 }
                 if (attendeeManager.getConversations(username).isEmpty()) {
                     ui.present("You have no conversations");
                     break;
                 }
-                ui.present("Choose a Entities.Conversation Number");
+                aui.present("Choose a Entities.Conversation Number");
                 String conversationNumber = scanner.nextLine();
                 String conversationIdFinal = attendeeManager.getConversations(username).get(Integer.parseInt(conversationNumber) - 1);
                 List<String> messagesInThisConversation = conversationMenuController.orderedMessagesInConvo(conversationIdFinal);
                 for (String s : messagesInThisConversation) {
-                    ui.present(s);
+                    aui.present(s);
                 }
-                ui.present("Enter \"r\" to reply in this conversation. [Any other input will exit this menu]");
+                aui.present("Enter \"r\" to reply in this conversation. [Any other input will exit this menu]");
                 String reply = scanner.nextLine();
                 if (!reply.equals("r")) {
                     break;
                 }
-                ui.present("Please enter the message you want to send");
+                aui.present("Please enter the message you want to send");
                 String contents = scanner.nextLine();
                 conversationMenuController.reply(username, conversationIdFinal, contents);
                 break;
             case "8":
-                ui.present("Please enter the name of the attendee to be added");
+                aui.present("Please enter the name of the attendee to be added");
                 String friendName = scanner.nextLine();
                 if (!attendeeManager.isAttendee(friendName)) {
-                    ui.showError("UDE");
+                    aui.showError("UDE");
                     break;
                 }
                 String errorCode = attendeeManager.aAddContactB(username, friendName);
                 if(errorCode.equals("No"))
-                    ui.present("Attendee "+friendName+" already exist in the contact list");
+                    aui.present("Attendee "+friendName+" already exist in the contact list");
                 else
-                    ui.present("Success!");
+                    aui.present("Success!");
                 break;
             default: {
-                ui.showError("INO");
+                aui.showError("INO");
             }
         }
     }
@@ -431,29 +430,29 @@ public class MasterSystem {
         switch (option) {
             case "1": {
                 for (String attendee : attendeeManager.getAllAttendeeIds()) {
-                    ui.present(attendee);
+                    oui.present(attendee);
                 }
                 break;
             }
             case "2": {
                 for (String organizer : organizerManager.getAllOrganizerIds()) {
-                    ui.present(organizer);
+                    oui.present(organizer);
                 }
                 break;
             }
             case "3": {
                 for (String speaker : speakerManager.getAllSpeakerIds()) {
-                    ui.present(speaker);
+                    oui.present(speaker);
                 }
                 break;
             }
             case "4": {
-                ui.present("Please enter the speaker's username");
+                oui.present("Please enter the speaker's username");
                 String speakerName = scanner.nextLine();
-                ui.present("Please enter the time");
+                oui.present("Please enter the time");
                 String time = scanner.nextLine();
                 if (!speakerManager.isSpeaker(speakerName)) {
-                    ui.present("Not a speaker");
+                    oui.present("Not a speaker");
                     break;
                 }
                 List<String> allowedTimes = new ArrayList<String>();
@@ -467,110 +466,110 @@ public class MasterSystem {
                 allowedTimes.add("4");
                 allowedTimes.add("5");
                 if (!allowedTimes.contains(time)) {
-                    ui.present("Please enter an allowed time");
+                    oui.present("Please enter an allowed time");
                     break;
                 }
                 boolean free = speakerManager.isSpeakerFreeAtTime(speakerName, time);
                 if (free) {
-                    ui.present("No, the speaker doesn't have an event at " + time);
+                    oui.present("No, the speaker doesn't have an event at " + time);
                 } else {
-                    ui.present("Yes, the speaker is talking at an event at " + time);
+                    oui.present("Yes, the speaker is talking at an event at " + time);
                 }
                 break;
             }
             case "5": {
-                ui.present("Please enter the new organizer's username");
+                oui.present("Please enter the new organizer's username");
                 String organizerUsername = scanner.nextLine();
-                ui.present("Please enter the password for this new organizer");
+                oui.present("Please enter the password for this new organizer");
                 String organizerPassword = scanner.nextLine();
                 boolean err = accountHandler.signup(organizerUsername, organizerPassword, "organizer");
                 if (err) {
-                    ui.present("Successful");
+                    oui.present("Successful");
                 } else {
-                    ui.present("The username already exists");
+                    oui.present("The username already exists");
                 }
                 break;
             }
             case "6": {
-                ui.present("Please enter new speaker's username");
+                oui.present("Please enter new speaker's username");
                 String speakerUsername = scanner.nextLine();
-                ui.present("Please enter password for this speaker");
+                oui.present("Please enter password for this speaker");
                 String speakerPassword = scanner.nextLine();
                 if (accountHandler.signup(speakerUsername, speakerPassword, "speaker")) {
-                    ui.showPrompt("UC");
+                    oui.showPrompt("UC");
                 } else {
-                    ui.showPrompt("SF");
+                    oui.showPrompt("SF");
                 }
                 break;
             }
             case "7": {
-                ui.present("Please enter roomID:");
+                oui.present("Please enter roomID:");
                 String room = scanner.nextLine();
-                ui.present("Please enter room capacity");
+                oui.present("Please enter room capacity");
                 int capacity = scanner.nextInt();
 
-                ui.present("Please enter whether the room has a projector (Y/N)");
+                oui.present("Please enter whether the room has a projector (Y/N)");
                 String proj = scanner.nextLine();
                 boolean hasProjector = false;
                 if (proj.equals("Y"))
                     hasProjector = true;
 
-                ui.present("Please enter whether the room has an audioSystem (Y/N)");
+                oui.present("Please enter whether the room has an audioSystem (Y/N)");
                 String answer = scanner.nextLine();
                 boolean hasAudioSystem = false;
                 if (answer.equals("Y"))
                     hasAudioSystem = true;
 
-                ui.present("Please enter the number of powerSockets");
+                oui.present("Please enter the number of powerSockets");
                 int powerSockets = scanner.nextInt();
                 String err = organizerMenuController.organizerAddNewRoom(username, room, capacity, hasProjector,
                         hasAudioSystem, powerSockets);
                 if (!err.equals("YES")) {
-                    ui.showError(err);
+                    oui.showError(err);
                 } else {
-                    ui.present("Successful");
+                    oui.present("Successful");
                 }
                 break;
             }
             case "8": {
-                ui.present("Please enter event name");
+                oui.present("Please enter event name");
                 String eventName = scanner.nextLine();
-                ui.present("Please enter event time");
+                oui.present("Please enter event time");
                 String eventTime = scanner.nextLine();
-                ui.present("Please enter duration");
+                oui.present("Please enter duration");
                 int duration = scanner.nextInt();
-                ui.present("Please enter event capacity");
+                oui.present("Please enter event capacity");
                 int capacity = scanner.nextInt();
-                ui.present("Please enter room number");
+                oui.present("Please enter room number");
                 String roomNum = scanner.nextLine();
-                ui.present("Please enter subject line");
+                oui.present("Please enter subject line");
                 String subject = scanner.nextLine();
                 List<String> speakers = new ArrayList<>();
                 while (!scanner.nextLine().equals("Over")) {
-                    ui.present("Please enter the speakers' username (enter after each name and type Over when done)");
+                    oui.present("Please enter the speakers' username (enter after each name and type Over when done)");
                     speakers.add(scanner.nextLine());
                 }
                 String err = userEventController.createEventInRoom(username, eventName, eventTime, duration, capacity, speakers, roomNum, subject);
                 if (!err.equals("YES"))
-                    ui.showError(err);
+                    oui.showError(err);
                 else {
-                    ui.present("Successful");
+                    oui.present("Successful");
                 }
             }
             case "9": {
-                ui.present("Please enter the event name.");
+                oui.present("Please enter the event name.");
                 String eventName = scanner.nextLine();
                 if(!eventManager.isEvent(eventName)){
-                    ui.showError("EDE");
+                    oui.showError("EDE");
                     break;
                 }
                 List<String> speakers = new ArrayList<>();
                 boolean stop = false;
                 while (!scanner.nextLine().equals("Over")) {
-                    ui.present("Please enter the new speakers' username (enter after each name and type Over when done)");
+                    oui.present("Please enter the new speakers' username (enter after each name and type Over when done)");
                     String speaker = scanner.nextLine();
                     if (!speakerManager.isSpeaker(speaker)) {
-                        ui.present("SDE");
+                        oui.present("SDE");
                         stop = true;
                         break;
                     }
@@ -586,16 +585,16 @@ public class MasterSystem {
                 userEventController.removeCreatedEvent(username, eventName);
                 String err = userEventController.createEventInRoom(username, eventName, eventTime, duration, capacity, speakers, room, subject);
                 if (!err.equals("YES"))
-                    ui.showError(err);
+                    oui.showError(err);
                 else {
-                    ui.present("Successful");
+                    oui.present("Successful");
                 }
                 break;
             }
             case "10": {
-                ui.present("Please enter the event name");
+                oui.present("Please enter the event name");
                 String eventName = scanner.nextLine();
-                ui.present("Please enter a new time for the event");
+                oui.present("Please enter a new time for the event");
                 String eventTime = scanner.nextLine();
                 List<String> speakers = eventManager.getSpeakerEvent(eventName);
                 int duration = eventManager.getDuration(eventName);
@@ -605,15 +604,15 @@ public class MasterSystem {
                 userEventController.removeCreatedEvent(username, eventName);
                 for (String speaker : speakers) {
                     if(!speakerManager.isSpeaker(speaker))
-                        ui.showError("EDE");
+                        oui.showError("EDE");
                         break;
                 }
                 String err = userEventController.createEventInRoom(username, eventName, eventTime, duration, capacity, speakers, roomNum, subject);
                 if(err.equals("YES")) {
-                    ui.present("Successful");
+                    oui.present("Successful");
                 }
                 else{
-                    ui.showError(err);
+                    oui.showError(err);
                 }
                 break;
             }
@@ -625,61 +624,61 @@ public class MasterSystem {
             case "11": {
                 List<String> eventsNotSignedUpFor = userEventController.getOrganizerEventsNotAttending(username);
                 for (String event : eventsNotSignedUpFor)
-                    ui.present("Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
+                    oui.present("Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
                 break;
             }
             case "12": {
-                ui.present("Please enter the title of the event you want to attend (exactly as it appears on the list of titles displayed)");
+                oui.present("Please enter the title of the event you want to attend (exactly as it appears on the list of titles displayed)");
                 String eventName = scanner.nextLine();
                 String err = userEventController.enrolUserInEvent(username, eventName);
                 if (!err.equals("YES")) {
-                    ui.showError(err);
+                    oui.showError(err);
                 } else {
-                    ui.present("Successful");
+                    oui.present("Successful");
                 }
                 break;
             }
             case "13": {
-                ui.present("Please enter the event's name");
+                oui.present("Please enter the event's name");
                 String eventName = scanner.nextLine();
                 userEventController.cancelSeatForUser(username, eventName);
-                ui.present("You are no longer attending " + eventName);
+                oui.present("You are no longer attending " + eventName);
                 break;
             }
             case "14": {
                 for (String event : organizerManager.getEventsAttending(username))
-                    ui.present("Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
+                    oui.present("Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
                 break;
             }
             case "15": {
-                ui.present("Please enter attendee ID");
+                oui.present("Please enter attendee ID");
                 String attendeeID = scanner.nextLine();
-                ui.present("Please enter the message that you want to send");
+                oui.present("Please enter the message that you want to send");
                 String content = scanner.nextLine();
                 boolean err = messengerMenuController.organizerSendMessageToSingle(username, attendeeID, content, "attendee");
                 if (err) {
-                    ui.present("Successful");
+                    oui.present("Successful");
                 } else {
-                    ui.present("Something went wrong");
+                    oui.present("Something went wrong");
                 }
                 break;
             }
             case "16": {
-                ui.present("Please enter the message that you want to send");
+                oui.present("Please enter the message that you want to send");
                 String content = scanner.nextLine();
                 messengerMenuController.organizerSendMessageToAll(username, content, "attendee");
                 break;
             }
             case "17": {
-                ui.present("Please enter the speaker's username");
+                oui.present("Please enter the speaker's username");
                 String speakerName = scanner.nextLine();
-                ui.present("Please enter the message that you want to send");
+                oui.present("Please enter the message that you want to send");
                 String content = scanner.nextLine();
                 messengerMenuController.organizerSendMessageToSingle(username, speakerName, content, "speaker");
                 break;
             }
             case "18": {
-                ui.present("Please enter the message that you want to send");
+                oui.present("Please enter the message that you want to send");
                 String content = scanner.nextLine();
                 messengerMenuController.organizerSendMessageToAll(username, content, "speaker");
                 break;
@@ -689,50 +688,50 @@ public class MasterSystem {
                 for (String conversationId : organizerManager.getConversations(username)) {
                     List<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
                     StringBuilder recipients = new StringBuilder();
-                    ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
+                    oui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
                     for (String recipient : recipientsOfConversation) {
                         recipients.append(recipient);
                         recipients.append(", ");
                     }
-                    ui.present("Recipients: " + recipients);
+                    oui.present("Recipients: " + recipients);
                     i += 1;
                 }
                 if (organizerManager.getConversations(username).isEmpty()) {
-                    ui.present("You have no conversations");
+                    oui.present("You have no conversations");
                     break;
                 }
-                ui.present("Choose a Entities.Conversation Number");
+                oui.present("Choose a Entities.Conversation Number");
                 String conversationNumber = scanner.nextLine();
                 String conversationIdFinal = organizerManager.getConversations(username).get(Integer.parseInt(conversationNumber) - 1);
                 List<String> messagesInThisConversation = conversationMenuController.orderedMessagesInConvo(conversationIdFinal);
                 for (String s : messagesInThisConversation) {
                     ui.present(s);
                 }
-                ui.present("Enter \"r\" to reply in this conversation. [Any other input will exit this menu]");
+                oui.present("Enter \"r\" to reply in this conversation. [Any other input will exit this menu]");
                 String reply = scanner.nextLine();
                 if (!reply.equals("r")) {
                     break;
                 }
-                ui.present("Please enter the message you want to send");
+                oui.present("Please enter the message you want to send");
                 String content = scanner.nextLine();
                 conversationMenuController.reply(username, conversationIdFinal, content);
                 break;
             }
             case "20": {
-                ui.present("Please enter the event name");
+                oui.present("Please enter the event name");
                 String eventName = scanner.nextLine();
-                ui.present("Please enter the message that you want to send");
+                oui.present("Please enter the message that you want to send");
                 String message = scanner.nextLine();
                 if (!eventManager.isEvent(eventName)) {
-                    ui.showError("EDE");
+                    oui.showError("EDE");
                     break;
                 }
                 boolean messageByEvent = messengerMenuController.organizerMessageByEvent(username, eventName, message);
                 if (messageByEvent) {
-                    ui.present("Sent");
+                    oui.present("Sent");
                     break;
                 }
-                ui.present("Something went wrong");
+                oui.present("Something went wrong");
                 break;
             }
         }
