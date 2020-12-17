@@ -6,7 +6,7 @@ import com.sun.org.apache.xpath.internal.operations.String;
 import java.util.List;
 import java.util.Map;
 
-public class AttendeePresenterTextUI {
+public class AttendeePresenterTextUI extends TextUI{
 
     private AttendeeManager attendeeManager;
     private OrganizerManager organizerManager;
@@ -19,18 +19,11 @@ public class AttendeePresenterTextUI {
 
 
     public AttendeePresenterTextUI(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager,
-                  AdminManager adminManager, MessageManager messageManager, ConversationManager conversationManager,
-                  EventManager eventManager, RoomManager roomManager) {
-        this.attendeeManager = attendeeManager;
-        this.organizerManager = organizerManager;
-        this.speakerManager = speakerManager;
-        this.adminManager = adminManager;
-        this.messageManager = messageManager;
-        this.conversationManager = conversationManager;
-        this.eventManager = eventManager;
-        this.roomManager = roomManager;
+                                    AdminManager adminManager, MessageManager messageManager, ConversationManager conversationManager,
+                                    EventManager eventManager, RoomManager roomManager) {
+        super(attendeeManager, organizerManager, speakerManager, adminManager, messageManager, conversationManager,
+                eventManager, roomManager);
     }
-
 
 
 
@@ -99,10 +92,6 @@ public class AttendeePresenterTextUI {
         System.out.println("Please enter the message that you want to send");
     }
 
-    public void failure(){
-        System.out.println("Something went wrong");
-    }
-
     public void convoNumUniqueId(java.lang.String i, java.lang.String conversationId){
         System.out.println("Conversation Number " + i + "\n" + "Uniqueness Identifier: " + conversationId);
     }
@@ -137,4 +126,7 @@ public class AttendeePresenterTextUI {
     public void friendContactAlreadyExist(java.lang.String attendee, java.lang.String friendName){
         System.out.println("Attendee " + friendName +" already exist in the contact list");
     }
+
+
+
 }

@@ -4,7 +4,7 @@ import UseCases.*;
 
 import java.util.List;
 
-public class OrganizerPresenterTextUI{
+public class OrganizerPresenterTextUI extends TextUI {
 
     private AttendeeManager attendeeManager;
     private OrganizerManager organizerManager;
@@ -19,14 +19,8 @@ public class OrganizerPresenterTextUI{
     public OrganizerPresenterTextUI(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager,
                   AdminManager adminManager, MessageManager messageManager, ConversationManager conversationManager,
                   EventManager eventManager, RoomManager roomManager) {
-        this.attendeeManager = attendeeManager;
-        this.organizerManager = organizerManager;
-        this.speakerManager = speakerManager;
-        this.adminManager = adminManager;
-        this.messageManager = messageManager;
-        this.conversationManager = conversationManager;
-        this.eventManager = eventManager;
-        this.roomManager = roomManager;
+        super(attendeeManager, organizerManager, speakerManager, adminManager, messageManager, conversationManager,
+                eventManager, roomManager);
     }
 
 
@@ -171,7 +165,7 @@ public class OrganizerPresenterTextUI{
 
     // Conversion of .string methods used in oUCH2
 
-    public void presentEventsNotSignedUpFor(List<String> eventsNotSignedUpFor{
+    public void presentEventsNotSignedUpFor(List<String> eventsNotSignedUpFor){
         for (String event: eventsNotSignedUpFor){
             System.out.println("Event Title:" + event + "\nTime:" +
                     eventManager.getStartTime(event) + "\nRoom: " +
