@@ -50,7 +50,7 @@ public class EventManager {
      * @return String
      */
     public String addEvent(String eventName, String startTime, int duration, String roomNumber, int eventCapacity,
-                           List<String> speakerName){
+                           List<String> speakerName, String subjectLine){
 
         List<String> attendeeList = new ArrayList<>();
         for (Event event: EventList){
@@ -58,7 +58,7 @@ public class EventManager {
                 return "EAE";
             }
         }
-        Event newEvent = new Event(eventName, speakerName, startTime, duration, roomNumber, eventCapacity, attendeeList);
+        Event newEvent = new Event(eventName, speakerName, startTime, duration, roomNumber, eventCapacity, attendeeList, subjectLine);
         EventList.add(newEvent);
         return "YES";
 
@@ -308,8 +308,9 @@ public class EventManager {
             String roomNumber = event.get("roomNumber").get(0);
             int eventCapacity = Integer.parseInt(event.get("eventCapacity").get(0));
             List<String> attendeeList = event.get("attendeeList");
+            String subjectLine = event.get("eventSubjectLine").get(0); // Johnny please check this.
 
-            Event newEvent = new Event(eventName, speakerName, startTime, duration, roomNumber, eventCapacity, attendeeList);
+            Event newEvent = new Event(eventName, speakerName, startTime, duration, roomNumber, eventCapacity, attendeeList, subjectLine);
             EventList.add(newEvent);
         }
     }

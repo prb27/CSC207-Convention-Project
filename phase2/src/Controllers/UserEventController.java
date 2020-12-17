@@ -52,7 +52,7 @@ public class UserEventController {
      *                   run past 5PM.
      * @return Strings of the values listed above
      */
-    public String createEventInRoom(String organizerName, String eventName, String startTime, int duration, int eventCapacity, List<String> speakerName, String roomNumber){
+    public String createEventInRoom(String organizerName, String eventName, String startTime, int duration, int eventCapacity, List<String> speakerName, String roomNumber, String subjectLine){
         List<String> allowedTimes = eventManager.getAllowedTimes();
 
         for(String speakerUsername: speakerName){
@@ -98,7 +98,7 @@ public class UserEventController {
                     }
                     roomManager.occupyRoomAt(roomNumber,startTime, duration);
                     System.out.println("YES");
-                    return eventManager.addEvent(eventName, startTime, duration, roomNumber, eventCapacity, speakerName);
+                    return eventManager.addEvent(eventName, startTime, duration, roomNumber, eventCapacity, speakerName, subjectLine);
                 }
                 else{
                     System.out.println("ECF");

@@ -14,6 +14,7 @@ public class Event {
     private String roomNumber;
     private int eventCapacity;
     private List<String> attendeeList;
+    private final String eventSubjectLine;
 
     /**
      * A constructor to create the event object
@@ -22,7 +23,7 @@ public class Event {
      * @param roomNumber: room number
      * @param attendeeList: list of attendees
      */
-    public Event(String eventName, List<String> speakerName, String startTime, int duration, String roomNumber, int eventCapacity, List<String>attendeeList){
+    public Event(String eventName, List<String> speakerName, String startTime, int duration, String roomNumber, int eventCapacity, List<String>attendeeList, String eventSubjectLine){
         this.eventName = eventName;
         this.speakerName = speakerName;
         this.startTime = startTime;
@@ -30,7 +31,7 @@ public class Event {
         this.roomNumber = roomNumber;
         this.eventCapacity = eventCapacity;
         this.attendeeList = attendeeList;
-
+        this.eventSubjectLine = eventSubjectLine;
     }
 
     /**
@@ -69,6 +70,10 @@ public class Event {
         return roomNumber;
     }
 
+    /**
+     * returns the capacity of the event
+     * @return eventCapacity
+     */
     public int getEventCapacity() {
         return eventCapacity;
     }
@@ -127,4 +132,13 @@ public class Event {
      * @param attendeeList
      */
     public void setAttendeeList(List<String> attendeeList){this.attendeeList = attendeeList;}
+
+    /**
+     * returns the subject line of the event
+     * @return String containing subject line
+     */
+    public String getEventSubjectLine() {
+        return eventSubjectLine;
+    }
+
 }
