@@ -1,11 +1,39 @@
 package NewUI;
 
+import UseCases.*;
 import com.sun.org.apache.xpath.internal.operations.String;
 
 import java.util.List;
 import java.util.Map;
 
 public class AttendeePresenterTextUI {
+
+    private AttendeeManager attendeeManager;
+    private OrganizerManager organizerManager;
+    private SpeakerManager speakerManager;
+    private AdminManager adminManager;
+    private EventManager eventManager;
+    private RoomManager roomManager;
+    private ConversationManager conversationManager;
+    private MessageManager messageManager;
+
+
+    public AttendeePresenterTextUI(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager,
+                  AdminManager adminManager, MessageManager messageManager, ConversationManager conversationManager,
+                  EventManager eventManager, RoomManager roomManager) {
+        this.attendeeManager = attendeeManager;
+        this.organizerManager = organizerManager;
+        this.speakerManager = speakerManager;
+        this.adminManager = adminManager;
+        this.messageManager = messageManager;
+        this.conversationManager = conversationManager;
+        this.eventManager = eventManager;
+        this.roomManager = roomManager;
+    }
+
+
+
+
     /**
      * print out a set of functions that an attendee is able to do
      * @author Juan Yi Loke

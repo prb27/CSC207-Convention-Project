@@ -169,7 +169,7 @@ public class OrganizerPresenterTextUI{
     }
 
 
-    // Conversion of .string methods used in oUCH1
+    // Conversion of .string methods used in oUCH2
 
     public void presentEventsNotSignedUpFor(List<String> eventsNotSignedUpFor{
         for (String event: eventsNotSignedUpFor){

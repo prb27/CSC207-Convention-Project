@@ -312,7 +312,7 @@ public class TextUI{
         System.out.println("You are no longer attending " + event);
     }
 
-    public void presentAttendeeEventsAttending(List<String> eventsAttending){
+    public void presentEventsAttending(List<String> eventsAttending){
         for (String event: eventsAttending){
             System.out.println("Event Title:" + event + "\nTime:" +
                     eventManager.getStartTime(event) + "\nRoom: " +
@@ -458,12 +458,28 @@ public class TextUI{
     }
 
 
+    // Conversion of .string methods used in oUCH2
 
+    public void presentEventsNotSignedUpFor(List<String> eventsNotSignedUpFor{
+        for (String event: eventsNotSignedUpFor){
+            System.out.println("Event Title:" + event + "\nTime:" +
+                    eventManager.getStartTime(event) + "\nRoom: " +
+                    eventManager.getRoomNumber(event) + "\nSpeaker: " +
+                    eventManager.getSpeakerEvent(event) + "\n");
+        }
+    }
 
+    public void promptEventNameAdd(){
+        System.out.println("Please enter the title of the event you want to attend (exactly as it appears on the list of titles displayed)");
+    }
 
+    public void promptForEventName(){
+        System.out.println("Please enter the event's name");
+    }
 
+    public void presentNoLongerAttendingEvent(String event){
+        System.out.println("You are no longer attending " + event);
+    }
 
-
-
-
+    
 }
