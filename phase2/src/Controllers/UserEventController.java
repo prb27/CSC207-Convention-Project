@@ -244,8 +244,8 @@ public class UserEventController {
             if (attendeeManager.isAttending(username, eventName)) {
                 return "AE";
             }
-            String roomId = eventManager.getRoomNumber(eventName);
-//            int capacity = roomManager.getCapacityOfRoom(roomId);
+            //String roomId = eventManager.getRoomNumber(eventName);
+            //int capacity = roomManager.getCapacityOfRoom(roomId);
             int capacity = eventManager.getEventCapacity(eventName);
             List<String> attendeesOfEvent = eventManager.getAttendeeList(eventName);
             if (attendeesOfEvent.size() < capacity) {

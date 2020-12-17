@@ -30,6 +30,9 @@ public class LoginMenuController {
                 case "speaker":
                     setCurrUsername(username);
                     loginMenu.showSpeakerMenu(username);
+                case "admin":
+                    setCurrUsername(username);
+                    loginMenu.showAdminMenu(username);
             }
         } else {
             loginMenu.invalidUser();

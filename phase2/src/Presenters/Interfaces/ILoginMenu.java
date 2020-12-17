@@ -15,4 +15,6 @@ public interface ILoginMenu {
     void showOrganizerMenu(String username) throws IOException;
 
     void showSpeakerMenu(String username) throws IOException;
+
+    void showAdminMenu(String username) throws IOException;
 }

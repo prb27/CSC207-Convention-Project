@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdminMenuController {
+    // TODO: haven't done main functionalities of admin
 
     private final AttendeeManager attendeeManager;
     private final SpeakerManager speakerManager;

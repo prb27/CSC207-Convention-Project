@@ -2,6 +2,9 @@ package UseCases;
 
 import Entities.Admin;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * this class manages (stores and updates) the Admin
@@ -12,10 +15,12 @@ import Entities.Admin;
  * @see Entities.Admin
  */
 public class AdminManager {
+    private List<Admin> admins = new ArrayList<>();
     private Admin admin;
 
     public void createAdmin() {
-        admin = new Admin();
+        if (admins.size() < 1)
+            admin = new Admin();
     }
 
     /**

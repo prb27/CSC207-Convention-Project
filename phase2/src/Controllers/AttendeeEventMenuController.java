@@ -22,6 +22,7 @@ public class AttendeeEventMenuController {
         List<String> eventsAttendable = new ArrayList<>();
         for (String eventId : eventIdsAll) {
             if (!eventIdsAttending.contains(eventId)) {
+                // "id [info]"
                 eventsAttendable.add(eventId + " " + eventManager.getEventInfo(eventId));
             }
         }
