@@ -41,7 +41,7 @@ public class MasterSystem {
 
     private AccountHandler accountHandler;
 
-    private AttendeeEventMenuController attendeeEventMenuController;
+    private AttendeeMenuController attendeeMenuController;
     private AttendeeMessagingDashboardMenuController attendeeMessagingDashboardMenuController;
     private ConversationMenuController conversationMenuController;
     private EventMenuController eventMenuController;
@@ -79,7 +79,9 @@ public class MasterSystem {
      */
     public MasterSystem(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager,
                         AdminManager adminManager, MessageManager messageManager, ConversationManager conversationManager,
-                        EventManager eventManager, RoomManager roomManager, ProgramGenerator programGenerator) {
+                        EventManager eventManager, RoomManager roomManager, ProgramGenerator programGenerator,
+                        OrganizerMenuController organizerMenuController, AttendeeMenuController attendeeMenuContoller,
+                        SpeakerMenuController speakerMenuController, AdminMenuController adminMenuController) {
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
         this.speakerManager = speakerManager;
@@ -100,6 +102,12 @@ public class MasterSystem {
                 conversationManager, eventManager, roomManager);
         this.ui = new TextUI(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
                 conversationManager, eventManager, roomManager);
+
+        this.organizerMenuController = organizerMenuController;
+        this.attendeeMenuController = attendeeMenuContoller;
+        this.speakerMenuController = speakerMenuController;
+        this.adminMenuController = adminMenuController;
+
     }
 
 
@@ -283,7 +291,23 @@ public class MasterSystem {
                     currentUsername = null;
                     programGenerator.readToDatabase();
                 } else {
-                    userCommandHandler(option, currentUsername, currentAccountType);
+                    switch (currentAccountType){
+                        case "attendee":{
+                            attendeeMenuController.attendeeUserCommandHandler(currentUsername);
+                            break;
+                        }
+                        case "organizer":{
+                            organizerMenuController.organizerFunctionalities(currentUsername);
+                            break;
+                        }
+                        case "speaker":{
+                            speakerMenuController.speakerUserCommandHandler(currentUsername);
+                            break;
+                        }
+                        //case "admin":{
+                        //    adminMenuController.
+                        //}
+                    }
                 }
             }
         }

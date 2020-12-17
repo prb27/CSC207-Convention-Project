@@ -57,7 +57,7 @@ public class OrganizerMenuController {
      * given by the user by calling the appropriate method using the appropriate controller
      * @param username: username of the currently logged in user
      */
-    private void organizerFunctionalities(String username) {
+    public void organizerFunctionalities(String username) {
 
         Scanner scanner = new Scanner(System.in);
         organizerPresenterTextUI.organizermenu(username);

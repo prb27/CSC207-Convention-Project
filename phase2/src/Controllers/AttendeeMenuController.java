@@ -52,8 +52,11 @@ public class AttendeeMenuController {
         this.conversationMenuController = conversationMenuController;
     }
 
-    private void attendeeUserCommandHandler(String option, String username) {
+    public void attendeeUserCommandHandler(String username) {
+
+        attendeePresenterTextUI.attendeemenu(username);
         Scanner scanner = new Scanner(System.in);
+        String option = scanner.nextLine();
         switch(option) {
             case "1":
                 Map<String, List<String>> eventsToSignUpWithInfo = userEventController.seeAttendableEvents(username);

@@ -54,11 +54,12 @@ public class SpeakerMenuController {
     /**
      * Private helper method that takes in the "speaker type" of the user and and handles the command
      * given by the user by calling the appropriate method using the appropriate controller
-     * @param option: option selected by the user
      * @param username: username of the currently logged in user
      */
-    private void speakerUserCommandHandler(String option, String username) {
+    public void speakerUserCommandHandler(String username) {
         Scanner scanner = new Scanner(System.in);
+        sui.speakermenu(username);
+        String option = scanner.nextLine();
         switch(option) {
             case "1":
                 sui.seeEventList(userEventController.seeListOfEventsForSpeaker(username));
