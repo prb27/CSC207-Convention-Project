@@ -2,10 +2,10 @@ package Controllers;
 
 import Gateways.ProgramGenerator;
 import NewUI.*;
-import Presenters.*;
-import Presenters.Attendee.*;
-import Presenters.Organizer.*;
-import Presenters.Speaker.*;
+//import Presenters.*;
+//import Presenters.Attendee.*;
+//import Presenters.Organizer.*;
+//import Presenters.Speaker.*;
 
 import UseCases.*;
 
@@ -36,7 +36,7 @@ public class MasterSystem {
     private ConversationManager conversationManager;
     private MessageManager messageManager;
 
-    private SceneHandler sceneHandler;
+//    private SceneHandler sceneHandler;
 
 
     private AccountHandler accountHandler;

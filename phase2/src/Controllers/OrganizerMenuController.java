@@ -308,7 +308,8 @@ public class OrganizerMenuController {
         organizerPresenterTextUI.promptForRoomID();
         String roomId = scanner.nextLine();
         organizerPresenterTextUI.promptForRoomCapacity();
-        int capacity = scanner.nextInt();
+        String capacitys = scanner.nextLine();
+        int capacity = Integer.parseInt(capacitys);
 
         organizerPresenterTextUI.promptForProjectorExist();
         String proj = scanner.nextLine();
