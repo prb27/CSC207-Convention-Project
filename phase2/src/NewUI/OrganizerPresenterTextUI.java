@@ -1,6 +1,35 @@
 package NewUI;
 
+import UseCases.*;
+
+import java.util.List;
+
 public class OrganizerPresenterTextUI{
+
+    private AttendeeManager attendeeManager;
+    private OrganizerManager organizerManager;
+    private SpeakerManager speakerManager;
+    private AdminManager adminManager;
+    private EventManager eventManager;
+    private RoomManager roomManager;
+    private ConversationManager conversationManager;
+    private MessageManager messageManager;
+
+
+    public OrganizerPresenterTextUI(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager,
+                  AdminManager adminManager, MessageManager messageManager, ConversationManager conversationManager,
+                  EventManager eventManager, RoomManager roomManager) {
+        this.attendeeManager = attendeeManager;
+        this.organizerManager = organizerManager;
+        this.speakerManager = speakerManager;
+        this.adminManager = adminManager;
+        this.messageManager = messageManager;
+        this.conversationManager = conversationManager;
+        this.eventManager = eventManager;
+        this.roomManager = roomManager;
+    }
+
+
 
 
     /**
@@ -50,6 +79,117 @@ public class OrganizerPresenterTextUI{
 
     public void askForPassword(){
         System.out.println("Enter the password: ");
+    }
+
+    // Conversion of .string methods used in oUCH1
+    public void presentAllUserIds(List<String> allUserIds) {
+        for (String user : allUserIds) {
+            System.out.println(user);
+        }
+    }
+
+    public void promptForSpeakerUsername(){
+        System.out.println("Please enter the speaker's username");
+    }
+
+    public void promptForTime(){
+        System.out.println("Please enter the time");
+    }
+
+    public void notASpeaker(){
+        System.out.println("Note a speaker");
+    }
+
+    public void onlyAllowedTime(){
+        System.out.println("Please enter an allowed time");
+    }
+
+    public void messageForSpeakerFreeIfFree(String time){
+        System.out.println("No, the speaker doesn't have an event at " + time);
+    }
+
+    public void messageForSpeakerFreeIfNotFree(String time){
+        System.out.println("Yes, the speaker is talking at an event at " + time);
+    }
+
+    public void promptForOrganizerUsername(){
+        System.out.println("Please enter the organizer's username");
+    }
+
+    public void promptForNewOrganizerPw(){
+        System.out.println("Please enter this new organizer's password");
+    }
+
+    public void usernameAlreadyExists(){
+        System.out.println("The username already exists");
+    }
+
+    public void promptForSpeakerPw(){
+        System.out.println("Please enter password for this speaker");
+    }
+
+    public void promptForRoomID(){
+        System.out.println("Please enter roomID:");
+    }
+
+    public void promptForRoomCapacity(){
+        System.out.println("Please enter room capacity");
+    }
+
+    public void promptForProjectorExist(){
+        System.out.println("Please enter whether the room has a projector (Y/N)");
+    }
+
+    public void promptForEventTime(){
+        System.out.println("Please enter event time");
+    }
+
+    public void promptForEventDuration(){
+        System.out.println("Please enter event duration");
+    }
+
+    public void promptForEventCapacity(){
+        System.out.println("Please enter event capacity");
+    }
+
+    public void promptForEventRoom(){
+        System.out.println("Please enter room number");
+    }
+
+    public void promptForSubjectLine(){
+        System.out.println("Please enter subject line");
+    }
+
+    public void promptForEventSpeakers(){
+        System.out.println("Please enter the speakers' username (enter after each name and type Over when done)");
+    }
+
+    public void promptForNewEventTime(){
+        System.out.println("Please enter the new event time");
+    }
+
+
+    // Conversion of .string methods used in oUCH1
+
+    public void presentEventsNotSignedUpFor(List<String> eventsNotSignedUpFor{
+        for (String event: eventsNotSignedUpFor){
+            System.out.println("Event Title:" + event + "\nTime:" +
+                    eventManager.getStartTime(event) + "\nRoom: " +
+                    eventManager.getRoomNumber(event) + "\nSpeaker: " +
+                    eventManager.getSpeakerEvent(event) + "\n");
+        }
+    }
+
+    public void promptEventNameAdd(){
+        System.out.println("Please enter the title of the event you want to attend (exactly as it appears on the list of titles displayed)");
+    }
+
+    public void promptForEventName(){
+        System.out.println("Please enter the event's name");
+    }
+
+    public void presentNoLongerAttendingEvent(String event){
+        System.out.println("You are no longer attending " + event);
     }
 
 }

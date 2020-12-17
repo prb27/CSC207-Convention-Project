@@ -2,6 +2,9 @@ package NewUI;
 
 import com.sun.org.apache.xpath.internal.operations.String;
 
+import java.util.List;
+import java.util.Map;
+
 public class AttendeePresenterTextUI {
     /**
      * print out a set of functions that an attendee is able to do
@@ -24,5 +27,86 @@ public class AttendeePresenterTextUI {
         System.out.println("7: View all conversations");
         System.out.println("8: Add another attendee to friend list");
         System.out.println("\n0: Sign-out");
+    }
+
+    public void presentEventsNotSignedUpFor(Map<java.lang.String, List<java.lang.String>> eventsNotSignedUpFor){
+        for (java.lang.String event: eventsNotSignedUpFor.keySet()) {
+            System.out.println(event);
+            for (java.lang.String eventInfo: eventsNotSignedUpFor.get(event))
+                System.out.println(eventInfo);
+        }
+    }
+
+    public void promptEventNameToAdd() {
+        System.out.println("Please enter the title of the event you want to attend " +
+                "(exactly as it appears on the list of titles displayed)");
+    }
+
+    public void success() {
+        System.out.println("Successful!");
+    }
+
+    public void promptEventName() {
+        System.out.println("Please enter the event's name.");
+    }
+
+    public void promptNoLongerAttending(java.lang.String event){
+        System.out.println("You are no longer attending " + event);
+    }
+
+    public void presentEventsAttending(List<java.lang.String> eventsAttending){
+        for (java.lang.String event: eventsAttending){
+            System.out.println("Event Title:" + event + "\nTime:" +
+                    eventManager.getStartTime(event) + "\nRoom: " +
+                    eventManager.getRoomNumber(event) + "\nSpeaker: " +
+                    eventManager.getSpeakerEvent(event) + "\n");
+        }
+    }
+
+    public void promptAttendeeID(){
+        System.out.println("Please enter attendee ID");
+    }
+
+    public void promptMessageToSend(){
+        System.out.println("Please enter the message that you want to send");
+    }
+
+    public void failure(){
+        System.out.println("Something went wrong");
+    }
+
+    public void convoNumUniqueId(java.lang.String i, java.lang.String conversationId){
+        System.out.println("Conversation Number " + i + "\n" + "Uniqueness Identifier: " + conversationId);
+    }
+
+    public void presentRecipients(StringBuilder recipients){
+        System.out.println("Recipients: " + recipients);
+    }
+
+    public void noConvo(){
+        System.out.println("You have no conversations");
+    }
+
+    public void promptConvoNumber(){
+        System.out.println("Choose a conversation number");
+    }
+
+    public void presentMessageInConvo(List<java.lang.String> messagesInConvo) {
+        for (java.lang.String s : messagesInConvo) {
+            System.out.println(s);
+        }
+    }
+
+    public void promptToReply(){
+        System.out.println("Enter \"r\" to reply in this conversation." +
+                " [Any other input will exit this menu]");
+    }
+
+    public void promptMessageToSent(){
+        System.out.println("Please enter the name of the attendee to be added");
+    }
+
+    public void friendContactAlreadyExist(java.lang.String attendee, java.lang.String friendName){
+        System.out.println("Attendee " + friendName +" already exist in the contact list");
     }
 }
