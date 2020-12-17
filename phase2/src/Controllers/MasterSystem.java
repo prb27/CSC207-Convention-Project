@@ -7,6 +7,7 @@ import Presenters.Organizer.*;
 import Presenters.Speaker.*;
 
 import UseCases.*;
+import com.sun.org.apache.xpath.internal.operations.String;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -290,20 +291,16 @@ public class MasterSystem {
         Scanner scanner = new Scanner(System.in);
         switch(option) {
             case "1":
-                ui.present("Please confirm that you want to delete all events without attendees (Y/N)");
-                String answer = scanner.nextLine();
-                if (answer.equals("Y")) {
-                    adminMenuController.deleteEventWithoutAttendee();
-                    ui.present("all events without attendees were deleted");
-                }
-                ui.present("\n\n");
+                adminMenuController.deleteEventWithoutAttendee();
+                adui.emptyEventsDeleted();
+                adui.newLine;
                 break;
             case "2":
-                ui.present("Please enter the message id you want to delete");
+                adui.messageID();
                 String message = scanner.nextLine();
                 adminMenuController.deleteMessage(message);
-                ui.present("message with id "+message+" was deleted");
-                ui.present("\n\n");
+                adui.messageDeleted(message);
+                adui.newLine;
                 break;
         }
     }
@@ -788,35 +785,35 @@ public class MasterSystem {
         Scanner scanner = new Scanner(System.in);
         switch(option) {
             case "1":
-                ui.present(userEventController.seeListOfEventsForSpeaker(username).toString());
+                sui.seeEventList(userEventController.seeListOfEventsForSpeaker(username));
                 break;
             case "2":
-                ui.eventnameprompt();
+                sui.eventnameprompt();
                 String eventName = scanner.nextLine();
-                ui.messageprompt();
+                sui.messageprompt();
                 String content = scanner.nextLine();
                 messengerMenuController.speakerMessageByTalk(username, eventName, content);
-                ui.showPrompt("MS");
+                sui.showPrompt("MS");
                 break;
             case "3":
                 List<String> listOfTalkNames = userEventController.seeAllEventNamesForSpeaker(username);
-                ui.messageprompt();
+                sui.messageprompt();
                 String content1 = scanner.nextLine();
                 messengerMenuController.speakerMessageByMultiTalks(username, listOfTalkNames, content1);
-                ui.showPrompt("MMS");
+                sui.showPrompt("MMS");
                 break;
             case "4":
-                ui.present("Please enter the username of the Attendee you wish to message:");
+                sui.getAttendeeToMess();
                 String attendeeUsername = scanner.nextLine();
-                ui.messageprompt();
+                sui.messageprompt();
                 String message = scanner.nextLine();
                 List<String> listOfTalkNames1 = userEventController.seeAllEventNamesForSpeaker(username);
                 boolean err = messengerMenuController.speakerMessageAttendee(username, listOfTalkNames1, attendeeUsername, message);
                 if(err){
-                    ui.present("Successful");
+                    sui.success();
                 }
                 else{
-                    ui.present("Something went wrong");
+                    sui.fail();
                 }
                 break;
             case "5":
@@ -824,36 +821,36 @@ public class MasterSystem {
                 for(String conversationId: speakerManager.getConversations(username)) {
                     List<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
                     StringBuilder recipients = new StringBuilder();
-                    ui.present("Conversation Number " + i.toString() + "\n" + "Uniqueness Identifier: " + conversationId);
+                    sui.convoNumUniqueId(i, conversationId);
                     for (String recipient: recipientsOfConversation){
                         recipients.append(recipient);
                         recipients.append(", ");
                     }
-                    ui.present("Recipients: " + recipients);
+                    sui.presentRecipients(recipients);
                     i += 1;
                 }
                 if(speakerManager.getConversations(username).isEmpty()){
-                    ui.present("You have no conversations");
+                    sui.noConvo();
                     break;
                 }
-                ui.present("Choose a Conversation Number");
+                sui.promptConvoNumber();
                 String conversationNumber = scanner.nextLine();
                 String conversationIdFinal = speakerManager.getConversations(username).get(Integer.parseInt(conversationNumber) - 1);
                 List<String> messagesInThisConversation = conversationMenuController.orderedMessagesInConvo(conversationIdFinal);
                 for (String s : messagesInThisConversation) {
-                    ui.present(s);
+                    sui.present(s);
                 }
-                ui.present("Enter \"r\" to reply in this conversation. [Any other input will exit this menu]");
+                sui.rep();
                 String reply = scanner.nextLine();
                 if(!reply.equals("r")){
                     break;
                 }
-                ui.present("Please enter the message you want to send");
+                sui.promptMessageToSend();
                 String contents = scanner.nextLine();
                 conversationMenuController.reply(username, conversationIdFinal, contents);
                 break;
             default: {
-                ui.showError("INO");
+                sui.showError("INO");
             }
         }
     }
