@@ -1,6 +1,7 @@
 package NewUI;
 
-public class OrganizerPresesnterTextUI {
+public class OrganizerPresenterTextUI{
+
 
     /**
      * print out a set of functions that an organizer is able to do

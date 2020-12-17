@@ -1,6 +1,6 @@
 package Controllers;
 
-import NewUI.OrganizerPresesnterTextUI;
+import NewUI.OrganizerPresenterTextUI;
 import UseCases.*;
 
 import java.util.ArrayList;
@@ -22,10 +22,10 @@ public class OrganizerMenuController {
     private EventManager eventManager;
     private UserEventController userEventController;
     private RoomManager roomManager;
-    private OrganizerPresesnterTextUI organizerPresesnterTextUI;
+    private OrganizerPresenterTextUI organizerPresenterTextUI;
 
 
-    public OrganizerMenuController(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager, AdminManager adminManager, AccountHandler accountHandler, EventManager eventManager, UserEventController userEventController, RoomManager roomManager, OrganizerPresesnterTextUI organizerPresesnterTextUI){
+    public OrganizerMenuController(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager, AdminManager adminManager, AccountHandler accountHandler, EventManager eventManager, UserEventController userEventController, RoomManager roomManager, OrganizerPresenterTextUI organizerPresenterTextUI){
 
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
@@ -35,7 +35,7 @@ public class OrganizerMenuController {
         this.eventManager = eventManager;
         this.userEventController = userEventController;
         this.roomManager = roomManager;
-        this.organizerPresesnterTextUI = organizerPresesnterTextUI;
+        this.organizerPresenterTextUI = organizerPresenterTextUI;
 
     }
 
@@ -51,7 +51,7 @@ public class OrganizerMenuController {
         Scanner scanner = new Scanner(System.in);
         switch (option) {
             case "1": {
-                organizerPresesnterTextUI.askForUserType();
+                organizerPresenterTextUI.askForUserType();
                 String userType = scanner.nextLine();
                 List<String> users = listOfUsers(userType);
                 }
@@ -74,29 +74,17 @@ public class OrganizerMenuController {
                 break;
             }
             case "3": {
-                organizerPresesnterTextUI.askForUserType();
+                organizerPresenterTextUI.askForUserType();
                 String userType = scanner.nextLine();
-                organizerPresesnterTextUI
+                organizerPresenterTextUI.askForUsername();
                 String organizerUsername = scanner.nextLine();
-                //ui.present("Please enter the password for this new organizer");
+                organizerPresenterTextUI.askForPassword();
                 String organizerPassword = scanner.nextLine();
-                boolean err = createNewAccount(organizerUsername, organizerPassword, "organizer");
+                boolean err = createNewAccount(organizerUsername, organizerPassword, userType);
                 if (err) {
                     //ui.present("Successful");
                 } else {
                     //ui.present("The username already exists");
-                }
-                break;
-            }
-            case "6": {
-                ui.present("Please enter new speaker's username");
-                String speakerUsername = scanner.nextLine();
-                ui.present("Please enter password for this speaker");
-                String speakerPassword = scanner.nextLine();
-                if (accountHandler.signup(speakerUsername, speakerPassword, "speaker")) {
-                    ui.showPrompt("UC");
-                } else {
-                    ui.showPrompt("SF");
                 }
                 break;
             }
