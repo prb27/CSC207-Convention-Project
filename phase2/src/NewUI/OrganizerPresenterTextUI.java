@@ -2,6 +2,7 @@ package NewUI;
 
 import UseCases.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrganizerPresenterTextUI extends TextUI {
@@ -41,14 +42,15 @@ public class OrganizerPresenterTextUI extends TextUI {
         System.out.println("3: Create a new account");
 
         System.out.println("\nEVENT FUNCTIONS:");
-        System.out.println("7: Add a room into the system");
-        System.out.println("8: Create new event or Schedule speaker for new event");
-        System.out.println("9: Change speaker for an event (Warning: once this option is chosen, the given event name will be removed. \n All attendees of the event should" +
+        System.out.println("4: Add a room into the system");
+        System.out.println("5: Create new event or Schedule speaker for new event");
+        System.out.println("6: Remove an event");
+        System.out.println("7: Change speaker for an event (Warning: once this option is chosen, the given event name will be removed. \n All attendees of the event should" +
                 " register again for this event.)");
-        System.out.println("10: Change time of an event (Warning: once this option is chosen, the given event name will be removed, \n and a new event will be created at your chosen time. All attendees of the event should" +
+        System.out.println("8: Change time of an event (Warning: once this option is chosen, the given event name will be removed, \n and a new event will be created at your chosen time. All attendees of the event should" +
                 " register again for this event.)");
-        System.out.println("11: Show events that I haven't signed up for");
-        System.out.println("12: Sign up for an event");
+        System.out.println("9: Show events that I haven't signed up for");
+        System.out.println("10: Sign up for an event");
         System.out.println("13: Cancel spot in an event");
         System.out.println("14: See schedule of events signed up for");
 
@@ -60,6 +62,32 @@ public class OrganizerPresenterTextUI extends TextUI {
         System.out.println("19: View Conversations");
         System.out.println("20: Send message to everyone attending an event");
         System.out.println("\n0: Sign-out");
+
+    }
+
+    /**
+     * Prints a List of usernames of all Users in this conference of the user type provided in the parameter.
+     * @param type Type of user (options: "attendee", "organizer", "speaker" and "all") (param_type: String)
+     * @author Ashwin
+     */
+    public void listOfUsers(String type){
+
+        List<String> users = new ArrayList<>();
+        if(type.equals("attendee") || type.equals("all")){
+            users.addAll(attendeeManager.getAllAttendeeIds());
+        }
+        if(type.equals("organizer") || type.equals("all")){
+            users.addAll(organizerManager.getAllOrganizerIds());
+        }
+        if(type.equals("speaker") || type.equals("all")){
+            users.addAll(speakerManager.getAllSpeakerIds());
+        }
+        if(type.equals("admin") || type.equals("all")){
+            users.add(adminManager.getAdminName());
+        }
+        for(String user: users){
+            System.out.println(user + "\n");
+        }
 
     }
 
@@ -91,7 +119,7 @@ public class OrganizerPresenterTextUI extends TextUI {
     }
 
     public void notASpeaker(){
-        System.out.println("Note a speaker");
+        System.out.println("Not a speaker");
     }
 
     public void onlyAllowedTime(){
@@ -165,16 +193,14 @@ public class OrganizerPresenterTextUI extends TextUI {
 
     // Conversion of .string methods used in oUCH2
 
-    public void presentEventsNotSignedUpFor(List<String> eventsNotSignedUpFor){
+    public void presentEvents(List<String> eventsNotSignedUpFor){
         for (String event: eventsNotSignedUpFor){
-            System.out.println("Event Title:" + event + "\nTime:" +
-                    eventManager.getStartTime(event) + "\nRoom: " +
-                    eventManager.getRoomNumber(event) + "\nSpeaker: " +
-                    eventManager.getSpeakerEvent(event) + "\n");
+            System.out.println("Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "\nRoom: "
+                    + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\n");
         }
     }
 
-    public void promptEventNameAdd(){
+    public void promptEventWantToAttend(){
         System.out.println("Please enter the title of the event you want to attend (exactly as it appears on the list of titles displayed)");
     }
 
