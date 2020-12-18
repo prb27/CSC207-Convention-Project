@@ -16,7 +16,6 @@ public class AdminMenuController {
     private final ConversationMenuController conversationMenuController;
     private final EventManager eventManager;
     private final MessageManager messageManager;
-    private IAdminMenu adminMenu;
 
     private List<String> allMessages;
 

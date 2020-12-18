@@ -63,6 +63,7 @@ public class MasterSystem {
     private AttendeePresenterTextUI aui;
     private SpeakerTextUI sui;
     private TextUI ui;
+    private LandingMenu landingMenu;
 
 
     /**
@@ -107,6 +108,7 @@ public class MasterSystem {
                 conversationManager, eventManager, roomManager);
         this.ui = new TextUI(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
                 conversationManager, eventManager, roomManager);
+        this.landingMenu = new LandingMenu();
 
         this.organizerMenuController = new OrganizerMenuController(attendeeManager, organizerManager, speakerManager, adminManager,
                 accountHandler, eventManager, userEventController, roomManager, oui, messengerMenuController, conversationManager, conversationMenuController);
@@ -237,7 +239,7 @@ public class MasterSystem {
             String tempPassword;
             String tempAccountType;
 
-            ui.landingmenu();
+            landingMenu.landingmenu();
             String landingOption = scanner.nextLine();
 
             switch (landingOption) {
@@ -312,9 +314,10 @@ public class MasterSystem {
                             speakerMenuController.speakerUserCommandHandler(currentUsername);
                             break;
                         }
-                        //case "admin":{
-                        //    adminMenuController.
-                        //}
+//                        case "admin":{
+//
+//                            adminMenuController.adminUserCommandHandler()
+//                        }
                     }
                 }
             }
