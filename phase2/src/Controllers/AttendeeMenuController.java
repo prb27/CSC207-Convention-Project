@@ -2,10 +2,10 @@ package Controllers;
 
 
 import NewUI.AttendeePresenterTextUI;
-import NewUI.OrganizerPresenterTextUI;
+import NewUI.ErrorHandler;
+import NewUI.EventMenuPresenterTextUI;
 import UseCases.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -29,6 +29,8 @@ public class AttendeeMenuController {
     private MessengerMenuController messengerMenuController;
     private ConversationManager conversationManager;
     private ConversationMenuController conversationMenuController;
+    private EventMenuPresenterTextUI eventMenuPresenterTextUI;
+    private ErrorHandler errorHandler;
 
 
     public AttendeeMenuController(AttendeeManager attendeeManager,
@@ -36,7 +38,8 @@ public class AttendeeMenuController {
                                   AdminManager adminManager, AccountHandler accountHandler, EventManager eventManager,
                                   UserEventController userEventController, RoomManager roomManager,
                                  AttendeePresenterTextUI attendeePresenterTextUI, MessengerMenuController messengerMenuController,
-                                  ConversationManager conversationManager, ConversationMenuController conversationMenuController){
+                                  ConversationManager conversationManager, ConversationMenuController conversationMenuController,
+                                  EventMenuPresenterTextUI eventMenuPresenterTextUI, ErrorHandler errorHandler){
 
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
@@ -50,11 +53,13 @@ public class AttendeeMenuController {
         this.messengerMenuController = messengerMenuController;
         this.conversationManager = conversationManager;
         this.conversationMenuController = conversationMenuController;
+        this.eventMenuPresenterTextUI = eventMenuPresenterTextUI;
+        this.errorHandler = errorHandler;
     }
 
     public void attendeeUserCommandHandler(String username) {
 
-        attendeePresenterTextUI.attendeemenu(username);
+       // attendeePresenterTextUI.attendeemenu(username);
         Scanner scanner = new Scanner(System.in);
         String option = scanner.nextLine();
         switch(option) {
@@ -68,24 +73,24 @@ public class AttendeeMenuController {
                 attendeePresenterTextUI.present("\n\n");
                 break;
             case "2":
-                attendeePresenterTextUI.promptEventNameToAdd();
+                eventMenuPresenterTextUI.promptEventNameToAdd();
                 String eventName = scanner.nextLine();
                 String err = userEventController.enrolUserInEvent(username, eventName);
                 if (!err.equals("YES")) {
-                    attendeePresenterTextUI.showError(err);
+                    errorHandler.showError(err);
                 } else {
-                    attendeePresenterTextUI.success();
+                    errorHandler.success();
                 }
                 break;
             case "3":
-                attendeePresenterTextUI.promptEventTitleCancel();
+                eventMenuPresenterTextUI.promptEventTitleCancel();
                 String eventname = scanner.nextLine();
                 userEventController.cancelSeatForUser(username, eventname);
-                attendeePresenterTextUI.promptNoLongerAttending(eventname);
+                eventMenuPresenterTextUI.promptNoLongerAttending(eventname);
                 break;
             case "4":
                 List<String> eventsAttending = attendeeManager.getEventsAttending(username);
-                attendeePresenterTextUI.presentEventsAttending(eventsAttending);
+                eventMenuPresenterTextUI.presentEventsAttending(eventsAttending);
                 break;
             case "5":
                 attendeePresenterTextUI.promptAttendeeID();
@@ -147,7 +152,7 @@ public class AttendeeMenuController {
                 attendeePresenterTextUI.promptAttendeeUsernameAdded();
                 String friendName = scanner.nextLine();
                 if (!attendeeManager.isAttendee(friendName)) {
-                    attendeePresenterTextUI.showError("UDE");
+                    errorHandler.showError("UDE");
                     break;
                 }
                 String errorCode = attendeeManager.aAddContactB(username, friendName);

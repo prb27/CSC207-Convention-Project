@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="427.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presenters.Organizer.OrganizerEventMenuPresenter">
+<AnchorPane prefHeight="427.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UnusedGUIPresenters.Organizer.OrganizerEventMenuPresenter">
    <Label layoutX="14.0" layoutY="6.0" text="Signed in as:" />
    <Label fx:id="username" layoutX="90.0" layoutY="6.0" text="Username" />
    <Label layoutX="14.0" layoutY="23.0" text="Organizer Event Menu">

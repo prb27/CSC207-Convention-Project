@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presenters.Organizer.OrganizerEventCreationMenuPresenter">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UnusedGUIPresenters.Organizer.OrganizerEventCreationMenuPresenter">
    <ListView fx:id="displayListView" layoutX="28.0" layoutY="85.0" prefHeight="290.0" prefWidth="250.0" />
    <Label layoutX="14.0" layoutY="35.0" text="Organizer Event Creation">
       <font>

@@ -1,9 +1,8 @@
 package Controllers;
 
-import NewUI.SpeakerTextUI;
+import NewUI.SpeakerPresenterTextUI;
 import UseCases.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,14 +24,14 @@ public class SpeakerMenuController {
     private UserEventController userEventController;
     private ConversationMenuController conversationMenuController;
     private RoomManager roomManager;
-    private SpeakerTextUI sui;
+    private SpeakerPresenterTextUI sui;
 
 
     public SpeakerMenuController(AttendeeManager attendeeManager, OrganizerManager organizerManager,
                                  SpeakerManager speakerManager, AdminManager adminManager,
                                  AccountHandler accountHandler, EventManager eventManager,
                                  UserEventController userEventController, RoomManager roomManager,
-                                 SpeakerTextUI speakerTextUI, MessengerMenuController messengerMenuController,
+                                 SpeakerPresenterTextUI speakerTextUI, MessengerMenuController messengerMenuController,
                                  ConversationManager conversationManager, ConversationMenuController convoMenuContro){
 
         this.attendeeManager = attendeeManager;

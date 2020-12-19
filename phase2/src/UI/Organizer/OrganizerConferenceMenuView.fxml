@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presenters.Organizer.OrganizerConferenceMenuPresenter">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UnusedGUIPresenters.Organizer.OrganizerConferenceMenuPresenter">
    <Label layoutX="14.0" layoutY="35.0" text="Organizer Conference Controls">
       <font>
          <Font size="22.0" />

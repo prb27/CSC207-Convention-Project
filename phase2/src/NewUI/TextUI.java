@@ -1,11 +1,7 @@
 package NewUI;
-import Controllers.*;
-import Gateways.ProgramGenerator;
-import Presenters.SceneHandler;
 import UseCases.*;
-import Main.Main;
+
 import java.util.*;
-import UseCases.*;
 
 /**
  * Class that stores methods used by the Controllers.MasterSystem class to send out prompts for users to reply to

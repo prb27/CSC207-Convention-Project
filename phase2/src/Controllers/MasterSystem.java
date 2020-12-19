@@ -9,9 +9,6 @@ import NewUI.*;
 
 import UseCases.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 
@@ -36,9 +33,6 @@ public class MasterSystem {
     private ConversationManager conversationManager;
     private MessageManager messageManager;
 
-//    private SceneHandler sceneHandler;
-
-
     private AccountHandler accountHandler;
 
     private AttendeeMenuController attendeeMenuController;
@@ -61,9 +55,11 @@ public class MasterSystem {
     private AdminTextUI adui;
     private OrganizerPresenterTextUI oui;
     private AttendeePresenterTextUI aui;
-    private SpeakerTextUI sui;
+    private SpeakerPresenterTextUI sui;
     private TextUI ui;
+    private ErrorHandler errorHandler;
     private LandingMenu landingMenu;
+    private EventMenuPresenterTextUI eventMenuPresenterTextUI;
 
 
     /**
@@ -104,123 +100,21 @@ public class MasterSystem {
                 conversationManager, eventManager, roomManager);
         this.oui = new OrganizerPresenterTextUI(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
                 conversationManager, eventManager, roomManager);
-        this.sui = new SpeakerTextUI(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
+        this.sui = new SpeakerPresenterTextUI(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
                 conversationManager, eventManager, roomManager);
         this.ui = new TextUI(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
                 conversationManager, eventManager, roomManager);
         this.landingMenu = new LandingMenu();
+        this.errorHandler = new ErrorHandler();
+        this.eventMenuPresenterTextUI = new EventMenuPresenterTextUI(eventManager);
 
         this.organizerMenuController = new OrganizerMenuController(attendeeManager, organizerManager, speakerManager, adminManager,
                 accountHandler, eventManager, userEventController, roomManager, oui, messengerMenuController, conversationManager, conversationMenuController);
-        this.attendeeMenuController = new AttendeeMenuController(attendeeManager, organizerManager, speakerManager, adminManager, accountHandler, eventManager, userEventController, roomManager, aui, messengerMenuController, conversationManager, conversationMenuController);
+        this.attendeeMenuController = new AttendeeMenuController(attendeeManager, organizerManager, speakerManager, adminManager, accountHandler, eventManager, userEventController, roomManager, aui, messengerMenuController, conversationManager, conversationMenuController, eventMenuPresenterTextUI, errorHandler);
         this.speakerMenuController = new SpeakerMenuController(attendeeManager, organizerManager, speakerManager, adminManager, accountHandler, eventManager, userEventController, roomManager, sui, messengerMenuController, conversationManager, conversationMenuController);
         this.adminMenuController = new AdminMenuController(attendeeManager, speakerManager, organizerManager, conversationManager, conversationMenuController, eventManager, messageManager);
 
     }
-
-
-//    /**
-//     * A method that is responsible for the flow of the program by taking user input,
-//     * using controllers to execute actions and displaying the result using the UI.
-//     */
-//    public void run(){
-//            this.accountHandler = new AccountHandler(attendeeManager, organizerManager, speakerManager, adminManager);
-//            this.attendeeEventMenuController = new AttendeeEventMenuController(attendeeManager, eventManager);
-//            this.attendeeMessagingDashboardMenuController = new AttendeeMessagingDashboardMenuController(attendeeManager,
-//                    conversationManager);
-//            this.conversationMenuController = new ConversationMenuController(attendeeMessagingDashboardMenuController,
-//                    speakerMessagingDashboardMenuController, conversationManager, messageManager);
-//            this.eventMenuController = new EventMenuController();
-//            this.eventsSearchEngine = new EventsSearchEngine(eventManager);
-//
-//
-//            this.loginMenuController = new LoginMenuController(accountHandler);
-//            this.signUpMenuController = new SignUpMenuController(accountHandler);
-//
-//            this.messengerMenuController = new MessengerMenuController(messageManager, attendeeManager,
-//                    organizerManager, speakerManager, eventManager, accountHandler, conversationManager);
-//            this.organizerMenuController = new OrganizerMenuController(attendeeManager, organizerManager,
-//                    speakerManager,adminManager, accountHandler, eventManager, userEventController, roomManager);
-//            this.speakerMenuController = new SpeakerMenuController(attendeeManager, organizerManager, speakerManager,
-//                    eventManager, roomManager, conversationManager, messageManager, "");
-//            this.speakerMessagingDashboardMenuController = new SpeakerMessagingDashboardMenuController(speakerManager,
-//                    conversationManager);
-//            this.organizerMessagingDashboardMenuController = new OrganizerMessagingDashboardMenuController(organizerManager,
-//                    conversationManager);
-//            this.userEventController = new UserEventController(attendeeManager, organizerManager,
-//                    speakerManager, eventManager, roomManager);
-//
-//            this.adminMenuController = new AdminMenuController(attendeeManager, speakerManager, organizerManager, conversationManager,
-//                conversationMenuController, eventManager, messageManager);
-//
-//            this.sceneHandler = new SceneHandler();
-//
-//
-//            /* Create an organizer account when a new Controllers.MasterSystem object is created
-//             * to allow for the conference to have at least one organizer*/
-//            accountHandler.signup("organizer1", "organizer1", "organizer");
-//
-//            /* Create an admin, since there is no way to sign up an admin account*/
-//            accountHandler.signup("admin", "admin", "admin");
-//        }
-//        public LoginMenuController getLoginMenuController(){
-//            return this.loginMenuController;
-//        }
-//        public ProgramGenerator getProgramGenerator(){
-//            return this.programGenerator;
-//        }
-//        public SignUpMenuController getSignUpMenuController(){
-//            return this.signUpMenuController;
-//        }
-//        public AttendeeEventMenuController getAttendeeEventMenuController(){
-//            return this.attendeeEventMenuController;
-//        }
-//        public AttendeeMessagingDashboardMenuController getAttendeeMessagingDashboardMenuController(){
-//            return this.attendeeMessagingDashboardMenuController;
-//        }
-//        public ConversationMenuController getConversationMenuController(){
-//            return this.conversationMenuController;
-//        }
-//        public EventMenuController getEventMenuController(){
-//            return this.eventMenuController;
-//        }
-//        public EventsSearchEngine getEventsSearchEngine(){
-//            return this.eventsSearchEngine;
-//        }
-//        public MessengerMenuController getMessengerMenuController(){
-//            return this.messengerMenuController;
-//        }
-//        public OrganizerMenuController getOrganizerMenuController(){
-//            return this.organizerMenuController;
-//        }
-//        public SpeakerMenuController getSpeakerMenuController(){
-//            return this.speakerMenuController;
-//        }
-//        public SpeakerMessagingDashboardMenuController getSpeakerMessagingDashboardMenuController(){
-//            return this.speakerMessagingDashboardMenuController;
-//        }
-//        public UserEventController getUserEventController(){
-//            return this.userEventController;
-//        }
-//        public SceneHandler getSceneHandler(){
-//            return this.sceneHandler;
-//        }
-//        public AccountHandler getAccountHandler(){
-//            return this.accountHandler;
-//        }
-//        public RoomManager getRoomManager(){
-//            return this.roomManager;
-//        }
-//
-//        public OrganizerMessagingDashboardMenuController getOrganizerMessagingDashboardController() {
-//            return organizerMessagingDashboardMenuController;
-//        }
-//
-//        public AdminMenuController getAdminMenuController() {
-//            return adminMenuController;
-//        }
-
-    // Everything below is from Phase 1. We will be scraping the GUI and only implementing the TextUI now.
 
 
     /**
@@ -276,7 +170,7 @@ public class MasterSystem {
                     break;
 
                 default:
-                    ui.showError("INO");
+                    errorHandler.showError("INO");
             }
 
             while(loggedIn) {
@@ -324,5 +218,4 @@ public class MasterSystem {
         }
 
     }
-
 }

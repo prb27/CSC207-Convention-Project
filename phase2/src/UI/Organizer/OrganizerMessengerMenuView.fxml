@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presenters.Organizer.OrganizerMessengerMenuPresenter">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UnusedGUIPresenters.Organizer.OrganizerMessengerMenuPresenter">
     <children>
         <Label layoutX="161.0" layoutY="14.0" text="Organizer Messenger Menu">
             <font>
