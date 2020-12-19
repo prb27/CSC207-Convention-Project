@@ -3,7 +3,6 @@ package Controllers;
 
 import NewUI.AttendeePresenterTextUI;
 import NewUI.ErrorHandler;
-import NewUI.EventMenuPresenterTextUI;
 import UseCases.*;
 
 import java.util.List;
@@ -29,7 +28,6 @@ public class AttendeeMenuController {
     private MessengerMenuController messengerMenuController;
     private ConversationManager conversationManager;
     private ConversationMenuController conversationMenuController;
-    private EventMenuPresenterTextUI eventMenuPresenterTextUI;
     private ErrorHandler errorHandler;
 
 
@@ -38,8 +36,7 @@ public class AttendeeMenuController {
                                   AdminManager adminManager, AccountHandler accountHandler, EventManager eventManager,
                                   UserEventController userEventController, RoomManager roomManager,
                                  AttendeePresenterTextUI attendeePresenterTextUI, MessengerMenuController messengerMenuController,
-                                  ConversationManager conversationManager, ConversationMenuController conversationMenuController,
-                                  EventMenuPresenterTextUI eventMenuPresenterTextUI, ErrorHandler errorHandler){
+                                  ConversationManager conversationManager, ConversationMenuController conversationMenuController, ErrorHandler errorHandler){
 
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
@@ -53,27 +50,33 @@ public class AttendeeMenuController {
         this.messengerMenuController = messengerMenuController;
         this.conversationManager = conversationManager;
         this.conversationMenuController = conversationMenuController;
-        this.eventMenuPresenterTextUI = eventMenuPresenterTextUI;
+
         this.errorHandler = errorHandler;
     }
 
     public void attendeeUserCommandHandler(String username) {
 
-       // attendeePresenterTextUI.attendeemenu(username);
+        //attendeePresenterTextUI.attendeemenu(username);
         Scanner scanner = new Scanner(System.in);
         String option = scanner.nextLine();
         switch(option) {
             case "1":
                 Map<String, List<String>> eventsToSignUpWithInfo = userEventController.seeAttendableEvents(username);
-                for (String event : eventsToSignUpWithInfo.keySet()) {
-                    attendeePresenterTextUI.present(event);
-                    for (String info : eventsToSignUpWithInfo.get(event))
-                        attendeePresenterTextUI.present(info);
+                if (eventsToSignUpWithInfo.isEmpty()){
+                    attendeePresenterTextUI.present("Events Empty");
                 }
-                attendeePresenterTextUI.present("\n\n");
+                else{
+                    for (String event : eventsToSignUpWithInfo.keySet()) {
+                        attendeePresenterTextUI.present(event);
+                        for (String info : eventsToSignUpWithInfo.get(event))
+                            attendeePresenterTextUI.present(info);
+
+                    }
+                }
+                //attendeePresenterTextUI.present("\n\n");
                 break;
             case "2":
-                eventMenuPresenterTextUI.promptEventNameToAdd();
+                attendeePresenterTextUI.promptEventNameToAdd();
                 String eventName = scanner.nextLine();
                 String err = userEventController.enrolUserInEvent(username, eventName);
                 if (!err.equals("YES")) {
@@ -83,14 +86,14 @@ public class AttendeeMenuController {
                 }
                 break;
             case "3":
-                eventMenuPresenterTextUI.promptEventTitleCancel();
+                attendeePresenterTextUI.promptEventTitleCancel();
                 String eventname = scanner.nextLine();
                 userEventController.cancelSeatForUser(username, eventname);
-                eventMenuPresenterTextUI.promptNoLongerAttending(eventname);
+                attendeePresenterTextUI.promptNoLongerAttending(eventname);
                 break;
             case "4":
                 List<String> eventsAttending = attendeeManager.getEventsAttending(username);
-                eventMenuPresenterTextUI.presentEventsAttending(eventsAttending);
+                attendeePresenterTextUI.presentEventsAttending(eventsAttending);
                 break;
             case "5":
                 attendeePresenterTextUI.promptAttendeeID();

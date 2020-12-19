@@ -24,17 +24,17 @@ Phase 2 of our program extends Phase 1 with the following extensions:
     - 1 big original feature:
         1) Polling system (Ashwin)
 
-    Refactoring of the code to use Text UI instead of GUI was done by:
+    Refactoring of the code to use Text UnusedUI instead of GUI was done by:
     Ashwin, Johnny, Khoa
 
-    Text UI extensions with the right menus and etc, along with the bug fixes will be done by:
+    Text UnusedUI extensions with the right menus and etc, along with the bug fixes will be done by:
         Known Bugs:
         - The current TextUI does something weird where it shows the menu options twice for any user whenever u want to
         make an option. It's not really program breaking because you can still make your choices that brings you
         to the functionalities you can do, but it's just weird because you have to choose it twice.
 
         To Implement:
-        - The remaining Text UI menus for the Search Engine Ashwin created. I quote Ashwin for exact requirements:
+        - The remaining Text UnusedUI menus for the Search Engine Ashwin created. I quote Ashwin for exact requirements:
         "The EventsSearchEngine stuff should work without anyone logging in. i.e. I want 3 options to be shown when
         the programs runs. log in and sign up are already there. I want option 3 to be the search engine. It need not
         depend on any User. So When i run the program , I should be able to view events as per search engine functions
