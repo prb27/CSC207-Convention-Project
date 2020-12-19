@@ -174,48 +174,38 @@ public class MasterSystem {
             }
 
             while(loggedIn) {
-
+                boolean inMenu = true;
                 switch(currentAccountType) {
                     case "attendee":
-                        aui.attendeemenu(currentUsername);
+                        while(inMenu){
+                            aui.attendeemenu(currentUsername);
+                            inMenu = attendeeMenuController.attendeeUserCommandHandler(currentUsername);
+                        }
+                        loggedIn = false;
+                        currentUsername = null;
+                        programGenerator.readToDatabase();
                         break;
                     case "organizer":
-                        oui.organizermenu(currentUsername);
+                        while(inMenu){
+                            oui.organizermenu(currentUsername);
+                            inMenu = organizerMenuController.organizerFunctionalities(currentUsername);
+                        }
+                        loggedIn = false;
+                        currentUsername = null;
+                        programGenerator.readToDatabase();
                         break;
                     case "speaker":
-                        sui.speakermenu(currentUsername);
+                        while(inMenu){
+                            sui.speakermenu(currentUsername);
+                            inMenu = speakerMenuController.speakerUserCommandHandler(currentUsername);
+                        }
+                        loggedIn = false;
+                        currentUsername = null;
+                        programGenerator.readToDatabase();
                         break;
-                }
-
-                String option = scanner.nextLine();
-                if (option.equals("0")) {
-                    loggedIn = false;
-                    currentUsername = null;
-                    programGenerator.readToDatabase();
-                } else {
-                    switch (currentAccountType){
-                        case "attendee":{
-                            attendeeMenuController.attendeeUserCommandHandler(currentUsername);
-                            break;
-                        }
-                        case "organizer":{
-                            oui.organizermenu(currentUsername);
-                            String option1 = scanner.nextLine();
-                            organizerMenuController.organizerFunctionalities(option1, currentUsername);
-                            break;
-                        }
-                        case "speaker":{
-                            speakerMenuController.speakerUserCommandHandler(currentUsername);
-                            break;
-                        }
-//                        case "admin":{
-//
-//                            adminMenuController.adminUserCommandHandler()
-//                        }
-                    }
                 }
             }
         }
-
     }
+
 }

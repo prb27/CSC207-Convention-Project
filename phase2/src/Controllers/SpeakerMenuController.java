@@ -55,14 +55,16 @@ public class SpeakerMenuController {
      * given by the user by calling the appropriate method using the appropriate controller
      * @param username: username of the currently logged in user
      */
-    public void speakerUserCommandHandler(String username) {
+    public boolean speakerUserCommandHandler(String username) {
         Scanner scanner = new Scanner(System.in);
         sui.speakermenu(username);
         String option = scanner.nextLine();
         switch(option) {
+            case "0":
+                return false;
             case "1":
                 sui.seeEventList(userEventController.seeListOfEventsForSpeaker(username));
-                break;
+                return true;
             case "2":
                 sui.eventnameprompt();
                 String eventName = scanner.nextLine();
@@ -70,14 +72,14 @@ public class SpeakerMenuController {
                 String content = scanner.nextLine();
                 messengerMenuController.speakerMessageByTalk(username, eventName, content);
                 sui.showPrompt("MS");
-                break;
+                return true;
             case "3":
                 List<String> listOfTalkNames = userEventController.seeAllEventNamesForSpeaker(username);
                 sui.messageprompt();
                 String content1 = scanner.nextLine();
                 messengerMenuController.speakerMessageByMultiTalks(username, listOfTalkNames, content1);
                 sui.showPrompt("MMS");
-                break;
+                return true;
             case "4":
                 sui.getAttendeeToMess();
                 String attendeeUsername = scanner.nextLine();
@@ -91,7 +93,7 @@ public class SpeakerMenuController {
                 else{
                     sui.fail();
                 }
-                break;
+                return true;
             case "5":
                 Integer i = 1;
                 for(String conversationId: speakerManager.getConversations(username)) {
@@ -108,7 +110,7 @@ public class SpeakerMenuController {
                 }
                 if(speakerManager.getConversations(username).isEmpty()){
                     sui.noConvo();
-                    break;
+                    return true;
                 }
                 sui.promptConvoNumber();
                 String conversationNumber = scanner.nextLine();
@@ -118,15 +120,16 @@ public class SpeakerMenuController {
                 sui.rep();
                 String reply = scanner.nextLine();
                 if(!reply.equals("r")){
-                    break;
+                    return true;
                 }
                 sui.promptMessageToSend();
                 String contents = scanner.nextLine();
                 conversationMenuController.reply(username, conversationIdFinal, contents);
-                break;
+                return true;
             default: {
                 sui.showError("INO");
             }
         }
+        return true;
     }
 }

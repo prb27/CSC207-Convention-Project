@@ -57,12 +57,12 @@ public class AttendeeMenuController {
         this.errorHandler = errorHandler;
     }
 
-    public void attendeeUserCommandHandler(String username) {
-
-       // attendeePresenterTextUI.attendeemenu(username);
+    public boolean attendeeUserCommandHandler(String username) {
         Scanner scanner = new Scanner(System.in);
         String option = scanner.nextLine();
         switch(option) {
+            case "0":
+                return false;
             case "1":
                 Map<String, List<String>> eventsToSignUpWithInfo = userEventController.seeAttendableEvents(username);
                 for (String event : eventsToSignUpWithInfo.keySet()) {
@@ -71,7 +71,7 @@ public class AttendeeMenuController {
                         attendeePresenterTextUI.present(info);
                 }
                 attendeePresenterTextUI.present("\n\n");
-                break;
+                return true;
             case "2":
                 eventMenuPresenterTextUI.promptEventNameToAdd();
                 String eventName = scanner.nextLine();
@@ -81,17 +81,17 @@ public class AttendeeMenuController {
                 } else {
                     errorHandler.success();
                 }
-                break;
+                return true;
             case "3":
                 eventMenuPresenterTextUI.promptEventTitleCancel();
                 String eventname = scanner.nextLine();
                 userEventController.cancelSeatForUser(username, eventname);
                 eventMenuPresenterTextUI.promptNoLongerAttending(eventname);
-                break;
+                return true;
             case "4":
                 List<String> eventsAttending = attendeeManager.getEventsAttending(username);
                 eventMenuPresenterTextUI.presentEventsAttending(eventsAttending);
-                break;
+                return true;
             case "5":
                 attendeePresenterTextUI.promptAttendeeID();
                 String attendeeID = scanner.nextLine();
@@ -103,7 +103,7 @@ public class AttendeeMenuController {
                 } else {
                     attendeePresenterTextUI.fail();
                 }
-                break;
+                return true;
             case "6":
                 attendeePresenterTextUI.promptForSpeakerUsername();
                 String speakerName = scanner.nextLine();
@@ -115,7 +115,7 @@ public class AttendeeMenuController {
                 } else {
                     attendeePresenterTextUI.fail();
                 }
-                break;
+                return true;
             case "7":
                 Integer i = 1;
                 for (String conversationId : attendeeManager.getConversations(username)) {
@@ -132,7 +132,7 @@ public class AttendeeMenuController {
                 }
                 if (attendeeManager.getConversations(username).isEmpty()){
                     attendeePresenterTextUI.noConvo();
-                    break;
+                    return true;
                 }
                 attendeePresenterTextUI.promptConvoNumber();
                 String conversationNumber = scanner.nextLine();
@@ -142,7 +142,7 @@ public class AttendeeMenuController {
                 attendeePresenterTextUI.promptToReply();
                 String reply = scanner.nextLine();
                 if (!reply.equals("r")) {
-                    break;
+                    return true;
                 }
                 attendeePresenterTextUI.promptMessageToSend();
                 String contents = scanner.nextLine();
@@ -153,18 +153,19 @@ public class AttendeeMenuController {
                 String friendName = scanner.nextLine();
                 if (!attendeeManager.isAttendee(friendName)) {
                     errorHandler.showError("UDE");
-                    break;
+                    return true;
                 }
                 String errorCode = attendeeManager.aAddContactB(username, friendName);
                 if(errorCode.equals("No"))
                     attendeePresenterTextUI.friendContactAlreadyExist(friendName);
                 else
                     attendeePresenterTextUI.success();
-                break;
+                return true;
             default: {
                 attendeePresenterTextUI.showError("INO");
             }
         }
+        return true;
     }
 
 

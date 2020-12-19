@@ -22,6 +22,15 @@ public class OrganizerPresenterTextUI extends TextUI {
                   EventManager eventManager, RoomManager roomManager) {
         super(attendeeManager, organizerManager, speakerManager, adminManager, messageManager, conversationManager,
                 eventManager, roomManager);
+        this.attendeeManager = attendeeManager;
+        this.organizerManager = organizerManager;
+        this.speakerManager = speakerManager;
+        this.adminManager = adminManager;
+        this.eventManager = eventManager;
+        this.roomManager = roomManager;
+        this.conversationManager = conversationManager;
+        this.messageManager = messageManager;
+
     }
 
 

@@ -24,6 +24,7 @@ public class MessengerMenuController {
         this.convoManager = convoManager;
 
         this.attendeeManager = attendeeManager;
+        this.organizerManager = organizerManager;
         this.speakerManager = speakerManager;
         this.eventManager = eventManager;
 

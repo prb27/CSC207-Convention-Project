@@ -57,16 +57,18 @@ public class OrganizerMenuController {
      * given by the user by calling the appropriate method using the appropriate controller
      * @param username: username of the currently logged in user
      */
-    public void organizerFunctionalities(String option, String username) {
-
+    public boolean organizerFunctionalities(String username) {
         Scanner scanner = new Scanner(System.in);
+        String option = scanner.nextLine();
         switch (option) {
+            case "0":
+                return false;
             case "1": {
                 organizerPresenterTextUI.askForUserType();
                 String userType = scanner.nextLine();
                 organizerPresenterTextUI.listOfUsers(userType);
                 }
-                break;
+                return true;
             case "2": {
                 organizerPresenterTextUI.promptForSpeakerUsername();
                 String speakerName = scanner.nextLine();
@@ -74,7 +76,7 @@ public class OrganizerMenuController {
                 String time = scanner.nextLine();
                 if (!speakerManager.isSpeaker(speakerName)) {
                     organizerPresenterTextUI.notASpeaker();
-                    break;
+                    return true;
                 }
                 boolean free = speakerManager.isSpeakerFreeAtTime(speakerName, time);
                 if (free) {
@@ -82,7 +84,7 @@ public class OrganizerMenuController {
                 } else {
                     organizerPresenterTextUI.messageForSpeakerFreeIfNotFree(time);
                 }
-                break;
+                return true;
             }
             case "3": {
                 organizerPresenterTextUI.askForUserType();
@@ -97,7 +99,7 @@ public class OrganizerMenuController {
                 } else {
                     organizerPresenterTextUI.usernameAlreadyExists();
                 }
-                break;
+                return true;
             }
             case "4": {
                 String err = organizerAddNewRoom(username);
@@ -106,15 +108,17 @@ public class OrganizerMenuController {
                 } else {
                     organizerPresenterTextUI.success();
                 }
-                break;
+                return true;
             }
             case "5": {
                 createEventThroughOrganizer(username);
+                return true;
             }
             case "6": {
                 organizerPresenterTextUI.promptForEventName();
                 String eventName = scanner.nextLine();
                 userEventController.removeCreatedEvent(username, eventName);
+                return true;
             }
             case "7": {
                 String err = changeSpeakerForEventThroughOrganizer(username);;
@@ -124,7 +128,7 @@ public class OrganizerMenuController {
                 else {
                     organizerPresenterTextUI.success();
                 }
-                break;
+                return true;
             }
             case "8": {
                 String err = changeEventStartTime(username);
@@ -134,11 +138,12 @@ public class OrganizerMenuController {
                 else{
                     organizerPresenterTextUI.showError(err);
                 }
-                break;
+                return true;
             }
             case "9": {
                 List<String> eventsNotSignedUpFor = userEventController.getOrganizerEventsNotAttending(username);
                 organizerPresenterTextUI.presentEvents(eventsNotSignedUpFor);
+                return true;
             }
             case "10": {
                 organizerPresenterTextUI.promptEventWantToAttend();
@@ -149,18 +154,18 @@ public class OrganizerMenuController {
                 } else {
                     organizerPresenterTextUI.success();
                 }
-                break;
+                return true;
             }
             case "11": {
                 organizerPresenterTextUI.promptForEventName();
                 String eventName = scanner.nextLine();
                 userEventController.cancelSeatForUser(username, eventName);
                 organizerPresenterTextUI.presentNoLongerAttendingEvent(eventName);
-                break;
+                return true;
             }
             case "12": {
                 organizerPresenterTextUI.presentEvents(organizerManager.getEventsAttending(username));
-                break;
+                return true;
             }
             case "13": {
                 organizerPresenterTextUI.promptAttendeeID();
@@ -173,13 +178,13 @@ public class OrganizerMenuController {
                 } else {
                     organizerPresenterTextUI.failure();
                 }
-                break;
+                return true;
             }
             case "14": {
                 organizerPresenterTextUI.messageprompt();
                 String content = scanner.nextLine();
                 messengerMenuController.organizerSendMessageToAll(username, content, "attendee");
-                break;
+                return true;
             }
             case "15": {
                 organizerPresenterTextUI.promptForSpeakerUsername();
@@ -187,17 +192,17 @@ public class OrganizerMenuController {
                 organizerPresenterTextUI.messageprompt();
                 String content = scanner.nextLine();
                 messengerMenuController.organizerSendMessageToSingle(username, speakerName, content, "speaker");
-                break;
+                return true;
             }
             case "16": {
                 organizerPresenterTextUI.messageprompt();
                 String content = scanner.nextLine();
                 messengerMenuController.organizerSendMessageToAll(username, content, "speaker");
-                break;
+                return true;
             }
             case "17": {
                 viewAndReplyInConversations(username);
-                break;
+                return true;
             }
             case "18": {
                 organizerPresenterTextUI.promptForEventName();
@@ -206,17 +211,18 @@ public class OrganizerMenuController {
                 String message = scanner.nextLine();
                 if (!eventManager.isEvent(eventName)) {
                     organizerPresenterTextUI.showError("EDE");
-                    break;
+                    return true;
                 }
                 boolean messageByEvent = messengerMenuController.organizerMessageByEvent(username, eventName, message);
                 if (messageByEvent) {
                     organizerPresenterTextUI.success();
-                    break;
+                    return true;
                 }
                 organizerPresenterTextUI.failure();
-                break;
+                return true;
             }
         }
+        return true;
     }
 
 
