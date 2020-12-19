@@ -61,7 +61,6 @@ public class MasterSystem {
     private LandingMenu landingMenu;
 
 
-
     /**
      * Constructor method to initialize a new MasterSystem instance with the instances of the use case classes
      * with data loaded from the database
@@ -106,7 +105,6 @@ public class MasterSystem {
                 conversationManager, eventManager, roomManager);
         this.landingMenu = new LandingMenu();
         this.errorHandler = new ErrorHandler();
-
 
         this.organizerMenuController = new OrganizerMenuController(attendeeManager, organizerManager, speakerManager, adminManager,
                 accountHandler, eventManager, userEventController, roomManager, oui, messengerMenuController, conversationManager, conversationMenuController);
@@ -185,6 +183,7 @@ public class MasterSystem {
                         currentUsername = null;
                         programGenerator.readToDatabase();
                         break;
+
                     case "organizer":
                         while(inMenu){
                             oui.organizermenu(currentUsername);
