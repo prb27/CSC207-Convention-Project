@@ -84,7 +84,7 @@ public class MasterSystem {
         this.programGenerator = programGenerator;
         this.accountHandler = new AccountHandler(attendeeManager, organizerManager, speakerManager, adminManager);
         this.userEventController = new UserEventController(attendeeManager, organizerManager, speakerManager, eventManager, roomManager);
-        this.messengerMenuController = new MessengerMenuController(messageManager, attendeeManager, organizerManager, speakerManager, eventManager, accountHandler, conversationManager);
+        this.messengerMenuController = new MessengerMenuController(messageManager, attendeeManager, organizerManager, speakerManager, eventManager, accountHandler, conversationManager, adminManager);
         this.conversationMenuController = new ConversationMenuController(conversationManager, messageManager);
         accountHandler.signup("org", "org", "organizer");
 
@@ -105,7 +105,7 @@ public class MasterSystem {
                 accountHandler, eventManager, userEventController, roomManager, oui, messengerMenuController, conversationManager, conversationMenuController);
         this.attendeeMenuController = new AttendeeMenuController(attendeeManager, organizerManager, speakerManager, adminManager, accountHandler, eventManager, userEventController, roomManager, aui, messengerMenuController, conversationManager, conversationMenuController, errorHandler);
         this.speakerMenuController = new SpeakerMenuController(attendeeManager, organizerManager, speakerManager, adminManager, accountHandler, eventManager, userEventController, roomManager, sui, messengerMenuController, conversationManager, conversationMenuController);
-        this.adminMenuController = new AdminMenuController(attendeeManager, speakerManager, organizerManager, conversationManager, conversationMenuController, eventManager, messageManager);
+        this.adminMenuController = new AdminMenuController(attendeeManager, speakerManager, organizerManager, conversationManager, conversationMenuController, eventManager, messageManager, adui, messengerMenuController, accountHandler);
 
     }
 

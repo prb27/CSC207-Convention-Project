@@ -1,10 +1,9 @@
 package Controllers;
 
+import NewUI.AdminPresenterTextUI;
 import UseCases.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class AdminMenuController {
 
@@ -16,13 +15,18 @@ public class AdminMenuController {
     private final ConversationMenuController conversationMenuController;
     private final EventManager eventManager;
     private final MessageManager messageManager;
+    private final AdminPresenterTextUI adminPresenterTextUI;
+    private final MessengerMenuController messengerMenuController;
+    private final AccountHandler accountHandler;
+
 
     private List<String> allMessages;
 
     public AdminMenuController(AttendeeManager attendeeManager, SpeakerManager speakerManager,
                                OrganizerManager organizerManager, ConversationManager conversationManager,
                                ConversationMenuController conversationMenuController, EventManager eventManager,
-                               MessageManager messageManager){
+                               MessageManager messageManager, AdminPresenterTextUI adminPresenterTextUI,
+                               MessengerMenuController messengerMenuController, AccountHandler accountHandler){
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
         this.speakerManager = speakerManager;
@@ -31,16 +35,34 @@ public class AdminMenuController {
         this.allMessages = new ArrayList<>();
         this.eventManager = eventManager;
         this.messageManager = messageManager;
-
+        this.adminPresenterTextUI = adminPresenterTextUI;
+        this.messengerMenuController = messengerMenuController;
+        this.accountHandler = accountHandler;
     }
     public boolean adminFunctionalities(String username){
         Scanner scanner = new Scanner(System.in);
         String option = scanner.nextLine();
+        switch(option) {
+            case "0":
+                return false;
+            case "1":
+                deleteEventsWithoutAttendee();
+                adminPresenterTextUI.emptyEventsDeleted();
+                return true;
+            case "2":
+                adminPresenterTextUI.promptForUsername();
+                String user = scanner.nextLine();
+                String userType = accountHandler.getAccountType(user);
+                messengerMenuController.adminSendMessage(username, user, "You Have Been Reported. Do not respond to this message", userType);
+                return true;
+        }
         return true;
     }
+
     public List<String> getAllMessages() {
         List<String> speakers = speakerManager.getAllSpeakerIds();
         List<String> organizers = organizerManager.getAllOrganizerIds();
+        List<String> attendees = attendeeManager.getAllAttendeeIds();
 
         List<String> speakerConversationMessages = new ArrayList<>();
         List<String> organizerConversationMessages = new ArrayList<>();
@@ -124,7 +146,7 @@ public class AdminMenuController {
      * Only one Admin can perform this task
      * @author Khoa Pham
      */
-    public void deleteEventWithoutAttendee() {
+    public void deleteEventsWithoutAttendee() {
         List<String> allEmptyEvents = eventManager.getEmptyEvents();
         for (String event : allEmptyEvents) {
             eventManager.removeEvent(event);

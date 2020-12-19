@@ -14,11 +14,12 @@ public class MessengerMenuController {
 
     private EventManager eventManager;
     private AccountHandler accountHandler;
+    private AdminManager adminManager;
     private List<String> eligibleContacts;
 
     public MessengerMenuController(MessageManager messageManager, AttendeeManager attendeeManager,
                                    OrganizerManager organizerManager, SpeakerManager speakerManager,
-                                   EventManager eventManager, AccountHandler accountHandler, ConversationManager convoManager){
+                                   EventManager eventManager, AccountHandler accountHandler, ConversationManager convoManager, AdminManager adminManager){
 
         this.messageManager = messageManager;
         this.convoManager = convoManager;
@@ -31,6 +32,7 @@ public class MessengerMenuController {
         this.accountHandler = accountHandler;
 
         this.eligibleContacts = new ArrayList<>();
+        this.adminManager = adminManager;
 
     }
 
@@ -424,6 +426,58 @@ public class MessengerMenuController {
                 speakerManager.addConversation(recipientId, convoId);
         }
         organizerManager.addConversation(organizerId, convoId);
+    }
+    /**
+     * Allows an admin to send a message to a user
+     * @param adminID : ID of attendee
+     * @param recipientId : ID of recipient
+     * @param content : content of message
+     * @param userType : type of user
+     */
+    public void adminToSingle(String adminID, String recipientId, String content, String userType){
+        String convoId = singleMessage(adminID, recipientId, content);
+        switch(userType){
+            case "attendee":
+                attendeeManager.addConversation(recipientId, convoId);
+            case "speaker":
+                speakerManager.addConversation(recipientId, convoId);
+            case "organizer":
+                organizerManager.addConversation(recipientId, convoId);
+        }
+    }
+
+    /**
+     * Allows an admin to send a message to another user
+     * @param username: id of attendee sending the message
+     * @param recipientId: id of the recipient
+     * @param content: content of the message
+     * @param userType: designates whether message is being sent to attendee or speaker
+     * @return true if the message could be sent, false if the message was not sent
+     */
+    public boolean adminSendMessage(String username, String recipientId, String content, String userType) {
+        if(userType.equals("attendee")){
+            if(adminManager.isAdmin(username) && attendeeManager.isAttendee(recipientId)){
+                adminToSingle(username, recipientId, content, userType);
+                return true;
+            }
+            return false;
+        }
+        if(userType.equals("speaker")){
+            if(adminManager.isAdmin(username) && speakerManager.isSpeaker(recipientId)){
+                adminToSingle(username, recipientId, content, userType);
+                return true;
+            }
+            return false;
+        }
+        if(userType.equals("organizer")){
+            if(adminManager.isAdmin(username) && organizerManager.isOrganizer(recipientId)){
+                adminToSingle(username, recipientId, content, userType);
+                return true;
+            }
+            return false;
+        }
+
+        return false;
     }
 
 //    /**
