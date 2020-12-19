@@ -2,7 +2,7 @@ package NewUI;
 
 import UseCases.*;
 
-public class AdminTextUI extends TextUI {
+public class AdminPresenterTextUI extends TextUI {
     private AttendeeManager attendeeManager;
     private OrganizerManager organizerManager;
     private SpeakerManager speakerManager;
@@ -13,9 +13,9 @@ public class AdminTextUI extends TextUI {
     private MessageManager messageManager;
 
 
-    public AdminTextUI(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager,
-                  AdminManager adminManager, MessageManager messageManager, ConversationManager conversationManager,
-                  EventManager eventManager, RoomManager roomManager) {
+    public AdminPresenterTextUI(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager,
+                                AdminManager adminManager, MessageManager messageManager, ConversationManager conversationManager,
+                                EventManager eventManager, RoomManager roomManager) {
         super(attendeeManager, organizerManager, speakerManager, adminManager, messageManager, conversationManager, eventManager, roomManager);
     }
 
@@ -35,7 +35,7 @@ public class AdminTextUI extends TextUI {
         System.out.println("Please enter the message id you want to delete");
     }
 
-    public void messageDeleted(String message) {
-        System.out.println("message with id "+message+" was deleted");
+    public void messageDeleted(String messageID) {
+        System.out.println("message with id " + messageID + " was deleted");
     }
 }

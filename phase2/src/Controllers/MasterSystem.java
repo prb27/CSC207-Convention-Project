@@ -1,8 +1,5 @@
 package Controllers;
 
-import Controllers.UnusedControllers.AttendeeMessagingDashboardMenuController;
-import Controllers.UnusedControllers.OrganizerMessagingDashboardMenuController;
-import Controllers.UnusedControllers.SpeakerMessagingDashboardMenuController;
 import Gateways.ProgramGenerator;
 import NewUI.*;
 //import Presenters.*;
@@ -52,7 +49,7 @@ public class MasterSystem {
 
     private ProgramGenerator programGenerator;
 
-    private AdminTextUI adui;
+    private AdminPresenterTextUI adui;
     private OrganizerPresenterTextUI oui;
     private AttendeePresenterTextUI aui;
     private SpeakerPresenterTextUI sui;
@@ -91,7 +88,7 @@ public class MasterSystem {
         this.conversationMenuController = new ConversationMenuController(conversationManager, messageManager);
         accountHandler.signup("org", "org", "organizer");
 
-        this.adui = new AdminTextUI(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
+        this.adui = new AdminPresenterTextUI(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
                 conversationManager, eventManager, roomManager);
         this.aui = new AttendeePresenterTextUI(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
                 conversationManager, eventManager, roomManager);
@@ -195,6 +192,15 @@ public class MasterSystem {
                         while(inMenu){
                             sui.speakermenu(currentUsername);
                             inMenu = speakerMenuController.speakerUserCommandHandler(currentUsername);
+                        }
+                        loggedIn = false;
+                        currentUsername = null;
+                        programGenerator.readToDatabase();
+                        break;
+                    case "admin":
+                        while(inMenu){
+                            adui.adminmenu(currentUsername);
+                            inMenu = adminMenuController.adminFunctionalities(currentUsername);
                         }
                         loggedIn = false;
                         currentUsername = null;
