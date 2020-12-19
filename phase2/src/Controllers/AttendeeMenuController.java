@@ -61,11 +61,17 @@ public class AttendeeMenuController {
                 return false;
             case "1":
                 Map<String, List<String>> eventsToSignUpWithInfo = userEventController.seeAttendableEvents(username);
-                for (String event : eventsToSignUpWithInfo.keySet()) {
-                    attendeePresenterTextUI.present(event);
-                    for (String info : eventsToSignUpWithInfo.get(event))
-                        attendeePresenterTextUI.present(info);
+                if (eventsToSignUpWithInfo.isEmpty()){
+                    attendeePresenterTextUI.present("No events to sign up for");
                 }
+                else {
+                    for (String event : eventsToSignUpWithInfo.keySet()) {
+                        attendeePresenterTextUI.present(event);
+                        for (String info : eventsToSignUpWithInfo.get(event))
+                            attendeePresenterTextUI.present(info);
+                    }
+                }
+
                 attendeePresenterTextUI.present("\n\n");
                 return true;
             case "2":

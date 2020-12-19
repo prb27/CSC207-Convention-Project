@@ -4,6 +4,7 @@ import UseCases.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class AdminMenuController {
 
@@ -31,6 +32,11 @@ public class AdminMenuController {
         this.eventManager = eventManager;
         this.messageManager = messageManager;
 
+    }
+    public boolean adminFunctionalities(String username){
+        Scanner scanner = new Scanner(System.in);
+        String option = scanner.nextLine();
+        return true;
     }
     public List<String> getAllMessages() {
         List<String> speakers = speakerManager.getAllSpeakerIds();
