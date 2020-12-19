@@ -3,7 +3,6 @@ package Controllers;
 
 import NewUI.AttendeePresenterTextUI;
 import NewUI.ErrorHandler;
-import NewUI.EventMenuPresenterTextUI;
 import UseCases.*;
 
 import java.util.List;
@@ -29,7 +28,6 @@ public class AttendeeMenuController {
     private MessengerMenuController messengerMenuController;
     private ConversationManager conversationManager;
     private ConversationMenuController conversationMenuController;
-    private EventMenuPresenterTextUI eventMenuPresenterTextUI;
     private ErrorHandler errorHandler;
 
 
@@ -38,8 +36,7 @@ public class AttendeeMenuController {
                                   AdminManager adminManager, AccountHandler accountHandler, EventManager eventManager,
                                   UserEventController userEventController, RoomManager roomManager,
                                  AttendeePresenterTextUI attendeePresenterTextUI, MessengerMenuController messengerMenuController,
-                                  ConversationManager conversationManager, ConversationMenuController conversationMenuController,
-                                  EventMenuPresenterTextUI eventMenuPresenterTextUI, ErrorHandler errorHandler){
+                                  ConversationManager conversationManager, ConversationMenuController conversationMenuController, ErrorHandler errorHandler){
 
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
@@ -53,7 +50,6 @@ public class AttendeeMenuController {
         this.messengerMenuController = messengerMenuController;
         this.conversationManager = conversationManager;
         this.conversationMenuController = conversationMenuController;
-        this.eventMenuPresenterTextUI = eventMenuPresenterTextUI;
         this.errorHandler = errorHandler;
     }
 
@@ -73,7 +69,7 @@ public class AttendeeMenuController {
                 attendeePresenterTextUI.present("\n\n");
                 return true;
             case "2":
-                eventMenuPresenterTextUI.promptEventNameToAdd();
+                attendeePresenterTextUI.promptEventNameToAdd();
                 String eventName = scanner.nextLine();
                 String err = userEventController.enrolUserInEvent(username, eventName);
                 if (!err.equals("YES")) {
@@ -83,14 +79,14 @@ public class AttendeeMenuController {
                 }
                 return true;
             case "3":
-                eventMenuPresenterTextUI.promptEventTitleCancel();
+                attendeePresenterTextUI.promptEventTitleCancel();
                 String eventname = scanner.nextLine();
                 userEventController.cancelSeatForUser(username, eventname);
-                eventMenuPresenterTextUI.promptNoLongerAttending(eventname);
+                attendeePresenterTextUI.promptNoLongerAttending(eventname);
                 return true;
             case "4":
                 List<String> eventsAttending = attendeeManager.getEventsAttending(username);
-                eventMenuPresenterTextUI.presentEventsAttending(eventsAttending);
+                attendeePresenterTextUI.presentEventsAttending(eventsAttending);
                 return true;
             case "5":
                 attendeePresenterTextUI.promptAttendeeID();
