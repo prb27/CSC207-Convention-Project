@@ -1,4 +1,4 @@
-package UI;
+package UnusedUI;
 
 public class SignUpMenuUI {
 }

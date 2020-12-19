@@ -59,7 +59,7 @@ public class MasterSystem {
     private TextUI ui;
     private ErrorHandler errorHandler;
     private LandingMenu landingMenu;
-    private EventMenuPresenterTextUI eventMenuPresenterTextUI;
+
 
 
     /**
@@ -106,11 +106,11 @@ public class MasterSystem {
                 conversationManager, eventManager, roomManager);
         this.landingMenu = new LandingMenu();
         this.errorHandler = new ErrorHandler();
-        this.eventMenuPresenterTextUI = new EventMenuPresenterTextUI(eventManager);
+
 
         this.organizerMenuController = new OrganizerMenuController(attendeeManager, organizerManager, speakerManager, adminManager,
                 accountHandler, eventManager, userEventController, roomManager, oui, messengerMenuController, conversationManager, conversationMenuController);
-        this.attendeeMenuController = new AttendeeMenuController(attendeeManager, organizerManager, speakerManager, adminManager, accountHandler, eventManager, userEventController, roomManager, aui, messengerMenuController, conversationManager, conversationMenuController, eventMenuPresenterTextUI, errorHandler);
+        this.attendeeMenuController = new AttendeeMenuController(attendeeManager, organizerManager, speakerManager, adminManager, accountHandler, eventManager, userEventController, roomManager, aui, messengerMenuController, conversationManager, conversationMenuController, errorHandler);
         this.speakerMenuController = new SpeakerMenuController(attendeeManager, organizerManager, speakerManager, adminManager, accountHandler, eventManager, userEventController, roomManager, sui, messengerMenuController, conversationManager, conversationMenuController);
         this.adminMenuController = new AdminMenuController(attendeeManager, speakerManager, organizerManager, conversationManager, conversationMenuController, eventManager, messageManager);
 
