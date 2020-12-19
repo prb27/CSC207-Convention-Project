@@ -1,41 +1,21 @@
 package Controllers;
 
+import Controllers.UnusedControllers.AttendeeMessagingDashboardMenuController;
+import Controllers.UnusedControllers.SpeakerMessagingDashboardMenuController;
 import UseCases.ConversationManager;
 import UseCases.MessageManager;
 
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ConversationMenuController {
 
-    public String conversationInformation;
-    public String currentConversationID;
-    private AttendeeMessagingDashboardMenuController attendeeMessagingDashboardMenuController;
-    private SpeakerMessagingDashboardMenuController speakerMessagingDashboardMenuController;
-    private ConversationManager conversationManager;
-    private MessageManager messageManager;
+    private final ConversationManager conversationManager;
+    private final MessageManager messageManager;
 
-    public ConversationMenuController(AttendeeMessagingDashboardMenuController attendeeMessagingDashboardMenuController,
-                                      SpeakerMessagingDashboardMenuController speakerMessagingDashboardMenuController,
-                                      ConversationManager conversationManager, MessageManager messageManager){
-        this.conversationInformation = "";
-        this.attendeeMessagingDashboardMenuController = attendeeMessagingDashboardMenuController;
-        this.speakerMessagingDashboardMenuController = speakerMessagingDashboardMenuController;
+    public ConversationMenuController(ConversationManager conversationManager, MessageManager messageManager){
         this.conversationManager = conversationManager;
         this.messageManager = messageManager;
-    }
-    public void setConversationInformation(String information){
-        this.conversationInformation = information;
-    }
-    public String getConversationInformation(){
-        return conversationInformation;
-    }
-    public void setCurrentConversationID(String conversationID){
-        this.currentConversationID = conversationID;
-    }
-    public String CurrentConversationID(){
-        return currentConversationID;
     }
 
     public boolean reply(String senderId, String convoId, String content){

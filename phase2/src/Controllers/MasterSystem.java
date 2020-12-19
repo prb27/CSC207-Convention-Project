@@ -1,5 +1,8 @@
 package Controllers;
 
+import Controllers.UnusedControllers.AttendeeMessagingDashboardMenuController;
+import Controllers.UnusedControllers.OrganizerMessagingDashboardMenuController;
+import Controllers.UnusedControllers.SpeakerMessagingDashboardMenuController;
 import Gateways.ProgramGenerator;
 import NewUI.*;
 //import Presenters.*;
@@ -33,23 +36,20 @@ public class MasterSystem {
     private ConversationManager conversationManager;
     private MessageManager messageManager;
 
-    private AccountHandler accountHandler;
 
-    private AttendeeMenuController attendeeMenuController;
-    private AttendeeMessagingDashboardMenuController attendeeMessagingDashboardMenuController;
+
     private ConversationMenuController conversationMenuController;
-    private EventMenuController eventMenuController;
     private EventsSearchEngine eventsSearchEngine;
     private MessengerMenuController messengerMenuController;
+
+    private AccountHandler accountHandler;
+    private AttendeeMenuController attendeeMenuController;
     private OrganizerMenuController organizerMenuController;
     private SpeakerMenuController speakerMenuController;
-    private SpeakerMessagingDashboardMenuController speakerMessagingDashboardMenuController;
-    private OrganizerMessagingDashboardMenuController organizerMessagingDashboardMenuController;
-    private LoginMenuController loginMenuController;
-    private SignUpMenuController signUpMenuController;
     private AdminMenuController adminMenuController;
 
     private UserEventController userEventController;
+
     private ProgramGenerator programGenerator;
 
     private AdminTextUI adui;
@@ -88,9 +88,7 @@ public class MasterSystem {
         this.accountHandler = new AccountHandler(attendeeManager, organizerManager, speakerManager, adminManager);
         this.userEventController = new UserEventController(attendeeManager, organizerManager, speakerManager, eventManager, roomManager);
         this.messengerMenuController = new MessengerMenuController(messageManager, attendeeManager, organizerManager, speakerManager, eventManager, accountHandler, conversationManager);
-        this.attendeeMessagingDashboardMenuController = new AttendeeMessagingDashboardMenuController(attendeeManager, conversationManager);
-        this.speakerMessagingDashboardMenuController = new SpeakerMessagingDashboardMenuController(speakerManager, conversationManager);
-        this.conversationMenuController = new ConversationMenuController(attendeeMessagingDashboardMenuController, speakerMessagingDashboardMenuController, conversationManager, messageManager);
+        this.conversationMenuController = new ConversationMenuController(conversationManager, messageManager);
         accountHandler.signup("org", "org", "organizer");
 
         this.adui = new AdminTextUI(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,

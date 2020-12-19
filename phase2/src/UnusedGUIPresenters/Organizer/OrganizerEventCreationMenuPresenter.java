@@ -1,22 +1,5 @@
 package UnusedGUIPresenters.Organizer;
 
-import Controllers.LoginMenuController;
-import Controllers.MasterSystem;
-import Controllers.OrganizerMenuController;
-import Controllers.UserEventController;
-import Gateways.ProgramGenerator;
-import UnusedGUIPresenters.LoginMenuPresenter;
-import UseCases.RoomManager;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-
 public class OrganizerEventCreationMenuPresenter {
 //    private RoomManager roomManager;
 //    private OrganizerMenuController organizerMenuController;

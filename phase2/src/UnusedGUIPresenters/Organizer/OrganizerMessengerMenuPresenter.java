@@ -1,21 +1,5 @@
 package UnusedGUIPresenters.Organizer;
 
-import Controllers.AccountHandler;
-import Controllers.LoginMenuController;
-import Controllers.MasterSystem;
-import Controllers.MessengerMenuController;
-import Gateways.ProgramGenerator;
-import UnusedGUIPresenters.LoginMenuPresenter;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-
 public class OrganizerMessengerMenuPresenter {
 //    @FXML
 //    private CheckBox allEvents;

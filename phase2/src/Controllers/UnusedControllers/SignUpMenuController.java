@@ -1,6 +1,7 @@
-package Controllers;
+package Controllers.UnusedControllers;
 
 
+import Controllers.AccountHandler;
 
 public class SignUpMenuController {
     private final AccountHandler accountHandler;

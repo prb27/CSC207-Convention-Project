@@ -1,19 +1,5 @@
 package UnusedGUIPresenters.Attendee;
 
-import Controllers.ConversationMenuController;
-import Controllers.LoginMenuController;
-import Controllers.MasterSystem;
-import Controllers.MessengerMenuController;
-import Gateways.ProgramGenerator;
-import UnusedGUIPresenters.LoginMenuPresenter;
-import UnusedGUIPresenters.SceneHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.stage.Stage;
-import java.io.IOException;
-
 public class AttendeeMessengerMenuPresenter {
 
 
