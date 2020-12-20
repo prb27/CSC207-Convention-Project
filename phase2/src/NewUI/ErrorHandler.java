@@ -50,9 +50,17 @@ public class ErrorHandler {
                 break;
         }
     }
+
+    /**
+     * Presents a failure message
+     */
     public void failure(){
         System.out.println("Something went wrong");
     }
+
+    /**
+     * Presents a success message
+     */
     public void success() {
         System.out.println("Successful!");
     }
