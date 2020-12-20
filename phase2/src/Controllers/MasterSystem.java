@@ -34,10 +34,8 @@ public class MasterSystem {
     private MessengerMenuController messengerMenuController;
 
     private AccountHandler accountHandler;
-    private AttendeeMenuController attendeeMenuController;
-    private OrganizerMenuController organizerMenuController;
-    private SpeakerMenuController speakerMenuController;
-    private AdminMenuController adminMenuController;
+
+    private CommandHandler userController;
 
     private UserEventController userEventController;
     private PollController pollController;
@@ -52,6 +50,8 @@ public class MasterSystem {
     private PollUI pui;
     private ErrorHandler errorHandler;
     private LandingMenu landingMenu;
+
+    private UserFactory userFactory;
 
 
     /**
@@ -102,16 +102,11 @@ public class MasterSystem {
         this.errorHandler = new ErrorHandler();
 
         this.pollController = new PollController(pollManager, speakerManager, pui);
-        this.organizerMenuController = new OrganizerMenuController(attendeeManager, organizerManager, speakerManager, adminManager,
-                accountHandler, eventManager, userEventController, roomManager, oui, messengerMenuController, conversationManager,
-                conversationMenuController, pollController);
-        this.attendeeMenuController = new AttendeeMenuController(attendeeManager, organizerManager, speakerManager, adminManager,
-                accountHandler, eventManager, userEventController, roomManager, aui, messengerMenuController, conversationManager,
+
+        this.userFactory = new UserFactory(attendeeManager, organizerManager, speakerManager, adminManager, accountHandler, eventManager,
+                messageManager, userEventController, roomManager, aui, oui, sui, adui, messengerMenuController, conversationManager,
                 conversationMenuController, errorHandler, pollController);
-        this.speakerMenuController = new SpeakerMenuController(attendeeManager, organizerManager, speakerManager, adminManager,
-                accountHandler, eventManager, userEventController, roomManager, sui, messengerMenuController, conversationManager,
-                conversationMenuController, pollController);
-        this.adminMenuController = new AdminMenuController(eventManager, messageManager, adui, messengerMenuController, accountHandler, errorHandler);
+
         this.eventsSearchEngine = new EventsSearchEngine(eventManager, ui);
     }
 
@@ -183,11 +178,12 @@ public class MasterSystem {
 
             while(loggedIn) {
                 boolean inMenu = true;
+                this.userController = userFactory.getUserController(currentAccountType);
                 switch(currentAccountType) {
                     case "attendee":
                         while(inMenu){
                             aui.attendeemenu(currentUsername);
-                            inMenu = attendeeMenuController.attendeeUserCommandHandler(currentUsername);
+                            inMenu = userController.handleCommand(currentUsername);
                         }
                         loggedIn = false;
                         currentUsername = null;
@@ -197,7 +193,7 @@ public class MasterSystem {
                     case "organizer":
                         while(inMenu){
                             oui.organizermenu(currentUsername);
-                            inMenu = organizerMenuController.organizerFunctionalities(currentUsername);
+                            inMenu = userController.handleCommand(currentUsername);
                         }
                         loggedIn = false;
                         currentUsername = null;
@@ -206,7 +202,7 @@ public class MasterSystem {
                     case "speaker":
                         while(inMenu){
                             sui.speakermenu(currentUsername);
-                            inMenu = speakerMenuController.speakerUserCommandHandler(currentUsername);
+                            inMenu = userController.handleCommand(currentUsername);
                         }
                         loggedIn = false;
                         currentUsername = null;
@@ -215,9 +211,9 @@ public class MasterSystem {
                     case "admin":
                         while(inMenu){
                             adui.adminmenu(currentUsername);
-                            inMenu = adminMenuController.adminFunctionalities(currentUsername);
+                            inMenu = userController.handleCommand(currentUsername);
                         }
-                        loggedIn = false;
+                        loggedIn = false;1
                         currentUsername = null;
                         programGenerator.writeToDatabase();
                         break;

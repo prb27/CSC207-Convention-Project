@@ -21,7 +21,7 @@ import java.util.*;
  * @see Controllers.MessengerMenuController
  */
 
-public class AdminMenuController {
+public class AdminMenuController implements CommandHandler{
 
     private final EventManager eventManager;
     private final MessageManager messageManager;
@@ -51,7 +51,7 @@ public class AdminMenuController {
      * @param username: the username of the admin signed in
      * @return boolean: True if the admin is remaining logged in, false if the admin wants to sign out
      */
-    public boolean adminFunctionalities(String username){
+    public boolean handleCommand(String username){
         Scanner scanner = new Scanner(System.in);
         String option = scanner.nextLine();
         switch(option) {

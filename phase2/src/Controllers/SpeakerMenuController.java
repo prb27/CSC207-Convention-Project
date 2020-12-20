@@ -11,7 +11,7 @@ import java.util.Scanner;
  * collaborate with UseCase classes.
  * @author Khoa
  */
-public class SpeakerMenuController {
+public class SpeakerMenuController implements CommandHandler{
 
     private AttendeeManager attendeeManager;
     private OrganizerManager organizerManager;
@@ -57,7 +57,7 @@ public class SpeakerMenuController {
      * given by the user by calling the appropriate method using the appropriate controller
      * @param username: username of the currently logged in user
      */
-    public boolean speakerUserCommandHandler(String username) {
+    public boolean handleCommand(String username) {
         Scanner scanner = new Scanner(System.in);
         sui.speakermenu(username);
         String option = scanner.nextLine();

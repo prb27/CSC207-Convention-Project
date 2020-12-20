@@ -37,7 +37,7 @@ import java.util.Scanner;
  * @see NewUI.AttendeePresenterTextUI
  * @see NewUI.ErrorHandler
  */
-public class AttendeeMenuController {
+public class AttendeeMenuController implements CommandHandler{
 
     private AttendeeManager attendeeManager;
     private OrganizerManager organizerManager;
@@ -79,6 +79,10 @@ public class AttendeeMenuController {
         this.errorHandler = errorHandler;
         this.pollController = pollController;
     }
+
+
+
+
     /**
      * This method allows attendees to select between several options.
      * The following manipulations include:
@@ -95,7 +99,7 @@ public class AttendeeMenuController {
      * @param username: the username of the admin signed in
      * @return boolean: True if the admin is remaining logged in, false if the admin wants to sign out
      */
-    public boolean attendeeUserCommandHandler(String username) {
+    public boolean handleCommand(String username) {
         Scanner scanner = new Scanner(System.in);
         String option = scanner.nextLine();
         switch(option) {

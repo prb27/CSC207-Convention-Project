@@ -12,7 +12,7 @@ import java.util.Scanner;
  * collaborate with UseCase classes.
  * @author Ashwin
  */
-public class OrganizerMenuController {
+public class OrganizerMenuController implements CommandHandler{
 
     private AttendeeManager attendeeManager;
     private OrganizerManager organizerManager;
@@ -59,7 +59,7 @@ public class OrganizerMenuController {
      * given by the user by calling the appropriate method using the appropriate controller
      * @param username: username of the currently logged in user
      */
-    public boolean organizerFunctionalities(String username) {
+    public boolean handleCommand(String username) {
         Scanner scanner = new Scanner(System.in);
         String option = scanner.nextLine();
         switch (option) {
