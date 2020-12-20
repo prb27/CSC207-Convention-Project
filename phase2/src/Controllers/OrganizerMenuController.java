@@ -332,7 +332,8 @@ public class OrganizerMenuController {
         boolean hasAudioSystem = answer.equals("Y");
 
         organizerPresenterTextUI.askForPowerSockets();
-        int powerSockets = scanner.nextInt();
+        String powsoc = scanner.nextLine();
+        int powerSockets = Integer.parseInt(powsoc);
         // RAE - room already exists
         if(organizerManager.isOrganizer(username)){
             if(!roomManager.createRoom(roomId, capacity, hasProjector, hasAudioSystem, powerSockets)){
@@ -370,7 +371,8 @@ public class OrganizerMenuController {
         List<String> speakerNames = new ArrayList<>();
 
         organizerPresenterTextUI.numOfSpeakers();
-        int num = scanner.nextInt();
+        String numS = scanner.nextLine();
+        int num = Integer.parseInt(numS);
 
         organizerPresenterTextUI.promptForEventSpeakers();
         for (int i = 0; i<num; i++) {

@@ -44,7 +44,7 @@ public class SpeakerDatabase extends UserDatabase implements ISpeakerDatabase {
             speaker.put("credentials", credentials);
             speaker.put("contacts", getContactsForUser(username));
             speaker.put("conversations", getConversationsForUser(username));
-            speaker.put("eventNames", getEventsAttendingForUser(username));
+            speaker.put("eventNames", getEventNamesForSpeaker(username));
             speaker.put("eventTimes", getEventTimesForSpeaker(username));
             speakerList.add(speaker);
         }
@@ -80,6 +80,11 @@ public class SpeakerDatabase extends UserDatabase implements ISpeakerDatabase {
     private List<String> getEventTimesForSpeaker(String username) {
         List<Document> user = userCollection.find(eq("username", username)).into(new ArrayList<>());
         return user.get(0).getList("eventTimes", String.class);
+    }
+
+    public List<String> getEventNamesForSpeaker(String username) {
+        List<Document> user = userCollection.find(eq("username", username)).into(new ArrayList<>());
+        return user.get(0).getList("eventNames", String.class);
     }
 
 }

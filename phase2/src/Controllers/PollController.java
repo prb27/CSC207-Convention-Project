@@ -43,13 +43,14 @@ public class PollController {
                 case "2":{
                     //Ask for a new Poll id, event-polling-passcode, poll question/message and number of choices they want to give for answers
                     pollUI.newPoll();
-                    pollUI.pw();
-                    pollUI.question();
-                    pollUI.answers();
                     String pollId = scanner.nextLine();
+                    pollUI.pw();
                     String eventPasscode = scanner.nextLine();
+                    pollUI.question();
                     String pollMessage = scanner.nextLine();
-                    int numberOfPollOptions = scanner.nextInt();
+                    pollUI.answers();
+                    String numberOfPollOptionS = scanner.nextLine();
+                    int numberOfPollOptions = Integer.parseInt(numberOfPollOptionS);
                     List<String> pollOptions = new ArrayList<>();
                     List<String> alreadyVoted = new ArrayList<>();
                     alreadyVoted.add(username);

@@ -324,21 +324,23 @@ public class SpeakerManager {
             String password = speaker.get("credentials").get(1);
             List<String> listOfConversations = speaker.get("conversations");
             List<String> listOfContacts = speaker.get("contacts");
-            Map<String,String> listOfTalks = new HashMap<>();
             List<String> eventNames = speaker.get("eventNames");
             List<String> eventTimes = speaker.get("eventTimes");
-            if (!eventTimes.isEmpty()){
-                for(int i = 0 ; i < eventTimes.size(); i++){
-                    listOfTalks.put(eventTimes.get(i), eventNames.get(i));
-                }
-            }
-
             Speaker newSpeaker =  new Speaker(username, password);
-            newSpeaker.setListOfTalks(listOfTalks);
             newSpeaker.setContacts(listOfContacts);
             newSpeaker.setConversations(listOfConversations);
             speakers.add(newSpeaker);
+            if (!eventTimes.isEmpty()){
+                for(int i = 0 ; i < eventTimes.size(); i++){
+                    addTalkToListOfTalks(username, eventTimes.get(i), eventNames.get(i));
+                }
+            }
+//            System.out.println(eventTimes.size());
+//            System.out.println(eventTimes.get(0));
+//            System.out.println(eventNames.get(0));
+
         }
+
 
     }
 

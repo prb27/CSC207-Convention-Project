@@ -1,21 +1,35 @@
 package UseCases;
 
 import Entities.Poll;
+import Entities.Room;
 import Gateways.Interfaces.IPollDatabase;
 
 import java.util.*;
 
+/**
+ * This class is the class that keeps track of all the polls that can be used by events for this conference.
+ * This class also restricts the uses/manipulations of rooms.
+ * @author Ashwin Karthikeyan
+ * @see Poll
+ */
 public class PollManager {
 
     private List<Poll> polls;
 
+    /**
+     * a constructor that creates a UseCases.PollManager object that stores a list of all polls
+     */
     public PollManager(List<Poll> polls){
 
         this.polls = polls;
 
     }
 
-
+    /**
+     * a method that returns all the available polls of a particular event
+     * @param eventPasscode: the username to be assigned to this possibly new Entities.Organizer (param_type: String)
+     * @return List<String> of the available polls for an event
+     */
     public List<String> getPollsForEvent(String eventPasscode){
 
         List<String> requiredPolls = new ArrayList<>();
@@ -28,7 +42,12 @@ public class PollManager {
 
     }
 
-
+    /**
+     * a method takes in a String that represents a pollId and a String that represents an event and returns the Poll
+     * entity for the particular poll of the event.
+//     * @param eventPasscode: the username to be assigned to this possibly new Entities.Organizer (param_type: String)
+     * @return List<String> of the available polls for an event
+     */
     private Poll getPoll(String pollId, String event){
 
         for(Poll poll: polls){

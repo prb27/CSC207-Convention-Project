@@ -70,10 +70,10 @@ public class ProgramGenerator {
         try {
             attendeeManager.loadFromDatabase();
             organizerManager.loadFromDatabase();
-            speakerManager.loadFromDatabase();
             messageManager.loadFromDatabase();
             conversationManager.loadFromDatabase();
             eventManager.loadFromDatabase();
+            speakerManager.loadFromDatabase();
             roomManager.loadFromDatabase();
             pollManager.loadFromDatabase();
 

@@ -15,17 +15,18 @@ import java.util.List;
  * @see Entities.Admin
  */
 public class AdminManager {
-    private List<Admin> admins = new ArrayList<>();
-
-    public boolean createAdmin(String username, String password) {
-        for (Admin admin: admins){
-            if (admin.getUsername().equals(username)){
-                return false;
-            }
-        }
-        admins.add(new Admin(username, password));
-        return true;
-    }
+    private Admin admin = new Admin("admin", "admin");
+//    private List<Admin> admins = new ArrayList<>();
+//
+//    public boolean createAdmin(String username, String password) {
+//        for (Admin admin: admins){
+//            if (admin.getUsername().equals(username)){
+//                return false;
+//            }
+//        }
+//        admins.add(new Admin(username, password));
+//        return true;
+//    }
 
     /**
      * this method checks if the username and password are correct
@@ -33,34 +34,28 @@ public class AdminManager {
      * @param password: the inputted password to be checked (param_type: String)
      * @return boolean whether username and password are correct
      */
-    public boolean checkPassword(String username, String password){
-        Admin admin = getAdmin(username);
-        if(admin!=null) {
-            return username.equals(admin.getUsername()) && password.equals(admin.getPassword());
-        }
-        return false;
+    public boolean checkPassword(String username, String password) {
+        return username.equals(admin.getUserId()) && password.equals(admin.getPassword());
     }
 
 
-    private Admin getAdmin(String username){
-        for(Admin admin: admins){
-            if(admin.getUsername().equals(username)){
-                return admin;
-            }
-        }
-        return null;
-    }
+//    private Admin getAdmin(String username){
+//        for(Admin admin: admins){
+//            if(admin.getUsername().equals(username)){
+//                return admin;
+//            }
+//        }
+//        return null;
+//    }
 
     public boolean isAdmin(String username){
-        return getAdmin(username)!=null;
+        return username.equals(admin.getUserId());
     }
 
     public List<String> getAllAdminNames(){
-
+        // List of only 1 admin!
         List<String> names = new ArrayList<>();
-        for(Admin admin: admins){
-            names.add(admin.getUsername());
-        }
+        names.add(admin.getUserId());
         return names;
     }
 

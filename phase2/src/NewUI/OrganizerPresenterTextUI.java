@@ -95,7 +95,7 @@ public class OrganizerPresenterTextUI extends TextUI {
             users.addAll(speakerManager.getAllSpeakerIds());
         }
         if(type.equals("admin") || type.equals("all")){
-            users.addAll(adminManager.getAllAdminNames());
+            users.add("admin");
         }
         for(String user: users){
             System.out.println(user + "\n");
@@ -108,7 +108,8 @@ public class OrganizerPresenterTextUI extends TextUI {
     }
 
     public void askForUserType(){
-        System.out.println("Enter the type of user (attendee, organizer, speaker, admin): ");
+        // disallow the creation of admin user
+        System.out.println("Enter the type of user (attendee, organizer, speaker): ");
     }
 
     public void askForUsername(){
