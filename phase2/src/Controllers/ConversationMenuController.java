@@ -10,7 +10,7 @@ import java.util.List;
  * This class is responsible for handling replying to a specific conversation and also ordering
  * messages in a given conversation.
  * The following methods include:
- * - Reply: replys to a given conversation with a message
+ * - Reply: Allow replying to a given conversation with a message
  * - OrderedMessagesInConvo: orders the messages in a conversation by passing in a select ID
  * @see UseCases.ConversationManager
  * @see UseCases.MessageManager

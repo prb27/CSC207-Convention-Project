@@ -131,7 +131,6 @@ public class AdminMenuController implements CommandHandler{
 //    }
 
 //    public void updateMessages(String message){
-//      TODO: Vlad please keep working on this method (u can also delete this as it's not a mandatory thing for admin)
 //      List<String> newMessages = new ArrayList<>();
 //      List<String> speakers = speakerManager.getAllSpeakerIds();
 //      List<String> organizers = organizerManager.getAllOrganizerIds();
