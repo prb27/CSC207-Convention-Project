@@ -136,6 +136,7 @@ public class EventManager {
      */
     public List<String> getSpeakerEvent(String eventName){
         Event event = getEvent(eventName);
+        assert event != null;
         return event.getSpeakerName();
     }
 
@@ -146,6 +147,7 @@ public class EventManager {
      */
     public String getStartTime(String eventName){
         Event event = getEvent(eventName);
+        assert event != null;
         return event.getStartTime();
     }
 
@@ -156,6 +158,7 @@ public class EventManager {
      */
     public int getDuration(String eventName){
         Event event = getEvent(eventName);
+        assert event != null;
         return event.getDuration();
 
     }
@@ -167,6 +170,7 @@ public class EventManager {
      */
     public String getRoomNumber(String eventName){
         Event event = getEvent(eventName);
+        assert event != null;
         return event.getRoomNumber();
     }
 
@@ -177,6 +181,7 @@ public class EventManager {
      */
     public String getSubjectLine(String eventName){
         Event event = getEvent(eventName);
+        assert event != null;
         return event.getEventSubjectLine();
     }
 
@@ -187,6 +192,7 @@ public class EventManager {
      */
     public List<String> getAttendeeList(String eventName){
         Event event = getEvent(eventName);
+        assert event != null;
         return event.getAttendeeList();
     }
 
@@ -197,20 +203,15 @@ public class EventManager {
      */
     public List<String> getEventInfo(String eventName){
         Event event = getEvent(eventName);
-        List eventInfo = null;
+        List<String> eventInfo = new ArrayList<>();
 
-        if(EventList.contains(event)){
-            eventInfo.add(event.getSpeakerName());
+        if(event != null && EventList.contains(event)){
+            eventInfo.addAll(event.getSpeakerName());
             eventInfo.add(event.getStartTime());
-            eventInfo.add(event.getDuration());
+            eventInfo.add(String.valueOf(event.getDuration()));
             eventInfo.add(event.getRoomNumber());
-            return eventInfo;
         }
-        else{
-            return null;
-        }
-
-
+        return eventInfo;
     }
 
     /**
@@ -218,11 +219,11 @@ public class EventManager {
      * @return : Map<String, List<String>>
      */
     public Map<String, List<String> > getAllEventsWithInfo(){
-        Map<String, List<String>> AllEventsWithInfo = new Hashtable<>();
+        Map<String, List<String>> AllEventsWithInfo = new HashMap<>();
 
         for(Event event: EventList){
             String eventName = event.getEventName();
-            List eventInfo = getEventInfo(eventName);
+            List<String> eventInfo = getEventInfo(eventName);
 
             if (eventInfo!=null){
                 AllEventsWithInfo.put(eventName, eventInfo);
@@ -252,6 +253,7 @@ public class EventManager {
      */
     public int getEventCapacity(String eventName) {
         Event event = getEvent(eventName);
+        assert event != null;
         return event.getEventCapacity();
     }
 
@@ -293,6 +295,7 @@ public class EventManager {
     public String getEventSubjectLine(String eventName){
 
         Event event = getEvent(eventName);
+        assert event != null;
         return event.getEventSubjectLine();
 
     }
