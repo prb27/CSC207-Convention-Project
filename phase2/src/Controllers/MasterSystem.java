@@ -9,6 +9,8 @@ import NewUI.*;
 
 import UseCases.*;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -91,6 +93,7 @@ public class MasterSystem {
         this.conversationMenuController = new ConversationMenuController(conversationManager, messageManager);
         accountHandler.signup("org", "org", "organizer");
 
+
         this.adui = new AdminPresenterTextUI(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
                 conversationManager, eventManager, roomManager);
         this.aui = new AttendeePresenterTextUI(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
@@ -117,7 +120,7 @@ public class MasterSystem {
                 accountHandler, eventManager, userEventController, roomManager, sui, messengerMenuController, conversationManager,
                 conversationMenuController, pollController);
         this.adminMenuController = new AdminMenuController(attendeeManager, speakerManager, organizerManager, conversationManager, conversationMenuController, eventManager, messageManager, adui, messengerMenuController, accountHandler);
-
+        this.eventsSearchEngine = new EventsSearchEngine(eventManager, ui);
     }
 
 
@@ -172,7 +175,14 @@ public class MasterSystem {
                         ui.showPrompt("SF");
                     }
                     break;
-
+                case "3":
+                    ui.searchEngineMenu();
+                    String inputParameter = scanner.nextLine();
+                    String[] parameters = inputParameter.split(",");
+                    for(int i = 0; i < parameters.length; i++){
+                        parameters[i] =  parameters[i].trim();
+                    }
+                    eventsSearchEngine.eventSearchWithNumericParameters(parameters);
                 default:
                     errorHandler.showError("INO");
             }
