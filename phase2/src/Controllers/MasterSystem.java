@@ -183,6 +183,7 @@ public class MasterSystem {
                         parameters[i] =  parameters[i].trim();
                     }
                     eventsSearchEngine.eventSearchWithNumericParameters(parameters);
+                    break;
                 default:
                     errorHandler.showError("INO");
             }

@@ -293,6 +293,5 @@ public class EventsSearchEngine {
             List<String> events = eventsWithSubjectLineContaining(subjectLine);
             textUI.presentEventsFromSearchEngine(events);
         }
-
     }
 }
