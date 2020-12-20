@@ -66,6 +66,7 @@ public class AdminMenuController implements CommandHandler{
                 String user = scanner.nextLine();
                 String userType = accountHandler.getAccountType(user);
                 if (messengerMenuController.adminSendMessage(username, user, "You Have Been Reported. Do not respond to this message", userType)){
+                    errorHandler.success();
                     return true;
                 }
                 else {
