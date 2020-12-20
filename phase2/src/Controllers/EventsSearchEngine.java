@@ -1,9 +1,14 @@
 package Controllers;
 
+import NewUI.TextUI;
 import UseCases.EventManager;
 
+import javax.xml.soap.Text;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * This class contains methods that perform actions like searching for events with certain parameters (eg. Speaker's username).
@@ -12,10 +17,12 @@ import java.util.List;
 public class EventsSearchEngine {
 
     private final EventManager eventManager;
+    private final TextUI textUI;
 
-    public EventsSearchEngine(EventManager eventManager){
+    public EventsSearchEngine(EventManager eventManager, TextUI textUI){
 
         this.eventManager = eventManager;
+        this.textUI = textUI;
 
     }
 
@@ -40,15 +47,6 @@ public class EventsSearchEngine {
     }
 
     /**
-     * Returns a List of Strings that provide the event titles
-     * for all events
-     * @return List</String>
-     */
-    public List<String> allEventsUnformatted(){
-        return eventManager.getAllEventTitles();
-    }
-
-    /**
      * Returns a List of Strings that provide information about the event title, start time, duration, roomId and Speaker names
      * for events with speaker </speakerName>
      * @param speakerName the speaker's username (param_type: String)
@@ -65,25 +63,6 @@ public class EventsSearchEngine {
         return eventsWithThisSpeaker;
 
     }
-
-    /**
-     * Returns a List of Strings that provide the event titles
-     * for events with speaker </speakerName>
-     * @param speakerName the speaker's username (param_type: String)
-     * @return List</String>
-     */
-    public List<String> eventsWithSpeakerUnformatted(String speakerName){
-
-        List<String> eventsWithThisSpeaker = new ArrayList<>();
-        for(String event: eventManager.getAllEventTitles()){
-            if(eventManager.getSpeakerEvent(event).contains(speakerName)){
-                eventsWithThisSpeaker.add(event);
-            }
-        }
-        return eventsWithThisSpeaker;
-
-    }
-
 
     /**
      * Returns a List of Strings that provide information about the event title, start time, duration, roomId and Speaker names
@@ -103,23 +82,6 @@ public class EventsSearchEngine {
 
     }
 
-    /**
-     * Returns a List of Strings that provide the event titles
-     * for events with start time </startTime>
-     * @param startTime the start time for the searched event (param_type: String)
-     * @return List</String>
-     */
-    public List<String> eventsAtStartTimeUnformatted(String startTime){
-
-        List<String> eventsAtThisStartTime = new ArrayList<>();
-        for(String event: eventManager.getAllEventTitles()){
-            if(eventManager.getStartTime(event).equals(startTime)){
-                eventsAtThisStartTime.add(event);
-            }
-        }
-        return eventsAtThisStartTime;
-
-    }
 
     /**
      * Returns a List of Strings that provide information about the event title, start time, duration, roomId and Speaker names
@@ -133,24 +95,6 @@ public class EventsSearchEngine {
         for(String event: eventManager.getAllEventTitles()){
             if(eventManager.getDuration(event) == duration){
                 eventsForThisDuration.add(getAllDetailsAsStringForEvent(event));
-            }
-        }
-        return eventsForThisDuration;
-
-    }
-
-    /**
-     * Returns a List of Strings that provide the event titles
-     * for events that are duration </duration> hours long.
-     * @param duration the duration of the events being search for (param_type: int)
-     * @return List</String>
-     */
-    public List<String> eventsForThisDurationUnformatted(int duration){
-
-        List<String> eventsForThisDuration = new ArrayList<>();
-        for(String event: eventManager.getAllEventTitles()){
-            if(eventManager.getDuration(event) == duration){
-                eventsForThisDuration.add(event);
             }
         }
         return eventsForThisDuration;
@@ -178,26 +122,6 @@ public class EventsSearchEngine {
 
     }
 
-    /**
-     * Returns a List of Strings that provide the event titles
-     * for events with speaker </speakerName> and duration </duration>
-     * @param speakerName username of the speaker for the searched event (param_type: String)
-     * @param duration duration of the searched event (param_type: int)
-     * @return List</String>
-     */
-    public List<String> eventsWithSpeakerAndDurationUnformatted(String speakerName, int duration){
-
-        List<String> requiredEvents = new ArrayList<>();
-        List<String> eventsForThisDuration = eventsForThisDurationUnformatted(duration);
-        List<String> eventsWithThisSpeaker = eventsWithSpeakerUnformatted(speakerName);
-        for(String event: eventsWithThisSpeaker){
-            if(eventsForThisDuration.contains(event)){
-                requiredEvents.add(event);
-            }
-        }
-        return requiredEvents;
-
-    }
 
     /**
      * Returns a List of Strings that provide information about the event title, start time, duration, roomId and Speaker names
@@ -220,26 +144,6 @@ public class EventsSearchEngine {
 
     }
 
-    /**
-     * Returns a List of Strings that provide the event titles
-     * for events with speaker </speakerName> at start time </time>
-     * @param speakerName username of the speaker for the searched event (param_type: String)
-     * @param time start time of the searched event (param_type: String)
-     * @return List</String>
-     */
-    public List<String> eventWithSpeakerAndStartTimeUnformatted(String speakerName, String time){
-
-        List<String> requiredEvents = new ArrayList<>();
-        List<String> eventsAtThisStartTime = eventsAtStartTimeUnformatted(time);
-        List<String> eventsWithThisSpeaker = eventsWithSpeakerUnformatted(speakerName);
-        for(String event: eventsAtThisStartTime){
-            if(eventsWithThisSpeaker.contains(event)){
-                requiredEvents.add(event);
-            }
-        }
-        return requiredEvents;
-
-    }
 
     /**
      * Returns a List of Strings that provide information about the event title, start time, duration, roomId and Speaker names
@@ -262,26 +166,6 @@ public class EventsSearchEngine {
 
     }
 
-    /**
-     * Returns a List of Strings that provide the event titles
-     * for events at start time </time> and duration </duration>
-     * @param time start time of the searched event (param_type: String)
-     * @param duration duration of the searched event (param_type: int)
-     * @return List</String>
-     */
-    public List<String> eventsWithStartTimeAndDurationUnformatted(String time, int duration){
-
-        List<String> requiredEvents = new ArrayList<>();
-        List<String> eventsForThisDuration = eventsForThisDurationUnformatted(duration);
-        List<String> eventsAtThisStartTime = eventsAtStartTimeUnformatted(time);
-        for(String event: eventsAtThisStartTime){
-            if(eventsForThisDuration.contains(event)){
-                requiredEvents.add(event);
-            }
-        }
-        return requiredEvents;
-
-    }
 
     /**
      * Returns a List of Strings that provide information about the event title, start time, duration, roomId and Speaker names
@@ -297,29 +181,6 @@ public class EventsSearchEngine {
         List<String> eventsForThisDuration = eventsForThisDuration(duration);
         List<String> eventsAtThisStartTime = eventsAtStartTime(time);
         List<String> eventsWithThisSpeaker = eventsWithSpeaker(speakerName);
-        for(String event: eventsAtThisStartTime){
-            if(eventsWithThisSpeaker.contains(event) && eventsForThisDuration.contains(event)){
-                requiredEvents.add(event);
-            }
-        }
-        return requiredEvents;
-
-    }
-
-    /**
-     * Returns a List of Strings that provide the event titles
-     * for events with speaker </speakerName> at start time </time> and duration </duration> hours.
-     * @param speakerName username of the speaker for the searched event (param_type: String)
-     * @param time start time of the searched event (param_type: String)
-     * @param duration duration of the searched event (param_type: int)
-     * @return List</String>
-     */
-    public List<String> eventWithSpeakerNameStartTimeAndDurationUnformatted(String speakerName, String time, int duration){
-
-        List<String> requiredEvents = new ArrayList<>();
-        List<String> eventsForThisDuration = eventsForThisDurationUnformatted(duration);
-        List<String> eventsAtThisStartTime = eventsAtStartTimeUnformatted(time);
-        List<String> eventsWithThisSpeaker = eventsWithSpeakerUnformatted(speakerName);
         for(String event: eventsAtThisStartTime){
             if(eventsWithThisSpeaker.contains(event) && eventsForThisDuration.contains(event)){
                 requiredEvents.add(event);
@@ -376,19 +237,62 @@ public class EventsSearchEngine {
 
     }
 
-    public List<String> eventsAtTimeWithSubjectLineContainingUnformatted(String startTime, String keyword){
-
-        List<String> requiredEvents = new ArrayList<>();
-        List<String> eventsAtThisStartTime = eventsAtStartTime(startTime);
-        String subjectLine;
-        for (String event: eventsAtThisStartTime){
-            subjectLine = eventManager.getEventSubjectLine(event);
-            if(subjectLine.contains(keyword)){
-                requiredEvents.add(event);
-            }
+    public void eventSearchWithNumericParameters(String[] params){
+        List<String> parameters = Arrays.asList(params);
+        Scanner scanner = new Scanner(System.in);
+        String speaker = null;
+        String startTime = null;
+        String duration = null;
+        String subjectLine = null;
+        if(parameters.contains("1")){
+            textUI.promptForSpeakerUsername();
+            speaker = scanner.nextLine();
         }
-        return requiredEvents;
+        if(parameters.contains("2")){
+            textUI.promptForEventTime();
+            startTime = scanner.nextLine();
+        }
+        if(parameters.contains("3")){
+            textUI.promptForEventDuration();
+            duration = scanner.nextLine();
+        }
+        if(parameters.contains("4")){
+            textUI.promptForSubjectLine();
+            subjectLine = scanner.nextLine();
+        }
+
+        if(speaker != null && startTime == null && duration == null && subjectLine == null){
+            List<String> events = eventsWithSpeaker(speaker);
+            textUI.presentEventsFromSearchEngine(events);
+        } else if(speaker != null && startTime != null && duration == null && subjectLine == null){
+            List<String> events = eventWithSpeakerAndStartTime(speaker, startTime);
+            textUI.presentEventsFromSearchEngine(events);
+        } else if(speaker != null && startTime != null && duration != null && subjectLine == null){
+            int actualDuration = Integer.parseInt(duration);
+            List<String> events = eventWithSpeakerNameStartTimeAndDuration(speaker, startTime, actualDuration);
+            textUI.presentEventsFromSearchEngine(events);
+        } else if(speaker != null && startTime == null && duration != null && subjectLine == null){
+            int actualDuration = Integer.parseInt(duration);
+            List<String> events = eventsWithSpeakerAndDuration(speaker, actualDuration);
+            textUI.presentEventsFromSearchEngine(events);
+        } else if(speaker == null && startTime != null && duration != null && subjectLine == null){
+            int actualDuration = Integer.parseInt(duration);
+            List<String> events = eventsWithStartTimeAndDuration(startTime, actualDuration);
+            textUI.presentEventsFromSearchEngine(events);
+        } else if(speaker == null && startTime != null && duration == null && subjectLine == null){
+            List<String> events = eventsAtStartTime(startTime);
+            textUI.presentEventsFromSearchEngine(events);
+        } else if(speaker == null && startTime == null && duration != null && subjectLine == null){
+            int actualDuration = Integer.parseInt(duration);
+            List<String> events = eventsForThisDuration(actualDuration);
+            textUI.presentEventsFromSearchEngine(events);
+        } else if(speaker == null && startTime != null && duration == null && subjectLine != null){
+            List<String> events = eventsAtTimeWithSubjectLineContaining(startTime, subjectLine);
+            textUI.presentEventsFromSearchEngine(events);
+        } else if(speaker == null && startTime == null && duration == null && subjectLine != null){
+            List<String> events = eventsWithSubjectLineContaining(subjectLine);
+            textUI.presentEventsFromSearchEngine(events);
+        }
 
     }
-
 }
