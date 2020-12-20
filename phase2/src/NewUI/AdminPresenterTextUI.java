@@ -23,7 +23,7 @@ public class AdminPresenterTextUI extends TextUI {
         System.out.println("\n\nHello " + username + "!");
         System.out.println("What would you like to do?");
 
-        System.out.println("1: Delete messages");
+        System.out.println("1: Delete empty events");
         System.out.println("2: Report User");
         System.out.println("\n0: Sign-out");
     }
