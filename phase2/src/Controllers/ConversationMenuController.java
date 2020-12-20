@@ -1,28 +1,36 @@
 package Controllers;
 
-import Controllers.UnusedControllers.AttendeeMessagingDashboardMenuController;
-import Controllers.UnusedControllers.SpeakerMessagingDashboardMenuController;
 import UseCases.ConversationManager;
 import UseCases.MessageManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is responsible for handling replying to a specific conversation and also ordering
+ * messages in a given conversation.
+ * The following methods include:
+ * - Reply: replys to a given conversation with a message
+ * - OrderedMessagesInConvo: orders the messages in a conversation by passing in a select ID
+ * @see UseCases.ConversationManager
+ * @see UseCases.MessageManager
+ */
 public class ConversationMenuController {
 
     private final ConversationManager conversationManager;
     private final MessageManager messageManager;
+
 
     public ConversationMenuController(ConversationManager conversationManager, MessageManager messageManager){
         this.conversationManager = conversationManager;
         this.messageManager = messageManager;
     }
     /**
-     * Allows a user to reply to a message they recieved
+     * Allows a user to reply to a conversation they are in
      * @param senderId: the id of the sender
      * @param convoId: the id of the convo to which they are replying
      * @param content: the content of the reply
-     * @return true if reply was sent, false otherwise
+     * @return boolean: true if reply was sent, false otherwise
      */
     public boolean reply(String senderId, String convoId, String content){
         if(!conversationManager.isConversation(convoId)){

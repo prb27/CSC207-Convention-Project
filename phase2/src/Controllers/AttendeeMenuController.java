@@ -13,6 +13,15 @@ import java.util.Scanner;
  * This class is responsible for taking input and implementing all logic/actions related to an admin.
  * The following manipulations include:
  *  - Attendee ability to sign out
+ *  - Displays the available events to sign up for
+ *  - Allows the attendee to sign up for an event
+ *  - Allows an attendee to cancel their spot in an event
+ *  - Allows an attendee to see a schedule they are signed up for
+ *  - Allows an attendee to message another attendee
+ *  - Allows an attendee to message a speaker of a given talk
+ *  - Allows an attendee to view all their conversations
+ *  - Adds another attendee to their friend list
+ *  - Allows an attendee to enter the polling menu
  * @author Ashwin, Vladimir Caterov
  * @see UseCases.AdminManager
  * @see UseCases.AttendeeManager
@@ -44,7 +53,6 @@ public class AttendeeMenuController {
     private ConversationMenuController conversationMenuController;
     private ErrorHandler errorHandler;
     private PollController pollController;
-
 
     public AttendeeMenuController(AttendeeManager attendeeManager,
                                   OrganizerManager organizerManager, SpeakerManager speakerManager,
@@ -213,6 +221,4 @@ public class AttendeeMenuController {
         }
         return true;
     }
-
-
 }

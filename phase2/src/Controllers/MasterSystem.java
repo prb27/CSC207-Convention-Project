@@ -2,15 +2,7 @@ package Controllers;
 
 import Gateways.ProgramGenerator;
 import NewUI.*;
-//import Presenters.*;
-//import Presenters.Attendee.*;
-//import Presenters.Organizer.*;
-//import Presenters.Speaker.*;
-
 import UseCases.*;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
