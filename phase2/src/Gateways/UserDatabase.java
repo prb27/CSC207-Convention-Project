@@ -7,7 +7,9 @@ import static com.mongodb.client.model.Filters.*;
 import org.bson.Document;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Abstract class to get the user collection from the database and performing actions that are common for all types
@@ -60,7 +62,8 @@ public abstract class UserDatabase {
      */
     public List<String> getEventsAttendingForUser(String username) {
         List<Document> user = userCollection.find(eq("username", username)).into(new ArrayList<>());
-        return user.get(0).getList("conversations", String.class);
+        return user.get(0).getList("eventsAttending", String.class);
     }
+
 
 }

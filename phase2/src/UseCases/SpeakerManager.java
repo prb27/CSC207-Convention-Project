@@ -335,6 +335,9 @@ public class SpeakerManager {
                     addTalkToListOfTalks(username, eventTimes.get(i), eventNames.get(i));
                 }
             }
+//            System.out.println(eventTimes.size());
+//            System.out.println(eventTimes.get(0));
+//            System.out.println(eventNames.get(0));
 
         }
 

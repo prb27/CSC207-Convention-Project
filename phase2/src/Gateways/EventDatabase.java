@@ -46,6 +46,7 @@ public class EventDatabase implements IEventDatabase {
             event.put("roomNumber", eventDoc.getList("roomNumber", String.class));
             event.put("eventCapacity", eventDoc.getList("eventCapacity", String.class));
             event.put("attendeeList", eventDoc.getList("attendeeList", String.class));
+            event.put("eventSubjectLine", eventDoc.getList("eventSubjectLine", String.class));
 
             eventList.add(event);
         }
@@ -68,6 +69,7 @@ public class EventDatabase implements IEventDatabase {
             eventDoc.append("roomNumber", event.get("roomNumber"));
             eventDoc.append("eventCapacity", event.get("eventCapacity"));
             eventDoc.append("attendeeList", event.get("attendeeList"));
+            eventDoc.append("eventSubjectLine", event.get("eventSubjectLine"));
 
             eventDocs.add(eventDoc);
         }
