@@ -2,6 +2,9 @@ package NewUI;
 
 import UseCases.*;
 
+/**
+ * The class containing all the AdminSpecific prompts and text to display
+ */
 public class AdminPresenterTextUI extends TextUI {
     private AttendeeManager attendeeManager;
     private OrganizerManager organizerManager;
@@ -19,6 +22,10 @@ public class AdminPresenterTextUI extends TextUI {
         super(attendeeManager, organizerManager, speakerManager, adminManager, messageManager, conversationManager, eventManager, roomManager);
     }
 
+    /**
+     * Displays the main menu for the admin with the given username
+     * @param username the username of the admin user
+     */
     public void adminmenu(String username) {
         System.out.println("\n\nHello " + username + "!");
         System.out.println("What would you like to do?");
@@ -28,17 +35,31 @@ public class AdminPresenterTextUI extends TextUI {
         System.out.println("\n0: Sign-out");
     }
 
+    /**
+     * Displays a message to inform that empty events have been deleted
+     */
     public void emptyEventsDeleted() {
         System.out.println("All events without attendees were deleted");
     }
 
+    /**
+     * Prompts for the id of the message to be deleted
+     */
     public void messageID() {
         System.out.println("Please enter the message id you want to delete");
     }
 
+    /**
+     * Displays a message to inform that the message with the given id was deleted
+     * @param messageID the id of the deleted message
+     */
     public void messageDeleted(String messageID) {
         System.out.println("message with id " + messageID + " was deleted");
     }
+
+    /**
+     * Prompts for the username of the user to report
+     */
     public void promptForUsername(){
         System.out.println("Please enter the username of the user you wish to report");
     }
