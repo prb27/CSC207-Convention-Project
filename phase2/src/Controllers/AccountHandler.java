@@ -60,6 +60,10 @@ public class AccountHandler {
                 if(organizerManager.isOrganizer(username) || attendeeManager.isAttendee(username)|| adminManager.isAdmin(username))
                     return false;
                 return speakerManager.createSpeaker(username, password);
+            case "admin":
+                if(organizerManager.isOrganizer(username) || attendeeManager.isAttendee(username)|| speakerManager.isSpeaker(username))
+                    return false;
+                return adminManager.createAdmin(username, password);
             default:
                 return false;
         }
@@ -107,7 +111,7 @@ public class AccountHandler {
         else if(adminManager.isAdmin(username))
             return "admin";
         else
-            return null;
+            return "";
     }
 
 }

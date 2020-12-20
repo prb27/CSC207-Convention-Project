@@ -67,6 +67,17 @@ public class TextUI{
         System.out.println("Please create a username and password.");
     }
 
+    public void searchEngineMenu(){
+        System.out.println("Please enter the number for which parameter to search by:");
+        System.out.println("1. Speaker");
+        System.out.println("2. Start Time");
+        System.out.println("3. Duration");
+        System.out.println("4. Subject Line");
+        System.out.println("If you would like search by more than one parameter, ");
+        System.out.println("enter the numbers for each parameter comma separated");
+        System.out.println("Note that you can only use subject line by itself, or with start time");
+    };
+
     /**
      * print out the sign up menu which prompts to create a username and password
      * @author Juan Yi Loke
@@ -383,6 +394,12 @@ public class TextUI{
 
     public void newLine() {
         System.out.println("\n\n");
+    }
+
+    public void presentEventsFromSearchEngine(List<String> events){
+        for(String event: events){
+            System.out.println(event);
+        }
     }
 
     

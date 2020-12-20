@@ -23,12 +23,13 @@ public class AdminPresenterTextUI extends TextUI {
         System.out.println("\n\nHello " + username + "!");
         System.out.println("What would you like to do?");
 
-        System.out.println("1: Delete no-attendee events");
-        System.out.println("2: Delete messages");
+        System.out.println("1: Delete messages");
+        System.out.println("2: Report User");
+        System.out.println("\n0: Sign-out");
     }
 
     public void emptyEventsDeleted() {
-        System.out.println("all events without attendees were deleted");
+        System.out.println("All events without attendees were deleted");
     }
 
     public void messageID() {
@@ -37,5 +38,8 @@ public class AdminPresenterTextUI extends TextUI {
 
     public void messageDeleted(String messageID) {
         System.out.println("message with id " + messageID + " was deleted");
+    }
+    public void promptForUsername(){
+        System.out.println("Please enter the username of the user you wish to report");
     }
 }

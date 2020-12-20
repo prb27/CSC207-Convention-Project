@@ -26,6 +26,7 @@ public class OrganizerMenuController {
     private MessengerMenuController messengerMenuController;
     private ConversationMenuController conversationMenuController;
     private OrganizerPresenterTextUI organizerPresenterTextUI;
+    private PollController pollController;
 
 
     public OrganizerMenuController(AttendeeManager attendeeManager, OrganizerManager organizerManager,
@@ -34,7 +35,7 @@ public class OrganizerMenuController {
                                    UserEventController userEventController, RoomManager roomManager,
                                    OrganizerPresenterTextUI organizerPresenterTextUI,
                                    MessengerMenuController messengerMenuController, ConversationManager conversationManager,
-                                   ConversationMenuController conversationMenuController){
+                                   ConversationMenuController conversationMenuController, PollController pollController){
 
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
@@ -48,6 +49,7 @@ public class OrganizerMenuController {
         this.messengerMenuController = messengerMenuController;
         this.conversationManager = conversationManager;
         this.conversationMenuController = conversationMenuController;
+        this.pollController = pollController;
 
     }
 
@@ -219,6 +221,10 @@ public class OrganizerMenuController {
                     return true;
                 }
                 organizerPresenterTextUI.failure();
+                return true;
+            }
+            case "19": {
+                pollController.runPollFunctionality(username);
                 return true;
             }
         }
@@ -480,9 +486,11 @@ public class OrganizerMenuController {
         organizerPresenterTextUI.promptForEventTime();
         String eventTime = scanner.nextLine();
         organizerPresenterTextUI.promptForEventDuration();
-        int duration = scanner.nextInt();
+        String durationS = scanner.nextLine();
         organizerPresenterTextUI.promptForEventCapacity();
-        int capacity = scanner.nextInt();
+        String capacityS = scanner.nextLine();
+        int duration = Integer.parseInt(durationS);
+        int capacity = Integer.parseInt(capacityS);
 
         eventSpec(eventTime, duration);
 
@@ -493,7 +501,8 @@ public class OrganizerMenuController {
         List<String> speakers = new ArrayList<>();
 
         organizerPresenterTextUI.numOfSpeakers();
-        int num = scanner.nextInt();
+        String nums = scanner.nextLine();
+        int num = Integer.parseInt(nums);
 
         organizerPresenterTextUI.promptForEventSpeakers();
         for(int i = 0; i<num; i++) {
@@ -517,7 +526,8 @@ public class OrganizerMenuController {
         boolean hasAudioSystem = audioSys.equals("YES");
         String projector = scanner.nextLine();
         boolean hasProjector = projector.equals("YES");
-        int powerSockets = scanner.nextInt();
+        String powerSocket = scanner.nextLine();
+        int powerSockets = Integer.parseInt(powerSocket);
 
         List<String> rooms = roomManager.roomsWithRequirements(hasAudioSystem, hasProjector, powerSockets, eventTime, duration);
         if(rooms != null) {

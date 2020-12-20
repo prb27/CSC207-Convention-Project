@@ -17,8 +17,14 @@ import java.util.List;
 public class AdminManager {
     private List<Admin> admins = new ArrayList<>();
 
-    public void createAdmin(String username, String password) {
+    public boolean createAdmin(String username, String password) {
+        for (Admin admin: admins){
+            if (admin.getUsername().equals(username)){
+                return false;
+            }
+        }
         admins.add(new Admin(username, password));
+        return true;
     }
 
     /**
