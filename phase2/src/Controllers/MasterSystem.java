@@ -213,7 +213,7 @@ public class MasterSystem {
                             adui.adminmenu(currentUsername);
                             inMenu = userController.handleCommand(currentUsername);
                         }
-                        loggedIn = false;1
+                        loggedIn = false;
                         currentUsername = null;
                         programGenerator.writeToDatabase();
                         break;
