@@ -94,7 +94,8 @@ public class PollController {
                 String pollId = scanner.nextLine();
                 // Print "Enter the option number that you want to vote for"
                 pollUI.choice();
-                int option = scanner.nextInt();
+                String optionString = scanner.nextLine();
+                int option = Integer.parseInt(optionString);
                 pollManager.voteInPoll(username, pollId, eventPasscode, option);
                 // Print "Successful"
                 pollUI.success();

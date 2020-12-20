@@ -47,6 +47,7 @@ public class ProgramGenerator {
         this.conversationDatabase = new ConversationDatabase(mongoClient);
         this.eventDatabase = new EventDatabase(mongoClient);
         this.roomDatabase = new RoomDatabase(mongoClient);
+        this.pollDatabase = new PollDatabase(mongoClient);
 
         this.attendeeManager = new AttendeeManager(attendeeDatabase);
         this.organizerManager = new OrganizerManager(organizerDatabase);
