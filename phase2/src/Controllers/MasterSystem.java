@@ -83,8 +83,6 @@ public class MasterSystem {
         this.userEventController = new UserEventController(attendeeManager, organizerManager, speakerManager, eventManager, roomManager);
         this.messengerMenuController = new MessengerMenuController(messageManager, attendeeManager, organizerManager, speakerManager, eventManager, accountHandler, conversationManager, adminManager);
         this.conversationMenuController = new ConversationMenuController(conversationManager, messageManager);
-        accountHandler.signup("org", "org", "organizer");
-
 
         this.adui = new AdminPresenterTextUI(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
                 conversationManager, eventManager, roomManager);

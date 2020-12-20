@@ -49,7 +49,6 @@ public class SpeakerMenuController implements CommandHandler{
      */
     public boolean handleCommand(String username) {
         Scanner scanner = new Scanner(System.in);
-        sui.speakermenu(username);
         String option = scanner.nextLine();
         switch(option) {
             case "0":

@@ -18,18 +18,6 @@ public class AdminManager {
 
     private final Admin admin = new Admin("admin4", "admin4");
 
-//    private List<Admin> admins = new ArrayList<>();
-//
-//    public boolean createAdmin(String username, String password) {
-//        for (Admin admin: admins){
-//            if (admin.getUsername().equals(username)){
-//                return false;
-//            }
-//        }
-//        admins.add(new Admin(username, password));
-//        return true;
-//    }
-
     /**
      * This method checks if the username and password are correct
      * @param username: the inputted username (param_type: String)
@@ -40,16 +28,6 @@ public class AdminManager {
         return username.equals(admin.getUserId()) && password.equals(admin.getPassword());
     }
 
-
-//    private Admin getAdmin(String username){
-//        for(Admin admin: admins){
-//            if(admin.getUsername().equals(username)){
-//                return admin;
-//            }
-//        }
-//        return null;
-//    }
-
     /**
      * This method checks if the username provided is associated with an Admin Entity
      * @param username: the inputted username (param_type: String)
@@ -59,11 +37,5 @@ public class AdminManager {
         return username.equals(admin.getUserId());
     }
 
-    public List<String> getAllAdminNames(){
-        // List of only 1 admin!
-        List<String> names = new ArrayList<>();
-        names.add(admin.getUserId());
-        return names;
-    }
 
 }
