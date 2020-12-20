@@ -30,11 +30,11 @@ public class MasterSystem {
     private AdminManager adminManager;
 
     private EventManager eventManager;
+    private PollManager pollManager;
     private RoomManager roomManager;
 
     private ConversationManager conversationManager;
     private MessageManager messageManager;
-
 
 
     private ConversationMenuController conversationMenuController;
@@ -48,6 +48,7 @@ public class MasterSystem {
     private AdminMenuController adminMenuController;
 
     private UserEventController userEventController;
+    private PollController pollController;
 
     private ProgramGenerator programGenerator;
 
@@ -56,6 +57,7 @@ public class MasterSystem {
     private AttendeePresenterTextUI aui;
     private SpeakerPresenterTextUI sui;
     private TextUI ui;
+    private PollUI pui;
     private ErrorHandler errorHandler;
     private LandingMenu landingMenu;
 
@@ -74,7 +76,7 @@ public class MasterSystem {
      */
     public MasterSystem(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager,
                         AdminManager adminManager, MessageManager messageManager, ConversationManager conversationManager,
-                        EventManager eventManager, RoomManager roomManager, ProgramGenerator programGenerator) {
+                        EventManager eventManager, RoomManager roomManager, ProgramGenerator programGenerator, PollManager pollManager) {
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
         this.speakerManager = speakerManager;
@@ -83,6 +85,7 @@ public class MasterSystem {
         this.conversationManager = conversationManager;
         this.eventManager = eventManager;
         this.roomManager = roomManager;
+        this.pollManager = pollManager;
         this.programGenerator = programGenerator;
         this.accountHandler = new AccountHandler(attendeeManager, organizerManager, speakerManager, adminManager);
         this.userEventController = new UserEventController(attendeeManager, organizerManager, speakerManager, eventManager, roomManager);
@@ -101,13 +104,21 @@ public class MasterSystem {
                 conversationManager, eventManager, roomManager);
         this.ui = new TextUI(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
                 conversationManager, eventManager, roomManager);
+        this.pui = new PollUI(attendeeManager, organizerManager, speakerManager, adminManager, messageManager, conversationManager,
+                eventManager,roomManager);
         this.landingMenu = new LandingMenu();
         this.errorHandler = new ErrorHandler();
 
+        this.pollController = new PollController(pollManager, speakerManager, pui);
         this.organizerMenuController = new OrganizerMenuController(attendeeManager, organizerManager, speakerManager, adminManager,
-                accountHandler, eventManager, userEventController, roomManager, oui, messengerMenuController, conversationManager, conversationMenuController);
-        this.attendeeMenuController = new AttendeeMenuController(attendeeManager, organizerManager, speakerManager, adminManager, accountHandler, eventManager, userEventController, roomManager, aui, messengerMenuController, conversationManager, conversationMenuController, errorHandler);
-        this.speakerMenuController = new SpeakerMenuController(attendeeManager, organizerManager, speakerManager, adminManager, accountHandler, eventManager, userEventController, roomManager, sui, messengerMenuController, conversationManager, conversationMenuController);
+                accountHandler, eventManager, userEventController, roomManager, oui, messengerMenuController, conversationManager,
+                conversationMenuController, pollController);
+        this.attendeeMenuController = new AttendeeMenuController(attendeeManager, organizerManager, speakerManager, adminManager,
+                accountHandler, eventManager, userEventController, roomManager, aui, messengerMenuController, conversationManager,
+                conversationMenuController, errorHandler, pollController);
+        this.speakerMenuController = new SpeakerMenuController(attendeeManager, organizerManager, speakerManager, adminManager,
+                accountHandler, eventManager, userEventController, roomManager, sui, messengerMenuController, conversationManager,
+                conversationMenuController, pollController);
         this.adminMenuController = new AdminMenuController(attendeeManager, speakerManager, organizerManager, conversationManager, conversationMenuController, eventManager, messageManager, adui, messengerMenuController, accountHandler);
         this.eventsSearchEngine = new EventsSearchEngine(eventManager, ui);
     }
@@ -134,7 +145,7 @@ public class MasterSystem {
 
             switch (landingOption) {
                 case "0":
-                    programGenerator.readToDatabase();
+                    programGenerator.writeToDatabase();
                     return;
                 case "1":
                     ui.usernameprompt();
@@ -186,7 +197,7 @@ public class MasterSystem {
                         }
                         loggedIn = false;
                         currentUsername = null;
-                        programGenerator.readToDatabase();
+                        programGenerator.writeToDatabase();
                         break;
 
                     case "organizer":
@@ -196,7 +207,7 @@ public class MasterSystem {
                         }
                         loggedIn = false;
                         currentUsername = null;
-                        programGenerator.readToDatabase();
+                        programGenerator.writeToDatabase();
                         break;
                     case "speaker":
                         while(inMenu){
@@ -205,7 +216,7 @@ public class MasterSystem {
                         }
                         loggedIn = false;
                         currentUsername = null;
-                        programGenerator.readToDatabase();
+                        programGenerator.writeToDatabase();
                         break;
                     case "admin":
                         while(inMenu){
@@ -214,7 +225,7 @@ public class MasterSystem {
                         }
                         loggedIn = false;
                         currentUsername = null;
-                        programGenerator.readToDatabase();
+                        programGenerator.writeToDatabase();
                         break;
                 }
             }

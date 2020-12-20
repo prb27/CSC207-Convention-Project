@@ -25,6 +25,7 @@ public class SpeakerMenuController {
     private ConversationMenuController conversationMenuController;
     private RoomManager roomManager;
     private SpeakerPresenterTextUI sui;
+    private PollController pollController;
 
 
     public SpeakerMenuController(AttendeeManager attendeeManager, OrganizerManager organizerManager,
@@ -32,7 +33,7 @@ public class SpeakerMenuController {
                                  AccountHandler accountHandler, EventManager eventManager,
                                  UserEventController userEventController, RoomManager roomManager,
                                  SpeakerPresenterTextUI speakerTextUI, MessengerMenuController messengerMenuController,
-                                 ConversationManager conversationManager, ConversationMenuController convoMenuContro){
+                                 ConversationManager conversationManager, ConversationMenuController convoMenuContro, PollController pollController){
 
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
@@ -46,6 +47,7 @@ public class SpeakerMenuController {
         this.convoManager = conversationManager;
         this.conversationMenuController = convoMenuContro;
         this.sui = speakerTextUI;
+        this.pollController = pollController;
 
     }
 
@@ -62,10 +64,11 @@ public class SpeakerMenuController {
         switch(option) {
             case "0":
                 return false;
-            case "1":
+            case "1": {
                 sui.seeEventList(userEventController.seeListOfEventsForSpeaker(username));
                 return true;
-            case "2":
+            }
+            case "2": {
                 sui.eventnameprompt();
                 String eventName = scanner.nextLine();
                 sui.messageprompt();
@@ -73,42 +76,44 @@ public class SpeakerMenuController {
                 messengerMenuController.speakerMessageByTalk(username, eventName, content);
                 sui.showPrompt("MS");
                 return true;
-            case "3":
+            }
+            case "3": {
                 List<String> listOfTalkNames = userEventController.seeAllEventNamesForSpeaker(username);
                 sui.messageprompt();
                 String content1 = scanner.nextLine();
                 messengerMenuController.speakerMessageByMultiTalks(username, listOfTalkNames, content1);
                 sui.showPrompt("MMS");
                 return true;
-            case "4":
+            }
+            case "4": {
                 sui.getAttendeeToMess();
                 String attendeeUsername = scanner.nextLine();
                 sui.messageprompt();
                 String message = scanner.nextLine();
                 List<String> listOfTalkNames1 = userEventController.seeAllEventNamesForSpeaker(username);
                 boolean err = messengerMenuController.speakerMessageAttendee(username, listOfTalkNames1, attendeeUsername, message);
-                if(err){
+                if (err) {
                     sui.success();
-                }
-                else{
+                } else {
                     sui.fail();
                 }
                 return true;
-            case "5":
+            }
+            case "5": {
                 Integer i = 1;
-                for(String conversationId: speakerManager.getConversations(username)) {
+                for (String conversationId : speakerManager.getConversations(username)) {
                     List<String> recipientsOfConversation = convoManager.getConvoParticipants(conversationId);
                     StringBuilder recipients = new StringBuilder();
                     String k = Integer.toString(i);
                     sui.convoNumUniqueId(k, conversationId);
-                    for (String recipient: recipientsOfConversation){
+                    for (String recipient : recipientsOfConversation) {
                         recipients.append(recipient);
                         recipients.append(", ");
                     }
                     sui.presentRecipients(recipients);
                     i += 1;
                 }
-                if(speakerManager.getConversations(username).isEmpty()){
+                if (speakerManager.getConversations(username).isEmpty()) {
                     sui.noConvo();
                     return true;
                 }
@@ -119,13 +124,17 @@ public class SpeakerMenuController {
                 sui.list(messagesInThisConversation);
                 sui.rep();
                 String reply = scanner.nextLine();
-                if(!reply.equals("r")){
+                if (!reply.equals("r")) {
                     return true;
                 }
                 sui.promptMessageToSend();
                 String contents = scanner.nextLine();
                 conversationMenuController.reply(username, conversationIdFinal, contents);
                 return true;
+            }
+            case "6":{
+                pollController.runPollFunctionality(username);
+            }
             default: {
                 sui.showError("INO");
             }

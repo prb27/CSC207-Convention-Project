@@ -5,15 +5,6 @@ import UseCases.*;
 import java.util.List;
 
 public class PollUI extends TextUI {
-    private AttendeeManager attendeeManager;
-    private OrganizerManager organizerManager;
-    private SpeakerManager speakerManager;
-    private AdminManager adminManager;
-    private EventManager eventManager;
-    private RoomManager roomManager;
-    private ConversationManager conversationManager;
-    private MessageManager messageManager;
-
 
     public PollUI(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager,
                        AdminManager adminManager, MessageManager messageManager, ConversationManager conversationManager,
