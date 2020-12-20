@@ -1,6 +1,7 @@
 package Controllers;
 
 import NewUI.AdminPresenterTextUI;
+import NewUI.ErrorHandler;
 import UseCases.*;
 import java.util.*;
 
@@ -25,6 +26,7 @@ public class AdminMenuController {
     private final EventManager eventManager;
     private final MessageManager messageManager;
     private final AdminPresenterTextUI adminPresenterTextUI;
+    private final ErrorHandler errorHandler;
     private final MessengerMenuController messengerMenuController;
     private final AccountHandler accountHandler;
 
@@ -33,13 +35,14 @@ public class AdminMenuController {
      */
     public AdminMenuController(EventManager eventManager,
                                MessageManager messageManager, AdminPresenterTextUI adminPresenterTextUI,
-                               MessengerMenuController messengerMenuController, AccountHandler accountHandler){
+                               MessengerMenuController messengerMenuController, AccountHandler accountHandler, ErrorHandler errorHandler){
 
         this.eventManager = eventManager;
         this.messageManager = messageManager;
         this.adminPresenterTextUI = adminPresenterTextUI;
         this.messengerMenuController = messengerMenuController;
         this.accountHandler = accountHandler;
+        this.errorHandler = errorHandler;
     }
     /**
      * This method allows admins to select between options from 0, 1, or 2 where 0 signs out the user,
@@ -62,8 +65,13 @@ public class AdminMenuController {
                 adminPresenterTextUI.promptForUsername();
                 String user = scanner.nextLine();
                 String userType = accountHandler.getAccountType(user);
-                messengerMenuController.adminSendMessage(username, user, "You Have Been Reported. Do not respond to this message", userType);
-                return true;
+                if (messengerMenuController.adminSendMessage(username, user, "You Have Been Reported. Do not respond to this message", userType)){
+                    return true;
+                }
+                else {
+                    errorHandler.showError("UDE");
+                    return true;
+                }
         }
         return true;
     }

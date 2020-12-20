@@ -36,50 +36,6 @@ public class MessengerMenuController {
 
     }
 
-    public List<String> getUsersToMessage(String username){
-
-        if(attendeeManager.isAttendee(username)){
-            List<String> eventsAttending = attendeeManager.getEventsAttending(username);
-            for (String eventName: eventsAttending){
-                eligibleContacts.addAll(eventManager.getSpeakerEvent(eventName));
-                for (String attendee: eventManager.getAttendeeList(eventName)){
-                    if (!username.equals(attendee)){
-                        eligibleContacts.add(attendee);
-                    }
-                }
-            }
-        }
-
-        if(organizerManager.isOrganizer(username)){
-
-        }
-        if (speakerManager.isSpeaker(username)) {
-            Map<String, String> events = speakerManager.getListOfTalks(username);
-            for (Map.Entry<String, String> event: events.entrySet()){
-                String eventName = event.getValue();
-                eligibleContacts.addAll(eventManager.getAttendeeList(eventName));
-            }
-        }
-        return eligibleContacts;
-
-    }
-
-    public List<String> getEventsToMessage(String username){
-        if(attendeeManager.isAttendee(username)){
-            return attendeeManager.getEventsAttending(username);
-        }
-        if (organizerManager.isOrganizer(username)){
-            return organizerManager.getEventsAttending(username);
-        }
-        if (speakerManager.isSpeaker(username)) {
-            return speakerManager.seeAllEventNamesForSpeaker(username);
-        }
-        return null;
-    }
-
-    public String getAccountType(String username){
-        return accountHandler.getAccountType(username);
-    }
     /**
      * Helper Method: Sends a message to a single recipient
      * @param senderId : ID of sender
@@ -479,27 +435,5 @@ public class MessengerMenuController {
 
         return false;
     }
-
-//    /**
-//     * Returns an List of all the messages in a conversation, formatted for display
-//     * @param convoId: the id of the convo
-//     * @return the List of formatted strings
-//     */
-//    public List<String> orderedMessagesInConvo(String convoId){
-//        List<String> rawMessages = new ArrayList<>();
-//        String current = convoManager.getConvoRoot(convoId);
-//        rawMessages.add(current);
-//        while(messageManager.getReply(current) != null){
-//            current = messageManager.getReply(current);
-//            rawMessages.add(current);
-//        }
-//        List<String> formattedMessages = new ArrayList<>();
-//        for(String messageId: rawMessages){
-//            String message = messageManager.getSender(messageId) + ": " + messageManager.getContent(messageId) + " (" + messageManager.getTime(messageId) + ")";
-//            formattedMessages.add(message);
-//        }
-//        return formattedMessages;
-//    }
-
 
 }

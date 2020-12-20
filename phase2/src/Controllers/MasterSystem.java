@@ -111,13 +111,13 @@ public class MasterSystem {
         this.speakerMenuController = new SpeakerMenuController(attendeeManager, organizerManager, speakerManager, adminManager,
                 accountHandler, eventManager, userEventController, roomManager, sui, messengerMenuController, conversationManager,
                 conversationMenuController, pollController);
-        this.adminMenuController = new AdminMenuController(eventManager, messageManager, adui, messengerMenuController, accountHandler);
+        this.adminMenuController = new AdminMenuController(eventManager, messageManager, adui, messengerMenuController, accountHandler, errorHandler);
         this.eventsSearchEngine = new EventsSearchEngine(eventManager, ui);
     }
 
 
     /**
-     * A method that is responsible for the flow of the program by taking user input,
+     * A run method that is responsible for the flow of the program by taking user input,
      * using controllers to execute actions and displaying the result using the UI.
      */
     public void run() {
