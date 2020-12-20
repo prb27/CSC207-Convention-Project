@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 /**
  * This class contains methods that perform actions like searching for events with certain parameters (eg. Speaker's username).
+ * It also handles user input for searching by parameters
  * @author Ashwin
  */
 public class EventsSearchEngine {
@@ -190,7 +191,12 @@ public class EventsSearchEngine {
 
     }
 
-
+    /**
+     * Returns a List of Strings that provide information about the event title, start time, duration, roomId and Speaker names
+     * for events with </keyword> in the subject line.
+     * @param keyword keyword to search for in the tagline (param_type: String)
+     * @return List</String>
+     */
     public List<String> eventsWithSubjectLineContaining(String keyword){
 
         List<String> requiredEvents = new ArrayList<>();
@@ -206,22 +212,13 @@ public class EventsSearchEngine {
 
     }
 
-
-    public List<String> eventsWithSubjectLineContainingUnformatted(String keyword){
-
-        List<String> requiredEvents = new ArrayList<>();
-        List<String> allEventTitles = eventManager.getAllEventTitles();
-        String subjectLine;
-        for (String event: allEventTitles){
-            subjectLine = eventManager.getEventSubjectLine(event);
-            if(subjectLine.contains(keyword)){
-                requiredEvents.add(event);
-            }
-        }
-        return requiredEvents;
-
-    }
-
+    /**
+     * Returns a List of Strings that provide information about the event title, start time, duration, roomId and Speaker names
+     * for events with </keyword> in the subject line and that start at time </startTime>.
+     * @param keyword keyword to search for in the tagline (param_type: String)
+     * @param startTime time when the desired event starts (param_type: String)
+     * @return List</String>
+     */
     public List<String> eventsAtTimeWithSubjectLineContaining(String startTime, String keyword){
 
         List<String> requiredEvents = new ArrayList<>();
@@ -237,6 +234,11 @@ public class EventsSearchEngine {
 
     }
 
+    /**
+     * Handles the taking of user input in the form of a list that specifies which parameters to search with
+     * Calls the appropriate presenter methods to display the list of events searched for
+     * @param params array of parameters that specifies which parameters to search with
+     */
     public void eventSearchWithNumericParameters(String[] params){
         List<String> parameters = Arrays.asList(params);
         Scanner scanner = new Scanner(System.in);

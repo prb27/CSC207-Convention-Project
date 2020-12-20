@@ -55,6 +55,11 @@ public class UserFactory {
         this.pollController = pollController;
     }
 
+    /**
+     * This method creates the appropriate CommandHandler class for the user type specified by userType
+     * @param userType the String that represents which user type to return a CommandHandler for
+     * @return
+     */
     public CommandHandler getUserController(String userType) {
         CommandHandler userController;
         if(userType.equals("attendee"))

@@ -20,7 +20,6 @@ public class ConversationMenuController {
     private final ConversationManager conversationManager;
     private final MessageManager messageManager;
 
-
     public ConversationMenuController(ConversationManager conversationManager, MessageManager messageManager){
         this.conversationManager = conversationManager;
         this.messageManager = messageManager;

@@ -20,6 +20,10 @@ public class PollController {
         this.pollUI = pollUI;
     }
 
+    /**
+     * Handles taking the input of the user for what they want to do with polls, and prints the appropriate prompts
+     * @param username the Username of the user interacting with the poll functionality
+     */
     public void runPollFunctionality(String username){
 
         Scanner scanner = new Scanner(System.in);
