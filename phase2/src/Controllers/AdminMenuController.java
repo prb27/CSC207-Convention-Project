@@ -24,7 +24,6 @@ import java.util.*;
 public class AdminMenuController implements CommandHandler{
 
     private final EventManager eventManager;
-    private final MessageManager messageManager;
     private final AdminPresenterTextUI adminPresenterTextUI;
     private final ErrorHandler errorHandler;
     private final MessengerMenuController messengerMenuController;
@@ -33,12 +32,10 @@ public class AdminMenuController implements CommandHandler{
     /**
      * A constructor for creating an AdminMenuController.
      */
-    public AdminMenuController(EventManager eventManager,
-                               MessageManager messageManager, AdminPresenterTextUI adminPresenterTextUI,
+    public AdminMenuController(EventManager eventManager, AdminPresenterTextUI adminPresenterTextUI,
                                MessengerMenuController messengerMenuController, AccountHandler accountHandler, ErrorHandler errorHandler){
 
         this.eventManager = eventManager;
-        this.messageManager = messageManager;
         this.adminPresenterTextUI = adminPresenterTextUI;
         this.messengerMenuController = messengerMenuController;
         this.accountHandler = accountHandler;
@@ -76,84 +73,6 @@ public class AdminMenuController implements CommandHandler{
         return true;
     }
 
-//    public List<String> getAllMessages() {
-//        List<String> speakers = speakerManager.getAllSpeakerIds();
-//        List<String> organizers = organizerManager.getAllOrganizerIds();
-//        List<String> attendees = attendeeManager.getAllAttendeeIds();
-//
-//        List<String> speakerConversationMessages = new ArrayList<>();
-//        List<String> organizerConversationMessages = new ArrayList<>();
-//
-//        for (String speaker : speakers) {
-//            List<String> conversationIDS = speakerManager.getConversations(speaker);
-//            for (String conversationID : conversationIDS) {
-//                List<String> participants = conversationManager.getConvoParticipants(conversationID);
-//                for (String member : participants) {
-//                    if (!attendeeManager.isAttendee(member)) {
-//                        List<String> orderedMessages = conversationMenuController.orderedMessagesInConvo(conversationID);
-//                        speakerConversationMessages.addAll(orderedMessages);
-//                    }
-//                }
-//
-//            }
-//        }
-//
-//        for (String organizer : organizers) {
-//            List<String> conversationIDS = organizerManager.getConversations(organizer);
-//            for (String conversationID : conversationIDS) {
-//                List<String> participants = conversationManager.getConvoParticipants(conversationID);
-//                for (String member : participants) {
-//                    if (!attendeeManager.isAttendee(member)) {
-//                        List<String> orderedMessages = conversationMenuController.orderedMessagesInConvo(conversationID);
-//                        organizerConversationMessages.addAll(orderedMessages);
-//                    }
-//                }
-//
-//            }
-//        }
-//
-//        for (String speakerMessage: speakerConversationMessages){
-//            for (String organizerMessage: organizerConversationMessages){
-//                if (!speakerMessage.equals(organizerMessage) && !allMessages.contains(speakerMessage) &&
-//                        !allMessages.contains(organizerMessage)){
-//                    allMessages.add(speakerMessage);
-//                    allMessages.add(organizerMessage);
-//                }
-//                else{
-//                    allMessages.add(speakerMessage);
-//                }
-//            }
-//        }
-//        return allMessages;
-//    }
-//    private void setAllMessages(List<String> newMessageList){
-//        this.allMessages = newMessageList;
-//    }
-
-//    public void updateMessages(String message){
-//      List<String> newMessages = new ArrayList<>();
-//      List<String> speakers = speakerManager.getAllSpeakerIds();
-//      List<String> organizers = organizerManager.getAllOrganizerIds();
-//
-//        for (String speaker : speakers) {
-//            List<String> conversationIDS = speakerManager.getConversations(speaker);
-//            for (String conversationID : conversationIDS) {
-//                List<String> participants = conversationManager.getConvoParticipants(conversationID);
-//                for (String member : participants) {
-//                    if (!attendeeManager.isAttendee(member)) {
-//                        List<String> orderedMessages = conversationMenuController.orderedMessagesInConvo(conversationID);
-//                    }
-//                }
-//
-//            }
-//        }
-//
-//
-//        for(String message1: allMessages){
-//        }
-//        setAllMessages(newMessages);
-//        adminMenu.loadMessages();
-//    }
 
     /**
      * Allow an Admin to delete events with no Attendees
@@ -167,17 +86,6 @@ public class AdminMenuController implements CommandHandler{
         for (String event : allEmptyEvents) {
             eventManager.removeEvent(event);
         }
-    }
-
-    /**
-     * Allow an Admin to delete any messages with the given id
-     * This option should only be accessible from inside the Admin login!
-     * (Only one Admin can perform this task)
-     * @param message: the message to be deleted
-     */
-    public void deleteMessage(String message) {
-        if (messageManager.messageExists(message))
-            messageManager.deleteMessage(message);
     }
 
 }

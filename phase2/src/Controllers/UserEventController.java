@@ -125,15 +125,14 @@ public class UserEventController {
     /**
      * Allows an organizer to remove a created event, also removes it from the list of talks of the speaker, and list
      * of attending events for Organizers and Attendees. It also relieves the room at the event's time.
-     * @param organizerName: name of organizer
-     * @param eventName: name of event
+     * @param organizerName : name of organizer
+     * @param eventName : name of event
      * "EDE" - Entities.Event Doesn't Exist
      * "ODE" - Entities.Organizer Doesn't Exist
      * "YES" - Request Successful
-     * @return String of the values listed above
      * @author aribshaikh
      */
-    public String removeCreatedEvent(String organizerName,String eventName) {
+    public void removeCreatedEvent(String organizerName, String eventName) {
         List<String> allowedTimes = eventManager.getAllowedTimes();
 
 
@@ -161,13 +160,8 @@ public class UserEventController {
                     organizerManager.removeAttendingEvent(organizerID, eventName);
                 }
                 roomManager.freeRoomAt(roomId, startTime, duration);
-                return "YES";
 
-            } else {
-                return "EDE";
             }
-        } else {
-            return "ODE";
         }
     }
 
@@ -213,10 +207,7 @@ public class UserEventController {
      */
     public List<String> getOrganizerEventsNotAttending(String username) {
 
-        List<String> eventsNotSignedUpFor = new ArrayList<>();
-        for(String event: eventManager.getAllEventTitles()){
-            eventsNotSignedUpFor.add(event);
-        }
+        List<String> eventsNotSignedUpFor = new ArrayList<>(eventManager.getAllEventTitles());
         if(organizerManager.isOrganizer(username)) {
             if (organizerManager.getEventsAttending(username) != null) {
                 for (String event : organizerManager.getEventsAttending(username)) {
@@ -311,33 +302,6 @@ public class UserEventController {
 
     }
 
-    /**
-     * return the list of all events
-     * call eventManager to perform!
-     * @author Khoa Pham
-     * @return <String, List<String>> eventsWithInfo
-     */
-    public Map<String, List<String>> seeAllEventsWithInfo() {
-        return eventManager.getAllEventsWithInfo();
-    }
-
-    /**
-     * allow an Entities.Attendee to see the list of all their participating events
-     * call eventManager to perform!
-     * @author Khoa Pham
-     * @param attendee: the username of an Entities.Attendee whose list of
-     *                participating events is returned (param_type: String)
-     * @return Map<String, List<String>> eventsWithInfo
-     */
-    public Map<String, List<String>> seeParticipatingEvents(String attendee) {
-        List<String> eventIdsAttending = attendeeManager.getEventsAttending(attendee);
-        Map<String, List<String>> events = new Hashtable<>();
-        for (String eventId : eventIdsAttending) {
-            events.put(eventId, eventManager.getEventInfo(eventId));
-        }
-        return events;
-    }
-
 
     /**
      * allow an Entities.Attendee to see the list of all their available to signup events
@@ -380,29 +344,11 @@ public class UserEventController {
     }
 
     /**
-     * Can see the event information
-     * @param speakerUsername : name of speaker
-     * @return : list of talks for the speaker (param_type: List<Map<String, String>>)
-     */
-    public Map<String, String> seeAllEventsForSpeaker(String speakerUsername){
-        return speakerManager.getListOfTalks(speakerUsername);
-    }
-
-    /**
      * Can see all the event names for the speaker
      * @param speakerUsername : name of speaker
      * @return list of all event names of talks (param_type: List<String>)
      */
     public List<String> seeAllEventNamesForSpeaker(String speakerUsername){
-//        List<Map<String, String>> listOfTalks = seeAllEventsForSpeaker(speakerUsername);
-//        List<String> listOfNamedTalks = new ArrayList<>();
-//        for(Map<String, String> talk: listOfTalks){
-//            Collection<String> talkname1 =  talk.values();
-//            for (String talk3: talkname1){
-//                listOfNamedTalks.add(talk3);
-//            }
-//        }
-//        return listOfNamedTalks;
         Map<String, String> listOfTalks = speakerManager.getListOfTalks(speakerUsername);
 
         List<String> masterList = new ArrayList<>();

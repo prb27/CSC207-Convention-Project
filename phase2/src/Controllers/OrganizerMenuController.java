@@ -14,10 +14,8 @@ import java.util.Scanner;
  */
 public class OrganizerMenuController implements CommandHandler{
 
-    private AttendeeManager attendeeManager;
     private OrganizerManager organizerManager;
     private SpeakerManager speakerManager;
-    private AdminManager adminManager;
     private AccountHandler accountHandler;
     private EventManager eventManager;
     private UserEventController userEventController;
@@ -29,18 +27,16 @@ public class OrganizerMenuController implements CommandHandler{
     private PollController pollController;
 
 
-    public OrganizerMenuController(AttendeeManager attendeeManager, OrganizerManager organizerManager,
-                                   SpeakerManager speakerManager, AdminManager adminManager,
+    public OrganizerMenuController(OrganizerManager organizerManager,
+                                   SpeakerManager speakerManager,
                                    AccountHandler accountHandler, EventManager eventManager,
                                    UserEventController userEventController, RoomManager roomManager,
                                    OrganizerPresenterTextUI organizerPresenterTextUI,
                                    MessengerMenuController messengerMenuController, ConversationManager conversationManager,
                                    ConversationMenuController conversationMenuController, PollController pollController){
 
-        this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
         this.speakerManager = speakerManager;
-        this.adminManager = adminManager;
         this.accountHandler = accountHandler;
         this.eventManager = eventManager;
         this.userEventController = userEventController;
@@ -123,7 +119,7 @@ public class OrganizerMenuController implements CommandHandler{
                 return true;
             }
             case "7": {
-                String err = changeSpeakerForEventThroughOrganizer(username);;
+                String err = changeSpeakerForEventThroughOrganizer(username);
                 if (!err.equals("YES")) {
                     organizerPresenterTextUI.showError(err);
                 }
@@ -413,21 +409,6 @@ public class OrganizerMenuController implements CommandHandler{
             return "YES"; //Refer to TextUserInterface
         }
 
-    }
-
-    /**
-     * Returns a list of event Details
-     * @param eventName name of the event
-     * @return List</String>
-     */
-    public List<String> getEventDetails(String eventName){
-        List<String> details = new ArrayList<>();
-        details.add(eventManager.getStartTime(eventName));
-        details.add(Integer.toString(eventManager.getDuration(eventName)));
-        details.add(Integer.toString(eventManager.getEventCapacity(eventName)));
-        details.add(eventManager.getRoomNumber(eventName));
-        details.addAll(eventManager.getSpeakerEvent(eventName));
-        return details;
     }
 
     /**

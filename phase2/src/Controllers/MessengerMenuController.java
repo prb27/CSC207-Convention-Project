@@ -27,11 +27,10 @@ public class MessengerMenuController {
     private AdminManager adminManager;
 
     private EventManager eventManager;
-    private AccountHandler accountHandler;
 
     public MessengerMenuController(MessageManager messageManager, AttendeeManager attendeeManager,
                                    OrganizerManager organizerManager, SpeakerManager speakerManager,
-                                   EventManager eventManager, AccountHandler accountHandler, ConversationManager convoManager, AdminManager adminManager){
+                                   EventManager eventManager, ConversationManager convoManager, AdminManager adminManager){
 
         this.messageManager = messageManager;
         this.convoManager = convoManager;
@@ -40,8 +39,6 @@ public class MessengerMenuController {
         this.organizerManager = organizerManager;
         this.speakerManager = speakerManager;
         this.eventManager = eventManager;
-
-        this.accountHandler = accountHandler;
 
         this.adminManager = adminManager;
 
@@ -95,29 +92,25 @@ public class MessengerMenuController {
      * @param organizerId : ID of sender
      * @param content : content of message
      * @param userType : Type of user to send to
-     * @return boolean : True if an organizer was successful in sending a message(content), false if an organizer
-     * could not send a message successfully
      */
-    public boolean organizerSendMessageToAll(String organizerId, String content, String userType){
+    public void organizerSendMessageToAll(String organizerId, String content, String userType){
 
         if(organizerManager.isOrganizer(organizerId)){
             if(userType.equals("attendee")) {
                 List<String> attendeeIDs = attendeeManager.getAllAttendeeIds();
                 organizerToAll(organizerId, content, userType, attendeeIDs);
-                return true;
+                return;
             }
             if(userType.equals("organizer")) {
                 List<String> organizerIDs = organizerManager.getAllOrganizerIds();
                 organizerToAll(organizerId, content, userType, organizerIDs);
-                return true;
+                return;
             }
             if(userType.equals("speaker")) {
                 List<String> speakerIds = speakerManager.getAllSpeakerIds();
                 organizerToAll(organizerId, content, userType, speakerIds);
-                return true;
             }
         }
-        return false;
 
     }
     /**
@@ -156,22 +149,6 @@ public class MessengerMenuController {
 
     }
 
-    /**
-     * Allows an organizer to send a message by event
-     * (Unused Method)
-     */
-    public String organizerSendMessageByEvent(String username, String eventName, String message){
-
-        if(!eventManager.isEvent(eventName)){
-            return "EDE";
-        }
-        boolean messageByEvent = organizerMessageByEvent(username, eventName, message);
-        if(messageByEvent){
-            return "Successful";
-        }
-        return "Something went wrong";
-
-    }
     /**
      * Allows an organizer to send a message provided a given event name
      * @param organizerId : ID of sender
@@ -247,53 +224,40 @@ public class MessengerMenuController {
      * @param speakerId : id of speaker
      * @param eventName : name of event
      * @param content : content of message
-     * @return "SDE" - Entities.Speaker Doesn't Exist
-     *         "EDE" - Entities.Event Doesn't Exist
-     *         "SEC" - Entities.Speaker Entities.Event Conflict
-     *         "YES" - Request Successful
      * @author Vladimir Caterov
      */
-    public String speakerMessageByTalk(String speakerId, String eventName, String content){
+    public void speakerMessageByTalk(String speakerId, String eventName, String content){
 
         if(speakerManager.isSpeaker(speakerId)){
             if (eventManager.isEvent(eventName)){
                 if (speakerManager.getListOfTalks(speakerId).containsValue(eventName)){
                     speakerByTalk(speakerId, eventName, content);
-                    return "YES";
                 }
-                return "SEC";
             }
-            return "EDE";
         }
-        return "SDE";
     }
 
     /**
      * Check if speaker, event is valid to allow a speaker to send message for multiple talks
-     * @param speakerId
-     * @param eventNames
-     * @param content
-     * @return "SDE" - Entities.Speaker Doesn't Exist
-     *         "EDE" - Entities.Event Doesn't Exist
-     *         "SEC" - Entities.Speaker Entities.Event Conflict
-     *         "YES" - Request Successful
+     * @param speakerId the id of the speaker sending the message
+     * @param eventNames the names of the events to send messages to
+     * @param content the content of the message
      * @author Vladimir Caterov
      */
-    public String speakerMessageByMultiTalks(String speakerId, List<String> eventNames, String content){
+    public void speakerMessageByMultiTalks(String speakerId, List<String> eventNames, String content){
 
         if(speakerManager.isSpeaker(speakerId)) {
             for (String eventName : eventNames) {
                 if (eventManager.isEvent(eventName)) {
                     if (speakerManager.getListOfTalks(speakerId).containsValue(eventName)) {
                         speakerByTalk(speakerId, eventName, content);
-                        return "YES";
+                        return;
                     }
-                    return "SEC";
+                    return;
                 }
-                return "EDE";
+                return;
             }
         }
-        return "SDE";
     }
 
     /**
@@ -330,36 +294,6 @@ public class MessengerMenuController {
                 organizerManager.addConversation(id, convoId);
             } else if(attendeeManager.isAttendee(id)){
                 attendeeManager.addConversation(id, convoId);
-            }
-        }
-    }
-
-    /**
-     * Sends the messages to enable a speaker to send a message to everyone in multiple talks
-     * @param speakerId : speaker ID
-     * @param eventNames : name of event
-     * @param content : content of message
-     */
-    public void speakerByMultiTalks(String speakerId, List<String> eventNames, String content){
-        List<String> recipientIds = new ArrayList<>();
-
-        for(String eventName: eventNames){
-            recipientIds.addAll(eventManager.getAttendeeList(eventName));
-        }
-        //do the below 3 lines to remove duplicate attendees so they dont get messaged multiple times
-        Set<String> set = new HashSet<>(recipientIds);
-        recipientIds.clear();
-        recipientIds.addAll(set);
-
-        String convoId = multiMessage(speakerId, recipientIds, content);
-
-        if(!recipientIds.isEmpty()){
-            for(String id: recipientIds){
-                if(organizerManager.isOrganizer(id)){
-                    organizerManager.addConversation(id, convoId);
-                } else if(attendeeManager.isAttendee(id)){
-                    attendeeManager.addConversation(id, convoId);
-                }
             }
         }
     }

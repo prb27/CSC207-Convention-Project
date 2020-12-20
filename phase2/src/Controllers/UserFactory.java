@@ -89,16 +89,16 @@ public class UserFactory {
     public CommandHandler getUserController(String userType) {
         CommandHandler userController;
         if(userType.equals("attendee"))
-            userController = new AttendeeMenuController(attendeeManager, organizerManager, speakerManager, adminManager,
-                    accountHandler, eventManager, userEventController, roomManager, attendeePresenterTextUI, messengerMenuController, conversationManager,
+            userController = new AttendeeMenuController(attendeeManager,
+                    userEventController, roomManager, attendeePresenterTextUI, messengerMenuController, conversationManager,
                     conversationMenuController, errorHandler, pollController);
         else if(userType.equals("organizer"))
             userController = new OrganizerMenuController(attendeeManager, organizerManager, speakerManager, adminManager,
                     accountHandler, eventManager, userEventController, roomManager, organizerPresenterTextUI, messengerMenuController, conversationManager,
                     conversationMenuController, pollController);
         else if(userType.equals("speaker"))
-            userController = new SpeakerMenuController(attendeeManager, organizerManager, speakerManager, adminManager,
-                    accountHandler, eventManager, userEventController, roomManager, speakerPresenterTextUI, messengerMenuController, conversationManager,
+            userController = new SpeakerMenuController(speakerManager,
+                    userEventController, speakerPresenterTextUI, messengerMenuController, conversationManager,
                     conversationMenuController, pollController);
         else if(userType.equals("admin"))
             userController = new AdminMenuController(eventManager, messageManager, adminPresenterTextUI, messengerMenuController, accountHandler, errorHandler);

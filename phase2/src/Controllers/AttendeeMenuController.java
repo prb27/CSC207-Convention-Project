@@ -40,13 +40,7 @@ import java.util.Scanner;
 public class AttendeeMenuController implements CommandHandler{
 
     private AttendeeManager attendeeManager;
-    private OrganizerManager organizerManager;
-    private SpeakerManager speakerManager;
-    private AdminManager adminManager;
-    private AccountHandler accountHandler;
-    private EventManager eventManager;
     private UserEventController userEventController;
-    private RoomManager roomManager;
     private AttendeePresenterTextUI attendeePresenterTextUI;
     private MessengerMenuController messengerMenuController;
     private ConversationManager conversationManager;
@@ -54,24 +48,14 @@ public class AttendeeMenuController implements CommandHandler{
     private ErrorHandler errorHandler;
     private PollController pollController;
 
-    public AttendeeMenuController(AttendeeManager attendeeManager,
-                                  OrganizerManager organizerManager, SpeakerManager speakerManager,
-                                  AdminManager adminManager, AccountHandler accountHandler, EventManager eventManager,
-                                  UserEventController userEventController, RoomManager roomManager,
-                                  AttendeePresenterTextUI attendeePresenterTextUI,
-                                  MessengerMenuController messengerMenuController,
-                                  ConversationManager conversationManager,
-                                  ConversationMenuController conversationMenuController, ErrorHandler errorHandler,
-                                  PollController pollController){
+    public AttendeeMenuController(AttendeeManager attendeeManager, UserEventController userEventController,
+                                  AttendeePresenterTextUI attendeePresenterTextUI, MessengerMenuController messengerMenuController,
+                                  ConversationManager conversationManager, ConversationMenuController conversationMenuController,
+                                  ErrorHandler errorHandler, PollController pollController){
 
         this.attendeeManager = attendeeManager;
-        this.organizerManager = organizerManager;
-        this.speakerManager = speakerManager;
-        this.adminManager = adminManager;
-        this.accountHandler = accountHandler;
-        this.eventManager = eventManager;
+
         this.userEventController = userEventController;
-        this.roomManager = roomManager;
         this.attendeePresenterTextUI = attendeePresenterTextUI;
         this.messengerMenuController = messengerMenuController;
         this.conversationManager = conversationManager;
@@ -170,11 +154,11 @@ public class AttendeeMenuController implements CommandHandler{
                 return true;
             }
             case "7": {
-                Integer i = 1;
+                int i = 1;
                 for (String conversationId : attendeeManager.getConversations(username)) {
                     List<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
                     StringBuilder recipients = new StringBuilder();
-                    String k = i.toString();
+                    String k = Integer.toString(i);
                     attendeePresenterTextUI.convoNumUniqueId(k, conversationId);
                     for (String recipient : recipientsOfConversation) {
                         recipients.append(recipient);

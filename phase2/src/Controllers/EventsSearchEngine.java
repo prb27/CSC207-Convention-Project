@@ -2,9 +2,6 @@ package Controllers;
 
 import NewUI.TextUI;
 import UseCases.EventManager;
-
-import javax.xml.soap.Text;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,20 +28,6 @@ public class EventsSearchEngine {
 
         return "Event Title: " + event + "\nTime: " + eventManager.getStartTime(event) + "(" + eventManager.getDuration(event) + " hours)" + "\nRoom: " + eventManager.getRoomNumber(event) + "\nSpeaker: " + eventManager.getSpeakerEvent(event) + "\nSubject Line: " + eventManager.getEventSubjectLine(event) + "\n";
 
-    }
-
-    /**
-     * Returns a List of Strings that provide information about the event title, start time, duration, roomId and Speaker names
-     * for all events
-     * @return List</String>
-     */
-    public List<String> allEvents(){
-
-        List<String> allEvents = new ArrayList<>();
-        for(String event: eventManager.getAllEventTitles()){
-            allEvents.add(getAllDetailsAsStringForEvent(event));
-        }
-        return allEvents;
     }
 
     /**
@@ -288,7 +271,7 @@ public class EventsSearchEngine {
             int actualDuration = Integer.parseInt(duration);
             List<String> events = eventsForThisDuration(actualDuration);
             textUI.presentEventsFromSearchEngine(events);
-        } else if(speaker == null && startTime != null && duration == null && subjectLine != null){
+        } else if(speaker == null && startTime != null && duration == null){
             List<String> events = eventsAtTimeWithSubjectLineContaining(startTime, subjectLine);
             textUI.presentEventsFromSearchEngine(events);
         } else if(speaker == null && startTime == null && duration == null && subjectLine != null){

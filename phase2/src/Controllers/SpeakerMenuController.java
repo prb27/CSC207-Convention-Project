@@ -13,37 +13,27 @@ import java.util.Scanner;
  */
 public class SpeakerMenuController implements CommandHandler{
 
-    private AttendeeManager attendeeManager;
-    private OrganizerManager organizerManager;
+
     private SpeakerManager speakerManager;
-    private AdminManager adminManager;
-    private AccountHandler accountHandler;
-    private EventManager eventManager;
     private ConversationManager convoManager;
     private MessengerMenuController messengerMenuController;
     private UserEventController userEventController;
     private ConversationMenuController conversationMenuController;
-    private RoomManager roomManager;
     private SpeakerPresenterTextUI sui;
     private PollController pollController;
 
 
-    public SpeakerMenuController(AttendeeManager attendeeManager, OrganizerManager organizerManager,
-                                 SpeakerManager speakerManager, AdminManager adminManager,
-                                 AccountHandler accountHandler, EventManager eventManager,
-                                 UserEventController userEventController, RoomManager roomManager,
-                                 SpeakerPresenterTextUI speakerTextUI, MessengerMenuController messengerMenuController,
-                                 ConversationManager conversationManager, ConversationMenuController convoMenuContro, PollController pollController){
+    public SpeakerMenuController(SpeakerManager speakerManager,
+                                 UserEventController userEventController, SpeakerPresenterTextUI speakerTextUI,
+                                 MessengerMenuController messengerMenuController, ConversationManager conversationManager,
+                                 ConversationMenuController convoMenuContro, PollController pollController){
 
-        this.attendeeManager = attendeeManager;
-        this.organizerManager = organizerManager;
+
         this.speakerManager = speakerManager;
-        this.adminManager = adminManager;
-        this.accountHandler = accountHandler;
-        this.eventManager = eventManager;
+
         this.userEventController = userEventController;
         this.messengerMenuController = messengerMenuController;
-        this.roomManager = roomManager;
+
         this.convoManager = conversationManager;
         this.conversationMenuController = convoMenuContro;
         this.sui = speakerTextUI;
@@ -100,7 +90,7 @@ public class SpeakerMenuController implements CommandHandler{
                 return true;
             }
             case "5": {
-                Integer i = 1;
+                int i = 1;
                 for (String conversationId : speakerManager.getConversations(username)) {
                     List<String> recipientsOfConversation = convoManager.getConvoParticipants(conversationId);
                     StringBuilder recipients = new StringBuilder();
