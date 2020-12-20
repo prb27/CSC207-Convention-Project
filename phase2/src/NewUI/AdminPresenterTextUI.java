@@ -3,7 +3,8 @@ package NewUI;
 import UseCases.*;
 
 /**
- * The class containing all the AdminSpecific prompts and text to display
+ * The class containing all the Admin specific prompts and text to display
+ * with regards to the actions that Admin can perform
  */
 public class AdminPresenterTextUI extends TextUI {
     private AttendeeManager attendeeManager;
@@ -24,6 +25,9 @@ public class AdminPresenterTextUI extends TextUI {
 
     /**
      * Displays the main menu for the admin with the given username
+     * Option 0: Signs the admin out
+     * Option 1: Allows the admin to delete all events that are empty (no-attendees)
+     * Option 2: Allows the admin to report a user provided they enter a correct username
      * @param username the username of the admin user
      */
     public void adminmenu(String username) {
