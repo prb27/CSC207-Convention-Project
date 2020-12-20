@@ -70,6 +70,9 @@ public class OrganizerPresenterTextUI extends TextUI {
         System.out.println("16: Send message to all speakers");
         System.out.println("17: View Conversations");
         System.out.println("18: Send message to everyone attending an event");
+
+        System.out.println("\nPOLLING OPTIONS: ");
+        System.out.println("19. Enter Polling menu");
         System.out.println("\n0: Sign-out");
 
     }

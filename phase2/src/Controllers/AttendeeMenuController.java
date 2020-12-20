@@ -29,6 +29,7 @@ public class AttendeeMenuController {
     private ConversationManager conversationManager;
     private ConversationMenuController conversationMenuController;
     private ErrorHandler errorHandler;
+    private PollController pollController;
 
 
     public AttendeeMenuController(AttendeeManager attendeeManager,
@@ -36,7 +37,7 @@ public class AttendeeMenuController {
                                   AdminManager adminManager, AccountHandler accountHandler, EventManager eventManager,
                                   UserEventController userEventController, RoomManager roomManager,
                                  AttendeePresenterTextUI attendeePresenterTextUI, MessengerMenuController messengerMenuController,
-                                  ConversationManager conversationManager, ConversationMenuController conversationMenuController, ErrorHandler errorHandler){
+                                  ConversationManager conversationManager, ConversationMenuController conversationMenuController, ErrorHandler errorHandler, PollController pollController){
 
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
@@ -59,12 +60,11 @@ public class AttendeeMenuController {
         switch(option) {
             case "0":
                 return false;
-            case "1":
+            case "1": {
                 Map<String, List<String>> eventsToSignUpWithInfo = userEventController.seeAttendableEvents(username);
-                if (eventsToSignUpWithInfo.isEmpty()){
+                if (eventsToSignUpWithInfo.isEmpty()) {
                     attendeePresenterTextUI.present("No events to sign up for");
-                }
-                else {
+                } else {
                     for (String event : eventsToSignUpWithInfo.keySet()) {
                         attendeePresenterTextUI.present(event);
                         for (String info : eventsToSignUpWithInfo.get(event))
@@ -74,7 +74,8 @@ public class AttendeeMenuController {
 
                 attendeePresenterTextUI.present("\n\n");
                 return true;
-            case "2":
+            }
+            case "2": {
                 attendeePresenterTextUI.promptEventNameToAdd();
                 String eventName = scanner.nextLine();
                 String err = userEventController.enrolUserInEvent(username, eventName);
@@ -84,17 +85,20 @@ public class AttendeeMenuController {
                     errorHandler.success();
                 }
                 return true;
-            case "3":
+            }
+            case "3": {
                 attendeePresenterTextUI.promptEventTitleCancel();
                 String eventname = scanner.nextLine();
                 userEventController.cancelSeatForUser(username, eventname);
                 attendeePresenterTextUI.promptNoLongerAttending(eventname);
                 return true;
-            case "4":
+            }
+            case "4": {
                 List<String> eventsAttending = attendeeManager.getEventsAttending(username);
                 attendeePresenterTextUI.presentEventsAttending(eventsAttending);
+            }
                 return true;
-            case "5":
+            case "5": {
                 attendeePresenterTextUI.promptAttendeeID();
                 String attendeeID = scanner.nextLine();
                 attendeePresenterTextUI.promptMessageToSend();
@@ -106,7 +110,8 @@ public class AttendeeMenuController {
                     attendeePresenterTextUI.fail();
                 }
                 return true;
-            case "6":
+            }
+            case "6": {
                 attendeePresenterTextUI.promptForSpeakerUsername();
                 String speakerName = scanner.nextLine();
                 attendeePresenterTextUI.promptForMessageToSend();
@@ -118,7 +123,8 @@ public class AttendeeMenuController {
                     attendeePresenterTextUI.fail();
                 }
                 return true;
-            case "7":
+            }
+            case "7": {
                 Integer i = 1;
                 for (String conversationId : attendeeManager.getConversations(username)) {
                     List<String> recipientsOfConversation = conversationManager.getConvoParticipants(conversationId);
@@ -132,7 +138,7 @@ public class AttendeeMenuController {
                     attendeePresenterTextUI.presentRecipients(recipients);
                     i += 1;
                 }
-                if (attendeeManager.getConversations(username).isEmpty()){
+                if (attendeeManager.getConversations(username).isEmpty()) {
                     attendeePresenterTextUI.noConvo();
                     return true;
                 }
@@ -150,7 +156,8 @@ public class AttendeeMenuController {
                 String contents = scanner.nextLine();
                 conversationMenuController.reply(username, conversationIdFinal, contents);
                 break;
-            case "8":
+            }
+            case "8": {
                 attendeePresenterTextUI.promptAttendeeUsernameAdded();
                 String friendName = scanner.nextLine();
                 if (!attendeeManager.isAttendee(friendName)) {
@@ -158,11 +165,15 @@ public class AttendeeMenuController {
                     return true;
                 }
                 String errorCode = attendeeManager.aAddContactB(username, friendName);
-                if(errorCode.equals("No"))
+                if (errorCode.equals("No"))
                     attendeePresenterTextUI.friendContactAlreadyExist(friendName);
                 else
                     attendeePresenterTextUI.success();
                 return true;
+            }
+            case "9":{
+                pollController.runPollFunctionality(username);
+            }
             default: {
                 attendeePresenterTextUI.showError("INO");
             }

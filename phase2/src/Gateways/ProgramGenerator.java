@@ -25,6 +25,7 @@ public class ProgramGenerator {
     ConversationDatabase conversationDatabase;
     EventDatabase eventDatabase;
     RoomDatabase roomDatabase;
+    PollDatabase pollDatabase;
 
     AttendeeManager attendeeManager;
     OrganizerManager organizerManager;
@@ -34,6 +35,7 @@ public class ProgramGenerator {
     ConversationManager conversationManager;
     EventManager eventManager;
     RoomManager roomManager;
+    PollManager pollManager;
 
     public ProgramGenerator() {
         this.uri = new MongoClientURI("mongodb+srv://dbAdmin:dbAdminPassword@conference-cluster.ayrxj.mongodb.net/conference-database?retryWrites=true&w=majority");
@@ -54,6 +56,7 @@ public class ProgramGenerator {
         this.conversationManager = new ConversationManager(conversationDatabase);
         this.eventManager = new EventManager(eventDatabase);
         this.roomManager = new RoomManager(roomDatabase);
+        this.pollManager = new PollManager(pollDatabase);
     }
 
     /**
@@ -71,9 +74,10 @@ public class ProgramGenerator {
             conversationManager.loadFromDatabase();
             eventManager.loadFromDatabase();
             roomManager.loadFromDatabase();
+            pollManager.loadFromDatabase();
 
             return new MasterSystem(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,
-                    conversationManager, eventManager, roomManager, this);
+                    conversationManager, eventManager, roomManager, this, pollManager);
         } catch (Exception e) {
             e.printStackTrace();
             return new MasterSystem(new AttendeeManager(attendeeDatabase),
@@ -84,7 +88,7 @@ public class ProgramGenerator {
                     new ConversationManager(conversationDatabase),
                     new EventManager(eventDatabase),
                     new RoomManager(roomDatabase),
-                    this);
+                    this, new PollManager(pollDatabase));
         }
     }
 
@@ -92,7 +96,7 @@ public class ProgramGenerator {
      * This method saves the data from the program into the respective the database
      * @author Juan Yi Loke, Akshat
      */
-    public void readToDatabase(){
+    public void writeToDatabase(){
         try {
             attendeeManager.saveToDatabase();
             organizerManager.saveToDatabase();
@@ -101,6 +105,7 @@ public class ProgramGenerator {
             conversationManager.saveToDatabase();
             eventManager.saveToDatabase();
             roomManager.saveToDatabase();
+            pollManager.saveToDatabase();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -26,6 +26,7 @@ public class OrganizerMenuController {
     private MessengerMenuController messengerMenuController;
     private ConversationMenuController conversationMenuController;
     private OrganizerPresenterTextUI organizerPresenterTextUI;
+    private PollController pollController;
 
 
     public OrganizerMenuController(AttendeeManager attendeeManager, OrganizerManager organizerManager,
@@ -34,7 +35,7 @@ public class OrganizerMenuController {
                                    UserEventController userEventController, RoomManager roomManager,
                                    OrganizerPresenterTextUI organizerPresenterTextUI,
                                    MessengerMenuController messengerMenuController, ConversationManager conversationManager,
-                                   ConversationMenuController conversationMenuController){
+                                   ConversationMenuController conversationMenuController, PollController pollController){
 
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
@@ -48,6 +49,7 @@ public class OrganizerMenuController {
         this.messengerMenuController = messengerMenuController;
         this.conversationManager = conversationManager;
         this.conversationMenuController = conversationMenuController;
+        this.pollController = pollController;
 
     }
 
@@ -219,6 +221,10 @@ public class OrganizerMenuController {
                     return true;
                 }
                 organizerPresenterTextUI.failure();
+                return true;
+            }
+            case "19": {
+                pollController.runPollFunctionality(username);
                 return true;
             }
         }
