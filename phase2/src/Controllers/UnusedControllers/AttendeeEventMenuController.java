@@ -1,4 +1,4 @@
-package Controllers;
+package Controllers.UnusedControllers;
 
 import UseCases.AttendeeManager;
 import UseCases.EventManager;

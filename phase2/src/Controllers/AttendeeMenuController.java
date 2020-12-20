@@ -10,9 +10,23 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
- * This class contains methods that are specific to actions that an Organizer is allowed to do. The methods in this class
- * collaborate with UseCase classes.
- * @author Ashwin
+ * This class is responsible for taking input and implementing all logic/actions related to an admin.
+ * The following manipulations include:
+ *  - Attendee ability to sign out
+ * @author Ashwin, Vladimir Caterov
+ * @see UseCases.AdminManager
+ * @see UseCases.AttendeeManager
+ * @see UseCases.OrganizerManager
+ * @see UseCases.SpeakerManager
+ * @see UseCases.EventManager
+ * @see Controllers.AccountHandler
+ * @see UseCases.RoomManager
+ * @see Controllers.UserEventController
+ * @see Controllers.MessengerMenuController
+ * @see Controllers.ConversationMenuController
+ * @see Controllers.PollController
+ * @see NewUI.AttendeePresenterTextUI
+ * @see NewUI.ErrorHandler
  */
 public class AttendeeMenuController {
 
@@ -36,8 +50,11 @@ public class AttendeeMenuController {
                                   OrganizerManager organizerManager, SpeakerManager speakerManager,
                                   AdminManager adminManager, AccountHandler accountHandler, EventManager eventManager,
                                   UserEventController userEventController, RoomManager roomManager,
-                                 AttendeePresenterTextUI attendeePresenterTextUI, MessengerMenuController messengerMenuController,
-                                  ConversationManager conversationManager, ConversationMenuController conversationMenuController, ErrorHandler errorHandler, PollController pollController){
+                                  AttendeePresenterTextUI attendeePresenterTextUI,
+                                  MessengerMenuController messengerMenuController,
+                                  ConversationManager conversationManager,
+                                  ConversationMenuController conversationMenuController, ErrorHandler errorHandler,
+                                  PollController pollController){
 
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
@@ -52,8 +69,24 @@ public class AttendeeMenuController {
         this.conversationManager = conversationManager;
         this.conversationMenuController = conversationMenuController;
         this.errorHandler = errorHandler;
+        this.pollController = pollController;
     }
-
+    /**
+     * This method allows attendees to select between several options.
+     * The following manipulations include:
+     * 0. Signs the user out
+     * 1. Displays the available events to sign up for
+     * 2. Allows the attendee to sign up for an event
+     * 3. Allows an attendee to cancel their spot in an event
+     * 4. Allows an attendee to see a schedule they are signed up for
+     * 5. Allows an attendee to message another attendee
+     * 6. Allows an attendee to message a speaker of a given talk
+     * 7. Allows an attendee to view all their conversations
+     * 8. Adds another attendee to their friend list
+     * 9. Allows an attendee to enter the polling menu
+     * @param username: the username of the admin signed in
+     * @return boolean: True if the admin is remaining logged in, false if the admin wants to sign out
+     */
     public boolean attendeeUserCommandHandler(String username) {
         Scanner scanner = new Scanner(System.in);
         String option = scanner.nextLine();

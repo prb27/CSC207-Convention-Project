@@ -17,7 +17,13 @@ public class ConversationMenuController {
         this.conversationManager = conversationManager;
         this.messageManager = messageManager;
     }
-
+    /**
+     * Allows a user to reply to a message they recieved
+     * @param senderId: the id of the sender
+     * @param convoId: the id of the convo to which they are replying
+     * @param content: the content of the reply
+     * @return true if reply was sent, false otherwise
+     */
     public boolean reply(String senderId, String convoId, String content){
         if(!conversationManager.isConversation(convoId)){
             return false;
@@ -33,9 +39,9 @@ public class ConversationMenuController {
     }
 
     /**
-     * Returns an List of all the messages in a conversation, formatted for display
+     * Returns a List of all the messages in a conversation, formatted for display
      * @param convoId: the id of the convo
-     * @return the List of formatted strings
+     * @return List of formatted strings in a conversation
      */
     public List<String> orderedMessagesInConvo(String convoId) {
         List<String> rawMessages = new ArrayList<>();
