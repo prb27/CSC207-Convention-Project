@@ -108,7 +108,8 @@ public class OrganizerPresenterTextUI extends TextUI {
     }
 
     public void askForUserType(){
-        System.out.println("Enter the type of user (attendee, organizer, speaker, admin): ");
+        // disallow the creation of admin user
+        System.out.println("Enter the type of user (attendee, organizer, speaker): ");
     }
 
     public void askForUsername(){
