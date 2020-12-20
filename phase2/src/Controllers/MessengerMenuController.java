@@ -3,7 +3,20 @@ package Controllers;
 import UseCases.*;
 
 import java.util.*;
-
+/**
+ * This class is responsible for creating accounts of all user types
+ * with a unique username and password and allowing a user to sign in
+ * to the conference using their username and password. This class
+ * also returns the account type of a given user.
+ * @see UseCases.AttendeeManager
+ * @see UseCases.OrganizerManager
+ * @see UseCases.SpeakerManager
+ * @see UseCases.AdminManager
+ * @see UseCases.EventManager
+ * @see UseCases.MessageManager
+ * @see UseCases.ConversationManager
+ * @see Controllers.AccountHandler
+ */
 public class MessengerMenuController {
 
     private MessageManager messageManager;
@@ -11,11 +24,10 @@ public class MessengerMenuController {
     private AttendeeManager attendeeManager;
     private OrganizerManager organizerManager;
     private SpeakerManager speakerManager;
+    private AdminManager adminManager;
 
     private EventManager eventManager;
     private AccountHandler accountHandler;
-    private AdminManager adminManager;
-    private List<String> eligibleContacts;
 
     public MessengerMenuController(MessageManager messageManager, AttendeeManager attendeeManager,
                                    OrganizerManager organizerManager, SpeakerManager speakerManager,
@@ -31,7 +43,6 @@ public class MessengerMenuController {
 
         this.accountHandler = accountHandler;
 
-        this.eligibleContacts = new ArrayList<>();
         this.adminManager = adminManager;
 
     }
@@ -43,7 +54,6 @@ public class MessengerMenuController {
      * @param content : content of message
      * @return ID of the conversation made between a sender and recipient (param_type: String)
      */
-
 
     public String singleMessage(String senderId, String recipientId, String content){
         List<String> p = new ArrayList<>();
@@ -80,6 +90,14 @@ public class MessengerMenuController {
         return convoId;
     }
 
+    /**
+     * Allows an Organizer to send a message to all users of the given userType
+     * @param organizerId : ID of sender
+     * @param content : content of message
+     * @param userType : Type of user to send to
+     * @return boolean : True if an organizer was successful in sending a message(content), false if an organizer
+     * could not send a message successfully
+     */
     public boolean organizerSendMessageToAll(String organizerId, String content, String userType){
 
         if(organizerManager.isOrganizer(organizerId)){
@@ -102,7 +120,15 @@ public class MessengerMenuController {
         return false;
 
     }
-
+    /**
+     * Allows an Organizer to send a message to a certain user of the given userType
+     * @param organizerId : ID of sender
+     * @param recipientId: ID of recipient
+     * @param content : content of message
+     * @param userType : Type of user to send to
+     * @return boolean : True if an organizer was successful in sending a message(content), false if an organizer
+     * could not send a message successfully
+     */
     public boolean organizerSendMessageToSingle(String organizerId, String recipientId, String content, String userType){
 
         if(userType.equals("attendee")){
@@ -131,7 +157,7 @@ public class MessengerMenuController {
     }
 
     /**
-     *
+     * Allows an organizer to send a message
      * @param username
      * @param eventName
      * @param message
@@ -149,7 +175,13 @@ public class MessengerMenuController {
         return "Something went wrong";
 
     }
-
+    /**
+     * Allows an organizer to send a message provided a given event name
+     * @param organizerId : ID of sender
+     * @param eventName: ID of event
+     * @param content : content of message
+     * @return Boolean: true if an organizer was successful in messaging by event, false otherwise
+     */
     public boolean organizerMessageByEvent(String organizerId, String eventName, String content){
 
         List<String> recipientIds;
@@ -306,7 +338,7 @@ public class MessengerMenuController {
     }
 
     /**
-     * sends the messages to enable a speaker to send a message to everyone in multiple talks
+     * Sends the messages to enable a speaker to send a message to everyone in multiple talks
      * @param speakerId : speaker ID
      * @param eventNames : name of event
      * @param content : content of message
@@ -383,8 +415,9 @@ public class MessengerMenuController {
         }
         organizerManager.addConversation(organizerId, convoId);
     }
-    /**
+    /** Helper Method
      * Allows an admin to send a message to a user
+     * (Currently) message is used to report another user
      * @param adminID : ID of attendee
      * @param recipientId : ID of recipient
      * @param content : content of message
@@ -404,6 +437,9 @@ public class MessengerMenuController {
 
     /**
      * Allows an admin to send a message to another user
+     * Checks if the provided information is correct and that a
+     * message is not being sent to an empty recipient
+     * (Currently) message is used to report another user
      * @param username: id of attendee sending the message
      * @param recipientId: id of the recipient
      * @param content: content of the message

@@ -114,6 +114,13 @@ public class MasterSystem {
     /**
      * A run method that is responsible for the flow of the program by taking user input,
      * using controllers to execute actions and displaying the result using the UI.
+     * Interacts with the LandingMenuPresenter to present a landing menu for the user to select options from:
+     * Option 0: Quits the program and saves any information to a database
+     * Option 1: Logging in the user provided that they enter correct information when prompted
+     * Option 2: Sign up a user (attendee) provided that the user name entered does not already exist
+     * Once the user is logged in, they will be prompted their appropriate user menu and each menu (Presenter/View)
+     * has its own associated controller that handles all the input in their respective menus. After the user logs out,
+     * the system then writes to the database and prompts the landing menu again
      */
     public void run() {
         Scanner scanner = new Scanner(System.in);
