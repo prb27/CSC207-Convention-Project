@@ -2,43 +2,52 @@ package Controllers;
 
 import NewUI.AdminPresenterTextUI;
 import UseCases.*;
-
 import java.util.*;
+
+/**
+ * This class is responsible for taking input and implementing all logic/actions related to an admin.
+ * The following manipulations include:
+ * - Admin ability to sign out
+ * - Admin ability to delete empty events
+ * - Admin ability to report another user
+ * @author Khoa Pham, Vladimir Caterov
+ * @see UseCases.AttendeeManager
+ * @see UseCases.OrganizerManager
+ * @see UseCases.SpeakerManager
+ * @see UseCases.AdminManager
+ * @see UseCases.EventManager
+ * @see NewUI.AdminPresenterTextUI
+ * @see Controllers.MessengerMenuController
+ */
 
 public class AdminMenuController {
 
-
-    private final AttendeeManager attendeeManager;
-    private final SpeakerManager speakerManager;
-    private final OrganizerManager organizerManager;
-    private final ConversationManager conversationManager;
-    private final ConversationMenuController conversationMenuController;
     private final EventManager eventManager;
     private final MessageManager messageManager;
     private final AdminPresenterTextUI adminPresenterTextUI;
     private final MessengerMenuController messengerMenuController;
     private final AccountHandler accountHandler;
 
-
-    private List<String> allMessages;
-
-    public AdminMenuController(AttendeeManager attendeeManager, SpeakerManager speakerManager,
-                               OrganizerManager organizerManager, ConversationManager conversationManager,
-                               ConversationMenuController conversationMenuController, EventManager eventManager,
+    /**
+     * A constructor for creating an AdminMenuController.
+     */
+    public AdminMenuController(EventManager eventManager,
                                MessageManager messageManager, AdminPresenterTextUI adminPresenterTextUI,
                                MessengerMenuController messengerMenuController, AccountHandler accountHandler){
-        this.attendeeManager = attendeeManager;
-        this.organizerManager = organizerManager;
-        this.speakerManager = speakerManager;
-        this.conversationManager = conversationManager;
-        this.conversationMenuController = conversationMenuController;
-        this.allMessages = new ArrayList<>();
+
         this.eventManager = eventManager;
         this.messageManager = messageManager;
         this.adminPresenterTextUI = adminPresenterTextUI;
         this.messengerMenuController = messengerMenuController;
         this.accountHandler = accountHandler;
     }
+    /**
+     * This method allows admins to select between options from 0, 1, or 2 where 0 signs out the user,
+     * 1 deletes all empty events, and 2 allows admins to report a given user by their username.
+     * The following manipulations include:
+     * @param username: the username of the admin signed in
+     * @return boolean: True if the admin is remaining logged in, false if the admin wants to sign out
+     */
     public boolean adminFunctionalities(String username){
         Scanner scanner = new Scanner(System.in);
         String option = scanner.nextLine();
@@ -59,59 +68,59 @@ public class AdminMenuController {
         return true;
     }
 
-    public List<String> getAllMessages() {
-        List<String> speakers = speakerManager.getAllSpeakerIds();
-        List<String> organizers = organizerManager.getAllOrganizerIds();
-        List<String> attendees = attendeeManager.getAllAttendeeIds();
-
-        List<String> speakerConversationMessages = new ArrayList<>();
-        List<String> organizerConversationMessages = new ArrayList<>();
-
-        for (String speaker : speakers) {
-            List<String> conversationIDS = speakerManager.getConversations(speaker);
-            for (String conversationID : conversationIDS) {
-                List<String> participants = conversationManager.getConvoParticipants(conversationID);
-                for (String member : participants) {
-                    if (!attendeeManager.isAttendee(member)) {
-                        List<String> orderedMessages = conversationMenuController.orderedMessagesInConvo(conversationID);
-                        speakerConversationMessages.addAll(orderedMessages);
-                    }
-                }
-
-            }
-        }
-
-        for (String organizer : organizers) {
-            List<String> conversationIDS = organizerManager.getConversations(organizer);
-            for (String conversationID : conversationIDS) {
-                List<String> participants = conversationManager.getConvoParticipants(conversationID);
-                for (String member : participants) {
-                    if (!attendeeManager.isAttendee(member)) {
-                        List<String> orderedMessages = conversationMenuController.orderedMessagesInConvo(conversationID);
-                        organizerConversationMessages.addAll(orderedMessages);
-                    }
-                }
-
-            }
-        }
-
-        for (String speakerMessage: speakerConversationMessages){
-            for (String organizerMessage: organizerConversationMessages){
-                if (!speakerMessage.equals(organizerMessage) && !allMessages.contains(speakerMessage) &&
-                        !allMessages.contains(organizerMessage)){
-                    allMessages.add(speakerMessage);
-                    allMessages.add(organizerMessage);
-                }
-                else{
-                    allMessages.add(speakerMessage);
-                }
-            }
-        }
-        return allMessages;
-    }
-    private void setAllMessages(List<String> newMessageList){
-        this.allMessages = newMessageList;
-    }
+//    public List<String> getAllMessages() {
+//        List<String> speakers = speakerManager.getAllSpeakerIds();
+//        List<String> organizers = organizerManager.getAllOrganizerIds();
+//        List<String> attendees = attendeeManager.getAllAttendeeIds();
+//
+//        List<String> speakerConversationMessages = new ArrayList<>();
+//        List<String> organizerConversationMessages = new ArrayList<>();
+//
+//        for (String speaker : speakers) {
+//            List<String> conversationIDS = speakerManager.getConversations(speaker);
+//            for (String conversationID : conversationIDS) {
+//                List<String> participants = conversationManager.getConvoParticipants(conversationID);
+//                for (String member : participants) {
+//                    if (!attendeeManager.isAttendee(member)) {
+//                        List<String> orderedMessages = conversationMenuController.orderedMessagesInConvo(conversationID);
+//                        speakerConversationMessages.addAll(orderedMessages);
+//                    }
+//                }
+//
+//            }
+//        }
+//
+//        for (String organizer : organizers) {
+//            List<String> conversationIDS = organizerManager.getConversations(organizer);
+//            for (String conversationID : conversationIDS) {
+//                List<String> participants = conversationManager.getConvoParticipants(conversationID);
+//                for (String member : participants) {
+//                    if (!attendeeManager.isAttendee(member)) {
+//                        List<String> orderedMessages = conversationMenuController.orderedMessagesInConvo(conversationID);
+//                        organizerConversationMessages.addAll(orderedMessages);
+//                    }
+//                }
+//
+//            }
+//        }
+//
+//        for (String speakerMessage: speakerConversationMessages){
+//            for (String organizerMessage: organizerConversationMessages){
+//                if (!speakerMessage.equals(organizerMessage) && !allMessages.contains(speakerMessage) &&
+//                        !allMessages.contains(organizerMessage)){
+//                    allMessages.add(speakerMessage);
+//                    allMessages.add(organizerMessage);
+//                }
+//                else{
+//                    allMessages.add(speakerMessage);
+//                }
+//            }
+//        }
+//        return allMessages;
+//    }
+//    private void setAllMessages(List<String> newMessageList){
+//        this.allMessages = newMessageList;
+//    }
 
 //    public void updateMessages(String message){
 //      TODO: Vlad please keep working on this method (u can also delete this as it's not a mandatory thing for admin)
@@ -140,9 +149,9 @@ public class AdminMenuController {
 //    }
 
     /**
-     * allow an Admin to delete events with no Attendees
+     * Allow an Admin to delete events with no Attendees
      * call eventManager to perform!
-     * This option should only be accessible from inside the Admin login!!!
+     * This option should only be accessible from inside the Admin login!
      * Only one Admin can perform this task
      * @author Khoa Pham
      */
@@ -154,8 +163,8 @@ public class AdminMenuController {
     }
 
     /**
-     * allow an Admin to delete any messages with the given id
-     * This option should only be accessible from inside the Admin login!!!
+     * Allow an Admin to delete any messages with the given id
+     * This option should only be accessible from inside the Admin login!
      * (Only one Admin can perform this task)
      * @param message: the message to be deleted
      */

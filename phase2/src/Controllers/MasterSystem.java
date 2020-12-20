@@ -119,7 +119,7 @@ public class MasterSystem {
         this.speakerMenuController = new SpeakerMenuController(attendeeManager, organizerManager, speakerManager, adminManager,
                 accountHandler, eventManager, userEventController, roomManager, sui, messengerMenuController, conversationManager,
                 conversationMenuController, pollController);
-        this.adminMenuController = new AdminMenuController(attendeeManager, speakerManager, organizerManager, conversationManager, conversationMenuController, eventManager, messageManager, adui, messengerMenuController, accountHandler);
+        this.adminMenuController = new AdminMenuController(eventManager, messageManager, adui, messengerMenuController, accountHandler);
         this.eventsSearchEngine = new EventsSearchEngine(eventManager, ui);
     }
 

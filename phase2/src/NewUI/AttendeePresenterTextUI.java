@@ -36,7 +36,7 @@ public class AttendeePresenterTextUI extends TextUI{
 
 
     /**
-     * print out a set of functions that an attendee is able to do
+     * Print out a set of functions that an attendee is able to do
      * @author Juan Yi Loke
      * @param username: the username of the user that is being prompted
      */
@@ -48,7 +48,7 @@ public class AttendeePresenterTextUI extends TextUI{
         System.out.println("1: Available events to sign up for");
         System.out.println("2: Sign up for an event");
         System.out.println("3: Cancel spot in an event");
-        System.out.println("4: See schedule of event signed up for");
+        System.out.println("4: See schedule of events signed up for");
 
         System.out.println("\nMESSAGING FUNCTIONS:");
         System.out.println("5: Send message to an attendee");

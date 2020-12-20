@@ -9,11 +9,12 @@ import UseCases.SpeakerManager;
 /**
  * This class is responsible for creating accounts of all user types
  * with a unique username and password and allowing a user to sign in
- * to the conference using their username and password
+ * to the conference using their username and password. This class
+ * also returns the account type of a given user.
  * @author Akshat Ayush, Khoa Pham
- * @see AttendeeManager
- * @see OrganizerManager
- * @see SpeakerManager
+ * @see UseCases.AttendeeManager
+ * @see UseCases.OrganizerManager
+ * @see UseCases.SpeakerManager
  * @see UseCases.AdminManager
  */
 public class AccountHandler {
@@ -28,6 +29,7 @@ public class AccountHandler {
      * @param attendeeManager: an object of UseCases.AttendeeManager class
      * @param organizerManager: an object of UseCases.OrganizerManager class
      * @param speakerManager: an object of UseCases.SpeakerManager class
+     * @param adminManager: an object of UseCases.AdminManager class
      */
     public AccountHandler(AttendeeManager attendeeManager, OrganizerManager organizerManager,
                           SpeakerManager speakerManager, AdminManager adminManager) {
@@ -40,6 +42,7 @@ public class AccountHandler {
     /**
      *Create a user of a specific account type if a user with the
      *same username does not already exist.
+     *Implemented Factory Design Pattern
      *
      * @param username: username inputted by the user
      * @param password: password inputted by the user
@@ -93,9 +96,9 @@ public class AccountHandler {
      * Return the account type of the provided username
      * @author Vladimir
      * @param username: username inputted by the user
-     * @return String representing the account type of the user logging in.
+     * @return String representing the account type of the user that may or may not be logged in.
      * "attendee", "organizer", "speaker", "admin" for the type of user,
-     * null if the user with the given username does not exist
+     * Returns the string "DNE" if the user with the given username does not exist
      */
     public String getAccountType(String username) {
         if(attendeeManager.isAttendee(username))
@@ -107,7 +110,7 @@ public class AccountHandler {
         else if(adminManager.isAdmin(username))
             return "admin";
         else
-            return "";
+            return "DNE";
     }
 
 }
