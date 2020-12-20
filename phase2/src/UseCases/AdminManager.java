@@ -52,13 +52,11 @@ public class AdminManager {
         return username.equals(admin.getUserId());
     }
 
-//    public List<String> getAllAdminNames(){
-//
-//        List<String> names = new ArrayList<>();
-//        for(Admin admin: admins){
-//            names.add(admin.getUsername());
-//        }
-//        return names;
-//    }
+    public List<String> getAllAdminNames(){
+        // List of only 1 admin!
+        List<String> names = new ArrayList<>();
+        names.add(admin.getUserId());
+        return names;
+    }
 
 }
