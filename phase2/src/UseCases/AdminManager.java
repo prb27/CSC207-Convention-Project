@@ -11,11 +11,13 @@ import java.util.List;
  * It also supports the following Admin functionalities
  *         - create the Admin account
  *         - check password for the Admin
- * @author Khoa Pham
+ * @author Khoa Pham, Vladimir Caterov
  * @see Entities.Admin
  */
 public class AdminManager {
-    private Admin admin = new Admin("admin", "admin");
+
+    private final Admin admin = new Admin("admin4", "admin4");
+
 //    private List<Admin> admins = new ArrayList<>();
 //
 //    public boolean createAdmin(String username, String password) {
@@ -29,7 +31,7 @@ public class AdminManager {
 //    }
 
     /**
-     * this method checks if the username and password are correct
+     * This method checks if the username and password are correct
      * @param username: the inputted username (param_type: String)
      * @param password: the inputted password to be checked (param_type: String)
      * @return boolean whether username and password are correct
@@ -48,6 +50,11 @@ public class AdminManager {
 //        return null;
 //    }
 
+    /**
+     * This method checks if the username provided is associated with an Admin Entity
+     * @param username: the inputted username (param_type: String)
+     * @return Boolean : returns true if the provided username is associated with an Admin Entity, false otherwise
+     */
     public boolean isAdmin(String username){
         return username.equals(admin.getUserId());
     }

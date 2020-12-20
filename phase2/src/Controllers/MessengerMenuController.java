@@ -157,11 +157,8 @@ public class MessengerMenuController {
     }
 
     /**
-     * Allows an organizer to send a message
-     * @param username
-     * @param eventName
-     * @param message
-     * @return
+     * Allows an organizer to send a message by event
+     * (Unused Method)
      */
     public String organizerSendMessageByEvent(String username, String eventName, String message){
 
