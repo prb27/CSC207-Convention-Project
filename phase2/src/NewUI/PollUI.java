@@ -4,6 +4,9 @@ import UseCases.*;
 
 import java.util.List;
 
+/**
+ * Contains all the presenter methods for the UI commands related to the Polls
+ */
 public class PollUI extends TextUI {
 
     public PollUI(AttendeeManager attendeeManager, OrganizerManager organizerManager, SpeakerManager speakerManager,

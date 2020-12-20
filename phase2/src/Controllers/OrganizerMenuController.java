@@ -231,7 +231,10 @@ public class OrganizerMenuController {
         return true;
     }
 
-
+    /**
+     * Allows organizer to view conversation, and send a reply
+     * @param username Username of organizer
+     */
     public void viewAndReplyInConversations(String username){
 
         Scanner scanner = new Scanner(System.in);
@@ -480,6 +483,10 @@ public class OrganizerMenuController {
 
     }
 
+    /**
+     * Method allows organizer to create an event
+     * @param username Username of the organizer through whom this change is happening
+     */
     public void createEventThroughOrganizer(String username){
 
         Scanner scanner = new Scanner(System.in);
@@ -520,6 +527,11 @@ public class OrganizerMenuController {
 
     }
 
+    /**
+     * Method allows organizer to see rooms with specifications, such as audio system, projector, power socket
+     * @param eventTime Start Time of event
+     * @param duration Duration of event
+     */
     private void eventSpec(String eventTime, int duration){
 
         Scanner scanner = new Scanner(System.in);
