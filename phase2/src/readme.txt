@@ -55,12 +55,12 @@ Phase 2 of our program extends Phase 1 with the following extensions:
                     **NOTE** To sign in as an initial organizer please sign in with "org" as BOTH USERNAME AND PASSWORD
                     - Signup: Choose the username and password and wait to check if the username
                       is taken (choose different username!). Once signed up, the user will be taken to the initial
-                      landing menu
+                      landing menu.
                 According to the user account type, the appropriate menu of options would then be shown.
             2) Events SearchEngine Process:
 
             3) Account Menu Process:
-                There are 4 types of menus that can be displayed based on the type of user.
+                There are 4 types of menus that can be displayed based on each type of user.
 
                 I) OrganizerMenu Process (20 options):
                     CONFERENCE FUNCTIONS:
@@ -147,6 +147,9 @@ Phase 2 of our program extends Phase 1 with the following extensions:
         should save and a user would be able to come back and work from where they left off.
 
         We hope this readme.txt is instructive. Have fun tinkering with our program!
+
+        Have a fantastic break,
+        The boys ='))
 
 
 
