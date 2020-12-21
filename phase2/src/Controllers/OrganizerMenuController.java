@@ -296,7 +296,7 @@ public class OrganizerMenuController implements CommandHandler{
             }
             k++;
         }
-        if(k==duration){
+        if(availabilityFlag==duration){
             return "YES";
         }
         else{
