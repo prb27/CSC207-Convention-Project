@@ -1,6 +1,7 @@
 package UseCases;
 
 import Entities.Poll;
+import Entities.Room;
 import Gateways.Interfaces.IPollDatabase;
 
 import java.util.*;
@@ -13,7 +14,7 @@ import java.util.*;
  */
 public class PollManager {
 
-    private final List<Poll> polls;
+    private List<Poll> polls;
 
     /**
      * a constructor that creates a UseCases.PollManager object that stores a list of all polls
@@ -86,7 +87,11 @@ public class PollManager {
                 return false;
             }
         }
-        Poll newPoll = new Poll(pollId, eventPasscode, pollMessage, pollOptions, new ArrayList<>(), alreadyVoted);
+        List<Integer> PollOptionVotes = new ArrayList<>();
+        for(int t = 0; t< pollOptions.size(); t++){
+            PollOptionVotes.add(0);
+        }
+        Poll newPoll = new Poll(pollId, eventPasscode, pollMessage, pollOptions, PollOptionVotes, alreadyVoted);
         polls.add(newPoll);
         return true;
 
@@ -104,7 +109,6 @@ public class PollManager {
             poll = getPoll(pollId, event);
             j = 1;
             StringBuilder pollOptions = new StringBuilder("\n");
-            // may produce NullPointerException
             for (String option : poll.getPollOptions()) {
                 pollOptions.append(j);
                 pollOptions.append(": ");
