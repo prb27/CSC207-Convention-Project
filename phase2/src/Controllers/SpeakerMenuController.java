@@ -123,6 +123,7 @@ public class SpeakerMenuController implements CommandHandler{
             }
             case "6":{
                 pollController.runPollFunctionality(username);
+                return true;
             }
             default: {
                 sui.showError("INO");
