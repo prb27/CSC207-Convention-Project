@@ -153,6 +153,12 @@ public class TextUI{
             case "RO":
                 System.out.println("Room occupied");
                 break;
+            case "ESOT":
+                System.out.println("Event Scheduling Over Time");
+                break;
+            case "SNF":
+                System.out.println("Speaker is not free at the time");
+                break;
         }
     }
 

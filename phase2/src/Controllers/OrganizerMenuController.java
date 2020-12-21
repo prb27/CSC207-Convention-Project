@@ -274,7 +274,7 @@ public class OrganizerMenuController implements CommandHandler{
      * @param duration duration for which the speaker is expected to be free (param_type: int)
      * @return String:
      * "SDE" - Speaker Doesn't Exist
-     * "NO" - Speaker is not free at the time
+     * "SNF" - Speaker is not free at the time
      * "YES" - Speaker is free at that time
      */
     public String checkIfSpeakerFreeAtTimeFor(String speakerName, String time, int duration){
@@ -300,7 +300,7 @@ public class OrganizerMenuController implements CommandHandler{
             return "YES";
         }
         else{
-            return "NO";
+            return "SNF";
         }
 
     }
@@ -352,7 +352,7 @@ public class OrganizerMenuController implements CommandHandler{
      * @return String
      * "EDE" - Event Doesn't Exist
      * "SDE" - Speaker Doesn't Exist
-     * "NO" - A speaker was not free at the event's time
+     * "SNF" - A speaker was not free at the event's time
      *  -- createEventInRoom return Strings --
      * "ARO" - All Rooms Occupied
      * "STC" - Entities.Speaker Time Conflict
@@ -395,13 +395,13 @@ public class OrganizerMenuController implements CommandHandler{
         int eventDuration = eventManager.getDuration(eventName);
         int eventCapacity = eventManager.getEventCapacity(eventName);
         String subjectLine = eventManager.getEventSubjectLine(eventName);
+        userEventController.removeCreatedEvent(username, eventName);
         for(String speakerName: speakerNames) {
             speakerErr = checkIfSpeakerFreeAtTimeFor(speakerName, eventStartTime, eventDuration);
             if(!speakerErr.equals("YES")){
                 return speakerErr;
             }
         }
-        userEventController.removeCreatedEvent(username, eventName);
         String err = userEventController.createEventInRoom(username, eventName, eventStartTime, eventDuration, eventCapacity, speakerNames, roomId, subjectLine);
         if (!err.equals("YES"))
             return err; //Refer to TextUserInterface
@@ -418,6 +418,7 @@ public class OrganizerMenuController implements CommandHandler{
      * "EDE" - Event Doesn't Exist
      * "YES" - Successful
      * "SDE" - Speaker Doesn't Exist
+     * "SNF" - Speaker not free at the time
      *  -- createEventInRoom return Strings --
      * "ARO" - All Rooms Occupied
      * "STC" - Entities.Speaker Time Conflict
