@@ -93,7 +93,6 @@ public class AdminMenuController implements CommandHandler{
         for (String event : allEmptyEvents) {
             startTime = eventManager.getStartTime(event);
             duration = eventManager.getDuration(event);
-            eventManager.removeEvent(event);
             exSpeakers = eventManager.getSpeakerEvent(event);
             for (String speaker: exSpeakers){
                 for(int i = 0; i< duration;) {
@@ -102,6 +101,7 @@ public class AdminMenuController implements CommandHandler{
                     startTime = Integer.toString(i + Integer.parseInt(startTime));
                 }
             }
+            eventManager.removeEvent(event);
         }
     }
 

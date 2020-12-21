@@ -97,7 +97,7 @@ public class UserFactory {
                     userEventController, speakerPresenterTextUI, messengerMenuController, conversationManager,
                     conversationMenuController, pollController);
         else if(userType.equals("admin"))
-            userController = new AdminMenuController(eventManager, adminPresenterTextUI, messengerMenuController, accountHandler, errorHandler);
+            userController = new AdminMenuController(eventManager, adminPresenterTextUI, messengerMenuController, accountHandler, errorHandler, speakerManager);
         else
             userController = null;
         return userController;
