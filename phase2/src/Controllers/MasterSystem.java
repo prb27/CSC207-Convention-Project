@@ -101,8 +101,8 @@ public class MasterSystem {
 
         this.pollController = new PollController(pollManager, speakerManager, pui);
 
-        this.userFactory = new UserFactory(attendeeManager, organizerManager, speakerManager, adminManager, accountHandler, eventManager,
-                messageManager, userEventController, roomManager, aui, oui, sui, adui, messengerMenuController, conversationManager,
+        this.userFactory = new UserFactory(attendeeManager, organizerManager, speakerManager, accountHandler, eventManager,
+                userEventController, roomManager, aui, oui, sui, adui, messengerMenuController, conversationManager,
                 conversationMenuController, errorHandler, pollController);
 
         this.eventsSearchEngine = new EventsSearchEngine(eventManager, ui);
