@@ -32,10 +32,8 @@ public class UserFactory {
     private final AttendeeManager attendeeManager;
     private final OrganizerManager organizerManager;
     private final SpeakerManager speakerManager;
-    private AdminManager adminManager;
     private final AccountHandler accountHandler;
     private final EventManager eventManager;
-    private MessageManager messageManager;
     private final UserEventController userEventController;
     private final RoomManager roomManager;
     private final AttendeePresenterTextUI attendeePresenterTextUI;
@@ -50,8 +48,8 @@ public class UserFactory {
 
     public UserFactory(AttendeeManager attendeeManager,
                        OrganizerManager organizerManager, SpeakerManager speakerManager,
-                       AdminManager adminManager, AccountHandler accountHandler, EventManager eventManager,
-                       MessageManager messageManager, UserEventController userEventController, RoomManager roomManager,
+                       AccountHandler accountHandler, EventManager eventManager,
+                       UserEventController userEventController, RoomManager roomManager,
                        AttendeePresenterTextUI attendeePresenterTextUI, OrganizerPresenterTextUI organizerPresenterTextUI,
                        SpeakerPresenterTextUI speakerPresenterTextUI, AdminPresenterTextUI adminPresenterTextUI,
                        MessengerMenuController messengerMenuController,
@@ -61,10 +59,8 @@ public class UserFactory {
         this.attendeeManager = attendeeManager;
         this.organizerManager = organizerManager;
         this.speakerManager = speakerManager;
-        this.adminManager = adminManager;
         this.accountHandler = accountHandler;
         this.eventManager = eventManager;
-        this.messageManager = messageManager;
         this.userEventController = userEventController;
         this.roomManager = roomManager;
         this.attendeePresenterTextUI = attendeePresenterTextUI;
