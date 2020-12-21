@@ -81,6 +81,10 @@ public class AttendeePresenterTextUI extends TextUI{
                 "(exactly as it appears on the list of titles displayed)");
     }
 
+    public void promptNoEventsSignUp(){
+        System.out.println("No events to sign up for");
+    }
+
     public void promptEventTitleCancel(){
         System.out.println("Please enter the event title you wish to cancel reservation");
     }

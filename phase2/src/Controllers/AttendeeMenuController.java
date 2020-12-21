@@ -5,6 +5,7 @@ import NewUI.AttendeePresenterTextUI;
 import NewUI.ErrorHandler;
 import UseCases.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -91,17 +92,13 @@ public class AttendeeMenuController implements CommandHandler{
                 return false;
             case "1": {
                 Map<String, List<String>> eventsToSignUpWithInfo = userEventController.seeAttendableEvents(username);
+                List<String> events = new ArrayList<>();
                 if (eventsToSignUpWithInfo.isEmpty()) {
-                    attendeePresenterTextUI.present("No events to sign up for");
+                    attendeePresenterTextUI.promptNoEventsSignUp(); ;
                 } else {
-                    for (String event : eventsToSignUpWithInfo.keySet()) {
-                        attendeePresenterTextUI.present(event);
-                        for (String info : eventsToSignUpWithInfo.get(event))
-                            attendeePresenterTextUI.present(info);
-                    }
+                    events.addAll(eventsToSignUpWithInfo.keySet());
                 }
-
-                attendeePresenterTextUI.present("\n\n");
+                attendeePresenterTextUI.presentEventsAttending(events);
                 return true;
             }
             case "2": {

@@ -65,15 +65,6 @@ public class TextUI{
     }
 
     /**
-     * print out the sign up menu which prompts to create a username and password
-     * @author Juan Yi Loke
-     * @param input: a string that will be printed out in the command line
-     */
-    public void present(String input) {
-        System.out.println(input);
-    }
-
-    /**
      * print out a prompt for a username
      * @author Juan Yi Loke
      */
