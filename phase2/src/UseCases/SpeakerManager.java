@@ -285,8 +285,9 @@ public class SpeakerManager {
         }
         else {
             Map<String, String> listOfTalks = getListOfTalks(speakerUsername);
-            return listOfTalks.remove(eventTime, eventName);
-
+            listOfTalks.remove(eventTime);
+            speaker.setListOfTalks(listOfTalks);
+            return true;
 //            if(listOfTalks.contains(selectedTalk)){
 //                listOfTalks.remove(selectedTalk);
 //                speaker.setListOfTalks(listOfTalks);
@@ -306,8 +307,7 @@ public class SpeakerManager {
             masterList.add(event.getValue());
         }
 
-
-        return masterList;
+      return masterList;
     }
 
     /**

@@ -333,10 +333,10 @@ public class UserEventController {
 
         List<String> masterList = new ArrayList<>();
 
+        Set<String> eventTimes = listOfTalks.keySet();
 
-       for(Map.Entry<String, String> event: listOfTalks.entrySet()){
-           String eventTime = eventManager.getStartTime(event.getKey());
-           masterList.add("(Entities.Event Name: " + event.getValue() + ", " + "Entities.Event Time: " + eventTime + ")");
+       for(String eventTime: eventTimes){
+           masterList.add("(Entities.Event Name: " + listOfTalks.get(eventTime) + ", " + "Entities.Event Time: " + eventTime + ")");
        }
 
 

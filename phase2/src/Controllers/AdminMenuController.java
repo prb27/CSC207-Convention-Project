@@ -28,18 +28,21 @@ public class AdminMenuController implements CommandHandler{
     private final ErrorHandler errorHandler;
     private final MessengerMenuController messengerMenuController;
     private final AccountHandler accountHandler;
+    private final SpeakerManager speakerManager;
 
     /**
      * A constructor for creating an AdminMenuController.
      */
     public AdminMenuController(EventManager eventManager, AdminPresenterTextUI adminPresenterTextUI,
-                               MessengerMenuController messengerMenuController, AccountHandler accountHandler, ErrorHandler errorHandler){
+                               MessengerMenuController messengerMenuController, AccountHandler accountHandler,
+                               ErrorHandler errorHandler, SpeakerManager speakerManager){
 
         this.eventManager = eventManager;
         this.adminPresenterTextUI = adminPresenterTextUI;
         this.messengerMenuController = messengerMenuController;
         this.accountHandler = accountHandler;
         this.errorHandler = errorHandler;
+        this.speakerManager = speakerManager;
     }
     /**
      * This method allows admins to select between options from 0, 1, or 2 where 0 signs out the user,
@@ -86,6 +89,10 @@ public class AdminMenuController implements CommandHandler{
         List<String> allEmptyEvents = eventManager.getEmptyEvents();
         for (String event : allEmptyEvents) {
             eventManager.removeEvent(event);
+            List<String> exSpeakers = eventManager.getSpeakerEvent(event);
+            for (String speaker: exSpeakers){
+                speakerManager.removeTalkFromListOfTalks();
+            }
         }
     }
 
