@@ -147,7 +147,6 @@ public class PollManager {
             j+=1;
         }
         return pollPercentages;
-
     }
 
     /**
