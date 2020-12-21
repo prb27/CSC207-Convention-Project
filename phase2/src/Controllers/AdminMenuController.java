@@ -87,11 +87,20 @@ public class AdminMenuController implements CommandHandler{
      */
     public void deleteEventsWithoutAttendee() {
         List<String> allEmptyEvents = eventManager.getEmptyEvents();
+        List<String> exSpeakers;
+        int duration;
+        String startTime;
         for (String event : allEmptyEvents) {
+            startTime = eventManager.getStartTime(event);
+            duration = eventManager.getDuration(event);
             eventManager.removeEvent(event);
-            List<String> exSpeakers = eventManager.getSpeakerEvent(event);
+            exSpeakers = eventManager.getSpeakerEvent(event);
             for (String speaker: exSpeakers){
-                speakerManager.removeTalkFromListOfTalks();
+                for(int i = 0; i< duration;) {
+                    speakerManager.removeTalkFromListOfTalks(speaker, startTime, event);
+                    i = i + 1;
+                    startTime = Integer.toString(i + Integer.parseInt(startTime));
+                }
             }
         }
     }
