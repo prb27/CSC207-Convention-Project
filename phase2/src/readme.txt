@@ -51,6 +51,8 @@ Phase 2 of our program extends Phase 1 with the following extensions:
             1) Login/Signup Process:
                 A user will receive a prompt asking if the user wants to login or signup and show the according menu
                     - Login: enter username and password and wait for them to be checked
+                    **NOTE** To sign in as an admin please sign in with "admin4" as BOTH USERNAME AND PASSWORD
+                    **NOTE** To sign in as an initial organizer please sign in with "org" as BOTH USERNAME AND PASSWORD
                     - Signup: Choose the username and password and wait to check if the username
                       is taken (choose different username!). Once signed up, the user will be taken to the initial
                       landing menu
