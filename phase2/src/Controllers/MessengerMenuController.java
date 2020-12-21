@@ -251,11 +251,8 @@ public class MessengerMenuController {
                 if (eventManager.isEvent(eventName)) {
                     if (speakerManager.getListOfTalks(speakerId).containsValue(eventName)) {
                         speakerByTalk(speakerId, eventName, content);
-                        return;
                     }
-                    return;
                 }
-                return;
             }
         }
     }
@@ -296,6 +293,7 @@ public class MessengerMenuController {
                 attendeeManager.addConversation(id, convoId);
             }
         }
+        speakerManager.addConversation(speakerId, convoId);
     }
 
     /**

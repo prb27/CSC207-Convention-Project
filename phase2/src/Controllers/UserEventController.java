@@ -353,9 +353,14 @@ public class UserEventController {
 
         List<String> masterList = new ArrayList<>();
 
-        for(Map.Entry<String, String> event: listOfTalks.entrySet()){
-            masterList.add("(Entities.Event Name: " +  event.getValue() + ")");
+        Set<String> eventTimes = listOfTalks.keySet();
+
+        for (String eventTime: eventTimes){
+            masterList.add(listOfTalks.get(eventTime));
         }
+//        for(Map.Entry<String, String> event: listOfTalks.entrySet()){
+//            masterList.add("(Entities.Event Name: " +  event.getValue() + ")");
+//        }
 
 
         return masterList;
