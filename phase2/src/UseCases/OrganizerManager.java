@@ -108,24 +108,6 @@ public class OrganizerManager {
 
     }
 
-    /**
-     * If Entities.Organizer object with given username </username> doesn't exist, then returns null.
-     * Else returns the list of usernames in Organizers contacts.
-     * @param username: the username in the Entities.Organizer object that we intend to manipulate (param_type: String)
-     * @return : null if no Entities.Organizer object with username </username> exists.
-     *          Else, List<String> of contacts of Entities.Organizer object with username </username>.
-     */
-    public List<String> getContactList(String username){
-    //     returns null if organizer not found or organizer has no contacts
-        Organizer organizer = getOrganizer(username);
-        if(organizer == null){
-            return null;
-        }
-        else {
-            return(organizer.getContacts());
-        }
-    }
-
     private boolean isContact(Organizer organizer, String contactUsername){
 
         for(String contact: organizer.getContacts()){

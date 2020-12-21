@@ -19,7 +19,7 @@ import java.util.*;
  * @see Attendee
  */
 public class AttendeeManager {
-    private Map<String, Attendee> attendees;
+    private final Map<String, Attendee> attendees;
 
     /**
      * create an Entities.Attendee given a pair of username and password
@@ -67,25 +67,20 @@ public class AttendeeManager {
      * add a conversation to an Entities.Attendee's list of participating conversations
      * if the Entities.Attendee does not exist, return an appropriate message
      * Notice: String <conversation> is valid because it is generated within the program
-     * @param attendee: the Entities.Attendee whose conversation list will be added to (param_type: String)
-     * @param conversation: the Entities.Conversation to be added to the Entities.Attendee's conversation list (param_type: String)
-     * @return String
-     * ADE - Entities.Attendee Doesn't Exist
-     * No - <conversation> is already in <attendee>'s conversation list
-     * Yes - successfully added <conversation> to <attendee>'s conversation list
+     * @param attendee : the Entities.Attendee whose conversation list will be added to (param_type: String)
+     * @param conversation : the Entities.Conversation to be added to the Entities.Attendee's conversation list (param_type: String)
      */
-    public String addConversation(String attendee, String conversation) {
+    public void addConversation(String attendee, String conversation) {
         if (!attendees.containsKey(attendee)) {
-            return "ADE";
+            return;
         }
         Attendee a = attendees.get(attendee);
         List<String> conversations = a.getConversations();
         if (conversations.contains(conversation)) {
-            return "No";
+            return;
         }
         conversations.add(conversation);
         a.setConversations(conversations);
-        return "Yes";
     }
 
     /**
@@ -145,27 +140,22 @@ public class AttendeeManager {
      * add an event to an Entities.Attendee's list of participating events
      * if the Entities.Attendee does not exist, return an appropriate message
      * ASSUMPTION: String <event> is valid!  // check in controller?
-     * @param attendee: the Entities.Attendee whose participating-events list will be added to (param_type: String)
-     * @param event: the desired event to be added (param_type: String)
-     * @return String
-     * ADE - Entities.Attendee Doesn't Exist
-     * No - <event> is already in <attendee>'s attending events list
-     * Yes - successfully added <event> to <attendee>'s attending events list
+     * @param attendee : the Entities.Attendee whose participating-events list will be added to (param_type: String)
+     * @param event : the desired event to be added (param_type: String)
      */
-    public String addAttendingEvent(String attendee, String event){
+    public void addAttendingEvent(String attendee, String event){
         if (!attendees.containsKey(attendee)) {
             //System.out.println("user with userID " + attendee + " not found");
-            return "ADE";
+            return;
         }
         Attendee a = attendees.get(attendee);
         List<String> participatingEvents = a.getEventsAttending();
         // if <event> not in participatingEvents, add it in. If it's in, then do nothing!
         if (participatingEvents.contains(event)) {
-            return "No";
+            return;
         }
         participatingEvents.add(event);
         a.setEventsAttending(participatingEvents);
-        return "Yes";
     }
 
     /**

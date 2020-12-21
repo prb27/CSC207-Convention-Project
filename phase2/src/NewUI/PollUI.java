@@ -33,7 +33,7 @@ public class PollUI extends TextUI {
 
     /**
      * Presents the formatted poll information to the user
-     * @param formattedPollInfo
+     * @param formattedPollInfo: the formatted info to display
      */
     public void formalPollInfo(List<String> formattedPollInfo) {
         for (String s : formattedPollInfo)

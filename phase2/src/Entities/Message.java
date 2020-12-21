@@ -10,14 +10,14 @@ import java.util.List;
  * @author Peter Bilski
  */
 public class Message {
-    private String sender; //the id of the Entities.User who sent
-    private List<String> recipients = new ArrayList<>(); //list of Ids of Users who received messages
-    private String content; //the actual content of the message
+    private final String sender; //the id of the Entities.User who sent
+    private final List<String> recipients = new ArrayList<>(); //list of Ids of Users who received messages
+    private final String content; //the actual content of the message
 
     private String id;
     private LocalDateTime time;
 
-    private String convoID;
+    private final String convoID;
     private String reply = null;
 
     /**

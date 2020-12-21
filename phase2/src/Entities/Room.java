@@ -14,9 +14,9 @@ public class Room {
     private final String roomId;
     private final int capacity;
     private List<String> occupiedTimes;
-    private boolean projector;
-    private int powerSockets;
-    private boolean audioSystem;
+    private final boolean projector;
+    private final int powerSockets;
+    private final boolean audioSystem;
 
     /**
      * Parameterized Constructor that creates an object.
@@ -72,7 +72,7 @@ public class Room {
 
     /**
      * Return the true if this room has an Audio System.
-     * @return: true if this room has an Audio System
+     * @return boolean: true if this room has an Audio System
      */
     public boolean hasAudioSystem() {
         return audioSystem;
@@ -80,7 +80,7 @@ public class Room {
 
     /**
      * Return the true if this room has a Projector.
-     * @return: true if this room has a Projector
+     * @return boolean: true if this room has a Projector
      */
     public boolean hasProjector() {
         return projector;

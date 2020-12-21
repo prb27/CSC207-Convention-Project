@@ -2,9 +2,6 @@ package UseCases;
 
 import Entities.Admin;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 /**
  * this class manages (stores and updates) the Admin

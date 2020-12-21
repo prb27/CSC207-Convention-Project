@@ -41,9 +41,3 @@ public class Attendee extends User {
     }
 
 }
-
-//Map<String, List<String>>
-//    credentials: <username, password>
-//    conversations: <>
-//    eventsAttending: <>
-//    contacts: <>

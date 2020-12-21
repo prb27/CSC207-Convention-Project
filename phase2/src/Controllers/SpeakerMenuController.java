@@ -14,13 +14,13 @@ import java.util.Scanner;
 public class SpeakerMenuController implements CommandHandler{
 
 
-    private SpeakerManager speakerManager;
-    private ConversationManager convoManager;
-    private MessengerMenuController messengerMenuController;
-    private UserEventController userEventController;
-    private ConversationMenuController conversationMenuController;
-    private SpeakerPresenterTextUI sui;
-    private PollController pollController;
+    private final SpeakerManager speakerManager;
+    private final ConversationManager convoManager;
+    private final MessengerMenuController messengerMenuController;
+    private final UserEventController userEventController;
+    private final ConversationMenuController conversationMenuController;
+    private final SpeakerPresenterTextUI sui;
+    private final PollController pollController;
 
 
     public SpeakerMenuController(SpeakerManager speakerManager,

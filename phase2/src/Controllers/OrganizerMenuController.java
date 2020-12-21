@@ -14,17 +14,17 @@ import java.util.Scanner;
  */
 public class OrganizerMenuController implements CommandHandler{
 
-    private OrganizerManager organizerManager;
-    private SpeakerManager speakerManager;
-    private AccountHandler accountHandler;
-    private EventManager eventManager;
-    private UserEventController userEventController;
-    private RoomManager roomManager;
-    private ConversationManager conversationManager;
-    private MessengerMenuController messengerMenuController;
-    private ConversationMenuController conversationMenuController;
-    private OrganizerPresenterTextUI organizerPresenterTextUI;
-    private PollController pollController;
+    private final OrganizerManager organizerManager;
+    private final SpeakerManager speakerManager;
+    private final AccountHandler accountHandler;
+    private final EventManager eventManager;
+    private final UserEventController userEventController;
+    private final RoomManager roomManager;
+    private final ConversationManager conversationManager;
+    private final MessengerMenuController messengerMenuController;
+    private final ConversationMenuController conversationMenuController;
+    private final OrganizerPresenterTextUI organizerPresenterTextUI;
+    private final PollController pollController;
 
 
     public OrganizerMenuController(OrganizerManager organizerManager,

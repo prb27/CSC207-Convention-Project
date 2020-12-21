@@ -52,13 +52,6 @@ public class ErrorHandler {
     }
 
     /**
-     * Presents a failure message
-     */
-    public void failure(){
-        System.out.println("Something went wrong");
-    }
-
-    /**
      * Presents a success message
      */
     public void success() {

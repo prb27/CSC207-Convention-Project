@@ -29,24 +29,24 @@ import UseCases.*;
  */
 public class UserFactory {
 
-    private AttendeeManager attendeeManager;
-    private OrganizerManager organizerManager;
-    private SpeakerManager speakerManager;
+    private final AttendeeManager attendeeManager;
+    private final OrganizerManager organizerManager;
+    private final SpeakerManager speakerManager;
     private AdminManager adminManager;
-    private AccountHandler accountHandler;
-    private EventManager eventManager;
+    private final AccountHandler accountHandler;
+    private final EventManager eventManager;
     private MessageManager messageManager;
-    private UserEventController userEventController;
-    private RoomManager roomManager;
-    private AttendeePresenterTextUI attendeePresenterTextUI;
-    private OrganizerPresenterTextUI organizerPresenterTextUI;
-    private SpeakerPresenterTextUI speakerPresenterTextUI;
-    private AdminPresenterTextUI adminPresenterTextUI;
-    private MessengerMenuController messengerMenuController;
-    private ConversationManager conversationManager;
-    private ConversationMenuController conversationMenuController;
-    private ErrorHandler errorHandler;
-    private PollController pollController;
+    private final UserEventController userEventController;
+    private final RoomManager roomManager;
+    private final AttendeePresenterTextUI attendeePresenterTextUI;
+    private final OrganizerPresenterTextUI organizerPresenterTextUI;
+    private final SpeakerPresenterTextUI speakerPresenterTextUI;
+    private final AdminPresenterTextUI adminPresenterTextUI;
+    private final MessengerMenuController messengerMenuController;
+    private final ConversationManager conversationManager;
+    private final ConversationMenuController conversationMenuController;
+    private final ErrorHandler errorHandler;
+    private final PollController pollController;
 
     public UserFactory(AttendeeManager attendeeManager,
                        OrganizerManager organizerManager, SpeakerManager speakerManager,

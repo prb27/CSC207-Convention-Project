@@ -3,7 +3,6 @@ package NewUI;
 import UseCases.*;
 
 import java.util.List;
-import java.util.Map;
 
 public class AttendeePresenterTextUI extends TextUI{
 
@@ -11,7 +10,7 @@ public class AttendeePresenterTextUI extends TextUI{
     private OrganizerManager organizerManager;
     private SpeakerManager speakerManager;
     private AdminManager adminManager;
-    private EventManager eventManager;
+    private final EventManager eventManager;
     private RoomManager roomManager;
     private ConversationManager conversationManager;
     private MessageManager messageManager;

@@ -39,14 +39,14 @@ import java.util.Scanner;
  */
 public class AttendeeMenuController implements CommandHandler{
 
-    private AttendeeManager attendeeManager;
-    private UserEventController userEventController;
-    private AttendeePresenterTextUI attendeePresenterTextUI;
-    private MessengerMenuController messengerMenuController;
-    private ConversationManager conversationManager;
-    private ConversationMenuController conversationMenuController;
-    private ErrorHandler errorHandler;
-    private PollController pollController;
+    private final AttendeeManager attendeeManager;
+    private final UserEventController userEventController;
+    private final AttendeePresenterTextUI attendeePresenterTextUI;
+    private final MessengerMenuController messengerMenuController;
+    private final ConversationManager conversationManager;
+    private final ConversationMenuController conversationMenuController;
+    private final ErrorHandler errorHandler;
+    private final PollController pollController;
 
     public AttendeeMenuController(AttendeeManager attendeeManager, UserEventController userEventController,
                                   AttendeePresenterTextUI attendeePresenterTextUI, MessengerMenuController messengerMenuController,

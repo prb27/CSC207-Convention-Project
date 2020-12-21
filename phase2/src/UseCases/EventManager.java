@@ -20,22 +20,14 @@ import java.util.*;
  */
 public class EventManager {
 
-    private List<Event> EventList;
-
-    /**
-     * Returns a list of all event objects
-     * @return : List<Entities.Event>
-     */
-    public List<Event> getEventList() {
-        return EventList;
-    }
+    private final List<Event> EventList;
 
     /**
      * Returns all the event names of the current list of events
      * @return List<String></String>
      */
     public List<String> getEventNamesList(){
-        List<String> eventNamesList = new ArrayList<String>();
+        List<String> eventNamesList = new ArrayList<>();
         for(Event event: EventList){
             eventNamesList.add(event.getEventName());
         }
@@ -175,17 +167,6 @@ public class EventManager {
     }
 
     /**
-     * Returns the room number of event given the event name
-     * @param eventName: name of event
-     * @return : String
-     */
-    public String getSubjectLine(String eventName){
-        Event event = getEvent(eventName);
-        assert event != null;
-        return event.getEventSubjectLine();
-    }
-
-    /**
      * Returns the list of attendees/organizers who are attending given the event name
      * @param eventName : name of event
      * @return : List<String>
@@ -215,26 +196,6 @@ public class EventManager {
     }
 
     /**
-     * Returns a map of all events; with eventName as the key, and the value as a list of event info
-     * @return : Map<String, List<String>>
-     */
-    public Map<String, List<String> > getAllEventsWithInfo(){
-        Map<String, List<String>> AllEventsWithInfo = new HashMap<>();
-
-        for(Event event: EventList){
-            String eventName = event.getEventName();
-            List<String> eventInfo = getEventInfo(eventName);
-
-            if (eventInfo!=null){
-                AllEventsWithInfo.put(eventName, eventInfo);
-            }
-
-
-        }
-        return AllEventsWithInfo;
-    }
-
-    /**
      * Returns an List of all event titles
      * @return : String
      */
@@ -248,7 +209,7 @@ public class EventManager {
     }
     /**
      * Returns the event capacity
-     * @param eventName
+     * @param eventName: the event to get capacity
      * @return int
      */
     public int getEventCapacity(String eventName) {
@@ -277,7 +238,7 @@ public class EventManager {
      * @return List</String> of allowed times for all event
      */
     public List<String> getAllowedTimes(){
-        List<String> allowedTimes = new ArrayList<String>();
+        List<String> allowedTimes = new ArrayList<>();
         allowedTimes.add("9");
         allowedTimes.add("10");
         allowedTimes.add("11");

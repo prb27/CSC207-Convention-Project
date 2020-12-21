@@ -47,21 +47,6 @@ public class AdminPresenterTextUI extends TextUI {
     }
 
     /**
-     * Prompts for the id of the message to be deleted
-     */
-    public void messageID() {
-        System.out.println("Please enter the message id you want to delete");
-    }
-
-    /**
-     * Displays a message to inform that the message with the given id was deleted
-     * @param messageID the id of the deleted message
-     */
-    public void messageDeleted(String messageID) {
-        System.out.println("message with id " + messageID + " was deleted");
-    }
-
-    /**
      * Prompts for the username of the user to report
      */
     public void promptForUsername(){

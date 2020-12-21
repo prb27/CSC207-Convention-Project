@@ -52,17 +52,6 @@ public class SpeakerPresenterTextUI extends TextUI{
     }
 
     /**
-     * Displays all the relevant event information for a given event
-     * @param event : name of event
-     * @param info : information of event
-     */
-    public void eventDisplay(String event, List<String> info) {
-        System.out.println(event);
-        for (String i: info)
-            System.out.println(i);
-    }
-
-    /**
      * Displays the list of events
      * @param eventList : list of events
      */

@@ -48,19 +48,6 @@ public class RoomManager {
     }
 
     /**
-     * removes room with </roomId> from the list of stored rooms in this object
-     * @param roomId room ID of the room that is intended to be removed (param_type: String)
-     */
-    public void removeRoom(String roomId){
-
-        if(isRoom(roomId)){
-            Room room = getRoom(roomId);
-            rooms.remove(room);
-        }
-
-    }
-
-    /**
      * Check if there is a room with id </roomId> exists in this object.
      * @param roomId : (param_type: String)
      * @return true if and only if there exists a room with id </roomId>
@@ -135,19 +122,15 @@ public class RoomManager {
      * Books room with </roomId> for an event at </time>
      * @param roomId : id of the room that we intend to occupy (param_type: String)
      * @param time : time at which we want to occupy the room (param_type: String)
-     * @return : true if and only if room with </roomId> exists and the room is occupied at </time> by
-     *           the end of the method execution.
      */
-    private boolean occupyRoomAtTime(String roomId, String time){
+    private void occupyRoomAtTime(String roomId, String time){
 
         Room room = getRoom(roomId);
         if(room != null && (!isRoomOccupiedAt(roomId, time))){
             List<String> occupiedTimes = room.getOccupiedTimes();
             occupiedTimes.add(time);
             room.setOccupiedTimes(occupiedTimes);
-            return true;
         }
-        return false;
 
     }
 
@@ -198,36 +181,6 @@ public class RoomManager {
             timeInt = timeInt + 1;
             tempTime = Integer.toString(timeInt);
         }
-    }
-
-    /**
-     * Checks if a room that is free at </time>
-     * @param time: The starting time at which we want to check if a room is free
-     * @param duration: duration for which we want to check the availability of the room
-     * @return "-" if no room is free at time
-     *         id of a room that is free at time
-     */
-    public String checkRoomFreeAt(String time, int duration) {
-
-        int flag = 0;
-        int timeInt;
-        String roomId;
-        String tempTime = time;
-        for (Room room : rooms) {
-            for (int i = 0; i < duration; i++) {
-                if (!(room.getOccupiedTimes().contains(tempTime))) {
-                    flag = flag + 1;
-                }
-                timeInt = Integer.parseInt(tempTime);
-                timeInt = timeInt + 1;
-                tempTime = Integer.toString(timeInt);
-            }
-            if (flag == duration){
-                roomId = room.getRoomId();
-                return roomId;
-            }
-        }
-        return "-";
     }
 
     /**

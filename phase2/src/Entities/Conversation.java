@@ -9,7 +9,7 @@ import java.util.List;
  * @author Peter Bilski
  */
 public class Conversation {
-    private List<String> participants;
+    private final List<String> participants;
     private String convoRoot;
     private String id;
 
@@ -57,6 +57,10 @@ public class Conversation {
      */
     public String getId(){ return id; }
 
+    /**
+     * set the id of the conversation
+     * @param id: the convo id
+     */
     public void setId(String id){
         this.id = id;
     }

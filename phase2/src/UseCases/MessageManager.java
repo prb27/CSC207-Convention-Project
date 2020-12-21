@@ -21,7 +21,7 @@ import java.util.Map;
  * @see Message
  */
 public class MessageManager {
-    private List<Message> allMessages;
+    private final List<Message> allMessages;
 
     /**
      * a constructor that creates a UseCases.MessageManager object that stores a list of all messages and creates an
@@ -63,32 +63,20 @@ public class MessageManager {
     }
 
     /**
-     * Delete a message with given id
-     * @author Khoa Pham
-     * @param message: the to-be-deleted message
-     * @return the id of the message
-     */
-    public void deleteMessage(String message) {
-        allMessages.remove(this.getMessage(message));
-    }
-
-    /**
      * Adds a reply to the message specified by messageId
      * @param senderId the id of the sender of the reply
      * @param recipientIds the ids of the recipients
      * @param content the content of the reply message
      * @param messageId the message to which the reply is being made
-     * @return true if the reply was succesfully added, false otherwise
      */
-    public boolean addReply(String senderId, List<String> recipientIds, String content, String messageId){
+    public void addReply(String senderId, List<String> recipientIds, String content, String messageId){
         Message message = getMessage(messageId);
         if(message == null){
-            return false;
+            return;
         }
         Message newMessage = new Message(senderId, recipientIds, content, message.getConvoID());
         message.setReply(newMessage.getId());
         allMessages.add(newMessage);
-        return true;
     }
 
     /**
@@ -103,18 +91,6 @@ public class MessageManager {
             }
         }
         return null;
-    }
-
-    /**
-     * Check if a message with ID exists in allMessages
-     * @author Khoa Pham
-     * @param messageId the id of the message to be searched for
-     * @return boolean
-     * true -- message exits
-     * false -- message doesn't exist
-     */
-    public boolean messageExists(String messageId){
-        return allMessages.contains(this.getMessage(messageId));
     }
 
     /**

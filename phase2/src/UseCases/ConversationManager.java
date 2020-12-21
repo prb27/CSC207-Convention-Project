@@ -1,7 +1,6 @@
 package UseCases;
 
 import Entities.Conversation;
-import Entities.Message;
 import Gateways.Interfaces.IConversationDatabase;
 
 import java.util.ArrayList;
@@ -20,20 +19,7 @@ import java.util.Map;
  * @see Conversation
  */
 public class ConversationManager {
-    private List<Conversation> allConversations;
-
-    /**
-     * Helper that generates the participants of a conversation based off of the message at its root
-     * @param message the message that we need the participants for
-     * @return the List of participants for the conversation
-     */
-    private List<String> participants(Message message){
-        List<String> participantList = new ArrayList<>();
-        participantList.add(message.getSender());
-        participantList.addAll(message.getRecipients());
-
-        return participantList;
-    }
+    private final List<Conversation> allConversations;
 
     /**
      * Creates and adds a new conversation to the list of all conversations based off of a list of participants

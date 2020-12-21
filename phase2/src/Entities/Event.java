@@ -11,9 +11,9 @@ public class Event {
     private List<String> speakerName;
     private String startTime;
     private int duration;
-    private String roomNumber;
-    private int eventCapacity;
-    private List<String> attendeeList;
+    private final String roomNumber;
+    private final int eventCapacity;
+    private final List<String> attendeeList;
     private final String eventSubjectLine;
 
     /**
@@ -96,7 +96,7 @@ public class Event {
 
     /**
      * Changes value for the speaker name of event
-     * @param speakerName
+     * @param speakerName: the list of speakers
      */
     public void setSpeakerName(List<String> speakerName) {
         this.speakerName = speakerName;
@@ -109,29 +109,6 @@ public class Event {
     public void setDuration(int duration) {
         this.duration = duration;
     }
-
-    /**
-     * Updates new value for the room number
-     * @param roomNumber
-     */
-    public void setRoomNumber(String roomNumber) {
-        this.roomNumber = roomNumber;
-    }
-
-    /**
-     * Updates new value for event capacity
-     * @param eventCapacity
-     */
-
-    public void setEventCapacity(int eventCapacity) {
-        this.eventCapacity = eventCapacity;
-    }
-
-    /**
-     * Updates value for attendeeList
-     * @param attendeeList
-     */
-    public void setAttendeeList(List<String> attendeeList){this.attendeeList = attendeeList;}
 
     /**
      * returns the subject line of the event

@@ -26,7 +26,7 @@ public class TextUI{
     private OrganizerManager organizerManager;
     private SpeakerManager speakerManager;
     private AdminManager adminManager;
-    private EventManager eventManager;
+    private final EventManager eventManager;
     private RoomManager roomManager;
     private ConversationManager conversationManager;
     private MessageManager messageManager;
@@ -43,20 +43,6 @@ public class TextUI{
         this.conversationManager = conversationManager;
         this.eventManager = eventManager;
         this.roomManager = roomManager;
-    }
-
-
-
-    /**
-     * print out the landing menu which prompts the user to either log in or sign up
-     * @author Juan Yi Loke
-     */
-    public void landingmenu() {
-        System.out.println("Conference System\n");
-        System.out.println("1: Log in");
-        System.out.println("2: Sign up");
-
-        System.out.println("\n0: Quit");
     }
 
     /**
@@ -76,7 +62,7 @@ public class TextUI{
         System.out.println("If you would like search by more than one parameter, ");
         System.out.println("enter the numbers for each parameter comma separated");
         System.out.println("Note that you can only use subject line by itself, or with start time");
-    };
+    }
 
     /**
      * print out the sign up menu which prompts to create a username and password
@@ -320,34 +306,6 @@ public class TextUI{
     }
 
     /**
-     * Prompts user to send a message
-     */
-    public void promptMessageToSent(){
-        System.out.println("Please enter the name of the attendee to be added");
-    }
-
-    /**
-     * Displays the contact that already exists in contact list
-     * @param attendee : name of attendee
-     * @param friendName : name of contact
-     */
-    public void friendContactAlreadyExist(String attendee, String friendName){
-        System.out.println("Attendee " + friendName +" already exist in the contact list");
-    }
-
-
-    /**
-     * Presents all user Ids
-     * @param allUserIds : list of all user ids
-     */
-    // Conversion of .string methods used in oUCH1
-    public void presentAllUserIds(List<String> allUserIds) {
-        for (String user : allUserIds) {
-            System.out.println(user);
-        }
-    }
-
-    /**
      * Prompts for speaker username
      */
     public void promptForSpeakerUsername(){
@@ -369,13 +327,6 @@ public class TextUI{
     }
 
     /**
-     * Prompts user to allowed time
-     */
-    public void onlyAllowedTime(){
-        System.out.println("Please enter an allowed time");
-    }
-
-    /**
      * Displays speaker has no event at a given time
      * @param time : time of event
      */
@@ -392,31 +343,10 @@ public class TextUI{
     }
 
     /**
-     * Prompts user for organizer username
-     */
-    public void promptForOrganizerUsername(){
-        System.out.println("Please enter the organizer's username");
-    }
-
-    /**
-     * Prompts user for new organizer password
-     */
-    public void promptForNewOrganizerPw(){
-        System.out.println("Please enter this new organizer's password");
-    }
-
-    /**
      * Displays username already exists
      */
     public void usernameAlreadyExists(){
         System.out.println("The username already exists");
-    }
-
-    /**
-     * Prompts user for speaker password
-     */
-    public void promptForSpeakerPw(){
-        System.out.println("Please enter password for this speaker");
     }
 
     /**
@@ -462,13 +392,6 @@ public class TextUI{
     }
 
     /**
-     * Prompts user to enter room number
-     */
-    public void promptForEventRoom(){
-        System.out.println("Please enter room number");
-    }
-
-    /**
      * Prompts user to enter subject line
      */
     public void promptForSubjectLine(){
@@ -482,35 +405,8 @@ public class TextUI{
         System.out.println("Please enter the speakers' username (enter after each name and type Over when done)");
     }
 
-    /**
-     * Prompts user to enter new event time
-     */
-    public void promptForNewEventTime(){
-        System.out.println("Please enter the new event time");
-    }
-
 
     // Conversion of .string methods used in oUCH2
-
-    /**
-     * Displays user list events not signed up
-     * @param eventsNotSignedUpFor : List of events not signed up
-     */
-    public void presentEventsNotSignedUpFor(List<String> eventsNotSignedUpFor){
-        for (String event: eventsNotSignedUpFor){
-            System.out.println("Event Title:" + event + "\nTime:" +
-                    eventManager.getStartTime(event) + "\nRoom: " +
-                    eventManager.getRoomNumber(event) + "\nSpeaker: " +
-                    eventManager.getSpeakerEvent(event) + "\n");
-        }
-    }
-
-    /**
-     * Prompts user to enter name of event they want to attend
-     */
-    public void promptEventNameAdd(){
-        System.out.println("Please enter the title of the event you want to attend (exactly as it appears on the list of titles displayed)");
-    }
 
     /**
      * Prompts user to enter event name
@@ -521,17 +417,10 @@ public class TextUI{
 
     /**
      * Displays a no longer attending message
-     * @param event
+     * @param event: the event to remove
      */
     public void presentNoLongerAttendingEvent(String event){
         System.out.println("You are no longer attending " + event);
-    }
-
-    /**
-     * Creates newline
-     */
-    public void newLine() {
-        System.out.println("\n\n");
     }
 
     /**

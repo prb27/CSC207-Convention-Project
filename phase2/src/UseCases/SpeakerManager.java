@@ -93,17 +93,15 @@ public class SpeakerManager {
     /**
      * Updates a Entities.Speaker object's list of all given talks with a new talk stored as a map with
      * event time as the key and event name as the value. Returns true if the talk was added. Else returns false.
-     * @param speakerUsername: The username of a given Entities.Speaker
-     * @param eventTime: The time of a given event
-     * @param eventName: The name of a given event
-     * @return boolean: Return a boolean validating that a talk has been added to a Entities.Speaker's list of talks
+     * @param speakerUsername : The username of a given Entities.Speaker
+     * @param eventTime : The time of a given event
+     * @param eventName : The name of a given event
      */
-    public boolean addTalkToListOfTalks(String speakerUsername, String eventTime, String eventName){
+    public void addTalkToListOfTalks(String speakerUsername, String eventTime, String eventName){
 
 
         Speaker speaker = getSpeaker(speakerUsername);
         if (speaker == null){
-            return false;
         }
         else{
             Map<String, String> listOfTalks = getListOfTalks(speakerUsername);
@@ -115,27 +113,23 @@ public class SpeakerManager {
                 listOfTalks.put(eventTime, eventName);
                 speaker.setListOfTalks(listOfTalks);
             }
-            return addable;
         }
     }
 
     /**
      * Updates a Entities.Speaker object's list of all conversations with a new conversation. Returns true if
      * the conversation was added successfully. Else returns false.
-     * @param username: The username of a given Entities.Speaker
-     * @param conversation: A new conversation to be created
-     * @return boolean: Returns a boolean validating that a conversation has been added to a Entities.Speaker's list of conversations
+     * @param username : The username of a given Entities.Speaker
+     * @param conversation : A new conversation to be created
      */
-    public boolean addConversation(String username, String conversation){
+    public void addConversation(String username, String conversation){
         Speaker speaker = getSpeaker(username);
         if (speaker == null){
-            return false;
         }
         else{
             List<String> conversations = speaker.getConversations();
             conversations.add(conversation);
             speaker.setConversations(conversations);
-            return true;
         }
     }
 
@@ -146,10 +140,6 @@ public class SpeakerManager {
             }
         }
         return null;
-    }
-
-    private List<Speaker> getAllSpeakers(){
-        return speakers;
     }
 
     /**
@@ -296,18 +286,6 @@ public class SpeakerManager {
 
         }
 
-    }
-
-    public List<String> seeAllEventNamesForSpeaker(String speakerUsername){
-
-        Map<String, String> listOfTalks = getListOfTalks(speakerUsername);
-        List<String> masterList = new ArrayList<>();
-
-        for(Map.Entry<String, String> event: listOfTalks.entrySet()){
-            masterList.add(event.getValue());
-        }
-
-      return masterList;
     }
 
     /**

@@ -7,11 +7,11 @@ import java.util.List;
 
 public class OrganizerPresenterTextUI extends TextUI {
 
-    private AttendeeManager attendeeManager;
-    private OrganizerManager organizerManager;
-    private SpeakerManager speakerManager;
+    private final AttendeeManager attendeeManager;
+    private final OrganizerManager organizerManager;
+    private final SpeakerManager speakerManager;
     private AdminManager adminManager;
-    private EventManager eventManager;
+    private final EventManager eventManager;
     private RoomManager roomManager;
     private ConversationManager conversationManager;
     private MessageManager messageManager;

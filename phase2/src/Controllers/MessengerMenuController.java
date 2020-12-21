@@ -19,14 +19,14 @@ import java.util.*;
  */
 public class MessengerMenuController {
 
-    private MessageManager messageManager;
-    private ConversationManager convoManager;
-    private AttendeeManager attendeeManager;
-    private OrganizerManager organizerManager;
-    private SpeakerManager speakerManager;
-    private AdminManager adminManager;
+    private final MessageManager messageManager;
+    private final ConversationManager convoManager;
+    private final AttendeeManager attendeeManager;
+    private final OrganizerManager organizerManager;
+    private final SpeakerManager speakerManager;
+    private final AdminManager adminManager;
 
-    private EventManager eventManager;
+    private final EventManager eventManager;
 
     public MessengerMenuController(MessageManager messageManager, AttendeeManager attendeeManager,
                                    OrganizerManager organizerManager, SpeakerManager speakerManager,
