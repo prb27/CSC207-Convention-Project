@@ -46,7 +46,13 @@ Phase 2 of our program extends Phase 1 with the following extensions:
 
         We use Factory and Factory method in AccountHandler and UserFactory, to sign up (create) users of different
         types based on an input userType parameter in AccountHandler, and to return the appropriate controllers for a
-        user specified by the parameter userType in UserFactory. 
+        user specified by the parameter userType in UserFactory.
+
+        We also use dependency injection numerous times, in every single controller. We constantly pass in presenters
+        and use cases, even other controllers, into the constructors of the various controllers in order to be able to
+        access the functionality of those dependencies as needed, without needed to create new ones. For an example,
+        EventsSearchEngine receives an EventManager and a TextUI in its constructor that it stores in private fields, to
+        access in its various methods.
 
     Note: Had to reformat to use Text UnusedUI instead of GUI due to unexpected errors between certain controllers
     interacting with the presenter classes.
@@ -65,7 +71,8 @@ Phase 2 of our program extends Phase 1 with the following extensions:
                       landing menu.
                 According to the user account type, the appropriate menu of options would then be shown.
             2) Events SearchEngine Process:
-
+                Allows the user to search all events from the program by providing the desired speaker name, duration,
+               start time, or keyword to be found in the subject line, and supports combinations of these parameters
             3) Account Menu Process:
                 There are 4 types of menus that can be displayed based on each type of user.
 
