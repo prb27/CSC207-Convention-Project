@@ -140,10 +140,11 @@ public class PollManager {
         }
         for(Integer i: pollOptionVotes){
             percentage = (i/sum)*100;
-            pollPercentages.append(++j);
+            pollPercentages.append((j));
             pollPercentages.append(": ");
             pollPercentages.append(percentage);
             pollPercentages.append("\n");
+            j+=1;
         }
         return pollPercentages;
 
