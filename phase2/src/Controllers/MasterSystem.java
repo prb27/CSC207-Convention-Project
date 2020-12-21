@@ -81,7 +81,7 @@ public class MasterSystem {
         this.programGenerator = programGenerator;
         this.accountHandler = new AccountHandler(attendeeManager, organizerManager, speakerManager, adminManager);
         this.userEventController = new UserEventController(attendeeManager, organizerManager, speakerManager, eventManager, roomManager);
-        this.messengerMenuController = new MessengerMenuController(messageManager, attendeeManager, organizerManager, speakerManager, eventManager, accountHandler, conversationManager, adminManager);
+        this.messengerMenuController = new MessengerMenuController(messageManager, attendeeManager, organizerManager, speakerManager, eventManager, conversationManager, adminManager);
         this.conversationMenuController = new ConversationMenuController(conversationManager, messageManager);
 
         this.adui = new AdminPresenterTextUI(attendeeManager, organizerManager, speakerManager, adminManager, messageManager,

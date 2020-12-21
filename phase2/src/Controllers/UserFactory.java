@@ -89,19 +89,15 @@ public class UserFactory {
     public CommandHandler getUserController(String userType) {
         CommandHandler userController;
         if(userType.equals("attendee"))
-            userController = new AttendeeMenuController(attendeeManager,
-                    userEventController, roomManager, attendeePresenterTextUI, messengerMenuController, conversationManager,
-                    conversationMenuController, errorHandler, pollController);
+            userController = new AttendeeMenuController(attendeeManager, userEventController, attendeePresenterTextUI, messengerMenuController, conversationManager, conversationMenuController, errorHandler, pollController);
         else if(userType.equals("organizer"))
-            userController = new OrganizerMenuController(attendeeManager, organizerManager, speakerManager, adminManager,
-                    accountHandler, eventManager, userEventController, roomManager, organizerPresenterTextUI, messengerMenuController, conversationManager,
-                    conversationMenuController, pollController);
+            userController = new OrganizerMenuController(organizerManager, speakerManager, accountHandler, eventManager, userEventController, roomManager, organizerPresenterTextUI, messengerMenuController, conversationManager,conversationMenuController, pollController);
         else if(userType.equals("speaker"))
             userController = new SpeakerMenuController(speakerManager,
                     userEventController, speakerPresenterTextUI, messengerMenuController, conversationManager,
                     conversationMenuController, pollController);
         else if(userType.equals("admin"))
-            userController = new AdminMenuController(eventManager, messageManager, adminPresenterTextUI, messengerMenuController, accountHandler, errorHandler);
+            userController = new AdminMenuController(eventManager, adminPresenterTextUI, messengerMenuController, accountHandler, errorHandler);
         else
             userController = null;
         return userController;
