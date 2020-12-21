@@ -193,6 +193,7 @@ public class EventsSearchEngine {
         }
         return requiredEvents;
 
+
     }
 
     /**
