@@ -379,6 +379,10 @@ public class OrganizerMenuController implements CommandHandler{
             speakerNames.add(speaker);
         }
 
+        if(!eventManager.isEvent(eventName)){
+            return "EDE";
+        }
+
         String eventTime = eventManager.getStartTime(eventName);
         int duration = eventManager.getDuration(eventName);
 
@@ -388,9 +392,7 @@ public class OrganizerMenuController implements CommandHandler{
         String roomId = scanner.nextLine();
 
         String speakerErr;
-        if(!eventManager.isEvent(eventName)){
-            return "EDE"; //Refer to TextUserInterface
-        }
+
         String eventStartTime = eventManager.getStartTime(eventName);
         int eventDuration = eventManager.getDuration(eventName);
         int eventCapacity = eventManager.getEventCapacity(eventName);
@@ -434,6 +436,9 @@ public class OrganizerMenuController implements CommandHandler{
         String eventName = scanner.nextLine();
         organizerPresenterTextUI.newTimeForEvent();
         String eventTime = scanner.nextLine();
+        if(!eventManager.isEvent(eventName)){
+            return "EDE";
+        }
         int duration = eventManager.getDuration(eventName);
 
         eventSpec(eventTime, duration);
@@ -441,26 +446,22 @@ public class OrganizerMenuController implements CommandHandler{
         organizerPresenterTextUI.promptForRoomID();
         String roomId = scanner.nextLine();
         String speakerErr;
-        if (eventManager.isEvent(eventName)) {
-            List<String> speakerNames = eventManager.getSpeakerEvent(eventName);
-            int eventDuration = eventManager.getDuration(eventName);
-            int eventCapacity = eventManager.getEventCapacity(eventName);
-            String subjectLine = eventManager.getEventSubjectLine(eventName);
-            userEventController.removeCreatedEvent(username, eventName);
-            for (String speakerName : speakerNames) {
-                speakerErr = checkIfSpeakerFreeAtTimeFor(speakerName, eventTime, eventDuration);
-                if (!speakerErr.equals("YES")) {
-                    return speakerErr;
-                }
+        List<String> speakerNames = eventManager.getSpeakerEvent(eventName);
+        int eventDuration = eventManager.getDuration(eventName);
+        int eventCapacity = eventManager.getEventCapacity(eventName);
+        String subjectLine = eventManager.getEventSubjectLine(eventName);
+        userEventController.removeCreatedEvent(username, eventName);
+        for (String speakerName : speakerNames) {
+            speakerErr = checkIfSpeakerFreeAtTimeFor(speakerName, eventTime, eventDuration);
+            if (!speakerErr.equals("YES")) {
+                return speakerErr;
             }
-            String err = userEventController.createEventInRoom(username, eventName, eventTime, eventDuration, eventCapacity, speakerNames, roomId, subjectLine);
-            if (err.equals("YES")) {
-                return "YES";
-            } else {
-                return err;
-            }
+        }
+        String err = userEventController.createEventInRoom(username, eventName, eventTime, eventDuration, eventCapacity, speakerNames, roomId, subjectLine);
+        if (err.equals("YES")) {
+            return "YES";
         } else {
-            return "EDE";
+            return err;
         }
 
     }
