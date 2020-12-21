@@ -40,6 +40,13 @@ Phase 2 of our program extends Phase 1 with the following extensions:
         Allows a variety of methods to be handled such as entering by poll ID and pass code. Allows poll information
         to be handled such as questions, answers and results.
 
+    -Design Patterns Used
+        We use Facade in our MasterSystem, specifically in the run method. We delegate the actual handling of inputs
+        to the different menu controllers for the user types, thereby adhering to the Single Responsibility principle
+
+        We use Factory and Factory method in AccountHandler and UserFactory, to sign up (create) users of different
+        types based on an input userType parameter in AccountHandler, and to return the appropriate controllers for a
+        user specified by the parameter userType in UserFactory. 
 
     Note: Had to reformat to use Text UnusedUI instead of GUI due to unexpected errors between certain controllers
     interacting with the presenter classes.
