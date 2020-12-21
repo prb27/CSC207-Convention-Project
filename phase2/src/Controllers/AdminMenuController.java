@@ -83,7 +83,7 @@ public class AdminMenuController implements CommandHandler{
      * call eventManager to perform!
      * This option should only be accessible from inside the Admin login!
      * Only one Admin can perform this task
-     * @author Khoa Pham
+     * @author Khoa Pham, Vladimir, Ashwin
      */
     public void deleteEventsWithoutAttendee() {
         List<String> allEmptyEvents = eventManager.getEmptyEvents();
